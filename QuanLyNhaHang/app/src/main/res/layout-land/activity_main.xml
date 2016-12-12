@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".view.activity.MainActivity">
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBackgroudMenu"
+        android:gravity="center_vertical">
+
+        <Button
+            android:id="@+id/btn_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/menu_button_background"
+            android:drawableLeft="@drawable/ic_btn_home"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:text="@string/home"
+            android:textAllCaps="false"
+            android:textColor="@color/colorTextButton"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/btn_sell"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/menu_button_background"
+            android:drawableLeft="@drawable/ic_btn_sell"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:text="@string/ban_hang"
+            android:textAllCaps="false"
+            android:textColor="@color/colorTextButton"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/btn_manager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/menu_button_background"
+            android:drawableLeft="@drawable/ic_btn_manager"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:text="@string/quan_ly"
+            android:textAllCaps="false"
+            android:textColor="@color/colorTextButton"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/btn_statistic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/menu_button_background"
+            android:drawableLeft="@drawable/ic_btn_statistic"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:text="@string/thong_ke"
+            android:textAllCaps="false"
+            android:textColor="@color/colorTextButton"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/btn_repository"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/menu_button_background"
+            android:drawableLeft="@drawable/ic_btn_repository"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:text="@string/kho_nvl"
+            android:textAllCaps="false"
+            android:textColor="@color/colorTextButton"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/btn_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/menu_button_background"
+            android:drawableLeft="@drawable/ic_btn_setting"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:text="@string/cai_dat"
+            android:textAllCaps="false"
+            android:textColor="@color/colorTextButton"
+            android:textSize="12sp" />
+
+    </TableRow>
+
+    <FrameLayout
+        android:id="@+id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></FrameLayout>
+</LinearLayout>

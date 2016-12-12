@@ -1,0 +1,283 @@
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    tools:context=".view.fragment.PhucVuFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackgroudMain"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="8dp"
+            android:layout_weight="2.9"
+            android:background="@color/colorBackgroudSesion"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/list_ban"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_list"
+                android:scrollbars="vertical" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|end"
+                android:orientation="horizontal"
+                android:paddingTop="5dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical">
+
+                        <View
+                            android:layout_width="38dp"
+                            android:layout_height="10dp"
+                            android:background="@drawable/table_button_background_serving" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="12dp"
+                            android:text="Đang phục vụ"
+                            android:textColor="#111111"
+                            android:textSize="11sp" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical">
+
+                        <View
+                            android:layout_width="38dp"
+                            android:layout_height="10dp"
+                            android:background="@drawable/table_button_background_reserved" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="12dp"
+                            android:text="Đặt trước"
+                            android:textColor="#111111"
+                            android:textSize="11sp" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical">
+
+                        <View
+                            android:layout_width="38dp"
+                            android:layout_height="10dp"
+                            android:background="@drawable/table_button_background_free" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="12dp"
+                            android:text="Trống"
+                            android:textColor="#111111"
+                            android:textSize="11sp" />
+                    </TableRow>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/logo_restaurant" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:background="@color/colorBackgroudSesion"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="77dp"
+                    android:layout_height="52dp"
+                    android:src="@drawable/logo_thong_tin_ban" />
+
+                <TextView
+                    android:id="@+id/tv_ten_ban"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="58dp"
+                    android:text="Bàn 15"
+                    android:textColor="@color/colorTextNameBan"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btn_thuc_don"
+                    android:layout_width="47dp"
+                    android:layout_height="28dp"
+                    android:background="@drawable/ic_thuc_don" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/trang_thai"
+                    android:textColor="@color/colorTextThongTinBan"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_trang_thai"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="16dp"
+                    android:text="@string/trong"
+                    android:textColor="@color/colorTextInfo"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <Button
+                android:id="@+id/btn_dat_ban"
+                android:layout_width="136dp"
+                android:layout_height="52dp"
+                android:layout_marginTop="32dp"
+                android:drawableLeft="@drawable/ic_dat_truoc"
+                android:text="@string/dat_ban"
+                android:textAllCaps="false"
+                android:textColor="@color/colorTextThongTinBan"
+                android:textSize="14sp"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/ln_thong_tin_ban"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingTop="5dp">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/gio_den"
+                        android:textColor="@color/colorTextThongTinBan"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_gio_den"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="16dp"
+                        android:text="25/11/2016 06:00 PM"
+                        android:textColor="@color/colorTextInfo"
+                        android:textSize="11sp"
+                        android:textStyle="bold" />
+                </TableRow>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/list_thuc_don_order"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:background="@drawable/bg_list"
+                    android:scrollbars="vertical" />
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tong_tien"
+                        android:textColor="@color/colorTextThongTinBan"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_tong_tien"
+                        android:layout_width="97dp"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="32dp"
+                        android:text="150K"
+                        android:textColor="@color/colorTextTongTien"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/btn_sale"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:background="@drawable/ic_sale"
+                        android:gravity="center"
+                        android:text="@string/sale"
+                        android:textColor="@color/colorTextButton"
+                        android:textSize="11sp"
+                        android:textStyle="bold" />
+                </TableRow>
+
+                <Button
+                    android:id="@+id/btn_tinh_tien"
+                    android:layout_width="136dp"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="16dp"
+                    android:background="#e4dde1"
+                    android:drawableLeft="@drawable/ic_pay"
+                    android:gravity="start|center_vertical"
+                    android:paddingLeft="0dp"
+                    android:text="@string/tinh_tien"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorTextThongTinBan"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <include
+        layout="@layout/layout_thuc_don"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="end" />
+
+</android.support.v4.widget.DrawerLayout>

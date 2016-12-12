@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:background="#098"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tv_ten_ban"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bàn 12"
+        android:textColor="@color/colorTextNameBan"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_ten_mon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Caffe"
+        android:textColor="@color/colorTextTenMon"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/iv_thuc_don"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:src="@drawable/ic_food" />
+
+        <EditText
+            android:id="@+id/edt_so_luong"
+            android:layout_width="58dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/so_luong"
+            android:inputType="number"
+            android:lines="1"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_don_vi_tinh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
+            android:paddingRight="16dp"
+            android:text="ly"
+            android:textColor="@color/colorTextTenMon" />
+
+        <ImageButton
+            android:id="@+id/btn_tru"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:background="#00290099"
+            android:src="@drawable/ic_tru" />
+
+        <ImageButton
+            android:id="@+id/btn_cong"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:background="#00290099"
+            android:src="@drawable/ic_cong" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp">
+
+        <Button
+            android:id="@+id/btn_ok"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_radius"
+            android:text="Đồng ý"
+            android:textAllCaps="false"
+            android:textColor="@color/colorTextButton" />
+
+        <Button
+            android:id="@+id/btn_cancle"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_marginLeft="16dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_radius"
+            android:text="Hủy"
+            android:textAllCaps="false"
+            android:textColor="@color/colorTextButton" />
+    </TableRow>
+</LinearLayout>

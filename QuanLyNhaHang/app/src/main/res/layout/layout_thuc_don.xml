@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<thanggun99.quanlynhahang.view.layout.ThucDonLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_thuc_don"
+    android:layout_width="300dp"
+    android:layout_height="match_parent"
+    android:layout_gravity="end"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <ListView
+        android:id="@+id/list_nhom_mon"
+        android:layout_width="106dp"
+        android:layout_height="200dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#098"
+        android:orientation="vertical">
+
+        <TableRow
+            android:id="@+id/tbr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#a1500d"
+            android:gravity="right|center_vertical">
+
+            <TextView
+                android:id="@+id/tv_ten_loai"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:paddingLeft="16dp"
+                android:text="@string/thuc_don"
+                android:textColor="@color/colorTextButton"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edt_tim_kiem_mon"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Tìm kiếm"
+                android:maxLines="1"
+                android:textSize="12sp" />
+        </TableRow>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/list_thuc_don"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+</thanggun99.quanlynhahang.view.layout.ThucDonLayout>

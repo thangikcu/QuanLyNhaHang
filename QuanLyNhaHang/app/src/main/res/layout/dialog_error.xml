@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_dialog"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tv_ten_ban"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bàn 12"
+        android:textColor="@color/colorTextNameBan"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TableRow
+        android:paddingTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_sale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Giảm giá:"
+            android:textColor="@color/colorTextTenMon"
+            android:textSize="14sp"
+            android:paddingRight="16dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/edt_sale"
+            android:textSize="12sp"
+            android:lines="1"
+            android:maxLength="3"
+            android:inputType="number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Nhập phần trăm giảm giá" />
+
+    </TableRow>
+
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp">
+
+        <Button
+            android:id="@+id/btn_ok"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_radius"
+            android:text="Đồng ý"
+            android:textAllCaps="false"
+            android:textColor="@color/colorTextButton" />
+
+        <Button
+            android:id="@+id/btn_cancle"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_marginLeft="16dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_radius"
+            android:text="Hủy"
+            android:textAllCaps="false"
+            android:textColor="@color/colorTextButton" />
+    </TableRow>
+</LinearLayout>

@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">Quản lý nhà hàng</string>
+    <string name="ban_hang">Phục vụ</string>
+    <string name="home">Trang chủ</string>
+    <string name="quan_ly">Quản lý</string>
+    <string name="thong_ke">Thống kê</string>
+    <string name="kho_nvl">Kho-NVL</string>
+    <string name="cai_dat">Cài đặt</string>
+    <string name="dat_truoc">Đã đặt trước</string>
+    <string name="dang_phuc_vu">Đang phục vụ</string>
+    <string name="loading">Loading...</string>
+    <string name="trong">Trống</string>
+    <string name="so_luong">Số lượng</string>
+    <string name="tim_kiem">Tìm kiếm</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="trang_thai">Trạng thái:</string>
+    <string name="gio_den">Giờ đến:</string>
+    <string name="tong_tien">Tổng tiền:</string>
+    <string name="dat_ban">Đặt bàn</string>
+    <string name="huy_dat_ban">Hủy đặt</string>
+    <string name="thuc_don">Thực đơn</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="sale">sale</string>
+    <string name="tinh_tien">Tính tiền</string>
+    <string name="error">Đã xảy ra lỗi</string>
+    <string name="gap_loi">Gặp lỗi khi tải dữ liệu !</string>
+    <string name="tai_lai">Tải lại</string>
+    <string name="huy_ban">Hủy bàn</string>
+</resources>

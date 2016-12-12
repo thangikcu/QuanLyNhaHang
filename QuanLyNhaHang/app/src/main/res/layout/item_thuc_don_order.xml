@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#77a636"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/iv_thuc_don"
+        android:layout_width="58dp"
+        android:layout_height="58dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_food" />
+
+    <TextView
+        android:id="@+id/tv_ten_mon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="Cà phê sữa"
+        android:textColor="@color/colorTextTenMon"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_so_luong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="5 ly"
+        android:textColor="@color/colorTextThongTinBan" />
+
+    <TextView
+        android:id="@+id/tv_don_gia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="15.000"
+        android:textColor="#a90707"
+        android:textSize="11sp"
+        android:textStyle="italic" />
+</LinearLayout>
