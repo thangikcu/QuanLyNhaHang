@@ -133,7 +133,6 @@ public class HoaDonManager {
         Map<String, String> getParams = new HashMap<>();
         getParams.put("maChiTietHD", String.valueOf(maChiTietHD));
         String s = API.callService(API.DELETE_MON_ORDER_URL, getParams);
-        Log.i(TAG, "deleteMonOrder: " + s);
         if (!TextUtils.isEmpty(s) && s.trim().contains("success")) return true;
         return false;
     }
