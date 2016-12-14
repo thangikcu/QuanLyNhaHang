@@ -16,8 +16,6 @@ import java.util.Map;
  */
 
 public class API {
-    public final static int GET = 1;
-    public final static int POST = 2;
     public static final String SCHEME = "http";
     public static final String HOST = "192.168.56.1";
     public static final String PATH = "WebService";
@@ -26,6 +24,7 @@ public class API {
     public static final String THUC_DON_URL = "GetThucDon.php";
     public static final String HOA_DON_URL = "GetHoaDon.php";
     public static final String TAO_MOI_HOA_DON_URL = "TaoMoiHoaDon.php";
+    public static final String TINH_TIEN_HOA_DON_URL = "TinhTienHoaDon.php";
     public static final String UPDATE_BAN_URL = "UpdateBan.php";
     public static final String UPDATE_THUC_DON_ORDER_URL = "UpdateThucDonOrder.php";
     public static final String UPDATE_GIAM_GIA_URL = "UpdateGiamGia.php";
@@ -33,11 +32,11 @@ public class API {
     public static final String DELETE_MON_ORDER_URL = "DeleteMonOrder.php";
     public static final String DELETE_HOA_DON_URL = "DeleteHoaDon.php";
 
-    public static String callService(String path, int getMethod, Map<String, String> params) {
-        return callService(path, getMethod, params, null);
+    public static String callService(String path, Map<String, String> getParams) {
+        return callService(path, getParams, null);
     }
 
-    public static String callService(String path, int method, Map<String, String> getParams, Map<String, String> postParams) {
+    public static String callService(String path, Map<String, String> getParams, Map<String, String> postParams) {
         HttpURLConnection connect;
         InputStream is;
         String response = null;
@@ -57,20 +56,18 @@ public class API {
             connect.setRequestProperty("Connection", "close");
             connect.setDoInput(true);
 
-            if (method == POST && postParams != null) {
-                if (postParams != null) {
-                    Uri.Builder builderPostParams = new Uri.Builder();
-                    builderPostParams = Utils.builderParams(builderPostParams, postParams);
+            if (postParams != null) {
+                Uri.Builder builderPostParams = new Uri.Builder();
+                builderPostParams = Utils.builderParams(builderPostParams, postParams);
 
-                    connect.setRequestProperty("Content-Type",
-                            "application/x-www-form-urlencoded;charset=UTF-8");
-                    connect.setRequestMethod("POST");
-                    connect.setDoOutput(true);
+                connect.setRequestProperty("Content-Type",
+                        "application/x-www-form-urlencoded;charset=UTF-8");
+                connect.setRequestMethod("POST");
+                connect.setDoOutput(true);
 
-                    OutputStream outputStream = connect.getOutputStream();
-                    outputStream.write(builderPostParams.build().getEncodedQuery().getBytes());
-                    outputStream.close();
-                }
+                OutputStream outputStream = connect.getOutputStream();
+                outputStream.write(builderPostParams.build().getEncodedQuery().getBytes());
+                outputStream.close();
             } else connect.setRequestMethod("GET");
 
             is = connect.getInputStream();

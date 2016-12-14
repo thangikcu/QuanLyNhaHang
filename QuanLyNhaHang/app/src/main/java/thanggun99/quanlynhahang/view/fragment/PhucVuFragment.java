@@ -1,25 +1,34 @@
 package thanggun99.quanlynhahang.view.fragment;
 
 
+import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.ScrollView;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import java.util.Calendar;
 
 import thanggun99.quanlynhahang.R;
 import thanggun99.quanlynhahang.model.entity.Ban;
@@ -52,12 +61,15 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
     private LinearLayout layoutThongTinBan, layoutThucDon;
     private PhucVuPresenter phucVuPresenter;
     private PopupMenu popupMenu;
-
+    private ScrollView layoutDatBan;
+    private EditText edtTenKhachHang, edtSoDienThoai, edtGhiChu;
+    private TimePicker timePicker;
+    static EditText edtGioDen;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_sell, container, false);
+        return inflater.inflate(R.layout.fragment_phuc_vu, container, false);
     }
 
     @Override
@@ -65,6 +77,7 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
         super.onViewCreated(view, savedInstanceState);
         this.view = view;
         phucVuPresenter = new PhucVuPresenter(this, getContext());
+        timePicker = new TimePicker();
         findViews();
         setEvents();
         phucVuPresenter.loadDatas();
@@ -75,6 +88,17 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
         btnSale.setOnClickListener(this);
         btnTinhTien.setOnClickListener(this);
         btnDatBan.setOnClickListener(this);
+
+        edtGioDen.setOnClickListener(this);
+        edtGioDen.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus){
+                    timePicker.show(getActivity().getSupportFragmentManager(), "timePicker");
+
+                }
+            }
+        });
 
         edtTimKiemMon.setOnQueryTextListener(new android.widget.SearchView.OnQueryTextListener() {
             @Override
@@ -119,6 +143,7 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
     }
 
     private void findViews() {
+        layoutDatBan = (ScrollView) view.findViewById(R.id.layout_dat_ban);
         btnThucDon = (Button) view.findViewById(R.id.btn_thuc_don);
         btnSale = (Button) view.findViewById(R.id.btn_sale);
         btnDatBan = (Button) view.findViewById(R.id.btn_dat_ban);
@@ -140,11 +165,18 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
         listViewThucDon = (RecyclerView) view.findViewById(R.id.list_thuc_don);
         tvTenLoai = (TextView) view.findViewById(R.id.tv_ten_loai);
         edtTimKiemMon = (android.widget.SearchView) view.findViewById(R.id.edt_tim_kiem_mon);
+        edtTenKhachHang = (EditText) view.findViewById(R.id.edt_ten_khach_hang);
+        edtSoDienThoai = (EditText) view.findViewById(R.id.edt_so_dien_thoai);
+        edtGioDen = (EditText) view.findViewById(R.id.edt_gio_den);
+        edtGhiChu = (EditText) view.findViewById(R.id.edt_ghi_chu);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.edt_gio_den:
+                timePicker.show(getActivity().getSupportFragmentManager(), "timePicker");
+                break;
             case R.id.btn_tinh_tien:
                 phucVuPresenter.onClickTinhTien();
                 break;
@@ -159,11 +191,45 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
                 drawerLayout.openDrawer(GravityCompat.END);
                 break;
             case R.id.btn_dat_ban:
-                phucVuPresenter.onClickDatBan();
+                if (chekForm()) phucVuPresenter.onClickDatBan();
                 break;
             default:
                 break;
         }
+    }
+
+    public void clearForm() {
+        edtTenKhachHang.setText(null);
+        edtSoDienThoai.setText(null);
+        edtGioDen.setText(null);
+        edtGhiChu.setText(null);
+    }
+
+    private boolean chekForm() {
+        boolean cancle = false;
+        View focusView = null;
+
+        if (TextUtils.isEmpty(edtTenKhachHang.getText().toString())){
+            edtTenKhachHang.setError(getString(R.string.nhap_ten_khach_hang));
+            focusView = edtTenKhachHang;
+            cancle = true;
+        }
+        if (TextUtils.isEmpty(edtSoDienThoai.getText().toString()) || edtSoDienThoai.length() < 9){
+            edtSoDienThoai.setError(getString(R.string.nhap_so_dien_thoai));
+            focusView = edtSoDienThoai;
+            cancle = true;
+        }
+        if (TextUtils.isEmpty(edtGioDen.getText().toString()) || !edtGioDen.getText().toString().contains("-")){
+            edtGioDen.setError(getString(R.string.nhap_gio_den));
+            focusView = edtGioDen;
+            cancle = true;
+        }
+
+        if (cancle){
+            focusView.requestFocus();
+            return false;
+        }
+        else return true;
     }
 
     @Override
@@ -210,17 +276,16 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
         tvTenBan.setText(ban.getTenBan());
         tvTrangThai.setText(ban.getStringTrangThai());
         layoutThongTinBan.setVisibility(GONE);
-        btnDatBan.setVisibility(GONE);
+        layoutDatBan.setVisibility(GONE);
     }
 
     @Override
     public void showBanTrong(Ban ban) {
+        clearForm();
         tvTenBan.setText(ban.getTenBan());
         tvTrangThai.setText(ban.getStringTrangThai());
         layoutThongTinBan.setVisibility(GONE);
-        btnDatBan.setVisibility(VISIBLE);
-        btnDatBan.setText(Utils.getStringByRes(R.string.dat_ban));
-        btnDatBan.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_dat_truoc, 0, 0, 0);
+        layoutDatBan.setVisibility(VISIBLE);
     }
 
     @Override
@@ -228,10 +293,34 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
         tvTenBan.setText(hoaDon.getBan().getTenBan());
         tvTrangThai.setText(hoaDon.getBan().getStringTrangThai());
         layoutThongTinBan.setVisibility(VISIBLE);
-        btnDatBan.setVisibility(GONE);
-
+        layoutDatBan.setVisibility(GONE);
         tvGioDen.setText(Utils.formatDate(hoaDon.getGioDen()));
         tvTongTien.setText(Utils.formatMoney(hoaDon.getTongTien()));
         btnSale.setText(hoaDon.getStringGiamGia());
+    }
+
+    public static class TimePicker extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
+
+        @NonNull
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+
+            Calendar calendar = Calendar.getInstance();
+            int hour = calendar.get(Calendar.HOUR_OF_DAY);
+            int minute = calendar.get(Calendar.MINUTE);
+
+            return new TimePickerDialog(getActivity(), this, hour, minute, false);
+        }
+
+        @Override
+        public void onTimeSet(android.widget.TimePicker view, int hourOfDay, int minute) {
+            Calendar c = Calendar.getInstance();
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+
+            edtGioDen.setText(Utils.formatDate(year + "-" + (month + 1) + "-" + day + " " + hourOfDay + ":" + minute + ":" + "00"));
+            edtGioDen.setError(null);
+        }
     }
 }

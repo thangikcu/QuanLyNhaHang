@@ -16,7 +16,7 @@ import thanggun99.quanlynhahang.App;
 public class Utils {
 
     public static String formatMoney(int s) {
-        return (s / 1000) + "k";
+        return s / 1000 + "k";
     }
 
     public static String formatDate(String d) {
@@ -26,7 +26,7 @@ public class Utils {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm a").format(date);
+        return new java.text.SimpleDateFormat("hh:mm a - dd/MM/yyyy").format(date);
     }
 
     public static String getStringByRes(int id) {

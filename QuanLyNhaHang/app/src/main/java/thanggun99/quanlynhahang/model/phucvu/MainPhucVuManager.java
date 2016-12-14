@@ -6,7 +6,9 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.view.View;
+import android.widget.FrameLayout;
 
+import thanggun99.quanlynhahang.App;
 import thanggun99.quanlynhahang.R;
 import thanggun99.quanlynhahang.interfaces.OnItemclickListener;
 import thanggun99.quanlynhahang.model.entity.Ban;
@@ -23,6 +25,7 @@ import thanggun99.quanlynhahang.view.dialog.DeleteThucDonOrderDialog;
 import thanggun99.quanlynhahang.view.dialog.ErrorDialog;
 import thanggun99.quanlynhahang.view.dialog.OrderThucDonDialog;
 import thanggun99.quanlynhahang.view.dialog.SaleDialog;
+import thanggun99.quanlynhahang.view.dialog.TinhTienDialog;
 
 
 /**
@@ -44,6 +47,7 @@ public class MainPhucVuManager {
     private int positionBan, postionthucDonOrder;
     private DeleteThucDonOrderDialog deleteThucDonOrderDialog;
     private OrderThucDonDialog orderThucDonDialog;
+    private TinhTienDialog tinhTienDialog;
     private ErrorDialog errorDialog;
     private SaleDialog saleDialog;
     private Context context;
@@ -55,7 +59,10 @@ public class MainPhucVuManager {
     public MainPhucVuManager(OnMainPVFinishProgress onMainPVFinishProgress, Context context) {
         this.context = context;
         view = ((Activity) context).getWindow().getDecorView().findViewById(R.id.drawer_layout);
+
         errorDialog = new ErrorDialog(context, this);
+        tinhTienDialog = new TinhTienDialog(context, this);
+
         banManager = new BanManager();
         hoaDonManager = new HoaDonManager();
         thucDonManager = new ThucDonManager();
@@ -190,8 +197,8 @@ public class MainPhucVuManager {
                     currentBan.setTrangThai(1);
                     banAdapter.notifyItemChanged(positionBan);
                     onMainPVFinishProgress.onFinishDatBan(currentBan);
-                    showSnackbar(currentBan.getTenBan() + ": " + Utils.getStringByRes(R.string.dat_ban));
-                } else showSnackbar(Utils.getStringByRes(R.string.error));
+                }
+                showSnackbar(aBoolean, String.format(Utils.getStringByRes(R.string.pv_notify_dat_ban), currentBan.getTenBan()));
                 progressDialog.dismiss();
             }
         }
@@ -219,8 +226,8 @@ public class MainPhucVuManager {
                     thucDonOrderAdapter.notifyItemChanged(postionthucDonOrder);
                     onMainPVFinishProgress.onChangeTongTien(currentHoaDon.getTongTien());
                     orderThucDonDialog.hide();
-                    showSnackbar(currentBan.getTenBan() + ": +" + orderUpdate.getSoLuong() + " " + orderUpdate.getTenMon());
-                } else showSnackbar(Utils.getStringByRes(R.string.error));
+                }
+                showSnackbar(aBoolean, String.format(Utils.getStringByRes(R.string.pv_notify_order_thucdon), currentBan.getTenBan(), orderUpdate.getSoLuong(), orderUpdate.getTenMon()));
                 progressDialog.dismiss();
             }
         }
@@ -247,8 +254,8 @@ public class MainPhucVuManager {
                     thucDonOrderAdapter.notifyItemRemoved(postionthucDonOrder);
                     onMainPVFinishProgress.onChangeTongTien(currentHoaDon.getTongTien());
                     deleteThucDonOrderDialog.hide();
-                    showSnackbar(currentBan.getTenBan() + ": hủy order - " + currentThucDonOrder.getTenMon());
-                } else showSnackbar(Utils.getStringByRes(R.string.error));
+                }
+                showSnackbar(aBoolean, String.format(Utils.getStringByRes(R.string.pv_notify_delete_thucdon_order), currentBan.getTenBan(), currentThucDonOrder.getTenMon()));
                 progressDialog.dismiss();
             }
         }
@@ -284,16 +291,12 @@ public class MainPhucVuManager {
                     thucDonOrderAdapter.notifyItemInserted(0);
                     onMainPVFinishProgress.onChangeTongTien(currentHoaDon.getTongTien());
                     orderThucDonDialog.hide();
-                    showSnackbar(currentBan.getTenBan() + ": +" + thucDonOrderNew.getSoLuong() + " " + thucDonOrderNew.getTenMon());
-                } else showSnackbar(Utils.getStringByRes(R.string.error));
+                }
+                showSnackbar(aBoolean, String.format(Utils.getStringByRes(R.string.pv_notify_order_thucdon), currentBan.getTenBan(), thucDonOrderNew.getSoLuong(), thucDonOrderNew.getTenMon()));
                 progressDialog.dismiss();
             }
         }
         new ThemThucDonOrderTask().execute();
-    }
-
-    private void showSnackbar(String message) {
-        Snackbar.make(view, message, Snackbar.LENGTH_LONG).show();
     }
 
     public void taoMoiHoaDon(final HoaDon hoaDonNew, final ThucDonOrder thucDonOrderNew) {
@@ -321,8 +324,8 @@ public class MainPhucVuManager {
 
                     onMainPVFinishProgress.onFinishGetThongTinBanPV(hoaDonNew);
                     orderThucDonDialog.hide();
-                    showSnackbar("Hóa đơn mới - " + currentBan.getTenBan() + ": +" + thucDonOrderNew.getSoLuong() + " " + thucDonOrderNew.getTenMon());
-                } else showSnackbar(Utils.getStringByRes(R.string.error));
+                }
+                showSnackbar(aBoolean, String.format(Utils.getStringByRes(R.string.pv_notify_hoa_don_moi), currentBan.getTenBan(), thucDonOrderNew.getSoLuong(), thucDonOrderNew.getTenMon()));
                 progressDialog.dismiss();
             }
         }
@@ -356,8 +359,8 @@ public class MainPhucVuManager {
                     onMainPVFinishProgress.onChangeTongTien(currentHoaDon.getTongTien());
                     onMainPVFinishProgress.onChangeGiamGia(currentHoaDon.getGiamGia());
                     saleDialog.dismiss();
-                    showSnackbar(currentBan.getTenBan() + ": giảm giá - " + currentHoaDon.getGiamGia() + "%");
-                } else showSnackbar(Utils.getStringByRes(R.string.error));
+                }
+                showSnackbar(aBoolean, String.format(Utils.getStringByRes(R.string.pv_notify_sale), currentBan.getTenBan(), currentHoaDon.getGiamGia()));
                 progressDialog.dismiss();
             }
         }
@@ -372,6 +375,10 @@ public class MainPhucVuManager {
         }
     }
 
+    public void showDialogTinhTien() {
+        tinhTienDialog.setContent(currentHoaDon);
+    }
+
     private class HuyBanTask extends AsyncTask<Void, Void, Boolean> {
         @Override
         protected void onPreExecute() {
@@ -381,10 +388,10 @@ public class MainPhucVuManager {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            boolean taskOK;
-            taskOK = hoaDonManager.deleteHoaDon(currentHoaDon);
-            if (taskOK) banManager.huyDatBan(currentHoaDon.getBan().getMaBan());
-            return taskOK;
+            boolean taskOk;
+            taskOk = hoaDonManager.deleteHoaDon(currentHoaDon);
+            if (taskOk) banManager.huyDatBan(currentBan.getMaBan());
+            return taskOk;
         }
 
         @Override
@@ -394,14 +401,45 @@ public class MainPhucVuManager {
                 currentBan.setTrangThai(0);
                 banAdapter.notifyItemChanged(positionBan);
                 onMainPVFinishProgress.onFinishHuyBan(currentBan);
-                showSnackbar(currentBan.getTenBan() + ": " + Utils.getStringByRes(R.string.huy_ban));
-            } else showSnackbar(Utils.getStringByRes(R.string.error));
+            }
+            showSnackbar(aBoolean, String.format(Utils.getStringByRes(R.string.pv_notify_huy_ban), currentBan.getTenBan()));
             progressDialog.dismiss();
         }
     }
 
     public void tinhTien() {
+        class TinhTienTask extends AsyncTask<Void, Void, Boolean> {
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                progressDialog.show();
+            }
 
+            @Override
+            protected Boolean doInBackground(Void... params) {
+                boolean taskOk;
+                taskOk = hoaDonManager.tinhTien(currentHoaDon);
+                if (taskOk) banManager.huyDatBan(currentBan.getMaBan());
+                return taskOk;
+            }
+
+            @Override
+            protected void onPostExecute(Boolean aBoolean) {
+                int tongTien = 0;
+                if (aBoolean) {
+                    currentBan.setTrangThai(0);
+                    banAdapter.notifyItemChanged(positionBan);
+                    onMainPVFinishProgress.onFinishHuyBan(currentBan);
+                    tongTien = currentHoaDon.getTongTien();
+                    currentHoaDon = null;
+                    tinhTienDialog.dismiss();
+                }
+                showSnackbar(aBoolean, String.format(Utils.getStringByRes(R.string.pv_notify_tinh_tien), currentBan.getTenBan(), Utils.formatMoney(tongTien)));
+                progressDialog.dismiss();
+
+            }
+        }
+        new TinhTienTask().execute();
     }
 
     private class HuyDatBanTask extends AsyncTask<Void, Void, Boolean> {
@@ -424,12 +462,28 @@ public class MainPhucVuManager {
                 currentBan.setTrangThai(0);
                 banAdapter.notifyItemChanged(positionBan);
                 onMainPVFinishProgress.onFinishHuyDatBan(currentBan);
-                showSnackbar(currentBan.getTenBan() + ": " + Utils.getStringByRes(R.string.huy_dat_ban));
-            } else showSnackbar(Utils.getStringByRes(R.string.error));
+            }
+            showSnackbar(aBoolean, String.format(Utils.getStringByRes(R.string.pv_notify_huy_ban), currentBan.getTenBan()));
             progressDialog.dismiss();
         }
     }
-
+    private void showSnackbar(boolean error, String message) {
+        if (!error) {
+            message = Utils.getStringByRes(R.string.error);
+        }
+        final Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
+        View viewSnackbar = snackbar.getView();
+        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) viewSnackbar.getLayoutParams();
+        params.width = App.getContext().getResources().getDisplayMetrics().widthPixels / 2;
+        viewSnackbar.setLayoutParams(params);
+        viewSnackbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                snackbar.dismiss();
+            }
+        });
+        snackbar.show();
+    }
 
     /*this is interface for Phuc vu Presenter*/
     public interface OnMainPVFinishProgress {

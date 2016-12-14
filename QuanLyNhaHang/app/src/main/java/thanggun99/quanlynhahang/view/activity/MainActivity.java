@@ -13,8 +13,8 @@ import thanggun99.quanlynhahang.view.fragment.PhucVuFragment;
 import thanggun99.quanlynhahang.view.fragment.SettingFragment;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private Button btnHome, btnSell, btnManage, btnStatistic, btnRepository, btnSetting, btnSelected;
-    private PhucVuFragment sellFragment;
+    private Button btnHome, btnPhucVu, btnManage, btnStatistic, btnRepository, btnSetting, btnSelected;
+    private PhucVuFragment phucVuFragment;
     private SettingFragment settingFragment;
     private HomeFragment homeFragment;
     private Fragment fragmentIsShow;
@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public MainActivity() {
         homeFragment = new HomeFragment();
+        phucVuFragment = new PhucVuFragment();
         fragmentIsShow = new Fragment();
 
     }
@@ -33,13 +34,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         initViews();
         setEvents();
-        fillFrame(homeFragment, btnHome);
+        //fillFrame(homeFragment, btnHome);
+        fillFrame(phucVuFragment, btnPhucVu);
     }
 
     private void setEvents() {
         btnHome.setOnClickListener(this);
-        btnHome.setSelected(true);
-        btnSell.setOnClickListener(this);
+        //btnHome.setSelected(true);
+        btnPhucVu.setSelected(true);
+        btnPhucVu.setOnClickListener(this);
         btnManage.setOnClickListener(this);
         btnStatistic.setOnClickListener(this);
         btnRepository.setOnClickListener(this);
@@ -48,12 +51,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initViews() {
         btnHome = (Button) findViewById(R.id.btn_home);
-        btnSell = (Button) findViewById(R.id.btn_sell);
+        btnPhucVu = (Button) findViewById(R.id.btn_sell);
         btnManage = (Button) findViewById(R.id.btn_manager);
         btnStatistic = (Button) findViewById(R.id.btn_statistic);
         btnRepository = (Button) findViewById(R.id.btn_repository);
         btnSetting = (Button) findViewById(R.id.btn_setting);
-        btnSelected = btnHome;
+        //btnSelected = btnHome;
+        btnSelected = btnPhucVu;
     }
 
     @Override
@@ -63,8 +67,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 fillFrame(homeFragment, btnHome);
                 break;
             case R.id.btn_sell:
-                if (sellFragment == null) sellFragment = new PhucVuFragment();
-                fillFrame(sellFragment, btnSell);
+                if (phucVuFragment == null) phucVuFragment = new PhucVuFragment();
+                fillFrame(phucVuFragment, btnPhucVu);
                 break;
             case R.id.btn_manager:
                 break;
@@ -94,8 +98,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (fragment.isAdded()) {
             transaction.show(fragment);
         } else {
-            transaction
-                    .add(R.id.frame, fragment);
+            transaction.add(R.id.frame, fragment);
         }
         transaction.commit();
         fragmentIsShow = fragment;

@@ -26,7 +26,7 @@ public class ThucDonManager {
     }
 
     public boolean loadListThucDon() {
-        String s = API.callService(API.THUC_DON_URL, API.GET, null);
+        String s = API.callService(API.THUC_DON_URL, null);
 
         if (!TextUtils.isEmpty(s)) {
             try {

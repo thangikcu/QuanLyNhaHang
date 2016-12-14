@@ -15,6 +15,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="trang_thai">Trạng thái:</string>
     <string name="gio_den">Giờ đến:</string>
+    <string name="gio_den_hint">Giờ đến</string>
     <string name="tong_tien">Tổng tiền:</string>
     <string name="dat_ban">Đặt bàn</string>
     <string name="huy_dat_ban">Hủy đặt</string>
@@ -39,4 +40,21 @@
     <string name="gap_loi">Gặp lỗi khi tải dữ liệu !</string>
     <string name="tai_lai">Tải lại</string>
     <string name="huy_ban">Hủy bàn</string>
+    <string name="tien_khach_dua">Tiền khách đưa</string>
+    <string name="tien_mon">Tiền món:</string>
+    <string name="tien_giam_gia">Tiền giảm giá:</string>
+    <string name="tien_tra_lai">Tiền trả lại:</string>
+    <string name="ten_khach_hang">Tên khách hàng</string>
+    <string name="so_dien_thoai">Số điện thoại</string>
+    <string name="ghi_chu">Ghi chú</string>
+    <string name="nhap_ten_khach_hang">Nhập tên khách hàng</string>
+    <string name="nhap_so_dien_thoai">Nhập số điện thoại</string>
+    <string name="nhap_gio_den">Nhập giờ đến</string>
+    <string name="pv_notify_dat_ban">%s: đặt bàn</string>
+    <string name="pv_notify_order_thucdon">%1$s: +%2$d %3$s</string>
+    <string name="pv_notify_delete_thucdon_order">%1$s: hủy order - %2$s</string>
+    <string name="pv_notify_hoa_don_moi">Hóa đơn mới - %1$s: +%2$d %3$s</string>
+    <string name="pv_notify_sale">%1$s: giảm giá - %2$d %</string>
+    <string name="pv_notify_huy_ban">%s: hủy bàn</string>
+    <string name="pv_notify_tinh_tien">Tính tiền - %1$s: %2$s</string>
 </resources>

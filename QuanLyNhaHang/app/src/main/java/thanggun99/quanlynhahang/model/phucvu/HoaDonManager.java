@@ -17,9 +17,7 @@ import thanggun99.quanlynhahang.model.entity.ThucDonOrder;
 import thanggun99.quanlynhahang.util.API;
 
 import static android.content.ContentValues.TAG;
-import static thanggun99.quanlynhahang.util.API.GET;
-import static thanggun99.quanlynhahang.util.API.POST;
-import static thanggun99.quanlynhahang.util.API.callService;
+
 
 /**
  * Created by Thanggun99 on 05/12/2016.
@@ -32,7 +30,7 @@ public class HoaDonManager {
     }
 
     public boolean loadListHoaDon() {
-        String s = callService(API.HOA_DON_URL, GET, null);
+        String s = API.callService(API.HOA_DON_URL, null);
         if (!TextUtils.isEmpty(s)) {
             try {
                 JSONObject jsonObject = new JSONObject(s);
@@ -88,7 +86,7 @@ public class HoaDonManager {
         postParams.put("maMon", String.valueOf(thucDonOrderNew.getMaMon()));
         postParams.put("soLuong", String.valueOf(thucDonOrderNew.getSoLuong()));
 
-        String s = API.callService(API.TAO_MOI_HOA_DON_URL, POST, null, postParams);
+        String s = API.callService(API.TAO_MOI_HOA_DON_URL, null, postParams);
         if (!TextUtils.isEmpty(s)) {
             try {
                 JSONArray jsonArray = new JSONObject(s).getJSONArray("ma");
@@ -120,7 +118,7 @@ public class HoaDonManager {
         postParams.put("maMon", String.valueOf(thucDonOrderNew.getMaMon()));
         postParams.put("soLuong", String.valueOf(thucDonOrderNew.getSoLuong()));
 
-        String s = API.callService(API.THEM_THUC_DON_ORDER_URL, API.POST, null, postParams);
+        String s = API.callService(API.THEM_THUC_DON_ORDER_URL, null, postParams);
         if (!TextUtils.isEmpty(s)) {
             ThucDon thucDon = ThucDonManager.getThucDonByMaMon(thucDonOrderNew.getMaMon());
             if (thucDon != null) {
@@ -134,7 +132,7 @@ public class HoaDonManager {
     public boolean deleteThucDonOrder(int maChiTietHD) {
         Map<String, String> getParams = new HashMap<>();
         getParams.put("maChiTietHD", String.valueOf(maChiTietHD));
-        String s = API.callService(API.DELETE_MON_ORDER_URL, API.GET, getParams);
+        String s = API.callService(API.DELETE_MON_ORDER_URL, getParams);
         Log.i(TAG, "deleteMonOrder: " + s);
         if (!TextUtils.isEmpty(s) && s.trim().contains("success")) return true;
         return false;
@@ -147,7 +145,7 @@ public class HoaDonManager {
         postParams.put("soLuong", String.valueOf(orderUpdate.getSoLuong()));
         getParams.put("maChiTietHD", String.valueOf(orderUpdate.getMaChitietHD()));
 
-        String s = API.callService(API.UPDATE_THUC_DON_ORDER_URL, API.POST, getParams, postParams);
+        String s = API.callService(API.UPDATE_THUC_DON_ORDER_URL, getParams, postParams);
 
         if (!TextUtils.isEmpty(s) && s.trim().contains("success")) return true;
         return false;
@@ -160,7 +158,7 @@ public class HoaDonManager {
         getParams.put("maHoaDon", String.valueOf(hoaDon.getMaHoaDon()));
         postParams.put("giamGia", String.valueOf(hoaDon.getGiamGia()));
 
-        String s = API.callService(API.UPDATE_GIAM_GIA_URL, API.POST, getParams, postParams);
+        String s = API.callService(API.UPDATE_GIAM_GIA_URL, getParams, postParams);
 
         if (!TextUtils.isEmpty(s) && s.trim().contains("success")) return true;
         return false;
@@ -170,7 +168,7 @@ public class HoaDonManager {
         Map<String, String> getParams = new HashMap<>();
         getParams.put("maHoaDon", String.valueOf(hoaDon.getMaHoaDon()));
 
-        String s = API.callService(API.DELETE_HOA_DON_URL, API.GET, getParams);
+        String s = API.callService(API.DELETE_HOA_DON_URL, getParams);
 
         if (!TextUtils.isEmpty(s) && s.trim().contains("success")){
             hoaDons.remove(hoaDon);
@@ -179,4 +177,19 @@ public class HoaDonManager {
         return false;
     }
 
+    public boolean tinhTien(HoaDon hoaDon) {
+        Map<String, String> getParams, postParams;
+        getParams = new HashMap<>();
+        postParams = new HashMap<>();
+        getParams.put("maHoaDon", String.valueOf(hoaDon.getMaHoaDon()));
+        postParams.put("tongTien", String.valueOf(hoaDon.getTongTien()));
+
+        String s = API.callService(API.TINH_TIEN_HOA_DON_URL, getParams, postParams);
+
+        if (!TextUtils.isEmpty(s) && s.trim().contains("success")){
+            hoaDons.remove(hoaDon);
+            return true;
+        }
+        return false;
+    }
 }

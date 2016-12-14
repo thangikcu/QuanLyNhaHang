@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_dialog"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tv_ten_ban"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bàn 12"
+        android:textColor="@color/colorTextNameBan"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/tinh_tien"
+        android:textColor="@color/colorTextTenMon"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingTop="32dp">
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="@string/tien_mon"
+            android:textColor="@color/colorTextThongTinBan"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_tien_mon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="150K"
+            android:textColor="@color/colorTextTongTien"
+            android:textSize="18sp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/tv_so_luong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
+            android:text="(23)"
+            android:textColor="@color/colorTextInfo"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingTop="16dp">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="@string/tien_giam_gia"
+            android:textColor="@color/colorTextThongTinBan"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_tien_giam_gia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="25k"
+            android:textColor="@color/colorTextTongTien"
+            android:textSize="18sp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/tv_giam_gia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
+            android:text="(20%)"
+            android:textColor="@color/colorTextInfo"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:paddingTop="16dp"
+        android:weightSum="2">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_weight="1.8"
+            android:background="#910e91" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingTop="32dp">
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="@string/tong_tien"
+            android:textColor="@color/colorTextThongTinBan"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_tong_tien"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="125k"
+            android:textColor="@color/colorTextTongTien"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <SearchView
+            android:id="@+id/edt_tien_khach_dua"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLines="1"
+            android:queryHint="@string/tien_khach_dua"
+            android:searchIcon="@null"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="16dp"
+            android:text="@string/tien_tra_lai"
+            android:textColor="@color/colorTextThongTinBan"
+            android:textSize="16sp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/tv_tien_tra_lai"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="25k"
+            android:textColor="@color/colorTextTongTien"
+            android:textSize="18sp"
+            android:textStyle="italic" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp">
+
+        <Button
+            android:id="@+id/btn_ok"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_radius"
+            android:text="Đồng ý"
+            android:textAllCaps="false"
+            android:textColor="@color/colorTextButton" />
+
+        <Button
+            android:id="@+id/btn_cancle"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_marginLeft="16dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_radius"
+            android:text="Hủy"
+            android:textAllCaps="false"
+            android:textColor="@color/colorTextButton" />
+    </TableRow>
+</LinearLayout>

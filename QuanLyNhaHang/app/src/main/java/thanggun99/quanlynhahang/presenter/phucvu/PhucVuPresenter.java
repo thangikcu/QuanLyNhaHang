@@ -99,7 +99,7 @@ public class PhucVuPresenter implements MainPhucVuManager.OnMainPVFinishProgress
     }
 
     public void onClickTinhTien() {
-        mainPhucVuManager.tinhTien();
+        mainPhucVuManager.showDialogTinhTien();
     }
 
     /*this is interface for view Phuc vu*/
@@ -118,5 +118,6 @@ public class PhucVuPresenter implements MainPhucVuManager.OnMainPVFinishProgress
         void showGiamGia(int giamGia);
 
         void showBanDatTruoc(Ban ban);
+
     }
 }

@@ -80,14 +80,7 @@ public class HoaDon {
 
 
     public int getTongTien() {
-        int tongTien = 0;
-        for (int i = 0; i < thucDonOrders.size(); i++) {
-            tongTien += thucDonOrders.get(i).getTongTien();
-        }
-        if (giamGia > 0) {
-            return tongTien - (tongTien / 100 * giamGia);
-        }
-        return tongTien;
+        return Math.round((float) (getTienMon() - getTienGiamGia()) / 1000) * 1000;
     }
 
     @Override
@@ -101,5 +94,28 @@ public class HoaDon {
     @Override
     public int hashCode() {
         return maHoaDon;
+    }
+
+    public int getTienMon() {
+        int tienMon = 0;
+        for (int i = 0; i < thucDonOrders.size(); i++) {
+            tienMon += thucDonOrders.get(i).getTongTien();
+        }
+        return tienMon;
+    }
+
+    public int getSoMon() {
+        int soMon = 0;
+        for (int i = 0; i < thucDonOrders.size(); i++) {
+            soMon += thucDonOrders.get(i).getSoLuong();
+        }
+        return soMon;
+    }
+
+    public int getTienGiamGia() {
+        if (giamGia > 0) {
+            return Math.round((float) (getTienMon() / 100 * giamGia) / 1000) * 1000;
+        }
+        return 0;
     }
 }

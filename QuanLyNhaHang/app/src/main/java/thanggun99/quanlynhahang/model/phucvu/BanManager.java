@@ -27,7 +27,7 @@ public class BanManager {
     }
 
     public boolean loadListBan() {
-        String s = callService(API.BAN_URL, API.GET, null);
+        String s = callService(API.BAN_URL, null);
         if (!TextUtils.isEmpty(s)) {
             try {
                 JSONObject jsonObj = new JSONObject(s);
@@ -95,7 +95,7 @@ public class BanManager {
             postParams.put("hienThi", String.valueOf(ban.getHienThi()));
         }
 
-        String s = API.callService(API.UPDATE_BAN_URL, API.POST, getParams, postParams);
+        String s = API.callService(API.UPDATE_BAN_URL, getParams, postParams);
 
         if (!TextUtils.isEmpty(s) && s.trim().contains("success")) return true;
         return false;
