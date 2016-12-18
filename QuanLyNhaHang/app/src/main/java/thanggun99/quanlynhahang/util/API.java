@@ -19,10 +19,12 @@ public class API {
     public static final String SCHEME = "http";
     public static final String HOST = "192.168.56.1";
     public static final String PATH = "WebService";
-    public static final String BAN_URL = "GetBan.php";
-    public static final String NHOM_MON_URL = "GetNhomMon.php";
-    public static final String THUC_DON_URL = "GetThucDon.php";
-    public static final String HOA_DON_URL = "GetHoaDon.php";
+    public static final String GET_BAN_URL = "GetBan.php";
+    public static final String GET_DAT_TRUOC_URL = "GetDatTruoc.php";
+    public static final String DAT_TRUOC_URL = "DatTruoc.php";
+    public static final String GET_NHOM_MON_URL = "GetNhomMon.php";
+    public static final String GET_THUC_DON_URL = "GetThucDon.php";
+    public static final String GET_HOA_DON_URL = "GetHoaDon.php";
     public static final String TAO_MOI_HOA_DON_URL = "TaoMoiHoaDon.php";
     public static final String TINH_TIEN_HOA_DON_URL = "TinhTienHoaDon.php";
     public static final String UPDATE_BAN_URL = "UpdateBan.php";
@@ -31,6 +33,7 @@ public class API {
     public static final String THEM_THUC_DON_ORDER_URL = "ThemThucDonOrder.php";
     public static final String DELETE_MON_ORDER_URL = "DeleteMonOrder.php";
     public static final String DELETE_HOA_DON_URL = "DeleteHoaDon.php";
+    public static final String DELETE_DAT_TRUOC_URL = "DeleteDatTruoc.php";
 
     public static String callService(String path, Map<String, String> getParams) {
         return callService(path, getParams, null);

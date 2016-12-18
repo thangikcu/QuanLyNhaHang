@@ -12,6 +12,7 @@ import thanggun99.quanlynhahang.App;
 import thanggun99.quanlynhahang.R;
 import thanggun99.quanlynhahang.interfaces.OnItemclickListener;
 import thanggun99.quanlynhahang.model.entity.Ban;
+import thanggun99.quanlynhahang.model.entity.DatTruoc;
 import thanggun99.quanlynhahang.model.entity.HoaDon;
 import thanggun99.quanlynhahang.model.entity.NhomMon;
 import thanggun99.quanlynhahang.model.entity.ThucDon;
@@ -38,10 +39,12 @@ public class MainPhucVuManager {
     private ThucDonManager thucDonManager;
     private HoaDonManager hoaDonManager;
     private NhomMonManager nhomMonManager;
+    private DatTruocManager datTruocManager;
     private OnMainPVFinishProgress onMainPVFinishProgress;
     private Ban currentBan;
     private ThucDonOrder currentThucDonOrder;
     private HoaDon currentHoaDon;
+    private DatTruoc currentDatTruoc;
     private BanAdapter banAdapter;
     private ThucDonOrderAdapter thucDonOrderAdapter;
     private int positionBan, postionthucDonOrder;
@@ -67,6 +70,7 @@ public class MainPhucVuManager {
         hoaDonManager = new HoaDonManager();
         thucDonManager = new ThucDonManager();
         nhomMonManager = new NhomMonManager();
+        datTruocManager = new DatTruocManager();
 
         progressDialog = new ProgressDialog(context);
         progressDialog.setMessage(Utils.getStringByRes(R.string.loading));
@@ -90,6 +94,7 @@ public class MainPhucVuManager {
                 taskOk = nhomMonManager.loadListNhomMon();
                 if (taskOk) taskOk = thucDonManager.loadListThucDon();
                 if (taskOk) taskOk = banManager.loadListBan();
+                if (taskOk) taskOk = datTruocManager.loadListDatTruoc();
                 if (taskOk) taskOk = hoaDonManager.loadListHoaDon();
                 return taskOk;
             }
@@ -160,23 +165,23 @@ public class MainPhucVuManager {
     }
 
     private void getThongTinbanAtPosition(int position) {
-        Ban ban = banManager.getBanAt(position);
-        this.currentBan = ban;
+        this.currentBan = banManager.getBanAt(position);
         this.positionBan = position;
-        if (ban != null) {
-            if (ban.getTrangThai() == 2) {
-                HoaDon hoaDon = hoaDonManager.getHoaDonByMaBan(ban.getMaBan());
-                currentHoaDon = hoaDon;
-                thucDonOrderAdapter.changeData(hoaDon.getThucDonOrders());
 
-                onMainPVFinishProgress.onFinishGetThongTinBanPV(hoaDon);
-            } else {
-                onMainPVFinishProgress.onFinishGetThongTinBan(ban);
-            }
+        if (currentBan.getTrangThai() == 2) {
+            currentHoaDon = hoaDonManager.getHoaDonByMaBan(currentBan.getMaBan());
+            thucDonOrderAdapter.changeData(currentHoaDon.getThucDonOrders());
+
+            onMainPVFinishProgress.onFinishGetThongTinBanPV(currentHoaDon);
+        }else if (currentBan.getTrangThai() == 1){
+            currentDatTruoc = datTruocManager.getDatTruocByMaBan(currentBan.getMaBan());
+            onMainPVFinishProgress.onFinishGetThongTinBanDatTruoc(currentDatTruoc);
+        }else {
+            onMainPVFinishProgress.onFinishGetThongTinBanTrong(currentBan);
         }
     }
 
-    public void datBan() {
+    public void datBan(final DatTruoc datTruoc) {
         class DatBanTask extends AsyncTask<Void, Void, Boolean> {
             @Override
             protected void onPreExecute() {
@@ -186,17 +191,16 @@ public class MainPhucVuManager {
 
             @Override
             protected Boolean doInBackground(Void... params) {
-                boolean taskOk;
-                taskOk = banManager.datBan(currentBan.getMaBan());
-                return taskOk;
+                datTruoc.setBan(currentBan);
+                return datTruocManager.datBan(datTruoc);
             }
 
             @Override
             protected void onPostExecute(Boolean aBoolean) {
                 if (aBoolean) {
-                    currentBan.setTrangThai(1);
+                    currentDatTruoc = datTruoc;
                     banAdapter.notifyItemChanged(positionBan);
-                    onMainPVFinishProgress.onFinishDatBan(currentBan);
+                    onMainPVFinishProgress.onFinishDatBan(currentDatTruoc);
                 }
                 showSnackbar(aBoolean, String.format(Utils.getStringByRes(R.string.pv_notify_dat_ban), currentBan.getTenBan()));
                 progressDialog.dismiss();
@@ -388,10 +392,7 @@ public class MainPhucVuManager {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            boolean taskOk;
-            taskOk = hoaDonManager.deleteHoaDon(currentHoaDon);
-            if (taskOk) banManager.huyDatBan(currentBan.getMaBan());
-            return taskOk;
+            return hoaDonManager.deleteHoaDon(currentHoaDon);
         }
 
         @Override
@@ -417,10 +418,7 @@ public class MainPhucVuManager {
 
             @Override
             protected Boolean doInBackground(Void... params) {
-                boolean taskOk;
-                taskOk = hoaDonManager.tinhTien(currentHoaDon);
-                if (taskOk) banManager.huyDatBan(currentBan.getMaBan());
-                return taskOk;
+                return hoaDonManager.tinhTien(currentHoaDon);
             }
 
             @Override
@@ -451,9 +449,7 @@ public class MainPhucVuManager {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            boolean taskOk;
-            taskOk = banManager.huyDatBan(currentBan.getMaBan());
-            return taskOk;
+            return datTruocManager.huyDatBan(currentDatTruoc);
         }
 
         @Override
@@ -461,12 +457,14 @@ public class MainPhucVuManager {
             if (aBoolean) {
                 currentBan.setTrangThai(0);
                 banAdapter.notifyItemChanged(positionBan);
+                currentDatTruoc = null;
                 onMainPVFinishProgress.onFinishHuyDatBan(currentBan);
             }
             showSnackbar(aBoolean, String.format(Utils.getStringByRes(R.string.pv_notify_huy_ban), currentBan.getTenBan()));
             progressDialog.dismiss();
         }
     }
+
     private void showSnackbar(boolean error, String message) {
         if (!error) {
             message = Utils.getStringByRes(R.string.error);
@@ -485,11 +483,12 @@ public class MainPhucVuManager {
         snackbar.show();
     }
 
-    /*this is interface for Phuc vu Presenter*/
     public interface OnMainPVFinishProgress {
         void onFinishGetDatas(BanAdapter banAdapter, ThucDonOrderAdapter thucDonOrderAdapter, ThucDonAdapter thucDonAdapter, NhomMonAdapter nhomMonAdapter);
 
-        void onFinishGetThongTinBan(Ban ban);
+        void onFinishGetThongTinBanTrong(Ban ban);
+
+        void onFinishGetThongTinBanDatTruoc(DatTruoc datTruoc);
 
         void onFinishGetThongTinBanPV(HoaDon hoaDon);
 
@@ -497,7 +496,7 @@ public class MainPhucVuManager {
 
         void onFinishHuyBan(Ban ban);
 
-        void onFinishDatBan(Ban ban);
+        void onFinishDatBan(DatTruoc datTruoc);
 
         void onChangeTongTien(int tongTien);
 

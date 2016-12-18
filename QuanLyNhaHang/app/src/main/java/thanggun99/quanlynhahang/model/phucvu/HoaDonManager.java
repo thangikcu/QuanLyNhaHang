@@ -1,7 +1,6 @@
 package thanggun99.quanlynhahang.model.phucvu;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -12,11 +11,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import thanggun99.quanlynhahang.model.entity.HoaDon;
-import thanggun99.quanlynhahang.model.entity.ThucDon;
 import thanggun99.quanlynhahang.model.entity.ThucDonOrder;
 import thanggun99.quanlynhahang.util.API;
-
-import static android.content.ContentValues.TAG;
 
 
 /**
@@ -30,7 +26,7 @@ public class HoaDonManager {
     }
 
     public boolean loadListHoaDon() {
-        String s = API.callService(API.HOA_DON_URL, null);
+        String s = API.callService(API.GET_HOA_DON_URL, null);
         if (!TextUtils.isEmpty(s)) {
             try {
                 JSONObject jsonObject = new JSONObject(s);
@@ -53,10 +49,8 @@ public class HoaDonManager {
                         for (int j = 0; j < array.length(); j++) {
                             JSONObject object1 = (JSONObject) array.get(j);
 
-                            ThucDon thucDon = ThucDonManager.getThucDonByMaMon(object1.getInt("maMon"));
-                            if (thucDon != null) {
-                                thucDonOrders.add(new ThucDonOrder(object1.getInt("maChiTietHD"), thucDon.getMaMon(), thucDon.getTenMon(), thucDon.getMaLoai(), thucDon.getDonGia(), thucDon.getDonViTinh(), thucDon.getHinhAnh(), object1.getInt("soLuong")));
-                            }
+                            thucDonOrders.add(new ThucDonOrder(ThucDonManager.getThucDonByMaMon(object1.getInt("maMon")),
+                                    object1.getInt("soLuong"), object1.getInt("maChiTietHD")));
                         }
                         hoaDon.setThucDonOrders(thucDonOrders);
                         hoaDons.add(hoaDon);
@@ -97,13 +91,12 @@ public class HoaDonManager {
 
                 hoaDonNew.setMaHoaDon(maHoaDon);
 
-                ThucDon thucDon = ThucDonManager.getThucDonByMaMon(thucDonOrderNew.getMaMon());
-                if (thucDon != null) {
-                    hoaDonNew.getBan().setTrangThai(2);
-                    hoaDonNew.addThucDonOrder(new ThucDonOrder(maChiTietHD, thucDon.getMaMon(), thucDon.getTenMon(), thucDon.getMaLoai(), thucDon.getDonGia(), thucDon.getDonViTinh(), thucDon.getHinhAnh(), thucDonOrderNew.getSoLuong()));
-                    hoaDons.add(hoaDonNew);
-                    return true;
-                }
+                hoaDonNew.getBan().setTrangThai(2);
+
+                hoaDonNew.addThucDonOrder(new ThucDonOrder(ThucDonManager.getThucDonByMaMon(thucDonOrderNew.getMaMon()),
+                        thucDonOrderNew.getSoLuong(), maChiTietHD));
+                hoaDons.add(hoaDonNew);
+                return true;
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -120,11 +113,10 @@ public class HoaDonManager {
 
         String s = API.callService(API.THEM_THUC_DON_ORDER_URL, null, postParams);
         if (!TextUtils.isEmpty(s)) {
-            ThucDon thucDon = ThucDonManager.getThucDonByMaMon(thucDonOrderNew.getMaMon());
-            if (thucDon != null) {
-                hoaDon.getThucDonOrders().add(0, new ThucDonOrder(Integer.parseInt(s.trim()), thucDon.getMaMon(), thucDon.getTenMon(), thucDon.getMaLoai(), thucDon.getDonGia(), thucDon.getDonViTinh(), thucDon.getHinhAnh(), thucDonOrderNew.getSoLuong()));
-                return true;
-            }
+
+            hoaDon.getThucDonOrders().add(0, new ThucDonOrder(ThucDonManager.getThucDonByMaMon(thucDonOrderNew.getMaMon()),
+                    thucDonOrderNew.getSoLuong(), Integer.parseInt(s.trim())));
+            return true;
         }
         return false;
     }
@@ -166,10 +158,11 @@ public class HoaDonManager {
     public Boolean deleteHoaDon(HoaDon hoaDon) {
         Map<String, String> getParams = new HashMap<>();
         getParams.put("maHoaDon", String.valueOf(hoaDon.getMaHoaDon()));
+        getParams.put("maBan", String.valueOf(hoaDon.getBan().getMaBan()));
 
         String s = API.callService(API.DELETE_HOA_DON_URL, getParams);
 
-        if (!TextUtils.isEmpty(s) && s.trim().contains("success")){
+        if (!TextUtils.isEmpty(s) && s.trim().contains("success")) {
             hoaDons.remove(hoaDon);
             return true;
         }
@@ -182,10 +175,11 @@ public class HoaDonManager {
         postParams = new HashMap<>();
         getParams.put("maHoaDon", String.valueOf(hoaDon.getMaHoaDon()));
         postParams.put("tongTien", String.valueOf(hoaDon.getTongTien()));
+        postParams.put("maBan", String.valueOf(hoaDon.getBan().getMaBan()));
 
         String s = API.callService(API.TINH_TIEN_HOA_DON_URL, getParams, postParams);
 
-        if (!TextUtils.isEmpty(s) && s.trim().contains("success")){
+        if (!TextUtils.isEmpty(s) && s.trim().contains("success")) {
             hoaDons.remove(hoaDon);
             return true;
         }

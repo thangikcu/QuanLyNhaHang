@@ -10,10 +10,10 @@ public class ThucDonOrder extends ThucDon{
     private int soLuong;
     private int maChitietHD;
 
-    public ThucDonOrder(int maChitietHD, int maMon, String tenMon, int maLoai, int donGia, String donViTinh, Bitmap hinhAnh, int soLuong) {
-        super(maMon, tenMon, maLoai, donGia, donViTinh, hinhAnh);
-        this.maChitietHD = maChitietHD;
+    public ThucDonOrder(ThucDon thucDon, int soLuong, int maChitietHD) {
+        super(thucDon.getMaMon(), thucDon.getTenMon(), thucDon.getMaLoai(), thucDon.getDonGia(), thucDon.getDonViTinh(), thucDon.getHinhAnh());
         this.soLuong = soLuong;
+        this.maChitietHD = maChitietHD;
     }
 
     public ThucDonOrder() {

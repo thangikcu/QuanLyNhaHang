@@ -27,7 +27,7 @@ public class BanManager {
     }
 
     public boolean loadListBan() {
-        String s = callService(API.BAN_URL, null);
+        String s = callService(API.GET_BAN_URL, null);
         if (!TextUtils.isEmpty(s)) {
             try {
                 JSONObject jsonObj = new JSONObject(s);
@@ -67,23 +67,11 @@ public class BanManager {
         return listBan.get(position);
     }
 
-    public boolean huyDatBan(int maBan) {
-        Ban ban = new Ban();
-        ban.setTrangThai(0);
-        return updateBan(maBan, ban);
-    }
-
-    public boolean datBan(int maBan) {
-        Ban ban = new Ban();
-        ban.setTrangThai(1);
-        return updateBan(maBan, ban);
-    }
-
-    public boolean updateBan(int maBan, Ban ban) {
+    public boolean updateBan(Ban ban) {
         Map<String, String> getParams, postParams;
         getParams = new HashMap<>();
         postParams = new HashMap();
-        getParams.put("maBan", String.valueOf(maBan));
+        getParams.put("maBan", String.valueOf(ban.getMaBan()));
 
         if (ban.getTrangThai() != Ban.NOT_SET) {
             postParams.put("trangThai", String.valueOf(ban.getTrangThai()));

@@ -23,7 +23,7 @@ public class NhomMonManager {
     }
 
     public boolean loadListNhomMon() {
-        String s = API.callService(API.NHOM_MON_URL, null);
+        String s = API.callService(API.GET_NHOM_MON_URL, null);
 
         if (!TextUtils.isEmpty(s)) {
             try {

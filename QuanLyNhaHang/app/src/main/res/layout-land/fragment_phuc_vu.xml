@@ -169,7 +169,10 @@
                     android:textStyle="bold" />
             </TableRow>
 
-            <include layout="@layout/layout_dat_ban" />
+            <include layout="@layout/layout_thong_tin_dat_ban"/>
+
+            <include android:visibility="gone"
+                layout="@layout/layout_dat_ban" />
 
             <include
                 layout="@layout/layout_ban_phuc_vu"

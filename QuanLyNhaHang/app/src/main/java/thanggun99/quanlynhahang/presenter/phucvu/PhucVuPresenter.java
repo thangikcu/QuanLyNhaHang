@@ -3,6 +3,7 @@ package thanggun99.quanlynhahang.presenter.phucvu;
 import android.content.Context;
 import android.text.TextUtils;
 
+import thanggun99.quanlynhahang.model.entity.DatTruoc;
 import thanggun99.quanlynhahang.model.entity.NhomMon;
 import thanggun99.quanlynhahang.view.adapter.BanAdapter;
 import thanggun99.quanlynhahang.view.adapter.NhomMonAdapter;
@@ -17,7 +18,6 @@ import thanggun99.quanlynhahang.model.phucvu.MainPhucVuManager;
  */
 
 public class PhucVuPresenter implements MainPhucVuManager.OnMainPVFinishProgress {
-
     private PhucVuView view;
     private MainPhucVuManager mainPhucVuManager;
 
@@ -30,8 +30,8 @@ public class PhucVuPresenter implements MainPhucVuManager.OnMainPVFinishProgress
         mainPhucVuManager.loadDatas();
     }
 
-    public void onClickDatBan() {
-        mainPhucVuManager.datBan();
+    public void onClickDatBan(DatTruoc datTruoc) {
+        mainPhucVuManager.datBan(datTruoc);
     }
 
     @Override
@@ -50,11 +50,14 @@ public class PhucVuPresenter implements MainPhucVuManager.OnMainPVFinishProgress
     }
 
     @Override
-    public void onFinishGetThongTinBan(Ban ban) {
-        if (ban != null) {
-            if (ban.getTrangThai() == 1) view.showBanDatTruoc(ban);
-            else view.showBanTrong(ban);
-        }
+    public void onFinishGetThongTinBanTrong(Ban ban) {
+        if (ban != null) view.showBanTrong(ban);
+
+    }
+
+    @Override
+    public void onFinishGetThongTinBanDatTruoc(DatTruoc datTruoc) {
+        if (datTruoc != null) view.showBanDatTruoc(datTruoc);
     }
 
     @Override
@@ -73,8 +76,8 @@ public class PhucVuPresenter implements MainPhucVuManager.OnMainPVFinishProgress
     }
 
     @Override
-    public void onFinishDatBan(Ban ban) {
-        if (ban != null) view.showBanDatTruoc(ban);
+    public void onFinishDatBan(DatTruoc datTruoc) {
+        if (datTruoc != null) view.showBanDatTruoc(datTruoc);
     }
 
     @Override
@@ -117,7 +120,7 @@ public class PhucVuPresenter implements MainPhucVuManager.OnMainPVFinishProgress
 
         void showGiamGia(int giamGia);
 
-        void showBanDatTruoc(Ban ban);
+        void showBanDatTruoc(DatTruoc datTruoc);
 
     }
 }

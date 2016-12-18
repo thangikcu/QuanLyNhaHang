@@ -32,6 +32,7 @@ import java.util.Calendar;
 
 import thanggun99.quanlynhahang.R;
 import thanggun99.quanlynhahang.model.entity.Ban;
+import thanggun99.quanlynhahang.model.entity.DatTruoc;
 import thanggun99.quanlynhahang.model.entity.HoaDon;
 import thanggun99.quanlynhahang.model.entity.NhomMon;
 import thanggun99.quanlynhahang.presenter.phucvu.PhucVuPresenter;
@@ -56,14 +57,15 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
     private RecyclerView listViewThucDon;
     private TableRow tableRow;
     private android.widget.SearchView edtTimKiemMon;
-    private TextView tvTenBan, tvTrangThai, tvTongTien, tvGioDen, tvTenLoai;
+    private TextView tvTenBan, tvTrangThai, tvTongTien, tvGioDen, tvTenLoai, tvTenKhachHang, tvSoDienThoai, tvKhoangGioDen, tvGhiChu;
     private DrawerLayout drawerLayout;
-    private LinearLayout layoutThongTinBan, layoutThucDon;
+    private LinearLayout layoutThongTinBan, layoutThucDon, layoutThongTinDatBan;
     private PhucVuPresenter phucVuPresenter;
     private PopupMenu popupMenu;
     private ScrollView layoutDatBan;
     private EditText edtTenKhachHang, edtSoDienThoai, edtGhiChu;
     private TimePicker timePicker;
+    private DatTruoc datTruoc;
     static EditText edtGioDen;
 
     @Override
@@ -78,6 +80,7 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
         this.view = view;
         phucVuPresenter = new PhucVuPresenter(this, getContext());
         timePicker = new TimePicker();
+        datTruoc = new DatTruoc();
         findViews();
         setEvents();
         phucVuPresenter.loadDatas();
@@ -143,32 +146,41 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
     }
 
     private void findViews() {
-        layoutDatBan = (ScrollView) view.findViewById(R.id.layout_dat_ban);
-        btnThucDon = (Button) view.findViewById(R.id.btn_thuc_don);
-        btnSale = (Button) view.findViewById(R.id.btn_sale);
-        btnDatBan = (Button) view.findViewById(R.id.btn_dat_ban);
-        btnTinhTien = (Button) view.findViewById(R.id.btn_tinh_tien);
-        tvGioDen = (TextView) view.findViewById(R.id.tv_gio_den);
-        tvTongTien = (TextView) view.findViewById(R.id.tv_tong_tien);
+        layoutThongTinDatBan = (LinearLayout) view.findViewById(R.id.layout_thong_tin_dat_ban);
+        tvTenKhachHang = (TextView) layoutThongTinDatBan.findViewById(R.id.tv_ten_khach_hang);
+        tvSoDienThoai = (TextView) layoutThongTinDatBan.findViewById(R.id.tv_so_dien_thoai);
+        tvKhoangGioDen = (TextView) layoutThongTinDatBan.findViewById(R.id.tv_khoang_gio_den);
+        tvGhiChu = (TextView) layoutThongTinDatBan.findViewById(R.id.tv_ghi_chu);
+
         layoutThongTinBan = (LinearLayout) view.findViewById(R.id.ln_thong_tin_ban);
+        btnSale = (Button) layoutThongTinBan.findViewById(R.id.btn_sale);
+        btnTinhTien = (Button) layoutThongTinBan.findViewById(R.id.btn_tinh_tien);
+        tvGioDen = (TextView) layoutThongTinBan.findViewById(R.id.tv_gio_den);
+        tvTongTien = (TextView) layoutThongTinBan.findViewById(R.id.tv_tong_tien);
+        listViewThucDonOrder = (RecyclerView) layoutThongTinBan.findViewById(R.id.list_thuc_don_order);
+
+        btnThucDon = (Button) view.findViewById(R.id.btn_thuc_don);
         listViewBan = (RecyclerView) view.findViewById(R.id.list_ban);
-        listViewThucDonOrder = (RecyclerView) view.findViewById(R.id.list_thuc_don_order);
         tvTenBan = (TextView) view.findViewById(R.id.tv_ten_ban);
         tvTrangThai = (TextView) view.findViewById(R.id.tv_trang_thai);
         drawerLayout = (DrawerLayout) view.findViewById(R.id.drawer_layout);
+
         layoutThucDon = (LinearLayout) view.findViewById(R.id.layout_thuc_don);
         DrawerLayout.LayoutParams params = (DrawerLayout.LayoutParams) layoutThucDon.getLayoutParams();
         params.width = getResources().getDisplayMetrics().widthPixels / 2;
         layoutThucDon.setLayoutParams(params);
         listViewNhomMon = (ListView) view.findViewById(R.id.list_nhom_mon);
-        tableRow = (TableRow) view.findViewById(R.id.tbr);
-        listViewThucDon = (RecyclerView) view.findViewById(R.id.list_thuc_don);
-        tvTenLoai = (TextView) view.findViewById(R.id.tv_ten_loai);
-        edtTimKiemMon = (android.widget.SearchView) view.findViewById(R.id.edt_tim_kiem_mon);
-        edtTenKhachHang = (EditText) view.findViewById(R.id.edt_ten_khach_hang);
-        edtSoDienThoai = (EditText) view.findViewById(R.id.edt_so_dien_thoai);
-        edtGioDen = (EditText) view.findViewById(R.id.edt_gio_den);
-        edtGhiChu = (EditText) view.findViewById(R.id.edt_ghi_chu);
+        tableRow = (TableRow) layoutThucDon.findViewById(R.id.tbr);
+        listViewThucDon = (RecyclerView) layoutThucDon.findViewById(R.id.list_thuc_don);
+        tvTenLoai = (TextView) layoutThucDon.findViewById(R.id.tv_ten_loai);
+        edtTimKiemMon = (android.widget.SearchView) layoutThucDon.findViewById(R.id.edt_tim_kiem_mon);
+
+        layoutDatBan = (ScrollView) view.findViewById(R.id.layout_dat_ban);
+        btnDatBan = (Button) layoutDatBan.findViewById(R.id.btn_dat_ban);
+        edtTenKhachHang = (EditText) layoutDatBan.findViewById(R.id.edt_ten_khach_hang);
+        edtSoDienThoai = (EditText) layoutDatBan.findViewById(R.id.edt_so_dien_thoai);
+        edtGioDen = (EditText) layoutDatBan.findViewById(R.id.edt_gio_den);
+        edtGhiChu = (EditText) layoutDatBan.findViewById(R.id.edt_ghi_chu);
     }
 
     @Override
@@ -191,7 +203,7 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
                 drawerLayout.openDrawer(GravityCompat.END);
                 break;
             case R.id.btn_dat_ban:
-                if (chekForm()) phucVuPresenter.onClickDatBan();
+                if (chekForm()) phucVuPresenter.onClickDatBan(datTruoc);
                 break;
             default:
                 break;
@@ -199,6 +211,11 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
     }
 
     public void clearForm() {
+        edtTenKhachHang.setError(null);
+        edtSoDienThoai.setError(null);
+        edtGioDen.setError(null);
+        edtGhiChu.setError(null);
+
         edtTenKhachHang.setText(null);
         edtSoDienThoai.setText(null);
         edtGioDen.setText(null);
@@ -229,7 +246,13 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
             focusView.requestFocus();
             return false;
         }
-        else return true;
+        else{
+            datTruoc.setTenKhachHang(edtTenKhachHang.getText().toString().trim());
+            datTruoc.setSoDienThoai(edtSoDienThoai.getText().toString().trim());
+            datTruoc.setGioDen(edtGioDen.getText().toString().trim());
+            datTruoc.setGhiChu(edtGhiChu.getText().toString().trim());
+            return true;
+        }
     }
 
     @Override
@@ -272,11 +295,18 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
     }
 
     @Override
-    public void showBanDatTruoc(Ban ban) {
-        tvTenBan.setText(ban.getTenBan());
-        tvTrangThai.setText(ban.getStringTrangThai());
+    public void showBanDatTruoc(DatTruoc datTruoc) {
+        tvTenBan.setText(datTruoc.getBan().getTenBan());
+        tvTrangThai.setText(datTruoc.getBan().getStringTrangThai());
+
+        tvTenKhachHang.setText(datTruoc.getTenKhachHang());
+        tvSoDienThoai.setText(datTruoc.getSoDienThoai());
+        tvKhoangGioDen.setText(datTruoc.getGioDen());
+        tvGhiChu.setText(datTruoc.getGhiChu());
+
         layoutThongTinBan.setVisibility(GONE);
         layoutDatBan.setVisibility(GONE);
+        layoutThongTinDatBan.setVisibility(VISIBLE);
     }
 
     @Override
@@ -284,19 +314,24 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
         clearForm();
         tvTenBan.setText(ban.getTenBan());
         tvTrangThai.setText(ban.getStringTrangThai());
+
         layoutThongTinBan.setVisibility(GONE);
         layoutDatBan.setVisibility(VISIBLE);
+        layoutThongTinDatBan.setVisibility(GONE);
     }
 
     @Override
     public void showBanPhucVu(HoaDon hoaDon) {
         tvTenBan.setText(hoaDon.getBan().getTenBan());
         tvTrangThai.setText(hoaDon.getBan().getStringTrangThai());
-        layoutThongTinBan.setVisibility(VISIBLE);
-        layoutDatBan.setVisibility(GONE);
+
         tvGioDen.setText(Utils.formatDate(hoaDon.getGioDen()));
         tvTongTien.setText(Utils.formatMoney(hoaDon.getTongTien()));
         btnSale.setText(hoaDon.getStringGiamGia());
+
+        layoutThongTinBan.setVisibility(VISIBLE);
+        layoutDatBan.setVisibility(GONE);
+        layoutThongTinDatBan.setVisibility(GONE);
     }
 
     public static class TimePicker extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
