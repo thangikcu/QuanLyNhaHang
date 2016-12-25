@@ -2,7 +2,6 @@ package thanggun99.quanlynhahang;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.res.Resources;
 
 /**
  * Created by Thanggun99 on 19/11/2016.

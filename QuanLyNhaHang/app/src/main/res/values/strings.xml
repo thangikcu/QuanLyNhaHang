@@ -45,6 +45,7 @@
     <string name="tien_giam_gia">Tiền giảm giá:</string>
     <string name="tien_tra_lai">Tiền trả lại:</string>
     <string name="ten_khach_hang">Tên khách hàng</string>
+    <string name="info_ten_khach_hang">Tên khách hàng:</string>
     <string name="so_dien_thoai">Số điện thoại</string>
     <string name="ghi_chu">Ghi chú</string>
     <string name="nhap_ten_khach_hang">Nhập tên khách hàng</string>
@@ -54,7 +55,16 @@
     <string name="pv_notify_order_thucdon">%1$s: +%2$d %3$s</string>
     <string name="pv_notify_delete_thucdon_order">%1$s: hủy order - %2$s</string>
     <string name="pv_notify_hoa_don_moi">Hóa đơn mới - %1$s: +%2$d %3$s</string>
-    <string name="pv_notify_sale">%1$s: giảm giá - %2$d %</string>
+    <string name="pv_notify_sale">%1$s: giảm giá - %2$d%%</string>
     <string name="pv_notify_huy_ban">%s: hủy bàn</string>
     <string name="pv_notify_tinh_tien">Tính tiền - %1$s: %2$s</string>
+    <string name="info_so_dien_thoai">Số điện thoại:</string>
+    <string name="info_khoang_gio_den">Khoảng giờ đến:</string>
+    <string name="info_ghi_chu">Ghi chú:</string>
+    <string name="info_thong_tin_dat_ban">Thông tin đặt bàn:</string>
+    <string name="thong_tin_dat_ban">Thông tin đặt bàn</string>
+    <string name="sua_thong_tin">Sửa thông tin</string>
+    <string name="cap_nhat">Cập nhật</string>
+    <string name="pv_notify_update_dat_ban">%s: cập nhật thông tin đặt bàn</string>
+    <string name="huy_order">Hủy món: %s ?</string>
 </resources>

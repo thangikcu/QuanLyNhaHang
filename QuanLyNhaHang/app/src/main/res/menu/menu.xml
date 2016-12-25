@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/btn_info_dat_ban"
+        android:title="@string/thong_tin_dat_ban" />
+
+    <item
+        android:id="@+id/btn_update_dat_ban"
+        android:title="@string/sua_thong_tin" />
+
+    <item
         android:id="@+id/btn_cancle"
         android:title="@string/huy_ban" />
 </menu>

@@ -5,6 +5,8 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorTextNameBan">#933b0f</color>
     <color name="colorTextThongTinBan">#670f93</color>
+    <color name="colorSeparatorThongTinDatBan">#7e8484</color>
+    <color name="colorTextThongTinDatBan">#7c3c0a</color>
     <color name="colorBackgroudMenu">#893a01</color>
     <color name="colorBackgroud">#e67474</color>
     <color name="colorBackgroudSesion">#f6f7f9</color>

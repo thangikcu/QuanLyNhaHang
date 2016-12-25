@@ -9,50 +9,49 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:background="@color/colorBackgroudMain"
+        android:orientation="horizontal"
+        android:padding="5dp">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="3"
+            android:layout_marginRight="5dp"
+            android:layout_weight="2.9"
+            android:background="@color/colorBackgroudSesion"
             android:orientation="vertical"
             android:padding="5dp">
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="6"
-                android:background="#632b8e">
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/list_ban"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:scrollbars="vertical" />
-
-            </FrameLayout>
-
-
-            <LinearLayout
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/list_ban"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:background="@drawable/bg_list"
+                android:scrollbars="vertical" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|end"
+                android:orientation="horizontal"
+                android:paddingTop="5dp">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
 
                     <TableRow
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical">
 
                         <View
                             android:layout_width="38dp"
-                            android:layout_height="11dp"
+                            android:layout_height="10dp"
                             android:background="@drawable/table_button_background_serving" />
 
                         <TextView
@@ -61,16 +60,17 @@
                             android:paddingLeft="12dp"
                             android:text="Đang phục vụ"
                             android:textColor="#111111"
-                            android:textSize="12sp" />
+                            android:textSize="11sp" />
                     </TableRow>
 
                     <TableRow
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical">
 
                         <View
                             android:layout_width="38dp"
-                            android:layout_height="11dp"
+                            android:layout_height="10dp"
                             android:background="@drawable/table_button_background_reserved" />
 
                         <TextView
@@ -79,16 +79,17 @@
                             android:paddingLeft="12dp"
                             android:text="Đặt trước"
                             android:textColor="#111111"
-                            android:textSize="12sp" />
+                            android:textSize="11sp" />
                     </TableRow>
 
                     <TableRow
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical">
 
                         <View
                             android:layout_width="38dp"
-                            android:layout_height="11dp"
+                            android:layout_height="10dp"
                             android:background="@drawable/table_button_background_free" />
 
                         <TextView
@@ -97,17 +98,14 @@
                             android:paddingLeft="12dp"
                             android:text="Trống"
                             android:textColor="#111111"
-                            android:textSize="12sp" />
+                            android:textSize="11sp" />
                     </TableRow>
-
-
                 </LinearLayout>
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/logo_restaurant" />
-
             </LinearLayout>
         </LinearLayout>
 
@@ -115,7 +113,9 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
-            android:orientation="vertical">
+            android:background="@color/colorBackgroudSesion"
+            android:orientation="vertical"
+            android:padding="5dp">
 
             <TableRow
                 android:layout_width="match_parent"
@@ -123,24 +123,32 @@
                 android:gravity="center_vertical">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="77dp"
+                    android:layout_height="52dp"
                     android:src="@drawable/logo_thong_tin_ban" />
 
                 <TextView
                     android:id="@+id/tv_ten_ban"
-                    android:layout_width="match_parent"
+                    android:layout_width="130dp"
                     android:layout_height="wrap_content"
                     android:paddingLeft="16dp"
-                    android:text="Bàn 5"
+                    android:paddingRight="58dp"
+                    android:text="Bàn 15"
                     android:textColor="@color/colorTextNameBan"
                     android:textSize="18sp"
                     android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btn_thuc_don"
+                    android:layout_width="47dp"
+                    android:layout_height="28dp"
+                    android:background="@drawable/ic_thuc_don" />
             </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -156,62 +164,22 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="16dp"
                     android:text="@string/trong"
-                    android:textColor="@color/colorBackgroundTableFree"
+                    android:textColor="@color/colorTextInfo"
                     android:textSize="12sp"
-                    android:textStyle="bold" />
+                    android:textStyle="normal" />
             </TableRow>
 
-            <LinearLayout
-                android:id="@+id/ln_thong_tin_ban"
-                android:paddingTop="5dp"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            <include
+                layout="@layout/layout_thong_tin_dat_ban"
+                android:visibility="gone" />
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+            <include
+                layout="@layout/layout_dat_ban"
+                android:visibility="visible" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/gio_den"
-                        android:textColor="@color/colorTextThongTinBan"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tv_gio_den"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="16dp"
-                        android:text="25/11/2016 06:00 PM"
-                        android:textColor="@color/colorBackgroundTableFree"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-                </TableRow>
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/list_thuc_don_order"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp" />
-                <TextView
-                    android:id="@+id/tv_tong_tien"
-                    android:paddingTop="8dp"
-                    android:text="150.000.000"
-                    android:textColor="#bc0f20"
-                    android:textStyle="bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-
-            <Button
-                android:id="@+id/btn_thuc_don"
-                android:layout_width="58dp"
-                android:layout_height="36dp"
-                android:background="@drawable/ic_thuc_don" />
-
+            <include
+                layout="@layout/layout_ban_phuc_vu"
+                android:visibility="gone" />
 
         </LinearLayout>
     </LinearLayout>

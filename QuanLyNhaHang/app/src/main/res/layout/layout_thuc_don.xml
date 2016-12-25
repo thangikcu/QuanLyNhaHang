@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<thanggun99.quanlynhahang.view.layout.ThucDonLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layout_thuc_don"
     android:layout_width="300dp"
     android:layout_height="match_parent"
@@ -15,7 +15,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#098"
+        android:background="@color/colorBackgroudMain"
         android:orientation="vertical">
 
         <TableRow
@@ -36,20 +36,23 @@
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
-            <EditText
+            <SearchView
                 android:id="@+id/edt_tim_kiem_mon"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="36dp"
                 android:layout_weight="1"
-                android:hint="Tìm kiếm"
                 android:maxLines="1"
+                android:queryHint="@string/tim_kiem"
                 android:textSize="12sp" />
+
         </TableRow>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/list_thuc_don"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_list"
+            android:scrollbars="vertical" />
 
     </LinearLayout>
-</thanggun99.quanlynhahang.view.layout.ThucDonLayout>
+</LinearLayout>

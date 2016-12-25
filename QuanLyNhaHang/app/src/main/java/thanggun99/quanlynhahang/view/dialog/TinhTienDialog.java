@@ -77,19 +77,21 @@ public class TinhTienDialog extends BaseDialog {
     }
 
     public void setContent(HoaDon hoaDon) {
-        this.tongtien = hoaDon.getTongTien();
-        edtTienKhachDua.setQuery("", false);
-        tvTitle.setText(hoaDon.getBan().getTenBan());
-        tvTienMon.setText(Utils.formatMoney(hoaDon.getTienMon()));
-        tvSoLuong.setText("(" + hoaDon.getSoMon() + ")");
-        tvTongTien.setText(Utils.formatMoney(hoaDon.getTongTien()));
-        if (hoaDon.getGiamGia() > 0) {
-            tvTienGiamGia.setText(Utils.formatMoney(hoaDon.getTienGiamGia()));
-            tvGiamGia.setText("(" + hoaDon.getGiamGia() + "%)");
-        } else {
-            tvTienGiamGia.setText("...");
-            tvGiamGia.setText("");
+        if (hoaDon.getThucDonOrders().size() > 0) {
+            this.tongtien = hoaDon.getTongTien();
+            edtTienKhachDua.setQuery("", false);
+            tvTitle.setText(hoaDon.getBan().getTenBan());
+            tvTienMon.setText(Utils.formatMoney(hoaDon.getTienMon()));
+            tvSoLuong.setText("(" + hoaDon.getSoMon() + ")");
+            tvTongTien.setText(Utils.formatMoney(hoaDon.getTongTien()));
+            if (hoaDon.getGiamGia() > 0) {
+                tvTienGiamGia.setText(Utils.formatMoney(hoaDon.getTienGiamGia()));
+                tvGiamGia.setText("(" + hoaDon.getGiamGia() + "%)");
+            } else {
+                tvTienGiamGia.setText("...");
+                tvGiamGia.setText("");
+            }
+            show();
         }
-        show();
     }
 }

@@ -111,7 +111,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:paddingTop="32dp">
+        android:paddingTop="16dp">
 
         <TextView
             android:layout_width="120dp"
@@ -142,12 +142,10 @@
             android:layout_width="0dp"
             android:layout_height="36dp"
             android:layout_weight="1"
-            android:gravity="center"
             android:inputType="number"
             android:maxLines="1"
             android:queryHint="@string/tien_khach_dua"
-            android:searchIcon="@null"
-            android:textSize="12sp" />
+            android:textSize="11sp" />
 
         <TextView
             android:layout_width="wrap_content"

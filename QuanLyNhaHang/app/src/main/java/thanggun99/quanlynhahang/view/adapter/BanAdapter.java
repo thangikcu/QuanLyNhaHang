@@ -44,6 +44,10 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.ViewHolder> {
 
     }
 
+    public void updateBan(Ban ban){
+        notifyItemChanged(banList.indexOf(ban));
+    }
+
     @Override
     public int getItemCount() {
         if (banList.isEmpty()) return 0;

@@ -5,8 +5,11 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
+
+import java.util.Date;
 
 import thanggun99.quanlynhahang.App;
 import thanggun99.quanlynhahang.R;
@@ -26,7 +29,10 @@ import thanggun99.quanlynhahang.view.dialog.DeleteThucDonOrderDialog;
 import thanggun99.quanlynhahang.view.dialog.ErrorDialog;
 import thanggun99.quanlynhahang.view.dialog.OrderThucDonDialog;
 import thanggun99.quanlynhahang.view.dialog.SaleDialog;
+import thanggun99.quanlynhahang.view.dialog.ThongTinDatBanDialog;
 import thanggun99.quanlynhahang.view.dialog.TinhTienDialog;
+
+import static android.content.ContentValues.TAG;
 
 
 /**
@@ -35,28 +41,33 @@ import thanggun99.quanlynhahang.view.dialog.TinhTienDialog;
 
 public class MainPhucVuManager {
 
+    private Context context;
+    private OnMainPVFinishProgress onMainPVFinishProgress;
+    private View view;
+
     private BanManager banManager;
     private ThucDonManager thucDonManager;
     private HoaDonManager hoaDonManager;
     private NhomMonManager nhomMonManager;
     private DatTruocManager datTruocManager;
-    private OnMainPVFinishProgress onMainPVFinishProgress;
+
+    private BanAdapter banAdapter;
+    private ThucDonOrderAdapter thucDonOrderAdapter;
+    private ThucDonAdapter thucDonAdapter;
+    private NhomMonAdapter nhomMonAdapter;
+
     private Ban currentBan;
     private ThucDonOrder currentThucDonOrder;
     private HoaDon currentHoaDon;
     private DatTruoc currentDatTruoc;
-    private BanAdapter banAdapter;
-    private ThucDonOrderAdapter thucDonOrderAdapter;
-    private int positionBan, postionthucDonOrder;
+    private ThucDon currentThucDon;
+
     private DeleteThucDonOrderDialog deleteThucDonOrderDialog;
+    private ThongTinDatBanDialog thongTinDatBanDialog;
     private OrderThucDonDialog orderThucDonDialog;
     private TinhTienDialog tinhTienDialog;
     private ErrorDialog errorDialog;
     private SaleDialog saleDialog;
-    private Context context;
-    private ThucDonAdapter thucDonAdapter;
-    private NhomMonAdapter nhomMonAdapter;
-    private View view;
     private ProgressDialog progressDialog;
 
     public MainPhucVuManager(OnMainPVFinishProgress onMainPVFinishProgress, Context context) {
@@ -73,6 +84,7 @@ public class MainPhucVuManager {
         datTruocManager = new DatTruocManager();
 
         progressDialog = new ProgressDialog(context);
+        thongTinDatBanDialog = new ThongTinDatBanDialog(context);
         progressDialog.setMessage(Utils.getStringByRes(R.string.loading));
         progressDialog.setIndeterminate(true);
         progressDialog.setCancelable(false);
@@ -112,20 +124,8 @@ public class MainPhucVuManager {
                     thucDonAdapter.setOnItemclickListener(new OnItemclickListener() {
                         @Override
                         public void onItemClick(View view, int position) {
-                            ThucDon thucDon = thucDonAdapter.getItem(position);
-
-                            if (currentHoaDon != null && currentBan.getMaBan() == currentHoaDon.getBan().getMaBan()) {
-                                for (int i = 0; i < currentHoaDon.getThucDonOrders().size(); i++) {
-                                    if (currentHoaDon.getThucDonOrders().get(i).getMaMon() == thucDon.getMaMon()) {
-                                        currentThucDonOrder = currentHoaDon.getThucDonOrders().get(i);
-                                        orderThucDonDialog.setContentUpdate(currentBan.getTenBan(), currentThucDonOrder);
-                                        return;
-                                    }
-                                }
-                                orderThucDonDialog.setContentThem(currentHoaDon, thucDon);
-                            } else {
-                                orderThucDonDialog.setContentTaoMoi(currentBan, thucDon);
-                            }
+                            currentThucDon = thucDonAdapter.getItem(position);
+                            orderThucDonDialog.setContent(currentBan.getTenBan(), currentThucDon);
                         }
                     });
 
@@ -141,14 +141,14 @@ public class MainPhucVuManager {
                     thucDonOrderAdapter.setOnItemclickListener(new OnItemclickListener() {
                         @Override
                         public void onItemClick(View view, final int position) {
-                            postionthucDonOrder = position;
                             currentThucDonOrder = thucDonOrderAdapter.getItem(position);
+                            currentThucDon = currentThucDonOrder;
 
                             if (view.getId() == R.id.btn_delete_mon_order) {
-                                deleteThucDonOrderDialog.setContent(currentThucDonOrder.getMaChitietHD(), currentBan.getTenBan(), currentThucDonOrder.getTenMon());
+                                deleteThucDonOrderDialog.setContent(currentBan.getTenBan(), currentThucDonOrder.getTenMon());
 
                             } else {
-                                orderThucDonDialog.setContentUpdate(currentBan.getTenBan(), currentThucDonOrder);
+                                orderThucDonDialog.setContent(currentBan.getTenBan(), currentThucDonOrder);
                             }
                         }
                     });
@@ -164,19 +164,195 @@ public class MainPhucVuManager {
         new GetDatasTask().execute();
     }
 
+    public void destroy() {
+        deleteThucDonOrderDialog.cancel();
+        errorDialog.cancel();
+        orderThucDonDialog.cancel();
+        saleDialog.cancel();
+        tinhTienDialog.cancel();
+        progressDialog.cancel();
+    }
+
+    public void orderThucDon(int soLuong) {
+        ThucDonOrder thucDonOrder = new ThucDonOrder();
+        thucDonOrder.setMaMon(currentThucDon.getMaMon());
+        thucDonOrder.setSoLuong(soLuong);
+
+        if (currentBan.getTrangThai() == 2) {
+            for (int i = 0; i < currentHoaDon.getThucDonOrders().size(); i++) {
+                if (currentHoaDon.getThucDonOrders().get(i).getMaMon() == currentThucDon.getMaMon()) {
+                    currentThucDonOrder = currentHoaDon.getThucDonOrders().get(i);
+                    UpdateThucDonOrderTask updateThucDonOrderTask = new UpdateThucDonOrderTask(soLuong);
+                    updateThucDonOrderTask.execute();
+                    return;
+                }
+            }
+            ThemThucDonOrderTask themThucDonOrderTask = new ThemThucDonOrderTask(thucDonOrder);
+            themThucDonOrderTask.execute();
+        } else {
+            TaoMoiHoaDonTask taoMoiHoaDonTask = new TaoMoiHoaDonTask(thucDonOrder);
+            taoMoiHoaDonTask.execute();
+        }
+    }
+
+    public void updateDatBan(final DatTruoc datTruocUpdate) {
+        class UpdateDatBanTask extends AsyncTask<Void, Void, Boolean> {
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                progressDialog.show();
+            }
+
+            @Override
+            protected Boolean doInBackground(Void... params) {
+                datTruocUpdate.setMaDatTruoc(currentDatTruoc.getMaDatTruoc());
+                return datTruocManager.updateDatBan(datTruocUpdate);
+            }
+
+            @Override
+            protected void onPostExecute(Boolean aBoolean) {
+                if (aBoolean) {
+                    currentDatTruoc.setTenKhachHang(datTruocUpdate.getTenKhachHang());
+                    currentDatTruoc.setSoDienThoai(datTruocUpdate.getSoDienThoai());
+                    currentDatTruoc.setGioDen(datTruocUpdate.getGioDen());
+                    currentDatTruoc.setGhiChu(datTruocUpdate.getGhiChu());
+                    onMainPVFinishProgress.onFinishGetThongTinBanDatTruoc(currentDatTruoc);
+                }
+                showSnackbar(aBoolean, String.format(Utils.getStringByRes(R.string.pv_notify_update_dat_ban), currentBan.getTenBan()));
+                progressDialog.dismiss();
+            }
+        }
+        new UpdateDatBanTask().execute();
+    }
+
+    public void showDialogThongTinDatBan() {
+        thongTinDatBanDialog.setContent(datTruocManager.getDatTruocByMaBan(currentBan.getMaBan()));
+    }
+
+    private class UpdateThucDonOrderTask extends AsyncTask<Void, Void, Boolean> {
+
+        private int soLuong;
+        private ThucDonOrder orderUpdate;
+
+        public UpdateThucDonOrderTask(int soLuong) {
+            this.soLuong = soLuong;
+            orderUpdate = new ThucDonOrder();
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog.show();
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            orderUpdate.setMaChitietHD(currentThucDonOrder.getMaChitietHD());
+            orderUpdate.setSoLuong(currentThucDonOrder.getSoLuong() + soLuong);
+            return hoaDonManager.updateThucDonOrder(orderUpdate);
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            if (aBoolean) {
+                currentThucDonOrder.setSoLuong(orderUpdate.getSoLuong());
+                thucDonOrderAdapter.updateThucDonOrder(currentThucDonOrder);
+                onMainPVFinishProgress.onChangeTongTien(currentHoaDon.getTongTien());
+                orderThucDonDialog.hide();
+            }
+            showSnackbar(aBoolean, String.format(Utils.getStringByRes(R.string.pv_notify_order_thucdon),
+                    currentBan.getTenBan(), soLuong, currentThucDonOrder.getTenMon()));
+            progressDialog.dismiss();
+        }
+    }
+
+    private class ThemThucDonOrderTask extends AsyncTask<Void, Void, Boolean> {
+        private ThucDonOrder thucDonOrder;
+
+        public ThemThucDonOrderTask(ThucDonOrder thucDonOrder) {
+            this.thucDonOrder = thucDonOrder;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog.show();
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            return hoaDonManager.themThucDonOrder(currentHoaDon, thucDonOrder);
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            if (aBoolean) {
+                thucDonOrderAdapter.notifyItemInserted(0);
+                onMainPVFinishProgress.onChangeTongTien(currentHoaDon.getTongTien());
+                orderThucDonDialog.hide();
+            }
+            showSnackbar(aBoolean, String.format(Utils.getStringByRes(R.string.pv_notify_order_thucdon),
+                    currentBan.getTenBan(), thucDonOrder.getSoLuong(), currentThucDon.getTenMon()));
+            progressDialog.dismiss();
+        }
+    }
+
+    private class TaoMoiHoaDonTask extends AsyncTask<Void, Void, Boolean> {
+        private ThucDonOrder thucDonOrder;
+        private HoaDon hoaDonNew;
+
+        public TaoMoiHoaDonTask(ThucDonOrder thucDonOrder) {
+            this.thucDonOrder = thucDonOrder;
+
+            hoaDonNew = new HoaDon();
+            String date = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+            hoaDonNew.setGioDen(date);
+            hoaDonNew.setBan(currentBan);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog.show();
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            return hoaDonManager.taoMoiHoaDon(hoaDonNew, thucDonOrder, currentDatTruoc);
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            if (aBoolean) {
+                currentHoaDon = hoaDonNew;
+
+                thucDonOrderAdapter.changeData(hoaDonNew.getThucDonOrders());
+
+                currentBan.setTrangThai(2);
+                banAdapter.updateBan(currentBan);
+
+                onMainPVFinishProgress.onFinishGetThongTinBanPV(hoaDonNew);
+                orderThucDonDialog.hide();
+            }
+            showSnackbar(aBoolean, String.format(Utils.getStringByRes(R.string.pv_notify_hoa_don_moi),
+                    currentBan.getTenBan(), thucDonOrder.getSoLuong(), currentThucDon.getTenMon()));
+            progressDialog.dismiss();
+        }
+    }
+
     private void getThongTinbanAtPosition(int position) {
         this.currentBan = banManager.getBanAt(position);
-        this.positionBan = position;
 
         if (currentBan.getTrangThai() == 2) {
             currentHoaDon = hoaDonManager.getHoaDonByMaBan(currentBan.getMaBan());
             thucDonOrderAdapter.changeData(currentHoaDon.getThucDonOrders());
 
             onMainPVFinishProgress.onFinishGetThongTinBanPV(currentHoaDon);
-        }else if (currentBan.getTrangThai() == 1){
+        } else if (currentBan.getTrangThai() == 1) {
             currentDatTruoc = datTruocManager.getDatTruocByMaBan(currentBan.getMaBan());
             onMainPVFinishProgress.onFinishGetThongTinBanDatTruoc(currentDatTruoc);
-        }else {
+        } else {
             onMainPVFinishProgress.onFinishGetThongTinBanTrong(currentBan);
         }
     }
@@ -198,8 +374,9 @@ public class MainPhucVuManager {
             @Override
             protected void onPostExecute(Boolean aBoolean) {
                 if (aBoolean) {
+                    currentBan.setTrangThai(1);
                     currentDatTruoc = datTruoc;
-                    banAdapter.notifyItemChanged(positionBan);
+                    banAdapter.updateBan(currentBan);
                     onMainPVFinishProgress.onFinishDatBan(currentDatTruoc);
                 }
                 showSnackbar(aBoolean, String.format(Utils.getStringByRes(R.string.pv_notify_dat_ban), currentBan.getTenBan()));
@@ -209,36 +386,7 @@ public class MainPhucVuManager {
         new DatBanTask().execute();
     }
 
-    public void updateThucDonOrder(final ThucDonOrder orderUpdate) {
-        class UpdateThucDonOrderTask extends AsyncTask<Void, Void, Boolean> {
-
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                progressDialog.show();
-            }
-
-            @Override
-            protected Boolean doInBackground(Void... params) {
-                return hoaDonManager.updateThucDonOrder(orderUpdate);
-            }
-
-            @Override
-            protected void onPostExecute(Boolean aBoolean) {
-                if (aBoolean) {
-                    currentThucDonOrder.setSoLuong(orderUpdate.getSoLuong());
-                    thucDonOrderAdapter.notifyItemChanged(postionthucDonOrder);
-                    onMainPVFinishProgress.onChangeTongTien(currentHoaDon.getTongTien());
-                    orderThucDonDialog.hide();
-                }
-                showSnackbar(aBoolean, String.format(Utils.getStringByRes(R.string.pv_notify_order_thucdon), currentBan.getTenBan(), orderUpdate.getSoLuong(), orderUpdate.getTenMon()));
-                progressDialog.dismiss();
-            }
-        }
-        new UpdateThucDonOrderTask().execute();
-    }
-
-    public void deleteThucDonOrder(final int maChiTietHD) {
+    public void deleteThucDonOrder() {
         class DeleteThucDonOrderTask extends AsyncTask<Void, Void, Boolean> {
             @Override
             protected void onPreExecute() {
@@ -248,18 +396,22 @@ public class MainPhucVuManager {
 
             @Override
             protected Boolean doInBackground(Void... params) {
-                return hoaDonManager.deleteThucDonOrder(maChiTietHD);
+                return hoaDonManager.deleteThucDonOrder(currentThucDonOrder.getMaChitietHD());
             }
 
             @Override
             protected void onPostExecute(Boolean aBoolean) {
+                String tenMon = null;
                 if (aBoolean) {
-                    currentHoaDon.getThucDonOrders().remove(postionthucDonOrder);
-                    thucDonOrderAdapter.notifyItemRemoved(postionthucDonOrder);
+                    tenMon = currentThucDonOrder.getTenMon();
+                    thucDonOrderAdapter.deleteThucDonOrder(currentThucDonOrder);
+                    currentHoaDon.getThucDonOrders().remove(currentThucDonOrder);
+                    currentThucDonOrder = null;
                     onMainPVFinishProgress.onChangeTongTien(currentHoaDon.getTongTien());
                     deleteThucDonOrderDialog.hide();
                 }
-                showSnackbar(aBoolean, String.format(Utils.getStringByRes(R.string.pv_notify_delete_thucdon_order), currentBan.getTenBan(), currentThucDonOrder.getTenMon()));
+                showSnackbar(aBoolean, String.format(Utils.getStringByRes(R.string.pv_notify_delete_thucdon_order),
+                        currentBan.getTenBan(), tenMon));
                 progressDialog.dismiss();
             }
         }
@@ -272,68 +424,12 @@ public class MainPhucVuManager {
         onMainPVFinishProgress.onChangeNhomMon(nhomMon);
     }
 
+    public DatTruoc getCurrentDatTruoc() {
+        return currentDatTruoc;
+    }
+
     public void findThucDon(String keyword) {
         thucDonAdapter.changeData(thucDonManager.getListThucDonByTenMon(keyword));
-    }
-
-    public void themThucDonOrder(final ThucDonOrder thucDonOrderNew) {
-        class ThemThucDonOrderTask extends AsyncTask<Void, Void, Boolean> {
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                progressDialog.show();
-            }
-
-            @Override
-            protected Boolean doInBackground(Void... params) {
-                return hoaDonManager.themThucDonOrder(currentHoaDon, thucDonOrderNew);
-            }
-
-            @Override
-            protected void onPostExecute(Boolean aBoolean) {
-                if (aBoolean) {
-                    thucDonOrderAdapter.notifyItemInserted(0);
-                    onMainPVFinishProgress.onChangeTongTien(currentHoaDon.getTongTien());
-                    orderThucDonDialog.hide();
-                }
-                showSnackbar(aBoolean, String.format(Utils.getStringByRes(R.string.pv_notify_order_thucdon), currentBan.getTenBan(), thucDonOrderNew.getSoLuong(), thucDonOrderNew.getTenMon()));
-                progressDialog.dismiss();
-            }
-        }
-        new ThemThucDonOrderTask().execute();
-    }
-
-    public void taoMoiHoaDon(final HoaDon hoaDonNew, final ThucDonOrder thucDonOrderNew) {
-        class TaoMoiHoaDonTask extends AsyncTask<Void, Void, Boolean> {
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                progressDialog.show();
-            }
-
-            @Override
-            protected Boolean doInBackground(Void... params) {
-                return hoaDonManager.taoMoiHoaDon(hoaDonNew, thucDonOrderNew);
-            }
-
-            @Override
-            protected void onPostExecute(Boolean aBoolean) {
-                if (aBoolean) {
-                    currentHoaDon = hoaDonNew;
-
-                    thucDonOrderAdapter.changeData(hoaDonNew.getThucDonOrders());
-
-                    currentBan = hoaDonNew.getBan();
-                    banAdapter.notifyItemChanged(positionBan);
-
-                    onMainPVFinishProgress.onFinishGetThongTinBanPV(hoaDonNew);
-                    orderThucDonDialog.hide();
-                }
-                showSnackbar(aBoolean, String.format(Utils.getStringByRes(R.string.pv_notify_hoa_don_moi), currentBan.getTenBan(), thucDonOrderNew.getSoLuong(), thucDonOrderNew.getTenMon()));
-                progressDialog.dismiss();
-            }
-        }
-        new TaoMoiHoaDonTask().execute();
     }
 
     public void showDialogSale() {
@@ -398,9 +494,11 @@ public class MainPhucVuManager {
         @Override
         protected void onPostExecute(Boolean aBoolean) {
             if (aBoolean) {
+                Log.i(TAG, currentHoaDon.getMaDatTruoc() + "");
+                datTruocManager.deleteDatTruoc(currentHoaDon.getMaDatTruoc());
                 currentHoaDon = null;
                 currentBan.setTrangThai(0);
-                banAdapter.notifyItemChanged(positionBan);
+                banAdapter.updateBan(currentBan);
                 onMainPVFinishProgress.onFinishHuyBan(currentBan);
             }
             showSnackbar(aBoolean, String.format(Utils.getStringByRes(R.string.pv_notify_huy_ban), currentBan.getTenBan()));
@@ -426,7 +524,7 @@ public class MainPhucVuManager {
                 int tongTien = 0;
                 if (aBoolean) {
                     currentBan.setTrangThai(0);
-                    banAdapter.notifyItemChanged(positionBan);
+                    banAdapter.updateBan(currentBan);
                     onMainPVFinishProgress.onFinishHuyBan(currentBan);
                     tongTien = currentHoaDon.getTongTien();
                     currentHoaDon = null;
@@ -456,7 +554,7 @@ public class MainPhucVuManager {
         protected void onPostExecute(Boolean aBoolean) {
             if (aBoolean) {
                 currentBan.setTrangThai(0);
-                banAdapter.notifyItemChanged(positionBan);
+                banAdapter.updateBan(currentBan);
                 currentDatTruoc = null;
                 onMainPVFinishProgress.onFinishHuyDatBan(currentBan);
             }
@@ -484,7 +582,8 @@ public class MainPhucVuManager {
     }
 
     public interface OnMainPVFinishProgress {
-        void onFinishGetDatas(BanAdapter banAdapter, ThucDonOrderAdapter thucDonOrderAdapter, ThucDonAdapter thucDonAdapter, NhomMonAdapter nhomMonAdapter);
+        void onFinishGetDatas(BanAdapter banAdapter, ThucDonOrderAdapter thucDonOrderAdapter,
+                              ThucDonAdapter thucDonAdapter, NhomMonAdapter nhomMonAdapter);
 
         void onFinishGetThongTinBanTrong(Ban ban);
 

@@ -7,14 +7,14 @@ import android.widget.TextView;
 
 import thanggun99.quanlynhahang.R;
 import thanggun99.quanlynhahang.model.phucvu.MainPhucVuManager;
+import thanggun99.quanlynhahang.util.Utils;
 
 /**
  * Created by Thanggun99 on 28/11/2016.
  */
 
-public class DeleteThucDonOrderDialog extends BaseDialog{
+public class DeleteThucDonOrderDialog extends BaseDialog {
     private TextView tvTenMon;
-    private int maChitietHD;
     private MainPhucVuManager mainPhucVuManager;
 
     public DeleteThucDonOrderDialog(Context context, MainPhucVuManager mainPhucVuManager) {
@@ -33,10 +33,9 @@ public class DeleteThucDonOrderDialog extends BaseDialog{
         btnCancle.setOnClickListener(this);
     }
 
-    public void setContent(int maChitietHD, String tenBan, String tenMon){
-        this.maChitietHD = maChitietHD;
+    public void setContent(String tenBan, String tenMon) {
         tvTitle.setText(tenBan);
-        tvTenMon.setText("Xóa món: "+tenMon);
+        tvTenMon.setText(String.format(Utils.getStringByRes(R.string.huy_order), tenMon));
         show();
     }
 
@@ -44,7 +43,7 @@ public class DeleteThucDonOrderDialog extends BaseDialog{
     public void onClick(View v) {
         super.onClick(v);
         if (v.getId() == R.id.btn_ok) {
-            mainPhucVuManager.deleteThucDonOrder(maChitietHD);
+            mainPhucVuManager.deleteThucDonOrder();
         }
     }
 }

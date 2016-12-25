@@ -11,6 +11,7 @@ import thanggun99.quanlynhahang.util.Utils;
 
 public class HoaDon {
     private int maHoaDon;
+    private int maDatTruoc;
     private int giamGia;
     private Ban ban;
     private String gioDen;
@@ -44,6 +45,14 @@ public class HoaDon {
 
     public void addThucDonOrder(ThucDonOrder thucDonOrder) {
         this.thucDonOrders.add(0, thucDonOrder);
+    }
+
+    public int getMaDatTruoc() {
+        return maDatTruoc;
+    }
+
+    public void setMaDatTruoc(int maDatTruoc) {
+        this.maDatTruoc = maDatTruoc;
     }
 
     public int getMaHoaDon() {

@@ -61,6 +61,14 @@ public class ThucDonOrderAdapter extends RecyclerView.Adapter<ThucDonOrderAdapte
         return thucDonOrders.get(position);
     }
 
+    public void updateThucDonOrder(ThucDonOrder thucDonOrder){
+        notifyItemChanged(thucDonOrders.indexOf(thucDonOrder));
+    }
+
+    public void deleteThucDonOrder(ThucDonOrder thucDonOrder){
+        notifyItemRemoved(thucDonOrders.indexOf(thucDonOrder));
+    }
+
     public int getSize() {
         if (thucDonOrders == null) return 0;
         return thucDonOrders.size();

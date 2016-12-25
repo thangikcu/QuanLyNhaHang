@@ -105,6 +105,23 @@ public class PhucVuPresenter implements MainPhucVuManager.OnMainPVFinishProgress
         mainPhucVuManager.showDialogTinhTien();
     }
 
+    public void onDestroy() {
+        mainPhucVuManager.destroy();
+    }
+
+    public void onClickSuaDatBan() {
+        DatTruoc datTruoc = mainPhucVuManager.getCurrentDatTruoc();
+        if (datTruoc != null) view.showFormUpdateDatBan(datTruoc);
+    }
+
+    public void onClickCapNhatDatBan(DatTruoc datTruoc) {
+        mainPhucVuManager.updateDatBan(datTruoc);
+    }
+
+    public void onClickThongTinDatBan() {
+        mainPhucVuManager.showDialogThongTinDatBan();
+    }
+
     /*this is interface for view Phuc vu*/
     public interface PhucVuView {
 
@@ -122,5 +139,6 @@ public class PhucVuPresenter implements MainPhucVuManager.OnMainPVFinishProgress
 
         void showBanDatTruoc(DatTruoc datTruoc);
 
+        void showFormUpdateDatBan(DatTruoc datTruoc);
     }
 }

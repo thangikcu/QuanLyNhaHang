@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="300dp"
     android:layout_height="wrap_content"
-    android:background="#098"
+    android:background="@drawable/bg_dialog"
     android:orientation="vertical"
     android:padding="16dp">
 
@@ -22,7 +22,7 @@
         android:gravity="center"
         android:text="Caffe"
         android:textColor="@color/colorTextTenMon"
-        android:textSize="14sp"
+        android:textSize="16sp"
         android:textStyle="bold" />
 
     <TableRow
@@ -36,36 +36,39 @@
             android:layout_height="72dp"
             android:src="@drawable/ic_food" />
 
-        <EditText
-            android:id="@+id/edt_so_luong"
-            android:layout_width="58dp"
-            android:layout_height="wrap_content"
-            android:hint="@string/so_luong"
-            android:inputType="number"
-            android:lines="1"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/tv_don_vi_tinh"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="8dp"
-            android:paddingRight="16dp"
-            android:text="ly"
-            android:textColor="@color/colorTextTenMon" />
-
         <ImageButton
             android:id="@+id/btn_tru"
             android:layout_width="58dp"
             android:layout_height="58dp"
-            android:background="#00290099"
+            android:background="@null"
             android:src="@drawable/ic_tru" />
+
+        <EditText
+            android:id="@+id/edt_so_luong"
+            android:layout_width="28dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="7dp"
+            android:gravity="center_horizontal"
+            android:inputType="number"
+            android:lines="1"
+            android:text="15"
+            android:maxLength="3"
+            android:textColor="@color/colorTextButton"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_don_vi_tinh"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:text="miếng"
+            android:textColor="@color/colorTextTenMon"
+            android:textSize="12sp" />
 
         <ImageButton
             android:id="@+id/btn_cong"
             android:layout_width="58dp"
             android:layout_height="58dp"
-            android:background="#00290099"
+            android:background="@null"
             android:src="@drawable/ic_cong" />
     </TableRow>
 

@@ -24,7 +24,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
-import android.widget.ScrollView;
 import android.widget.TableRow;
 import android.widget.TextView;
 
@@ -59,10 +58,9 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
     private android.widget.SearchView edtTimKiemMon;
     private TextView tvTenBan, tvTrangThai, tvTongTien, tvGioDen, tvTenLoai, tvTenKhachHang, tvSoDienThoai, tvKhoangGioDen, tvGhiChu;
     private DrawerLayout drawerLayout;
-    private LinearLayout layoutThongTinBan, layoutThucDon, layoutThongTinDatBan;
+    private LinearLayout layoutThongTinBan, layoutThucDon, layoutThongTinDatBan, layoutDatBan;
     private PhucVuPresenter phucVuPresenter;
     private PopupMenu popupMenu;
-    private ScrollView layoutDatBan;
     private EditText edtTenKhachHang, edtSoDienThoai, edtGhiChu;
     private TimePicker timePicker;
     private DatTruoc datTruoc;
@@ -80,7 +78,6 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
         this.view = view;
         phucVuPresenter = new PhucVuPresenter(this, getContext());
         timePicker = new TimePicker();
-        datTruoc = new DatTruoc();
         findViews();
         setEvents();
         phucVuPresenter.loadDatas();
@@ -96,10 +93,8 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
         edtGioDen.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus){
+                if (hasFocus)
                     timePicker.show(getActivity().getSupportFragmentManager(), "timePicker");
-
-                }
             }
         });
 
@@ -136,13 +131,28 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                if (item.getItemId() == R.id.btn_cancle) {
-                    phucVuPresenter.onClickHuyBan();
-                    return true;
+                switch (item.getItemId()) {
+                    case R.id.btn_cancle:
+                        phucVuPresenter.onClickHuyBan();
+                        return true;
+                    case R.id.btn_info_dat_ban:
+                        phucVuPresenter.onClickThongTinDatBan();
+                        return true;
+                    case R.id.btn_update_dat_ban:
+                        phucVuPresenter.onClickSuaDatBan();
+                        return true;
+                    default:
+                        break;
                 }
                 return false;
             }
         });
+    }
+
+    @Override
+    public void onDestroy() {
+        phucVuPresenter.onDestroy();
+        super.onDestroy();
     }
 
     private void findViews() {
@@ -175,7 +185,7 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
         tvTenLoai = (TextView) layoutThucDon.findViewById(R.id.tv_ten_loai);
         edtTimKiemMon = (android.widget.SearchView) layoutThucDon.findViewById(R.id.edt_tim_kiem_mon);
 
-        layoutDatBan = (ScrollView) view.findViewById(R.id.layout_dat_ban);
+        layoutDatBan = (LinearLayout) view.findViewById(R.id.layout_dat_ban);
         btnDatBan = (Button) layoutDatBan.findViewById(R.id.btn_dat_ban);
         edtTenKhachHang = (EditText) layoutDatBan.findViewById(R.id.edt_ten_khach_hang);
         edtSoDienThoai = (EditText) layoutDatBan.findViewById(R.id.edt_so_dien_thoai);
@@ -203,7 +213,11 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
                 drawerLayout.openDrawer(GravityCompat.END);
                 break;
             case R.id.btn_dat_ban:
-                if (chekForm()) phucVuPresenter.onClickDatBan(datTruoc);
+                if (chekForm()) {
+                    if (btnDatBan.getText().equals(Utils.getStringByRes(R.string.dat_ban)))
+                        phucVuPresenter.onClickDatBan(datTruoc);
+                    else phucVuPresenter.onClickCapNhatDatBan(datTruoc);
+                }
                 break;
             default:
                 break;
@@ -211,6 +225,11 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
     }
 
     public void clearForm() {
+        edtTenKhachHang.clearFocus();
+        edtSoDienThoai.clearFocus();
+        edtGioDen.clearFocus();
+        edtGhiChu.clearFocus();
+
         edtTenKhachHang.setError(null);
         edtSoDienThoai.setError(null);
         edtGioDen.setError(null);
@@ -226,33 +245,45 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
         boolean cancle = false;
         View focusView = null;
 
-        if (TextUtils.isEmpty(edtTenKhachHang.getText().toString())){
-            edtTenKhachHang.setError(getString(R.string.nhap_ten_khach_hang));
-            focusView = edtTenKhachHang;
-            cancle = true;
-        }
-        if (TextUtils.isEmpty(edtSoDienThoai.getText().toString()) || edtSoDienThoai.length() < 9){
-            edtSoDienThoai.setError(getString(R.string.nhap_so_dien_thoai));
-            focusView = edtSoDienThoai;
-            cancle = true;
-        }
-        if (TextUtils.isEmpty(edtGioDen.getText().toString()) || !edtGioDen.getText().toString().contains("-")){
+        if (TextUtils.isEmpty(edtGioDen.getText().toString()) || !edtGioDen.getText().toString().contains("-")) {
             edtGioDen.setError(getString(R.string.nhap_gio_den));
             focusView = edtGioDen;
             cancle = true;
         }
+        if (TextUtils.isEmpty(edtSoDienThoai.getText().toString()) || edtSoDienThoai.length() < 9) {
+            edtSoDienThoai.setError(getString(R.string.nhap_so_dien_thoai));
+            focusView = edtSoDienThoai;
+            cancle = true;
+        }
+        if (TextUtils.isEmpty(edtTenKhachHang.getText().toString())) {
+            edtTenKhachHang.setError(getString(R.string.nhap_ten_khach_hang));
+            focusView = edtTenKhachHang;
+            cancle = true;
+        }
 
-        if (cancle){
+        if (cancle) {
             focusView.requestFocus();
             return false;
-        }
-        else{
+        } else {
+            datTruoc = new DatTruoc();
             datTruoc.setTenKhachHang(edtTenKhachHang.getText().toString().trim());
             datTruoc.setSoDienThoai(edtSoDienThoai.getText().toString().trim());
             datTruoc.setGioDen(edtGioDen.getText().toString().trim());
             datTruoc.setGhiChu(edtGhiChu.getText().toString().trim());
             return true;
         }
+    }
+
+    @Override
+    public void showFormUpdateDatBan(DatTruoc datTruoc) {
+        btnDatBan.setText(Utils.getStringByRes(R.string.cap_nhat));
+        layoutDatBan.setVisibility(VISIBLE);
+        layoutThongTinDatBan.setVisibility(GONE);
+
+        edtTenKhachHang.setText(datTruoc.getTenKhachHang());
+        edtSoDienThoai.setText(datTruoc.getSoDienThoai());
+        edtGioDen.setText(datTruoc.getGioDen());
+        edtGhiChu.setText(datTruoc.getGhiChu());
     }
 
     @Override
@@ -304,6 +335,8 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
         tvKhoangGioDen.setText(datTruoc.getGioDen());
         tvGhiChu.setText(datTruoc.getGhiChu());
 
+        popupMenu.getMenu().findItem(R.id.btn_update_dat_ban).setVisible(true);
+        popupMenu.getMenu().findItem(R.id.btn_info_dat_ban).setVisible(false);
         layoutThongTinBan.setVisibility(GONE);
         layoutDatBan.setVisibility(GONE);
         layoutThongTinDatBan.setVisibility(VISIBLE);
@@ -314,6 +347,7 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
         clearForm();
         tvTenBan.setText(ban.getTenBan());
         tvTrangThai.setText(ban.getStringTrangThai());
+        btnDatBan.setText(Utils.getStringByRes(R.string.dat_ban));
 
         layoutThongTinBan.setVisibility(GONE);
         layoutDatBan.setVisibility(VISIBLE);
@@ -328,6 +362,11 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
         tvGioDen.setText(Utils.formatDate(hoaDon.getGioDen()));
         tvTongTien.setText(Utils.formatMoney(hoaDon.getTongTien()));
         btnSale.setText(hoaDon.getStringGiamGia());
+
+        popupMenu.getMenu().findItem(R.id.btn_update_dat_ban).setVisible(false);
+        if (hoaDon.getMaDatTruoc() != 0)
+            popupMenu.getMenu().findItem(R.id.btn_info_dat_ban).setVisible(true);
+        else popupMenu.getMenu().findItem(R.id.btn_info_dat_ban).setVisible(false);
 
         layoutThongTinBan.setVisibility(VISIBLE);
         layoutDatBan.setVisibility(GONE);

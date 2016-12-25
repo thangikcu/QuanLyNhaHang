@@ -36,15 +36,18 @@ public class SaleDialog extends BaseDialog {
     }
 
     public void setContent(HoaDon hoaDon) {
-        tvTitle.setText(hoaDon.getBan().getTenBan());
-        if (hoaDon.getGiamGia() > 0) {
-            edtSale.setText(hoaDon.getGiamGia() + "");
-            giamGia = hoaDon.getGiamGia();
-        }else {
-            giamGia = 0;
-            edtSale.setText(null);
+        if (hoaDon.getThucDonOrders().size() > 0){
+            tvTitle.setText(hoaDon.getBan().getTenBan());
+            if (hoaDon.getGiamGia() > 0) {
+                edtSale.setText(hoaDon.getGiamGia() + "");
+                giamGia = hoaDon.getGiamGia();
+            }else {
+                giamGia = 0;
+                edtSale.setText(null);
+            }
+            show();
         }
-        show();
+
     }
 
     @Override

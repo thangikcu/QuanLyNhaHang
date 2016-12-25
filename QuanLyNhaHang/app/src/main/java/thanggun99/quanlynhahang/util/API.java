@@ -30,6 +30,7 @@ public class API {
     public static final String UPDATE_BAN_URL = "UpdateBan.php";
     public static final String UPDATE_THUC_DON_ORDER_URL = "UpdateThucDonOrder.php";
     public static final String UPDATE_GIAM_GIA_URL = "UpdateGiamGia.php";
+    public static final String UPDATE_DAT_TRUOC_URL = "UpdateDatTruoc.php";
     public static final String THEM_THUC_DON_ORDER_URL = "ThemThucDonOrder.php";
     public static final String DELETE_MON_ORDER_URL = "DeleteMonOrder.php";
     public static final String DELETE_HOA_DON_URL = "DeleteHoaDon.php";
