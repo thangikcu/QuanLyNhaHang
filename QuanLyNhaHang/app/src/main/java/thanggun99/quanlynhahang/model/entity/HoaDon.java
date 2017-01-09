@@ -11,7 +11,7 @@ import thanggun99.quanlynhahang.util.Utils;
 
 public class HoaDon {
     private int maHoaDon;
-    private int maDatTruoc;
+    private DatTruoc datTruoc;
     private int giamGia;
     private Ban ban;
     private String gioDen;
@@ -47,14 +47,6 @@ public class HoaDon {
         this.thucDonOrders.add(0, thucDonOrder);
     }
 
-    public int getMaDatTruoc() {
-        return maDatTruoc;
-    }
-
-    public void setMaDatTruoc(int maDatTruoc) {
-        this.maDatTruoc = maDatTruoc;
-    }
-
     public int getMaHoaDon() {
         return maHoaDon;
     }
@@ -87,6 +79,13 @@ public class HoaDon {
         this.gioDen = gioDen;
     }
 
+    public DatTruoc getDatTruoc() {
+        return datTruoc;
+    }
+
+    public void setDatTruoc(DatTruoc datTruoc) {
+        this.datTruoc = datTruoc;
+    }
 
     public int getTongTien() {
         return Math.round((float) (getTienMon() - getTienGiamGia()) / 1000) * 1000;

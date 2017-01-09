@@ -1,5 +1,5 @@
 <?php
-    include_once './dbConnect.php';
+    include_once '../dbConnect.php';
  
     function dispInfo(){
         if(isset($_GET['maHoaDon'])){

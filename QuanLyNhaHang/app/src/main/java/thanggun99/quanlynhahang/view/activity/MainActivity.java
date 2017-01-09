@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_home:
+                if (homeFragment == null) homeFragment = new HomeFragment();
                 fillFrame(homeFragment, btnHome);
                 break;
             case R.id.btn_sell:
@@ -93,8 +94,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnSelected = button;
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        if (fragmentIsShow.isVisible()) transaction.hide(fragmentIsShow);
 
+        if (fragmentIsShow.isVisible()) transaction.hide(fragmentIsShow);
         if (fragment.isAdded()) {
             transaction.show(fragment);
         } else {

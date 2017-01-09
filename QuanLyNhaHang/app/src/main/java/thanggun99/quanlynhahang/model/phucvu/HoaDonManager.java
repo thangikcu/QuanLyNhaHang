@@ -1,7 +1,6 @@
 package thanggun99.quanlynhahang.model.phucvu;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -11,12 +10,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import thanggun99.quanlynhahang.model.entity.DatTruoc;
 import thanggun99.quanlynhahang.model.entity.HoaDon;
 import thanggun99.quanlynhahang.model.entity.ThucDonOrder;
 import thanggun99.quanlynhahang.util.API;
-
-import static android.content.ContentValues.TAG;
 
 
 /**
@@ -46,7 +42,8 @@ public class HoaDonManager {
                             hoaDon.setGiamGia(object.getInt("giamGia"));
                         }
                         if (object.toString().contains("maDatTruoc")) {
-                            hoaDon.setMaDatTruoc(object.getInt("maDatTruoc"));
+                            hoaDon.setDatTruoc(DatTruocManager.getDatTruocByMaDatTruoc(object.getInt("maDatTruoc")));
+
                         }
                         hoaDon.setGioDen(object.getString("gioDen"));
 
@@ -80,10 +77,10 @@ public class HoaDonManager {
         return null;
     }
 
-    public boolean taoMoiHoaDon(HoaDon hoaDonNew, ThucDonOrder thucDonOrderNew, DatTruoc currentDatTruoc) {
+    public boolean taoMoiHoaDon(HoaDon hoaDonNew, ThucDonOrder thucDonOrderNew) {
         Map<String, String> postParams = new HashMap<>();
-        if (currentDatTruoc != null && currentDatTruoc.getBan() == hoaDonNew.getBan()){
-            postParams.put("maDatTruoc", String.valueOf(currentDatTruoc.getMaDatTruoc()));
+        if (hoaDonNew.getDatTruoc() != null){
+            postParams.put("maDatTruoc", String.valueOf(hoaDonNew.getDatTruoc().getMaDatTruoc()));
         }
         postParams.put("maBan", String.valueOf(hoaDonNew.getBan().getMaBan()));
         postParams.put("gioDen", hoaDonNew.getGioDen());
@@ -99,9 +96,6 @@ public class HoaDonManager {
                 int maHoaDon = object.getInt("maHoaDon");
                 int maChiTietHD = object.getInt("maChiTietHD");
 
-                if (currentDatTruoc != null && currentDatTruoc.getBan() == hoaDonNew.getBan()){
-                    hoaDonNew.setMaDatTruoc(currentDatTruoc.getMaDatTruoc());
-                }
                 hoaDonNew.setMaHoaDon(maHoaDon);
 
                 hoaDonNew.addThucDonOrder(new ThucDonOrder(ThucDonManager.getThucDonByMaMon(thucDonOrderNew.getMaMon()),
@@ -168,8 +162,8 @@ public class HoaDonManager {
 
     public Boolean deleteHoaDon(HoaDon hoaDon) {
         Map<String, String> getParams = new HashMap<>();
-        if (hoaDon.getMaDatTruoc() != 0){
-            getParams.put("maDatTruoc", String.valueOf(hoaDon.getMaDatTruoc()));
+        if (hoaDon.getDatTruoc() != null){
+            getParams.put("maDatTruoc", String.valueOf(hoaDon.getDatTruoc().getMaDatTruoc()));
         }
         getParams.put("maHoaDon", String.valueOf(hoaDon.getMaHoaDon()));
         getParams.put("maBan", String.valueOf(hoaDon.getBan().getMaBan()));

@@ -27,6 +27,5 @@ public class ErrorDialog extends BaseDialog{
     @Override
     public void onClick(View v) {
         mainPhucVuManager.loadDatas();
-        hide();
     }
 }

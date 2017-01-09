@@ -1,7 +1,6 @@
 package thanggun99.quanlynhahang.model.phucvu;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,7 +13,6 @@ import java.util.Map;
 import thanggun99.quanlynhahang.model.entity.DatTruoc;
 import thanggun99.quanlynhahang.util.API;
 
-import static android.content.ContentValues.TAG;
 import static thanggun99.quanlynhahang.util.API.callService;
 
 /**
@@ -22,7 +20,11 @@ import static thanggun99.quanlynhahang.util.API.callService;
  */
 
 public class DatTruocManager {
-    private static ArrayList<DatTruoc> datTruocs = new ArrayList<>();
+    private static ArrayList<DatTruoc> datTruocs;
+
+    public DatTruocManager() {
+        datTruocs = new ArrayList<>();
+    }
 
     public boolean loadListDatTruoc() {
         String s = callService(API.GET_DAT_TRUOC_URL, null);
@@ -35,7 +37,9 @@ public class DatTruocManager {
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject object = (JSONObject) jsonArray.get(i);
 
-                        DatTruoc datTruoc = new DatTruoc(object.getInt("maDatTruoc"), BanManager.getBanByMaBan(object.getInt("maBan")), object.getString("tenKhachHang"), object.getString("soDienThoai"), object.getString("gioDen"), object.getString("ghiChu"), object.getInt("trangThai"));
+                        DatTruoc datTruoc = new DatTruoc(object.getInt("maDatTruoc"), BanManager.getBanByMaBan(object.getInt("maBan")),
+                                object.getString("tenKhachHang"), object.getString("soDienThoai"), object.getString("gioDen"),
+                                object.getString("ghiChu"), object.getInt("trangThai"));
                         datTruocs.add(datTruoc);
                     }
                     return true;
@@ -120,5 +124,14 @@ public class DatTruocManager {
             return true;
         }
         return false;
+    }
+
+    public static DatTruoc getDatTruocByMaDatTruoc(int maDatTruoc) {
+        for (int i = 0; i < datTruocs.size(); i++) {
+            if (datTruocs.get(i).getMaDatTruoc() == maDatTruoc){
+                return datTruocs.get(i);
+            }
+        }
+        return  null;
     }
 }

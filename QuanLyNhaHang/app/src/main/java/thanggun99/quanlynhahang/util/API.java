@@ -19,22 +19,33 @@ public class API {
     public static final String SCHEME = "http";
     public static final String HOST = "192.168.56.1";
     public static final String PATH = "WebService";
-    public static final String GET_BAN_URL = "GetBan.php";
-    public static final String GET_DAT_TRUOC_URL = "GetDatTruoc.php";
-    public static final String DAT_TRUOC_URL = "DatTruoc.php";
-    public static final String GET_NHOM_MON_URL = "GetNhomMon.php";
-    public static final String GET_THUC_DON_URL = "GetThucDon.php";
-    public static final String GET_HOA_DON_URL = "GetHoaDon.php";
-    public static final String TAO_MOI_HOA_DON_URL = "TaoMoiHoaDon.php";
-    public static final String TINH_TIEN_HOA_DON_URL = "TinhTienHoaDon.php";
+    public static final String PATH_BAN = "BanService/";
+    public static final String PATH_THUC_DON = "ThucDonService/";
+    public static final String PATH_HOA_DON = "HoaDonService/";
+    public static final String PATH_DAT_TRUOC = "DatTruocService/";
+    public static final String PATH_NHOM_MON = "NhomMonService/";
+
+    public static final String GET_BAN_URL = PATH_BAN + "GetBan.php";
     public static final String UPDATE_BAN_URL = "UpdateBan.php";
-    public static final String UPDATE_THUC_DON_ORDER_URL = "UpdateThucDonOrder.php";
-    public static final String UPDATE_GIAM_GIA_URL = "UpdateGiamGia.php";
-    public static final String UPDATE_DAT_TRUOC_URL = "UpdateDatTruoc.php";
-    public static final String THEM_THUC_DON_ORDER_URL = "ThemThucDonOrder.php";
-    public static final String DELETE_MON_ORDER_URL = "DeleteMonOrder.php";
-    public static final String DELETE_HOA_DON_URL = "DeleteHoaDon.php";
-    public static final String DELETE_DAT_TRUOC_URL = "DeleteDatTruoc.php";
+
+    public static final String GET_THUC_DON_URL = PATH_THUC_DON + "GetThucDon.php";
+
+    public static final String GET_HOA_DON_URL = PATH_HOA_DON + "GetHoaDon.php";
+    public static final String TAO_MOI_HOA_DON_URL = PATH_HOA_DON + "TaoMoiHoaDon.php";
+    public static final String TINH_TIEN_HOA_DON_URL = PATH_HOA_DON + "TinhTienHoaDon.php";
+    public static final String DELETE_HOA_DON_URL = PATH_HOA_DON + "DeleteHoaDon.php";
+
+    public static final String GET_DAT_TRUOC_URL = PATH_DAT_TRUOC + "GetDatTruoc.php";
+    public static final String DAT_TRUOC_URL = PATH_DAT_TRUOC + "DatTruoc.php";
+    public static final String UPDATE_DAT_TRUOC_URL = PATH_DAT_TRUOC + "UpdateDatTruoc.php";
+    public static final String DELETE_DAT_TRUOC_URL = PATH_DAT_TRUOC + "DeleteDatTruoc.php";
+
+    public static final String GET_NHOM_MON_URL = PATH_NHOM_MON + "GetNhomMon.php";
+
+    public static final String UPDATE_THUC_DON_ORDER_URL = PATH_HOA_DON + "UpdateThucDonOrder.php";
+    public static final String UPDATE_GIAM_GIA_URL = PATH_HOA_DON + "UpdateGiamGia.php";
+    public static final String THEM_THUC_DON_ORDER_URL = PATH_HOA_DON + "ThemThucDonOrder.php";
+    public static final String DELETE_MON_ORDER_URL = PATH_HOA_DON + "DeleteMonOrder.php";
 
     public static String callService(String path, Map<String, String> getParams) {
         return callService(path, getParams, null);
@@ -49,7 +60,7 @@ public class API {
                 .scheme(SCHEME)
                 .authority(HOST)
                 .appendPath(PATH)
-                .appendPath(path);
+                .appendEncodedPath(path);
 
         if (getParams != null) {
             builder = Utils.builderParams(builder, getParams);

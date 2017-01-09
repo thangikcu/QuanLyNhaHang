@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -31,8 +30,6 @@ import thanggun99.quanlynhahang.view.dialog.OrderThucDonDialog;
 import thanggun99.quanlynhahang.view.dialog.SaleDialog;
 import thanggun99.quanlynhahang.view.dialog.ThongTinDatBanDialog;
 import thanggun99.quanlynhahang.view.dialog.TinhTienDialog;
-
-import static android.content.ContentValues.TAG;
 
 
 /**
@@ -114,6 +111,8 @@ public class MainPhucVuManager {
             @Override
             protected void onPostExecute(Boolean aBoolean) {
                 if (aBoolean) {
+                    if (errorDialog.isShowing()) errorDialog.dismiss();
+
                     deleteThucDonOrderDialog = new DeleteThucDonOrderDialog(context, MainPhucVuManager.this);
                     orderThucDonDialog = new OrderThucDonDialog(context, MainPhucVuManager.this);
                     saleDialog = new SaleDialog(context, MainPhucVuManager.this);
@@ -145,7 +144,8 @@ public class MainPhucVuManager {
                             currentThucDon = currentThucDonOrder;
 
                             if (view.getId() == R.id.btn_delete_mon_order) {
-                                deleteThucDonOrderDialog.setContent(currentBan.getTenBan(), currentThucDonOrder.getTenMon());
+                                deleteThucDonOrderDialog.setContent(currentBan.getTenBan(),
+                                        currentThucDonOrder.getTenMon());
 
                             } else {
                                 orderThucDonDialog.setContent(currentBan.getTenBan(), currentThucDonOrder);
@@ -154,7 +154,8 @@ public class MainPhucVuManager {
                     });
 
                     getThongTinbanAtPosition(0);
-                    onMainPVFinishProgress.onFinishGetDatas(banAdapter, thucDonOrderAdapter, thucDonAdapter, nhomMonAdapter);
+                    onMainPVFinishProgress.onFinishGetDatas(banAdapter,
+                            thucDonOrderAdapter, thucDonAdapter, nhomMonAdapter);
                 } else {
                     errorDialog.show();
                 }
@@ -165,12 +166,12 @@ public class MainPhucVuManager {
     }
 
     public void destroy() {
-        deleteThucDonOrderDialog.cancel();
-        errorDialog.cancel();
-        orderThucDonDialog.cancel();
-        saleDialog.cancel();
-        tinhTienDialog.cancel();
-        progressDialog.cancel();
+        if (deleteThucDonOrderDialog != null) deleteThucDonOrderDialog.cancel();
+        if (errorDialog != null) errorDialog.cancel();
+        if (orderThucDonDialog != null) orderThucDonDialog.cancel();
+        if (saleDialog != null) saleDialog.cancel();
+        if (tinhTienDialog != null) tinhTienDialog.cancel();
+        if (progressDialog != null) progressDialog.cancel();
     }
 
     public void orderThucDon(int soLuong) {
@@ -227,7 +228,7 @@ public class MainPhucVuManager {
     }
 
     public void showDialogThongTinDatBan() {
-        thongTinDatBanDialog.setContent(datTruocManager.getDatTruocByMaBan(currentBan.getMaBan()));
+        thongTinDatBanDialog.setContent(currentHoaDon.getDatTruoc());
     }
 
     private class UpdateThucDonOrderTask extends AsyncTask<Void, Void, Boolean> {
@@ -307,6 +308,8 @@ public class MainPhucVuManager {
 
             hoaDonNew = new HoaDon();
             String date = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+            if (currentDatTruoc != null && currentDatTruoc.getBan() == currentBan)
+                hoaDonNew.setDatTruoc(currentDatTruoc);
             hoaDonNew.setGioDen(date);
             hoaDonNew.setBan(currentBan);
         }
@@ -319,14 +322,13 @@ public class MainPhucVuManager {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            return hoaDonManager.taoMoiHoaDon(hoaDonNew, thucDonOrder, currentDatTruoc);
+            return hoaDonManager.taoMoiHoaDon(hoaDonNew, thucDonOrder);
         }
 
         @Override
         protected void onPostExecute(Boolean aBoolean) {
             if (aBoolean) {
                 currentHoaDon = hoaDonNew;
-
                 thucDonOrderAdapter.changeData(hoaDonNew.getThucDonOrders());
 
                 currentBan.setTrangThai(2);
@@ -346,7 +348,8 @@ public class MainPhucVuManager {
 
         if (currentBan.getTrangThai() == 2) {
             currentHoaDon = hoaDonManager.getHoaDonByMaBan(currentBan.getMaBan());
-            thucDonOrderAdapter.changeData(currentHoaDon.getThucDonOrders());
+            if (currentHoaDon != null)
+                thucDonOrderAdapter.changeData(currentHoaDon.getThucDonOrders());
 
             onMainPVFinishProgress.onFinishGetThongTinBanPV(currentHoaDon);
         } else if (currentBan.getTrangThai() == 1) {
@@ -401,17 +404,16 @@ public class MainPhucVuManager {
 
             @Override
             protected void onPostExecute(Boolean aBoolean) {
-                String tenMon = null;
+                showSnackbar(aBoolean, String.format(Utils.getStringByRes(R.string.pv_notify_delete_thucdon_order),
+                        currentBan.getTenBan(), currentThucDonOrder.getTenMon()));
+
                 if (aBoolean) {
-                    tenMon = currentThucDonOrder.getTenMon();
                     thucDonOrderAdapter.deleteThucDonOrder(currentThucDonOrder);
                     currentHoaDon.getThucDonOrders().remove(currentThucDonOrder);
                     currentThucDonOrder = null;
                     onMainPVFinishProgress.onChangeTongTien(currentHoaDon.getTongTien());
                     deleteThucDonOrderDialog.hide();
                 }
-                showSnackbar(aBoolean, String.format(Utils.getStringByRes(R.string.pv_notify_delete_thucdon_order),
-                        currentBan.getTenBan(), tenMon));
                 progressDialog.dismiss();
             }
         }
@@ -494,9 +496,12 @@ public class MainPhucVuManager {
         @Override
         protected void onPostExecute(Boolean aBoolean) {
             if (aBoolean) {
-                Log.i(TAG, currentHoaDon.getMaDatTruoc() + "");
-                datTruocManager.deleteDatTruoc(currentHoaDon.getMaDatTruoc());
+                if (currentHoaDon.getDatTruoc() != null)
+                    datTruocManager.deleteDatTruoc(currentHoaDon.getDatTruoc().getMaDatTruoc());
                 currentHoaDon = null;
+                currentThucDon = null;
+                currentDatTruoc = null;
+                currentThucDonOrder = null;
                 currentBan.setTrangThai(0);
                 banAdapter.updateBan(currentBan);
                 onMainPVFinishProgress.onFinishHuyBan(currentBan);
@@ -521,16 +526,19 @@ public class MainPhucVuManager {
 
             @Override
             protected void onPostExecute(Boolean aBoolean) {
-                int tongTien = 0;
+                showSnackbar(aBoolean, String.format(Utils.getStringByRes(R.string.pv_notify_tinh_tien),
+                        currentBan.getTenBan(), Utils.formatMoney(currentHoaDon.getTongTien())));
+
                 if (aBoolean) {
                     currentBan.setTrangThai(0);
                     banAdapter.updateBan(currentBan);
                     onMainPVFinishProgress.onFinishHuyBan(currentBan);
-                    tongTien = currentHoaDon.getTongTien();
                     currentHoaDon = null;
+                    currentThucDon = null;
+                    currentDatTruoc = null;
+                    currentThucDonOrder = null;
                     tinhTienDialog.dismiss();
                 }
-                showSnackbar(aBoolean, String.format(Utils.getStringByRes(R.string.pv_notify_tinh_tien), currentBan.getTenBan(), Utils.formatMoney(tongTien)));
                 progressDialog.dismiss();
 
             }

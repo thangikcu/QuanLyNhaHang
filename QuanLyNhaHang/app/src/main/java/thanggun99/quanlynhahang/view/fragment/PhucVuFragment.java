@@ -364,7 +364,7 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
         btnSale.setText(hoaDon.getStringGiamGia());
 
         popupMenu.getMenu().findItem(R.id.btn_update_dat_ban).setVisible(false);
-        if (hoaDon.getMaDatTruoc() != 0)
+        if (hoaDon.getDatTruoc() != null)
             popupMenu.getMenu().findItem(R.id.btn_info_dat_ban).setVisible(true);
         else popupMenu.getMenu().findItem(R.id.btn_info_dat_ban).setVisible(false);
 
