@@ -1,6 +1,7 @@
 package thanggun99.quanlynhahang.model.entity;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import thanggun99.quanlynhahang.R;
 import thanggun99.quanlynhahang.util.Utils;
@@ -126,4 +127,5 @@ public class HoaDon {
         }
         return 0;
     }
+
 }

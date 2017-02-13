@@ -5,10 +5,9 @@
         if(isset($_GET['maHoaDon'])){
         
             $maHoaDon = $_GET['maHoaDon'];
+            $maBan = $_POST['maBan'];
+            $tongTien = $_POST['tongTien'];
             
-            if(isset($_POST['tongTien'])){
-                $tongTien = $_POST['tongTien'];
-            }
             
 
             $db = new dbConnect();
@@ -17,8 +16,12 @@
          
         
             if($result){
-                mysql_query('UPDATE ban SET TrangThai = 0 WHERE MaBan = '.$maBan.' ');
-                echo 'success';
+                $result2 = mysql_query('UPDATE ban SET TrangThai = 0 WHERE MaBan = '.$maBan.' ');
+                
+                if($result2){
+                    echo 'success';
+                }
+                
             }
             
         }
