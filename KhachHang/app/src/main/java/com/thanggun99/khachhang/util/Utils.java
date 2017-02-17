@@ -1,4 +1,4 @@
-package thanggun99.quanlynhahang.util;
+package com.thanggun99.khachhang.util;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -6,11 +6,11 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.widget.Toast;
 
+import com.thanggun99.khachhang.App;
+
 import java.text.ParseException;
 import java.util.Date;
 import java.util.Map;
-
-import thanggun99.quanlynhahang.App;
 
 /**
  * Created by Thanggun99 on 05/12/2016.

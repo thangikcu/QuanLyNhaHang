@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "512606763308",
+    "firebase_url": "https://quan-ly-nha-hang.firebaseio.com",
+    "project_id": "quan-ly-nha-hang",
+    "storage_bucket": "quan-ly-nha-hang.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:512606763308:android:ff11294b84672e83",
+        "android_client_info": {
+          "package_name": "thanggun99.quanlynhahang"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "512606763308-9oiniutrf1uaked7jc5cr9prjv35ohtk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_VMse9VNsIrGsE8tpEn_3vD3QL8_sKwI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:512606763308:android:40a89c393fc26493",
+        "android_client_info": {
+          "package_name": "com.thanggun99.khachhang"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "512606763308-9oiniutrf1uaked7jc5cr9prjv35ohtk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_VMse9VNsIrGsE8tpEn_3vD3QL8_sKwI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

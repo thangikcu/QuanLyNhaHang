@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 25, 2016 at 08:08 AM
+-- Generation Time: Feb 17, 2017 at 09:07 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -43,14 +43,14 @@ INSERT INTO `ban` (`MaBan`, `TenBan`, `TrangThai`, `HienThi`) VALUES
 (3, 'Bàn 3', 0, 1),
 (4, 'Bàn 4', 0, 1),
 (5, 'Bàn 5', 0, 1),
-(6, 'Bàn 6', 0, 1),
+(6, 'Bàn 6', 2, 1),
 (7, 'Bàn 7', 0, 1),
 (8, 'Bàn 8', 0, 1),
-(9, 'Bàn 9', 2, 1),
+(9, 'Bàn 9', 0, 1),
 (10, 'Bàn 10', 0, 1),
-(11, 'Bàn 11', 2, 1),
+(11, 'Bàn 11', 0, 1),
 (13, 'Bàn 12', 0, 1),
-(14, 'Bàn 13', 0, 1),
+(14, 'Bàn 13', 1, 1),
 (15, 'Bàn 14', 0, 1),
 (16, 'Bàn 15', 0, 1),
 (17, 'Bàn 16', 0, 1),
@@ -72,6 +72,21 @@ CREATE TABLE `chitiethd` (
   `SoLuong` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `chitiethd`
+--
+
+INSERT INTO `chitiethd` (`MaChiTietHD`, `MaHoaDon`, `MaMon`, `SoLuong`) VALUES
+(670, 366, 24, 4),
+(671, 367, 20, 3),
+(672, 367, 17, 1),
+(673, 368, 23, 5),
+(674, 369, 40, 2),
+(675, 369, 20, 1),
+(676, 370, 25, 3),
+(677, 370, 45, 4),
+(678, 371, 24, 5);
+
 -- --------------------------------------------------------
 
 --
@@ -88,6 +103,15 @@ CREATE TABLE `datban` (
   `TrangThai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
 
+--
+-- Dumping data for table `datban`
+--
+
+INSERT INTO `datban` (`MaDatBan`, `TenKhachHang`, `SDT`, `GioDen`, `GhiChu`, `MaBan`, `TrangThai`) VALUES
+(69, 'thang', '0985588756569', '05:45 AM - 13/02/2017', 'Nothing', 14, 0),
+(70, 'thanggun', '1546464646', '07:46 AM - 13/02/2017', '', 4, 1),
+(71, 'abc', '45646546498899', '07:46 AM - 13/02/2017', 'keep', 31, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -103,6 +127,40 @@ CREATE TABLE `hoadon` (
   `TongTien` int(11) DEFAULT NULL,
   `TrangThai` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `hoadon`
+--
+
+INSERT INTO `hoadon` (`MaHoaDon`, `MaDatBan`, `GiamGia`, `MaBan`, `GioDen`, `TongTien`, `TrangThai`) VALUES
+(366, NULL, 25, 11, '2017-02-13 07:45:32', 90000, 1),
+(367, NULL, NULL, 6, '2017-02-13 07:45:41', 65000, 1),
+(368, 70, 10, 4, '2017-02-13 07:46:42', 157000, 1),
+(369, NULL, 30, 11, '2017-02-13 07:54:09', 38000, 1),
+(370, 71, 10, 31, '2017-02-13 07:54:51', 184000, 1),
+(371, NULL, NULL, 6, '2017-02-13 07:56:21', NULL, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `khachhang`
+--
+
+CREATE TABLE `khachhang` (
+  `MaKhachHang` int(11) NOT NULL,
+  `TenKhachHang` varchar(50) COLLATE utf8_vietnamese_ci NOT NULL,
+  `SoDienThoai` varchar(50) COLLATE utf8_vietnamese_ci NOT NULL,
+  `DiaChi` varchar(60) COLLATE utf8_vietnamese_ci NOT NULL,
+  `TenDangNhap` varchar(50) COLLATE utf8_vietnamese_ci NOT NULL,
+  `MatKhau` varchar(50) COLLATE utf8_vietnamese_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
+
+--
+-- Dumping data for table `khachhang`
+--
+
+INSERT INTO `khachhang` (`MaKhachHang`, `TenKhachHang`, `SoDienThoai`, `DiaChi`, `TenDangNhap`, `MatKhau`) VALUES
+(1, 'Trần Văn Thắng', '0915194096', '323 Phúc Diễn-Từ Liêm-Hà Nội', 'thangikcu', 'thanggun99');
 
 -- --------------------------------------------------------
 
@@ -128,29 +186,6 @@ INSERT INTO `nhommon` (`MaLoai`, `TenLoai`, `MauSac`) VALUES
 (5, 'Sinh tố', '#40ff00'),
 (6, 'Thứ khác', '#006666'),
 (14, 'Đồ ăn nhanh', '#009966');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `taikhoan`
---
-
-CREATE TABLE `taikhoan` (
-  `id` int(11) NOT NULL,
-  `username` varchar(30) COLLATE utf8_vietnamese_ci NOT NULL,
-  `password` varchar(30) COLLATE utf8_vietnamese_ci NOT NULL,
-  `lv` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
-
---
--- Dumping data for table `taikhoan`
---
-
-INSERT INTO `taikhoan` (`id`, `username`, `password`, `lv`) VALUES
-(6, 'thanggun99', 'a', 1),
-(7, 'nhanvien', '1', 2),
-(10, 'nhanvien2', '1', 2),
-(11, 'admin', 'admin', 1);
 
 -- --------------------------------------------------------
 
@@ -213,6 +248,25 @@ INSERT INTO `thucdon` (`MaMon`, `TenMon`, `MaLoai`, `DonGia`, `DVT`, `HinhAnh`, 
 (58, 'Bánh mỳ pate', 14, 15000, 'Cái', '', 1),
 (59, 'Mực nướng', 14, 55000, 'Con', '', 1);
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `token`
+--
+
+CREATE TABLE `token` (
+  `MaToken` int(11) NOT NULL,
+  `Token` text COLLATE utf8_vietnamese_ci NOT NULL,
+  `Type` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
+
+--
+-- Dumping data for table `token`
+--
+
+INSERT INTO `token` (`MaToken`, `Token`, `Type`) VALUES
+(2, 'fAMjGEtYWtE:APA91bGt7hJVSKMkJs3n_Z_zYWFyd_HnCIOQ8EDR953VCof9zZ8T7_sYtsizj1wCOT8tGJ6UFRDcYJpkl7MBrltm2_5ul2i_XXk4n7V2aHvHeTIalMz0tLQiwxY0WaZ8aBQngI6G9Uzx', 2);
+
 --
 -- Indexes for dumped tables
 --
@@ -247,16 +301,16 @@ ALTER TABLE `hoadon`
   ADD KEY `MaDatBan` (`MaDatBan`);
 
 --
+-- Indexes for table `khachhang`
+--
+ALTER TABLE `khachhang`
+  ADD PRIMARY KEY (`MaKhachHang`);
+
+--
 -- Indexes for table `nhommon`
 --
 ALTER TABLE `nhommon`
   ADD PRIMARY KEY (`MaLoai`);
-
---
--- Indexes for table `taikhoan`
---
-ALTER TABLE `taikhoan`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `thucdon`
@@ -264,6 +318,12 @@ ALTER TABLE `taikhoan`
 ALTER TABLE `thucdon`
   ADD PRIMARY KEY (`MaMon`),
   ADD KEY `MaLoai` (`MaLoai`);
+
+--
+-- Indexes for table `token`
+--
+ALTER TABLE `token`
+  ADD PRIMARY KEY (`MaToken`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -278,32 +338,37 @@ ALTER TABLE `ban`
 -- AUTO_INCREMENT for table `chitiethd`
 --
 ALTER TABLE `chitiethd`
-  MODIFY `MaChiTietHD` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=623;
+  MODIFY `MaChiTietHD` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=679;
 --
 -- AUTO_INCREMENT for table `datban`
 --
 ALTER TABLE `datban`
-  MODIFY `MaDatBan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `MaDatBan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 --
 -- AUTO_INCREMENT for table `hoadon`
 --
 ALTER TABLE `hoadon`
-  MODIFY `MaHoaDon` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=333;
+  MODIFY `MaHoaDon` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=372;
+--
+-- AUTO_INCREMENT for table `khachhang`
+--
+ALTER TABLE `khachhang`
+  MODIFY `MaKhachHang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `nhommon`
 --
 ALTER TABLE `nhommon`
   MODIFY `MaLoai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
--- AUTO_INCREMENT for table `taikhoan`
---
-ALTER TABLE `taikhoan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
---
 -- AUTO_INCREMENT for table `thucdon`
 --
 ALTER TABLE `thucdon`
   MODIFY `MaMon` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+--
+-- AUTO_INCREMENT for table `token`
+--
+ALTER TABLE `token`
+  MODIFY `MaToken` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- Constraints for dumped tables
 --
