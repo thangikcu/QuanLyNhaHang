@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.thanggun99.khachhang.util.API;
 import com.thanggun99.khachhang.util.Utils;
 
@@ -56,12 +57,12 @@ public class LoginTask {
         preferences.edit().clear().apply();
     }
 
-    public void login(){
-        new LoginAsynTask().execute(preferences.getString(USERNAME, null), preferences.getString(PASSWORD, null));
+    public void loginAuto(){
+        new LoginAsynTask().execute(preferences.getString(USERNAME, null), preferences.getString(PASSWORD, null), "auto");
     }
 
     public void login(String username, String password) {
-        new LoginAsynTask().execute(username, password);
+        new LoginAsynTask().execute(username, password, "login");
     }
 
     private class LoginAsynTask extends AsyncTask<String, Void, Boolean> {
@@ -86,6 +87,8 @@ public class LoginTask {
             Map<String, String> infoLogin = new HashMap<>();
             infoLogin.put("username", params[0]);
             infoLogin.put("password", params[1]);
+            infoLogin.put("mode", params[2]);
+            infoLogin.put("token", FirebaseInstanceId.getInstance().getToken());
 
             String s = API.callService(API.LOGIN_URL, null, infoLogin);
 

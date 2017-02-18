@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 17, 2017 at 09:07 PM
+-- Generation Time: Feb 18, 2017 at 03:34 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -152,15 +152,16 @@ CREATE TABLE `khachhang` (
   `SoDienThoai` varchar(50) COLLATE utf8_vietnamese_ci NOT NULL,
   `DiaChi` varchar(60) COLLATE utf8_vietnamese_ci NOT NULL,
   `TenDangNhap` varchar(50) COLLATE utf8_vietnamese_ci NOT NULL,
-  `MatKhau` varchar(50) COLLATE utf8_vietnamese_ci NOT NULL
+  `MatKhau` varchar(50) COLLATE utf8_vietnamese_ci NOT NULL,
+  `MaToken` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
 
 --
 -- Dumping data for table `khachhang`
 --
 
-INSERT INTO `khachhang` (`MaKhachHang`, `TenKhachHang`, `SoDienThoai`, `DiaChi`, `TenDangNhap`, `MatKhau`) VALUES
-(1, 'Trần Văn Thắng', '0915194096', '323 Phúc Diễn-Từ Liêm-Hà Nội', 'thangikcu', 'thanggun99');
+INSERT INTO `khachhang` (`MaKhachHang`, `TenKhachHang`, `SoDienThoai`, `DiaChi`, `TenDangNhap`, `MatKhau`, `MaToken`) VALUES
+(1, 'Trần Văn Thắng', '0915194096', '323 Phúc Diễn-Từ Liêm-Hà Nội', 'thangikcu', 'thanggun99', 6);
 
 -- --------------------------------------------------------
 
@@ -265,7 +266,8 @@ CREATE TABLE `token` (
 --
 
 INSERT INTO `token` (`MaToken`, `Token`, `Type`) VALUES
-(2, 'fAMjGEtYWtE:APA91bGt7hJVSKMkJs3n_Z_zYWFyd_HnCIOQ8EDR953VCof9zZ8T7_sYtsizj1wCOT8tGJ6UFRDcYJpkl7MBrltm2_5ul2i_XXk4n7V2aHvHeTIalMz0tLQiwxY0WaZ8aBQngI6G9Uzx', 2);
+(5, 'caf_Kc94dZc:APA91bEjPSMY65Q67IFCv6ioj5qefWL5m6-IzYio6GjEbrffZW_Zm5mvn7p5MP-fB9Um6PZRQJgUtFPuuMWInBkxFpXZs6Jck9SZ5QI14Y262aRkazVXO7GSd6pMis6fCMf9wFrhfjIT', 2),
+(6, 'dxQsuTR3-Xg:APA91bGD9hTzORHgLk6_HE98soeAo1Mpha9JNvm98NLpQ8jsCr1rfCrHUQj5YN2NswM4bjXOFAvjPjtuJrRbuMgXYemPtDn54ZROv2T-uQ4Y7O1C_25BmZG5Z6-zhOrBUB_tEKMMT_rH', 2);
 
 --
 -- Indexes for dumped tables
@@ -304,7 +306,8 @@ ALTER TABLE `hoadon`
 -- Indexes for table `khachhang`
 --
 ALTER TABLE `khachhang`
-  ADD PRIMARY KEY (`MaKhachHang`);
+  ADD PRIMARY KEY (`MaKhachHang`),
+  ADD KEY `MaToken` (`MaToken`);
 
 --
 -- Indexes for table `nhommon`
@@ -368,7 +371,7 @@ ALTER TABLE `thucdon`
 -- AUTO_INCREMENT for table `token`
 --
 ALTER TABLE `token`
-  MODIFY `MaToken` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `MaToken` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- Constraints for dumped tables
 --

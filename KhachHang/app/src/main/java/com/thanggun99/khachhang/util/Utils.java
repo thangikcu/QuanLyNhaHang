@@ -43,7 +43,7 @@ public class Utils {
         return builder;
     }
 
-    public void showToast(String message) {
+    public static void showToast(String message) {
         Toast.makeText(App.getContext(), message, Toast.LENGTH_SHORT).show();
     }
 

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.media.RingtoneManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -22,6 +23,7 @@ import org.json.JSONObject;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public static String NOTIFI_ACTION = "NOTIFI_ACTION";
+    public static String LOGOUT_ACTION = "LOGOUT_ACTION";
     public static String NOTIFI = "NOTIFI";
 
     @Override
@@ -48,10 +50,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         if (remoteMessage.getData().size() > 0) {
             JSONObject jsonObject = new JSONObject(remoteMessage.getData());
             try {
-                jsonObject.getString("thang");
+                String action = jsonObject.getString("action");
+                if (action.equals(LOGOUT_ACTION)) {
+                    LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(LOGOUT_ACTION));
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
         }
 
     }

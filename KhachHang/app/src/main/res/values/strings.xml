@@ -29,4 +29,7 @@
     <string name="dang_nhap_that_bai">Đăng nhập thất bại !</string>
     <string name="nhap_ten_dang_nhap">Nhập tên đăng nhập</string>
     <string name="nhap_mat_khau">Nhập mật khẩu</string>
+    <string name="thong_bao">Thông báo</string>
+    <string name="other_people_login">Tài khoản bị đăng nhập từ nơi khác !</string>
+    <string name="dong">Đóng</string>
 </resources>

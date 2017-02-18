@@ -1,10 +1,16 @@
 package com.thanggun99.khachhang.fragment;
 
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +20,10 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.thanggun99.khachhang.R;
 import com.thanggun99.khachhang.LoginTask;
+import com.thanggun99.khachhang.R;
+import com.thanggun99.khachhang.dialog.OtherPeopleLoginDialog;
+import com.thanggun99.khachhang.service.MyFirebaseMessagingService;
 import com.thanggun99.khachhang.util.Utils;
 
 /**
@@ -29,6 +37,30 @@ public class ThucDonFragment extends Fragment implements View.OnClickListener, L
     private EditText edtUsername, edtPassword;
     private Button btnLogin, btnLogout;
     private LoginTask loginTask;
+    private OtherPeopleLoginDialog otherPeopleLoginDialog;
+    private boolean isLogin = false;
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.d("thanggg", "on receiver");
+            if (intent.getAction() == MyFirebaseMessagingService.LOGOUT_ACTION){
+                if (isLogin){
+                    otherPeopleLoginDialog.show();
+                    logout();
+                }
+            }
+        }
+    };
+
+    private void logout() {
+        isLogin = false;
+        lnLogin.setVisibility(View.VISIBLE);
+        lnThucDon.setVisibility(View.INVISIBLE);
+        edtPassword.setText("");
+        edtUsername.requestFocus();
+        ckbGhiNho.setChecked(false);
+        loginTask.huyGhiNhoDangNhap();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,6 +71,7 @@ public class ThucDonFragment extends Fragment implements View.OnClickListener, L
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        otherPeopleLoginDialog = new OtherPeopleLoginDialog(getContext());
         loginTask = new LoginTask(getContext());
         loginTask.setLoginListenner(this);
 
@@ -55,7 +88,7 @@ public class ThucDonFragment extends Fragment implements View.OnClickListener, L
         setEvents();
 
         if (loginTask.isGhiNhoLogin()) {
-            loginTask.login();
+            loginTask.loginAuto();
         }
     }
 
@@ -88,12 +121,7 @@ public class ThucDonFragment extends Fragment implements View.OnClickListener, L
                 }
                 break;
             case R.id.btn_logout:
-                lnLogin.setVisibility(View.VISIBLE);
-                lnThucDon.setVisibility(View.INVISIBLE);
-                edtPassword.setText("");
-                edtUsername.requestFocus();
-                ckbGhiNho.setChecked(false);
-                loginTask.huyGhiNhoDangNhap();
+                    logout();
                 break;
             default:
                 break;
@@ -101,7 +129,20 @@ public class ThucDonFragment extends Fragment implements View.OnClickListener, L
     }
 
     @Override
+    public void onResume() {
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(broadcastReceiver, new IntentFilter(MyFirebaseMessagingService.LOGOUT_ACTION));
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(broadcastReceiver);
+        super.onPause();
+    }
+
+    @Override
     public void onLoginSuccess() {
+        isLogin = true;
         lnThucDon.setVisibility(View.VISIBLE);
         lnLogin.setVisibility(View.INVISIBLE);
         tvLoginError.setVisibility(View.GONE);

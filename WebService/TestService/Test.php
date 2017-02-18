@@ -9,8 +9,8 @@
         $push = new Push();
         $db = new dbConnect();
 
-        $title = isset($_POST['title']) ? $_POST['title'] : '';
-        $message = isset($_POST['message']) ? $_POST['message'] : '';
+        $title = isset($_POST['title']) ? $_POST['title'] : 'test';
+        $message = isset($_POST['message']) ? $_POST['message'] : 'message test';
         
         
         $result = mysql_query('SELECT * FROM Token');
@@ -21,8 +21,8 @@
     
         $push->setNotification($title, $message);
         $data = array();
-        $data['thang'] = 'ok';
-        $data['bo'] = 'la';
+        $data['action'] = 'TEST_ACTION';
+        
         
         $respond = $firebase ->sendMultiple($tokens, $push->getNotification(), $data);
         echo $respond;

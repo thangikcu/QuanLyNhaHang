@@ -1,6 +1,7 @@
 package com.thanggun99.khachhang.util;
 
 import android.net.Uri;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -82,6 +83,7 @@ public class API {
                 e.printStackTrace();
             }
         }
+        Log.d("Thanggggggggggggggg", "callService: " + response);
         return response;
     }
 }

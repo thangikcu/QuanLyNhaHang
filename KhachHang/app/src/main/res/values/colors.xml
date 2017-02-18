@@ -4,4 +4,9 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorWrong">#be0637</color>
+    <color name="colorBackgroundDialog">#6cae39</color>
+    <color name="colorTextTitleDialog">#933b0f</color>
+    <color name="colorTextNotifi">#670f93</color>
+    <color name="colorTextButton">#ffffff</color>
+
 </resources>
