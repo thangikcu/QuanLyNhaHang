@@ -7,7 +7,6 @@ import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.thanggun99.khachhang.util.API;
 import com.thanggun99.khachhang.util.Utils;
 
@@ -23,13 +22,12 @@ public class LoginTask {
     public static String USERNAME = "USERNAME";
     public static String PASSWORD = "PASSWORD";
 
-    private OnLoginListenner onLoginListenner;
+    private OnLoginLogoutListener onLoginLogoutListener;
     private ProgressDialog progressDialog;
     private SharedPreferences preferences;
 
-
-    public void setLoginListenner(OnLoginListenner onLoginListenner) {
-        this.onLoginListenner = onLoginListenner;
+    public void setLoginListenner(OnLoginLogoutListener onLoginLogoutListener) {
+        this.onLoginLogoutListener = onLoginLogoutListener;
     }
 
     public LoginTask(Context context) {
@@ -68,16 +66,21 @@ public class LoginTask {
     private class LoginAsynTask extends AsyncTask<String, Void, Boolean> {
         @Override
         protected void onPreExecute() {
+            if (!Utils.isConnectingToInternet()){
+                Utils.notifi(Utils.getStringByRes(R.string.kiem_tra_ket_noi_mang));
+                cancel(true);
+            }else {
+                progressDialog.show();
+            }
             super.onPreExecute();
-            progressDialog.show();
         }
 
         @Override
         protected void onPostExecute(Boolean aBoolean) {
             if (aBoolean) {
-                onLoginListenner.onLoginSuccess();
+                onLoginLogoutListener.onLoginSuccess();
             } else {
-                onLoginListenner.onLoginError();
+                onLoginLogoutListener.onLoginError();
             }
             progressDialog.dismiss();
         }
@@ -88,7 +91,7 @@ public class LoginTask {
             infoLogin.put("username", params[0]);
             infoLogin.put("password", params[1]);
             infoLogin.put("mode", params[2]);
-            infoLogin.put("token", FirebaseInstanceId.getInstance().getToken());
+            infoLogin.put("token", Utils.getToken());
 
             String s = API.callService(API.LOGIN_URL, null, infoLogin);
 
@@ -98,8 +101,10 @@ public class LoginTask {
         }
     }
 
-    public interface OnLoginListenner {
+    public interface OnLoginLogoutListener {
         void onLoginSuccess();
+
+        void onLogout();
 
         void onLoginError();
     }

@@ -4,9 +4,10 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorWrong">#be0637</color>
-    <color name="colorBackgroundDialog">#6cae39</color>
-    <color name="colorTextTitleDialog">#933b0f</color>
-    <color name="colorTextNotifi">#670f93</color>
-    <color name="colorTextButton">#ffffff</color>
+    <color name="colorBackgroundDialog">#eaeaea</color>
+    <color name="colorTextTitleDialog">#020202</color>
+    <color name="colorTextNotifi">#4e4c50</color>
+    <color name="colorTextRegister">#0d7b6e</color>
+    <color name="colorTextButton">#f2eeee</color>
 
 </resources>

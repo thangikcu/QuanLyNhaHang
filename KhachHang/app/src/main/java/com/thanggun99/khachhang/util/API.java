@@ -26,6 +26,7 @@ public class API {
     public static final String PATH_TOKEN = "TokenService/";
 
     public static final String LOGIN_URL = PATH_KHACH_HANG + "Login.php";
+    public static final String REGISTER_URL = PATH_KHACH_HANG + "Register.php";
     public static final String REGISTER_TOKEN_URL = PATH_TOKEN + "RegisterToken.php";
     public static final String TEST_URL = PATH_TEST + "Test.php";
 
@@ -35,53 +36,49 @@ public class API {
 
     public static String callService(String url, Map<String, String> getParams, Map<String, String> postParams) {
         String response = null;
+        HttpURLConnection connect;
+        InputStream is;
 
-        if (Utils.isConnectingToInternet()) {
+        Uri.Builder builder = new Uri.Builder()
+                .scheme(SCHEME)
+                .authority(HOST)
+                .appendPath(PATH)
+                .appendEncodedPath(url);
 
-            HttpURLConnection connect;
-            InputStream is;
+        if (getParams != null) {
+            builder = Utils.builderParams(builder, getParams);
+        }
+        try {
+            connect = (HttpURLConnection) new URL(builder.build().toString()).openConnection();
+            connect.setRequestProperty("accept", "application/json");
+            connect.setRequestProperty("Connection", "close");
+            connect.setDoInput(true);
 
-            Uri.Builder builder = new Uri.Builder()
-                    .scheme(SCHEME)
-                    .authority(HOST)
-                    .appendPath(PATH)
-                    .appendEncodedPath(url);
+            if (postParams != null) {
+                Uri.Builder builderPostParams = new Uri.Builder();
+                builderPostParams = Utils.builderParams(builderPostParams, postParams);
 
-            if (getParams != null) {
-                builder = Utils.builderParams(builder, getParams);
+                connect.setRequestProperty("Content-Type",
+                        "application/x-www-form-urlencoded;charset=UTF-8");
+                connect.setRequestMethod("POST");
+                connect.setDoOutput(true);
+
+                OutputStream outputStream = connect.getOutputStream();
+                outputStream.write(builderPostParams.build().getEncodedQuery().getBytes());
+                outputStream.close();
+            } else connect.setRequestMethod("GET");
+
+            is = connect.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"), 8);
+            StringBuilder sb = new StringBuilder();
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line + "\n");
             }
-            try {
-                connect = (HttpURLConnection) new URL(builder.build().toString()).openConnection();
-                connect.setRequestProperty("accept", "application/json");
-                connect.setRequestProperty("Connection", "close");
-                connect.setDoInput(true);
-
-                if (postParams != null) {
-                    Uri.Builder builderPostParams = new Uri.Builder();
-                    builderPostParams = Utils.builderParams(builderPostParams, postParams);
-
-                    connect.setRequestProperty("Content-Type",
-                            "application/x-www-form-urlencoded;charset=UTF-8");
-                    connect.setRequestMethod("POST");
-                    connect.setDoOutput(true);
-
-                    OutputStream outputStream = connect.getOutputStream();
-                    outputStream.write(builderPostParams.build().getEncodedQuery().getBytes());
-                    outputStream.close();
-                } else connect.setRequestMethod("GET");
-
-                is = connect.getInputStream();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"), 8);
-                StringBuilder sb = new StringBuilder();
-                String line = null;
-                while ((line = reader.readLine()) != null) {
-                    sb.append(line + "\n");
-                }
-                is.close();
-                response = sb.toString();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            is.close();
+            response = sb.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         Log.d("Thanggggggggggggggg", "callService: " + response);
         return response;

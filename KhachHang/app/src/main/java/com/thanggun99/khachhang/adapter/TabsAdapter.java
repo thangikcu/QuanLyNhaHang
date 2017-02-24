@@ -4,9 +4,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.thanggun99.khachhang.fragment.ThucDonFragment;
-import com.thanggun99.khachhang.fragment.TinTucFragment;
-
 import java.util.ArrayList;
 
 /**
@@ -16,15 +13,9 @@ import java.util.ArrayList;
 public class TabsAdapter extends FragmentPagerAdapter {
     ArrayList<Fragment> fragments;
 
-    public TabsAdapter(FragmentManager fm) {
+    public TabsAdapter(FragmentManager fm, ArrayList<Fragment> fragments) {
         super(fm);
-        initsFragments();
-    }
-
-    private void initsFragments() {
-        fragments = new ArrayList<>();
-        fragments.add(new ThucDonFragment());
-        fragments.add(new TinTucFragment());
+        this.fragments = fragments;
     }
 
     @Override

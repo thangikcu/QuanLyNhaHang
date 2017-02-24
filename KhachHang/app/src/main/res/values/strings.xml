@@ -9,6 +9,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tai_khoan">Tài khoản</string>
     <string name="mat_khau">Mật khẩu</string>
+    <string name="nhap_lai_mat_khau">Nhập lại mật khẩu</string>
     <string name="title_activity_login">Sign in</string>
 
     <!-- Strings related to login -->
@@ -32,4 +33,23 @@
     <string name="thong_bao">Thông báo</string>
     <string name="other_people_login">Tài khoản bị đăng nhập từ nơi khác !</string>
     <string name="dong">Đóng</string>
+    <string name="dang_ky">Đăng ký</string>
+    <string name="gop_y">Góp ý</string>
+    <string name="dang_ky_tai_khoan">Đăng ký tài khoản mới</string>
+    <string name="ho_ten">Họ tên đầy đủ</string>
+    <string name="dia_chi">Địa chỉ</string>
+    <string name="so_dien_thoai">Số điện thoại</string>
+    <string name="thong_tin_tai_khoan">Thông tin tài khoản</string>
+    <string name="thong_tin_ca_nhan">Thông tin cá nhân</string>
+    <string name="nhap_so_dien_thoai">Nhập số điện thoại</string>
+    <string name="nhap_dia_chi">Nhập địa chỉ</string>
+    <string name="nhap_ho_ten">Nhập họ tên</string>
+    <string name="mat_khau_khong_khop">Mật khẩu không khớp</string>
+    <string name="dang_ky_that_bai">Đăng ký thất bại !</string>
+    <string name="ten_tai_khoan_da_ton_tai">Tên tài khoản đã tồn tại</string>
+    <string name="dang_ky_thanh_cong">Đăng ký thành công</string>
+    <string name="kiem_tra_ket_noi_mang">Kiểm tra kết nối mạng</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>

@@ -4,9 +4,12 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.util.Log;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.thanggun99.khachhang.App;
+import com.thanggun99.khachhang.dialog.NotifiDialog;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -47,6 +50,10 @@ public class Utils {
         Toast.makeText(App.getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
+    public static String getToken() {
+        return FirebaseInstanceId.getInstance().getToken();
+    }
+
     public static boolean isConnectingToInternet() {
         ConnectivityManager connectivityManager = (ConnectivityManager) App.getContext()
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -56,5 +63,13 @@ public class Utils {
             return true;
         }
         return false;
+    }
+
+    public static void notifi(String message) {
+        new NotifiDialog(App.getContext()).notifi(message);
+    }
+
+    public static void showLog(String message) {
+        Log.d("Thanggggggggggggg", message);
     }
 }
