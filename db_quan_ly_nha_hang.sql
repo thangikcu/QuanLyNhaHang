@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 28, 2017 at 04:48 AM
+-- Generation Time: Feb 28, 2017 at 10:41 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -28,10 +28,10 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `ban` (
   `MaBan` int(11) NOT NULL,
-  `TenBan` varchar(55) COLLATE utf8_unicode_ci NOT NULL,
+  `TenBan` varchar(55) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `TrangThai` int(10) NOT NULL,
   `HienThi` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
 
 --
 -- Dumping data for table `ban`
@@ -70,7 +70,7 @@ CREATE TABLE `chi_tiet_hd` (
   `MaHoaDon` int(11) NOT NULL,
   `MaMon` int(11) NOT NULL,
   `SoLuong` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
 
 --
 -- Dumping data for table `chi_tiet_hd`
@@ -147,7 +147,7 @@ CREATE TABLE `hoa_don` (
   `GioDen` datetime NOT NULL,
   `TongTien` int(11) DEFAULT NULL,
   `TrangThai` int(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
 
 --
 -- Dumping data for table `hoa_don`
@@ -193,9 +193,9 @@ INSERT INTO `khach_hang` (`MaKhachHang`, `TenKhachHang`, `SoDienThoai`, `DiaChi`
 
 CREATE TABLE `nhom_mon` (
   `MaLoai` int(11) NOT NULL,
-  `TenLoai` varchar(55) COLLATE utf8_unicode_ci NOT NULL,
-  `MauSac` varchar(50) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `TenLoai` varchar(55) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `MauSac` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
 
 --
 -- Dumping data for table `nhom_mon`
@@ -218,13 +218,13 @@ INSERT INTO `nhom_mon` (`MaLoai`, `TenLoai`, `MauSac`) VALUES
 
 CREATE TABLE `thuc_don` (
   `MaMon` int(11) NOT NULL,
-  `TenMon` varchar(55) COLLATE utf8_unicode_ci NOT NULL,
+  `TenMon` varchar(55) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `MaLoai` int(11) NOT NULL,
   `DonGia` int(11) NOT NULL,
-  `DVT` varchar(55) COLLATE utf8_unicode_ci NOT NULL,
+  `DVT` varchar(55) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `HinhAnh` blob,
   `HienThi` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
 
 --
 -- Dumping data for table `thuc_don`

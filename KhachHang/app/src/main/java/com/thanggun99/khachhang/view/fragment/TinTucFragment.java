@@ -1,4 +1,4 @@
-package com.thanggun99.khachhang.fragment;
+package com.thanggun99.khachhang.view.fragment;
 
 
 import android.os.AsyncTask;

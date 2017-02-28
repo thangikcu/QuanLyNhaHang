@@ -1,4 +1,4 @@
-package com.thanggun99.khachhang.activity;
+package com.thanggun99.khachhang.view.activity;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -22,17 +22,17 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.thanggun99.khachhang.LoginTask;
 import com.thanggun99.khachhang.R;
 import com.thanggun99.khachhang.adapter.TabsAdapter;
-import com.thanggun99.khachhang.fragment.ThucDonFragment;
-import com.thanggun99.khachhang.fragment.TinTucFragment;
+import com.thanggun99.khachhang.presenter.KhachHangPresenter;
 import com.thanggun99.khachhang.service.MyFirebaseMessagingService;
 import com.thanggun99.khachhang.util.Utils;
+import com.thanggun99.khachhang.view.fragment.ThucDonFragment;
+import com.thanggun99.khachhang.view.fragment.TinTucFragment;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, LoginTask.OnLoginLogoutListener, PopupMenu.OnMenuItemClickListener, NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements KhachHangPresenter.MainView, PopupMenu.OnMenuItemClickListener, NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private LinearLayout lnLogin;
@@ -47,6 +47,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private NavigationView navigationView;
     private PopupMenu popupMenu;
     private ImageButton btnArrowDown;
+    private KhachHangPresenter khachHangPresenter;
+    private boolean isLogin = false;
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -55,8 +57,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Utils.showToast(intent.getStringExtra(MyFirebaseMessagingService.NOTIFI));
 
             } else if (intent.getAction() == MyFirebaseMessagingService.LOGOUT_ACTION) {
-
-                thucDonFragment.otherPeopleLogin();
+                if (isLogin) {
+                    khachHangPresenter.onOtherLogin();
+                    khachHangPresenter.logout();
+                }
             }
         }
     };
@@ -72,15 +76,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initComponets() {
+        khachHangPresenter = new KhachHangPresenter(this);
         popupMenu = new PopupMenu(this, btnArrowDown);
         popupMenu.getMenuInflater().inflate(R.menu.drop_menu, popupMenu.getMenu());
         toggle = new ActionBarDrawerToggle(this,
                 drawerLayout, toolbar, R.string.navigation_drawer_open,
                 R.string.navigation_drawer_close);
         ArrayList<Fragment> fragments = new ArrayList<>();
-        fragments.add(thucDonFragment = new ThucDonFragment());
+        fragments.add(thucDonFragment = new ThucDonFragment(khachHangPresenter));
         fragments.add(tinTucFragment = new TinTucFragment());
-        thucDonFragment.setOnLoginLogoutListener(this);
         tabsAdapter = new TabsAdapter(getSupportFragmentManager(), fragments);
         intentFilter = new IntentFilter();
 
@@ -111,13 +115,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         viewPager = (ViewPager) findViewById(R.id.view_pg);
     }
 
-    private void showNavigationOnUnLogin() {
+    public void showNavigationOnUnLogin() {
         lnLogin.setVisibility(View.GONE);
         navigationView.getMenu().getItem(0).setVisible(false);
         navigationView.getMenu().getItem(1).setVisible(false);
     }
 
-    private void showNavigationOnLogin() {
+    public void showNavigationOnLogin() {
         lnLogin.setVisibility(View.VISIBLE);
         navigationView.getMenu().getItem(0).setVisible(true);
         navigationView.getMenu().getItem(1).setVisible(true);
@@ -128,12 +132,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver,
                 intentFilter);
         super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
-        super.onPause();
     }
 
     @Override
@@ -149,6 +147,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
+    protected void onDestroy() {
+        khachHangPresenter.onDestroy();
+        super.onDestroy();
+    }
+
+    @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
@@ -158,28 +162,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void onLoginSuccess() {
+    public void showViewOnlogin() {
+        isLogin = true;
         showNavigationOnLogin();
     }
 
     @Override
-    public void onLogout() {
+    public void showViewOnUnlogin() {
+        isLogin = false;
         viewPager.setCurrentItem(0);
         drawerLayout.closeDrawer(GravityCompat.START);
-        showNavigationOnUnLogin();
         popupMenu.dismiss();
-    }
-
-    @Override
-    public void onLoginError() {
-
+        showNavigationOnUnLogin();
     }
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.btn_logout:
-                thucDonFragment.logout();
+                khachHangPresenter.logout();
                 return true;
             case R.id.btn_change_password:
                 return true;

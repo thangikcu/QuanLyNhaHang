@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context="com.thanggun99.khachhang.activity.RegisterActivity">
+    tools:context=".view.activity.RegisterActivity">
 
     <ImageButton
         android:id="@+id/btn_back"
@@ -96,7 +96,6 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/textView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"

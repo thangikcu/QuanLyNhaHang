@@ -4,12 +4,12 @@
     <item
         android:id="@+id/btn_change_password"
         android:icon="@drawable/ic_re_password"
-        android:title="Change password"
+        android:title="@string/thay_doi_mat_khau"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/btn_logout"
         android:icon="@drawable/ic_logout"
-        android:title="Logout"
+        android:title="@string/dang_xuat"
         app:showAsAction="ifRoom" />
 
 </menu>

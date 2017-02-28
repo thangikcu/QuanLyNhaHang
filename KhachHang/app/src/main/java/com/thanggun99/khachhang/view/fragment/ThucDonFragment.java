@@ -1,5 +1,7 @@
-package com.thanggun99.khachhang.fragment;
+package com.thanggun99.khachhang.view.fragment;
 
+import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,31 +16,28 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.thanggun99.khachhang.LoginTask;
 import com.thanggun99.khachhang.R;
-import com.thanggun99.khachhang.activity.RegisterActivity;
+import com.thanggun99.khachhang.model.entity.KhachHang;
+import com.thanggun99.khachhang.presenter.KhachHangPresenter;
 import com.thanggun99.khachhang.util.Utils;
+import com.thanggun99.khachhang.view.activity.RegisterActivity;
 
 
-public class ThucDonFragment extends Fragment implements View.OnClickListener, LoginTask.OnLoginLogoutListener {
+@SuppressLint("ValidFragment")
+public class ThucDonFragment extends Fragment implements KhachHangPresenter.ThucDonView,
+        View.OnClickListener {
     private LinearLayout lnLogin, lnThucDon;
     private TextView tvLoginError, tvRegister;
     private CheckBox ckbGhiNho;
     private EditText edtUsername, edtPassword;
     private Button btnLogin;
-    private LoginTask loginTask;
     private boolean isLogin = false;
-    private LoginTask.OnLoginLogoutListener onLoginLogoutListener;
+    private ProgressDialog progressDialog;
+    private KhachHangPresenter khachHangPresenter;
 
-    public void logout() {
-        isLogin = false;
-        lnLogin.setVisibility(View.VISIBLE);
-        lnThucDon.setVisibility(View.INVISIBLE);
-        edtPassword.setText("");
-        edtUsername.requestFocus();
-        ckbGhiNho.setChecked(false);
-        loginTask.huyGhiNhoDangNhap();
-        onLoginLogoutListener.onLogout();
+    public ThucDonFragment(KhachHangPresenter khachHangPresenter) {
+        this.khachHangPresenter = khachHangPresenter;
+        khachHangPresenter.setThucDonView(this);
     }
 
     @Override
@@ -50,8 +49,11 @@ public class ThucDonFragment extends Fragment implements View.OnClickListener, L
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        loginTask = new LoginTask(getContext());
-        loginTask.setLoginListenner(this);
+
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage(Utils.getStringByRes(R.string.loading));
+        progressDialog.setIndeterminate(true);
+        progressDialog.setCancelable(false);
 
         lnThucDon = (LinearLayout) view.findViewById(R.id.ln_thuc_don);
 
@@ -65,9 +67,17 @@ public class ThucDonFragment extends Fragment implements View.OnClickListener, L
 
         setEvents();
 
-        if (loginTask.isGhiNhoLogin()) {
-            loginTask.loginAuto();
-        }
+        khachHangPresenter.loginAuto();
+    }
+
+    @Override
+    public void showFormLogin() {
+        isLogin = false;
+        lnLogin.setVisibility(View.VISIBLE);
+        lnThucDon.setVisibility(View.INVISIBLE);
+        edtPassword.setText("");
+        edtUsername.requestFocus();
+        ckbGhiNho.setChecked(false);
     }
 
     private void setEvents() {
@@ -95,7 +105,12 @@ public class ThucDonFragment extends Fragment implements View.OnClickListener, L
                 if (cancel) {
                     focusView.requestFocus();
                 } else {
-                    loginTask.login(edtUsername.getText().toString(), edtPassword.getText().toString());
+                    KhachHang khachHang = new KhachHang();
+                    khachHang.setTenDangNhap(edtUsername.getText().toString());
+                    khachHang.setMatKhau(edtPassword.getText().toString());
+                    khachHang.setKieuDangNhap("notAuto");
+                    khachHang.setGhiNho(ckbGhiNho.isChecked());
+                    khachHangPresenter.login(khachHang);
                 }
                 break;
             case R.id.tv_register:
@@ -107,9 +122,17 @@ public class ThucDonFragment extends Fragment implements View.OnClickListener, L
     }
 
     @Override
+    public void onDestroy() {
+        if (progressDialog != null) {
+            progressDialog.cancel();
+        }
+        super.onDestroy();
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1){
-            if (resultCode ==1){
+        if (requestCode == 1) {
+            if (resultCode == 1) {
                 edtUsername.setText(data.getStringExtra(RegisterActivity.USERNAME));
                 edtPassword.setText("");
                 edtPassword.requestFocus();
@@ -119,36 +142,31 @@ public class ThucDonFragment extends Fragment implements View.OnClickListener, L
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    public void setOnLoginLogoutListener(LoginTask.OnLoginLogoutListener onLoginLogoutListener){
-        this.onLoginLogoutListener = onLoginLogoutListener;
+    @Override
+    public void showProgress() {
+        progressDialog.show();
     }
 
     @Override
-    public void onLoginSuccess() {
-        isLogin = true;
-        lnThucDon.setVisibility(View.VISIBLE);
-        lnLogin.setVisibility(View.INVISIBLE);
-        tvLoginError.setVisibility(View.GONE);
-        if (ckbGhiNho.isChecked()) {
-            loginTask.ghiNhoDangNhap(edtUsername.getText().toString(), edtPassword.getText().toString());
-        }
-        onLoginLogoutListener.onLoginSuccess();
-    }
-
-    @Override
-    public void onLogout() {
-
-    }
-
-    @Override
-    public void onLoginError() {
+    public void showloginFail() {
         tvLoginError.setVisibility(View.VISIBLE);
     }
 
-    public void otherPeopleLogin() {
-        if (isLogin) {
-            Utils.notifi(Utils.getStringByRes(R.string.other_people_login));
-            logout();
-        }
+    @Override
+    public void showOtherLogin() {
+        Utils.notifi(Utils.getStringByRes(R.string.other_people_login));
+    }
+
+    @Override
+    public void hideProgress() {
+        if (progressDialog.isShowing())
+            progressDialog.hide();
+    }
+
+    @Override
+    public void showThucDon() {
+        lnThucDon.setVisibility(View.VISIBLE);
+        lnLogin.setVisibility(View.INVISIBLE);
+        tvLoginError.setVisibility(View.GONE);
     }
 }

@@ -1,4 +1,4 @@
-package com.thanggun99.khachhang.dialog;
+package com.thanggun99.khachhang.view.dialog;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

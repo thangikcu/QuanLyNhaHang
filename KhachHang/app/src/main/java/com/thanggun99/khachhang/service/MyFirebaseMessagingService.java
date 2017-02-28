@@ -10,7 +10,7 @@ import android.support.v4.content.LocalBroadcastManager;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.thanggun99.khachhang.activity.MainActivity;
+import com.thanggun99.khachhang.view.activity.MainActivity;
 import com.thanggun99.khachhang.R;
 
 import org.json.JSONException;

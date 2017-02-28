@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.thanggun99.khachhang.App;
-import com.thanggun99.khachhang.dialog.NotifiDialog;
+import com.thanggun99.khachhang.view.dialog.NotifiDialog;
 
 import java.text.ParseException;
 import java.util.Date;

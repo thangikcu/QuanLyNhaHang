@@ -7,8 +7,8 @@
         $hoTen = $_POST['hoTen'];
         $diaChi = $_POST['diaChi'];
         $sdt = $_POST['sdt'];
-        $username = $_POST['username'];
-        $password = $_POST['password'];
+        $username = $_POST['tenDangNhap'];
+        $password = $_POST['matKhau'];
         $token = $_POST['token'];
         
         $db->query('SELECT * FROM khach_hang WHERE TenDangNhap = "'.$username.'"');

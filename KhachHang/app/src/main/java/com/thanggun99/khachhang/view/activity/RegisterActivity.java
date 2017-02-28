@@ -1,4 +1,4 @@
-package com.thanggun99.khachhang.activity;
+package com.thanggun99.khachhang.view.activity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -109,8 +109,8 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
             registerInfo.put("hoTen", params[0]);
             registerInfo.put("diaChi", params[1]);
             registerInfo.put("sdt", params[2]);
-            registerInfo.put("username", params[3]);
-            registerInfo.put("password", params[4]);
+            registerInfo.put("tenDangNhap", params[3]);
+            registerInfo.put("matKhau", params[4]);
             registerInfo.put("token", params[5]);
 
             String s = API.callService(API.REGISTER_URL, null, registerInfo);

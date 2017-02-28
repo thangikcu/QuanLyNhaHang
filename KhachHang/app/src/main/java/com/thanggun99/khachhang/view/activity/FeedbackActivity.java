@@ -1,4 +1,4 @@
-package com.thanggun99.khachhang.activity;
+package com.thanggun99.khachhang.view.activity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;

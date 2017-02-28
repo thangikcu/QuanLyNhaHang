@@ -61,4 +61,10 @@
     <string name="nhap_noi_dung">Nhập nội dung</string>
     <string name="cam_on_ban_da_gop_y">Cảm ơn bạn đã góp ý cho chúng tôi</string>
     <string name="gap_loi">Gặp lỗi !</string>
+    <string name="thay_doi_mat_khau">Thay đổi mật khẩu</string>
+    <string name="dong_y">Đồng ý</string>
+    <string name="huy_bo">Hủy bỏ</string>
+    <string name="dang_xuat">Đăng xuất</string>
+    <string name="mat_khau_cu">Mật khẩu cũ</string>
+    <string name="mat_khau_moi">Mật khẩu mới</string>
 </resources>

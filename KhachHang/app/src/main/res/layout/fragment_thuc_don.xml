@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.thanggun99.khachhang.fragment.ThucDonFragment">
+    tools:context=".view.fragment.ThucDonFragment">
 
     <LinearLayout
         android:id="@+id/ln_login"
