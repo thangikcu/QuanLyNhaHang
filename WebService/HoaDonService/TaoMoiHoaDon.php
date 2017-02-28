@@ -1,5 +1,5 @@
 <?php
-    include_once '../dbConnect.php';
+    require_once '../dbConnect.php';
  
     function dispInfo(){
 
@@ -15,35 +15,33 @@
             $maDatTruoc = $_POST['maDatTruoc'];
         }
     
-        $db = new dbConnect();
+        $db = new Database();
 
-        $result = mysql_query('INSERT INTO hoadon(MaBan, MaDatBan, GioDen, TrangThai) VALUES ("'.$maBan.'", '.$maDatTruoc.', "'.$gioDen.'", "0")');
+        $db->query('INSERT INTO hoa_don(MaBan, MaDatBan, GioDen, TrangThai) VALUES ("'.$maBan.'", '.$maDatTruoc.', "'.$gioDen.'", "0")');
         
-        if($result){
+        if($db->getRowCount() > 0){
             
             $maMon = $_POST['maMon'];
             $soLuong = $_POST['soLuong'];
             
-            $result2 = mysql_query('SELECT MaHoaDon FROM hoadon ORDER BY MaHoaDon DESC LIMIT 1');
-            $row2 = mysql_fetch_row($result2);
+            $db->prepare('SELECT MaHoaDon FROM hoa_don ORDER BY MaHoaDon DESC LIMIT 1');
             
-            $maHoaDon = $row2[0];
             
-            $result3 = mysql_query('INSERT INTO chitiethd (MaHoaDon, MaMon, SoLuong) VALUES ("'.$maHoaDon.'", "'.$maMon.'", "'.$soLuong.'")');
+            $maHoaDon = $db->getRow()['MaHoaDon'];
+            
+            $db->query('INSERT INTO chi_tiet_hd (MaHoaDon, MaMon, SoLuong) VALUES ("'.$maHoaDon.'", "'.$maMon.'", "'.$soLuong.'")');
      
     
-            if($result3){
-                $result4 = mysql_query('SELECT MaChiTietHD FROM chitiethd ORDER BY MaChiTietHD DESC LIMIT 1');
-                $row3 = mysql_fetch_array($result4);
-                
+            if($db->getRowCount() > 0){
+                $db->prepare('SELECT MaChiTietHD FROM chi_tiet_hd ORDER BY MaChiTietHD DESC LIMIT 1');
                 
                 $response["ma"] = array();
                 $t = array();
                 $t['maHoaDon'] = $maHoaDon;
-                $t['maChiTietHD'] = $row3['MaChiTietHD'];
+                $t['maChiTietHD'] = $db->getRow()['MaChiTietHD'];
             
-                mysql_query('UPDATE ban SET TrangThai = 2 WHERE MaBan = '.$maBan.' ');
-                mysql_query('UPDATE datban SET TrangThai = 1 WHERE MaDatBan = '.$maDatTruoc.' ');
+                $db->query('UPDATE ban SET TrangThai = 2 WHERE MaBan = '.$maBan.' ');
+                $db->query('UPDATE dat_ban SET TrangThai = 1 WHERE MaDatBan = '.$maDatTruoc.' ');
                 
                 array_push($response["ma"], $t);
                 header('Content-Type: application/json');

@@ -1,12 +1,15 @@
 <?php
-    define('DB_USERNAME', 'root');
-    define('DB_PASSWORD', '');
-    define('DB_HOST', 'localhost');
-    define('DB_NAME', 'db_quan_ly_nha_hang');
-
-    class dbConnect {
- 
-        private $conn;
+    require_once '../Config.php';
+    
+    class Database {
+        
+        private $username  = DB_USERNAME;
+        private $password = DB_PASSWORD;
+        private $host = DB_HOST;
+        private $db = DB_NAME;
+        
+        private $dpo;
+        private $stm;
 
  
         function __construct() { 
@@ -20,26 +23,80 @@
         }
 
 
-        function connect() { 
+        private function connect() { 
  
-  
-            $this->conn = mysql_connect(DB_HOST, DB_USERNAME, DB_PASSWORD) or die(mysql_error());
+            $options = array(
+                PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+            );
             
-  
-            mysql_query("SET character_set_results=utf8", $this->conn);
-            mysql_query("SET NAMES 'UTF8'");
-
-  
-            mysql_select_db(DB_NAME) or die(mysql_error());
- 
-  
-            return $this->conn;
+            try {
+                
+                $this->dpo = new PDO('mysql:host='.$this->host.';dbname='.$this->db.'', $this->username, $this->password, $options );
+            
+            }catch (PDOException $e) {
+                echo $e->getMessage();
+                exit();
+            }
+             
+        }
+        
+        public function query($query){
+            $this->stm = $this->dpo->query($query);        
+        }
+        
+        public function prepare($query){
+            $this->stm = $this->dpo->prepare($query);        
+        }
+        
+        public function bind($param, $value){
+            $type = null;
+            if(is_null($type)){
+                switch(true){
+                    case is_int($value):
+                        $type = PDO::PARAM_INT;
+                        break;
+                    case is_null($value):
+                        $type = PDO::PARAM_NULL;
+                        break;
+                    case is_bool($value):
+                        $type = PDO::PARAM_BOOL;
+                        break;
+                   default:
+                        $type = PDO::PARAM_STR;
+                        break;                                             
+                }
+            }
+            $this->stm->bindValue($param, $value, $type);
+        }
+        
+        public function execute(){
+            $this->stm->execute();
         }
 
+        public function getArray(){
+            $this->execute();
+            return $this->stm->fetchAll(PDO::FETCH_ASSOC);
+        }
 
-        function close() {
+        public function getRow(){
+            $this->execute();
+            return $this->stm->fetch(PDO::FETCH_ASSOC);
+        }
+        
+        public function getRowCount(){
+            return $this->stm->rowCount();
+        }
+        
+        public function getLastInsertId(){
+            return $this->dpo->lastInsertId();
+        }
+        
+        private function close() {
 
-            mysql_close($this->conn);
+            $this->pdo = null;
+            
         }
     }
+
 ?>

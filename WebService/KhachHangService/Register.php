@@ -1,8 +1,8 @@
 <?php
-    include_once '../dbConnect.php';
+    require_once '../dbConnect.php';
  
     function dispInfo(){
-        $db = new dbConnect();
+        $db = new Database();
         
         $hoTen = $_POST['hoTen'];
         $diaChi = $_POST['diaChi'];
@@ -11,19 +11,19 @@
         $password = $_POST['password'];
         $token = $_POST['token'];
         
-        $result = mysql_query('SELECT * FROM khachhang WHERE TenDangNhap = "'.$username.'"');
+        $db->query('SELECT * FROM khach_hang WHERE TenDangNhap = "'.$username.'"');
         
-        if(mysql_num_rows($result) == 0){
-            $result = mysql_query('SELECT MaToken FROM token WHERE Token = "'.$token.'" AND Type = 2');
+        if($db->getRowCount() == 0){
+            $db->query('SELECT MaToken FROM token WHERE Token = "'.$token.'" AND Type = 2');
             
-            if($result){
-                $maToken = mysql_fetch_row($result);
+            if($db->getRowCount() > 0){
+                $maToken = $db->getRow()['MaToken'];
                 
                 
-                $result = mysql_query('INSERT INTO khachhang (TenKhachHang, SoDienThoai, DiaChi, TenDangNhap, MatKhau, MaToken)
-                 VALUES ("'.$hoTen.'", "'.$sdt.'", "'.$diaChi.'", "'.$username.'", "'.$password.'", "'.$maToken[0].'")');
+                $db->query('INSERT INTO khach_hang (TenKhachHang, SoDienThoai, DiaChi, TenDangNhap, MatKhau, MaToken)
+                 VALUES ("'.$hoTen.'", "'.$sdt.'", "'.$diaChi.'", "'.$username.'", "'.$password.'", "'.$maToken.'")');
                 
-                if($result){
+                if($db->getRowCount() > 0){
                     echo "success";
                 }
             } 

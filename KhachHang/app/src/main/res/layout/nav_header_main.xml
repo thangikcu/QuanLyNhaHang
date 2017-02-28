@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_header_height"
-    android:background="@drawable/side_nav_bar"
+    android:background="@drawable/bg_header"
     android:gravity="bottom"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -12,40 +12,51 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:srcCompat="@android:drawable/sym_def_app_icon" />
-
-    <TableRow
+    <LinearLayout
+        android:id="@+id/ln_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingTop="@dimen/nav_header_vertical_spacing">
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:scaleType="centerCrop"
+            android:paddingTop="@dimen/nav_header_vertical_spacing"
+            android:src="@drawable/ic_hotdog" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/nav_header_vertical_spacing">
+
+            <TextView
+                android:id="@+id/tv_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="thangikcu"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/btn_arrow_down"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:paddingLeft="8dp"
+                android:src="@drawable/ic_arrow_drop_down" />
+        </TableRow>
 
         <TextView
-            android:id="@+id/tv_username"
+            android:id="@+id/tv_full_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="thangikcu"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+            android:text="(Trần Văn Thắng)" />
 
-        <ImageButton
-            android:id="@+id/btn_arrow_down"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="8dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_arrow_drop_down" />
-    </TableRow>
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_full_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="(Trần Văn Thắng)" />
 
 </LinearLayout>

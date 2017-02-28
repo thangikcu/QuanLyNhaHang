@@ -19,6 +19,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.thanggun99.khachhang.LoginTask;
 import com.thanggun99.khachhang.R;
@@ -33,6 +35,8 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, LoginTask.OnLoginLogoutListener, PopupMenu.OnMenuItemClickListener, NavigationView.OnNavigationItemSelectedListener {
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private LinearLayout lnLogin;
+    private TextView tvUsername, tvFullname;
     private TabsAdapter tabsAdapter;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle toggle;
@@ -47,8 +51,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction() == MyFirebaseMessagingService.NOTIFI_ACTION) {
+
                 Utils.showToast(intent.getStringExtra(MyFirebaseMessagingService.NOTIFI));
+
             } else if (intent.getAction() == MyFirebaseMessagingService.LOGOUT_ACTION) {
+
                 thucDonFragment.otherPeopleLogin();
             }
         }
@@ -80,28 +87,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void setEvents() {
-        drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
-            @Override
-            public void onDrawerSlide(View drawerView, float slideOffset) {
-
-            }
-
-            @Override
-            public void onDrawerOpened(View drawerView) {
-
-            }
-
-            @Override
-            public void onDrawerClosed(View drawerView) {
-
-            }
-
-            @Override
-            public void onDrawerStateChanged(int newState) {
-
-            }
-        });
-        drawerLayout.setDrawerLockMode(View.FOCUS_LEFT);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         viewPager.setAdapter(tabsAdapter);
@@ -109,17 +94,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         popupMenu.setOnMenuItemClickListener(this);
         btnArrowDown.setOnClickListener(this);
         navigationView.setNavigationItemSelectedListener(this);
+        showNavigationOnUnLogin();
         intentFilter.addAction(MyFirebaseMessagingService.LOGOUT_ACTION);
         intentFilter.addAction(MyFirebaseMessagingService.NOTIFI_ACTION);
     }
 
     private void findViews() {
         navigationView = (NavigationView) findViewById(R.id.nav_view);
+        lnLogin = (LinearLayout) navigationView.getHeaderView(0).findViewById(R.id.ln_login);
+        tvFullname = (TextView) navigationView.getHeaderView(0).findViewById(R.id.tv_full_name);
+        tvUsername = (TextView) navigationView.getHeaderView(0).findViewById(R.id.tv_username);
         btnArrowDown = (ImageButton) navigationView.getHeaderView(0).findViewById(R.id.btn_arrow_down);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         viewPager = (ViewPager) findViewById(R.id.view_pg);
+    }
+
+    private void showNavigationOnUnLogin() {
+        lnLogin.setVisibility(View.GONE);
+        navigationView.getMenu().getItem(0).setVisible(false);
+        navigationView.getMenu().getItem(1).setVisible(false);
+    }
+
+    private void showNavigationOnLogin() {
+        lnLogin.setVisibility(View.VISIBLE);
+        navigationView.getMenu().getItem(0).setVisible(true);
+        navigationView.getMenu().getItem(1).setVisible(true);
     }
 
     @Override
@@ -158,11 +159,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onLoginSuccess() {
+        showNavigationOnLogin();
     }
 
     @Override
     public void onLogout() {
-        Utils.showLog("logout");
+        viewPager.setCurrentItem(0);
+        drawerLayout.closeDrawer(GravityCompat.START);
+        showNavigationOnUnLogin();
+        popupMenu.dismiss();
     }
 
     @Override
@@ -172,11 +177,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.btn_logout:
                 thucDonFragment.logout();
-                viewPager.setCurrentItem(0);
-                drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             case R.id.btn_change_password:
                 return true;
@@ -189,11 +192,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onNavigationItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.btn_gop_y:
-                Utils.showLog("gop y");
-                return true;
+                startActivity(new Intent(this, FeedbackActivity.class));
+                break;
+            case R.id.btn_settings:
+                break;
+            case R.id.btn_info:
+                break;
             default:
-                drawerLayout.closeDrawer(GravityCompat.START);
-                return false;
+                break;
         }
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
     }
 }

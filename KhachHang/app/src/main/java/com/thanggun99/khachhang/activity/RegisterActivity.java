@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.thanggun99.khachhang.R;
@@ -23,6 +24,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
     private EditText edtHoTen, edtDiaChi, edtSdt,
             edtUsername, edtPassword, edtRePassword;
     private Button btnRegister;
+    private ImageButton btnBack;
     private TextView tvRegisterError;
     private ProgressDialog progressDialog;
 
@@ -40,10 +42,12 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
     }
 
     private void setEvents() {
+        btnBack.setOnClickListener(this);
         btnRegister.setOnClickListener(this);
     }
 
     private void findViews() {
+        btnBack = (ImageButton) findViewById(R.id.btn_back);
         btnRegister = (Button) findViewById(R.id.btn_register);
         edtHoTen = (EditText) findViewById(R.id.edt_ho_ten);
         edtDiaChi = (EditText) findViewById(R.id.edt_dia_chi);
@@ -62,6 +66,9 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
                         edtSdt.getText().toString(), edtUsername.getText().toString(),
                         edtPassword.getText().toString(), Utils.getToken());
             }
+        }
+        if (v.getId() == R.id.btn_back){
+            onBackPressed();
         }
     }
 

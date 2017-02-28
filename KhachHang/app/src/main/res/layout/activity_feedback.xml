@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context="com.thanggun99.khachhang.activity.FeedbackActivity">
+
+    <ImageButton
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_back" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/gop_y"
+            android:textAllCaps="true"
+            android:textColor="@color/colorTextRegister"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/edt_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:drawableLeft="@drawable/ic_title"
+            android:drawablePadding="8dp"
+            android:hint="@string/tieu_de"
+            android:maxLength="100"
+            android:maxLines="1"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/edt_content"
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_content_edt"
+            android:gravity="top"
+            android:hint="@string/noi_dung"
+            android:inputType="textMultiLine"
+            android:isScrollContainer="true"
+            android:lines="10"
+            android:maxLength="500"
+            android:maxLines="10"
+            android:padding="16dp"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/gap_loi"
+            android:textColor="@color/colorWrong"
+            android:textSize="14sp"
+            android:textStyle="italic"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btn_gop_y"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/gop_y"
+            android:textStyle="bold" />
+    </LinearLayout>
+</LinearLayout>

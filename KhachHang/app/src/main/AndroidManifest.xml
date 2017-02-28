@@ -19,7 +19,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".activity.RegisterActivity" />
 
         <service android:name=".service.MyFirebaseMessagingService">
@@ -33,6 +32,7 @@
             </intent-filter>
         </service>
 
+        <activity android:name=".activity.FeedbackActivity"></activity>
     </application>
 
 </manifest>

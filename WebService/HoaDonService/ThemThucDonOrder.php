@@ -1,5 +1,5 @@
 <?php
-    include_once '../dbConnect.php';
+    require_once '../dbConnect.php';
  
     function dispInfo(){
 
@@ -7,15 +7,15 @@
         $maMon = $_POST['maMon'];
         $soLuong = $_POST['soLuong'];
     
-        $db = new dbConnect();
+        $db = new Database();
 
-        $result = mysql_query('INSERT INTO chitiethd (MaHoaDon, MaMon, SoLuong) VALUES ("'.$maHoaDon.'", "'.$maMon.'", "'.$soLuong.'")');
+        $db->query('INSERT INTO chi_tiet_hd (MaHoaDon, MaMon, SoLuong) VALUES ("'.$maHoaDon.'", "'.$maMon.'", "'.$soLuong.'")');
      
     
-        if($result){
-            $result2 = mysql_query('SELECT MaChiTietHD FROM chitiethd ORDER BY MaChiTietHD DESC LIMIT 1');
-            $row2 = mysql_fetch_row($result2);
-            echo $row2[0];
+        if($db->getRowCount() > 0){
+            $db->prepare('SELECT MaChiTietHD FROM chi_tiet_hd ORDER BY MaChiTietHD DESC LIMIT 1');
+            
+            echo $db->getRow()['MaChiTietHD'];
         }
         
     }

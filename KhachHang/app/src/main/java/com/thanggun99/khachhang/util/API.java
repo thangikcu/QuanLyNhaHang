@@ -19,6 +19,7 @@ import java.util.Map;
 public class API {
     public static final String SCHEME = "http";
     public static final String HOST = "192.168.56.1";
+    //public static final String HOST = "thanggun99.000webhostapp.com";
     public static final String PATH = "WebService";
 
     public static final String PATH_KHACH_HANG = "KhachHangService/";
@@ -27,6 +28,7 @@ public class API {
 
     public static final String LOGIN_URL = PATH_KHACH_HANG + "Login.php";
     public static final String REGISTER_URL = PATH_KHACH_HANG + "Register.php";
+    public static final String FEEDBACK_URL = PATH_KHACH_HANG + "Feedback.php";
     public static final String REGISTER_TOKEN_URL = PATH_TOKEN + "RegisterToken.php";
     public static final String TEST_URL = PATH_TEST + "Test.php";
 

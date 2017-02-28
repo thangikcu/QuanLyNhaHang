@@ -7,15 +7,15 @@
         
         $firebase = new Firebase();
         $push = new Push();
-        $db = new dbConnect();
+        $db = new Database();
 
         $title = isset($_POST['title']) ? $_POST['title'] : 'test';
         $message = isset($_POST['message']) ? $_POST['message'] : 'message test';
         
         
-        $result = mysql_query('SELECT * FROM Token');
+        $db->prepare('SELECT * FROM token');
         $tokens = array();
-        while($row = mysql_fetch_array($result)){
+        foreach($db->getArray() as $row){
             $tokens[] = $row['Token'];
         }
     

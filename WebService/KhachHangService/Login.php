@@ -1,8 +1,8 @@
 <?php
-    include_once '../dbConnect.php';
+    require_once '../dbConnect.php';
  
     function dispInfo(){
-        $db = new dbConnect();
+        
         
         if(isset($_POST['username']) && isset($_POST['password'])){
             $user = $_POST['username'];
@@ -10,33 +10,34 @@
             $token = $_POST['token'];
             $mode = $_POST['mode'];
             
-            $result = mysql_query('SELECT * FROM khachhang WHERE TenDangNhap = "'.$user.'" AND MatKhau = "'.$pass.'"');
+            $db = new Database();
             
-            $check = mysql_num_rows($result);
-            
-            if($check > 0){
+            $db->query('SELECT * FROM khach_hang WHERE TenDangNhap = "'.$user.'" AND MatKhau = "'.$pass.'"');
+
+            if($db->getRowCount() > 0){
                 
-                $maToken = mysql_fetch_array($result);
-                $result = mysql_query('SELECT tk.Token FROM khachhang AS kh JOIN token AS tk WHERE tk.MaToken = "'.$maToken['MaToken'].'" AND tk.Type = 2');
+                $maToken = $db->getRow()['MaToken'];
+                $db->query('SELECT tk.Token FROM khach_hang AS kh JOIN token AS tk WHERE tk.MaToken = "'.$maToken.'" AND tk.Type = 2');
                 
-                if($result){
-                    $lastToken = mysql_fetch_row($result);
+                if($db->getRowCount() > 0){
+                    $lastToken = $db->getRow()['Token'];
                 
                     if($mode == "auto"){
                        
-                        if($token != $lastToken[0]){
-                            return;
+                        if($token != $lastToken){
+                            echo "other";
                         }else{
                             echo "success";
                         }
                         
                     }else{
-                        if($token != $lastToken[0]){
+                        if($token != $lastToken){
+                            $db->prepare('SELECT MaToken FROM token WHERE Token = "'.$token.'" AND Type = 2');
                             
-                            $maToken = mysql_fetch_row(mysql_query('SELECT MaToken FROM token WHERE Token = "'.$token.'" AND Type = 2'));
-                            $result = mysql_query('UPDATE khachhang SET MaToken = "'.$maToken[0].'" WHERE TenDangNhap = "'.$user.'" AND MatKhau = "'.$pass.'"');
+                            $maToken = $db->getRow()['MaToken'];
+                            $db->query('UPDATE khach_hang SET MaToken = "'.$maToken.'" WHERE TenDangNhap = "'.$user.'" AND MatKhau = "'.$pass.'"');
                             
-                            if($result){
+                            if($db->getRowCount() > 0){
                                 
                                 include_once '../Firebase.php';
                                 $firebase = new Firebase();
@@ -46,7 +47,7 @@
                                 $data = array();
                                 $data['action'] = "LOGOUT_ACTION";
                                 
-                                $firebase->send($lastToken[0], $push->getNotification(), $data);
+                                $firebase->send($lastToken, $push->getNotification(), $data);
                             }
                             
                         }

@@ -21,9 +21,9 @@ import org.json.JSONObject;
  */
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
-    public static String NOTIFI_ACTION = "NOTIFI_ACTION";
-    public static String LOGOUT_ACTION = "LOGOUT_ACTION";
-    public static String NOTIFI = "NOTIFI";
+    public static final String NOTIFI_ACTION = "NOTIFI_ACTION";
+    public static final String LOGOUT_ACTION = "LOGOUT_ACTION";
+    public static final String NOTIFI = "NOTIFI";
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {

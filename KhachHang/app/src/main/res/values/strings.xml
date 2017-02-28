@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Khach Hang</string>
     <string name="title_activity_main2">Main2Activity</string>
-    <string name="action_settings">Settings</string>
+    <string name="cai_dat">Cài đặt</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_main3">Main3Activity</string>
 
@@ -52,4 +52,13 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="thong_tin_cua_toi">Thông tin của tôi</string>
+    <string name="dat_ban">Đặt bàn</string>
+    <string name="thong_tin">Thông tin</string>
+    <string name="tieu_de">Tiêu đề</string>
+    <string name="noi_dung">Nội dung</string>
+    <string name="nhap_tieu_de">Nhập tiêu đề</string>
+    <string name="nhap_noi_dung">Nhập nội dung</string>
+    <string name="cam_on_ban_da_gop_y">Cảm ơn bạn đã góp ý cho chúng tôi</string>
+    <string name="gap_loi">Gặp lỗi !</string>
 </resources>

@@ -1,5 +1,5 @@
 <?php
-    include_once '../dbConnect.php';
+    require_once '../dbConnect.php';
  
     function dispInfo(){
         if(isset($_GET['maChiTietHD'])){
@@ -17,12 +17,12 @@
 
 
             
-            $db = new dbConnect();
+            $db = new Database();
 
-            $result = mysql_query('UPDATE chitiethd SET '.$qr.' WHERE maChiTietHD = '.$maChiTietHD.' ');
+            $db->query('UPDATE chi_tiet_hd SET '.$qr.' WHERE maChiTietHD = '.$maChiTietHD.' ');
          
         
-            if($result){
+            if($db->getRowCount() > 0){
                 echo 'success';
             }
             

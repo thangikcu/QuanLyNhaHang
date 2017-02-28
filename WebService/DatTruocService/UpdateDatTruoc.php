@@ -1,5 +1,5 @@
 <?php
-    include_once '../dbConnect.php';
+    require_once '../dbConnect.php';
  
     function dispInfo(){
 
@@ -7,19 +7,14 @@
         $tenKhachHang = $_POST['tenKhachHang'];
         $soDienThoai = $_POST['soDienThoai'];
         $gioDen = $_POST['gioDen'];
-        $ghiChu = NULL;
-        if(isset($_POST['ghiChu'])){
-            $ghiChu = $_POST['ghiChu'];
-        } 
-        
-        
-    
-        $db = new dbConnect();
+        $ghiChu = isset($_POST['ghiChu']) ? $_POST['ghiChu'] : null;
+ 
+        $db = new Database();
 
-        $result = mysql_query('UPDATE datban SET TenKhachHang="'.$tenKhachHang.'", SDT="'.$soDienThoai.'", GioDen="'.$gioDen.'", GhiChu="'.$ghiChu.'" WHERE MaDatBan = '.$maDatTruoc.'');
+        $db->query('UPDATE dat_ban SET TenKhachHang="'.$tenKhachHang.'", SDT="'.$soDienThoai.'", GioDen="'.$gioDen.'", GhiChu="'.$ghiChu.'" WHERE MaDatBan = '.$maDatTruoc.'');
      
     
-        if($result){
+        if($db->getRowCount() > 0){
             echo 'success';
             
         }

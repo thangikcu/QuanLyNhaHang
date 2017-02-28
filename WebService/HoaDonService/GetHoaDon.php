@@ -1,18 +1,18 @@
 <?php
-    include_once '../dbConnect.php';
+    require_once '../dbConnect.php';
  
     function dispInfo(){
 
-            $db = new dbConnect();
+            $db = new Database();
      
             
             $response["hoaDon"] = array();
          
           
-            $result = mysql_query('Select * From hoadon Where TrangThai = 0');
+            $db->prepare('Select * From hoa_don Where TrangThai = 0');
          
          
-            while($row = mysql_fetch_array($result)){
+            foreach($db->getArray() as $row){
                 $t = array();
                 $t["maHoaDon"] = $row["MaHoaDon"];
                 
@@ -31,13 +31,13 @@
                 $t['thucDonOrder'] = array();
                 
                 
-                $result2 = mysql_query("Select ct.MaMon, SoLuong, MaChiTietHD From chitiethd AS ct INNER JOIN thucdon AS td ON ct.MaMon = td.MaMon Where ct.MaHoaDon = '".$row['MaHoaDon']."'");
+                $db->prepare("Select ct.MaMon, SoLuong, MaChiTietHD From chi_tiet_hd AS ct INNER JOIN thuc_don AS td ON ct.MaMon = td.MaMon Where ct.MaHoaDon = '".$row['MaHoaDon']."'");
                 
-                while($row2 = mysql_fetch_array($result2)){
+                foreach($db->getArray() as $row){
                     $r = array();
-                    $r['maMon'] = $row2['MaMon'];
-                    $r['soLuong'] = $row2['SoLuong'];
-                    $r['maChiTietHD'] = $row2['MaChiTietHD'];
+                    $r['maMon'] = $row['MaMon'];
+                    $r['soLuong'] = $row['SoLuong'];
+                    $r['maChiTietHD'] = $row['MaChiTietHD'];
                     
                     array_push($t['thucDonOrder'], $r);
                 }

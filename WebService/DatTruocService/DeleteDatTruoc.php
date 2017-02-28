@@ -1,5 +1,5 @@
 <?php
-    include_once '../dbConnect.php';
+    require_once '../dbConnect.php';
  
     function dispInfo(){
         if(isset($_GET['maDatTruoc'])){
@@ -8,14 +8,14 @@
             $maBan = $_GET['maBan'];
             
 
-            $db = new dbConnect();
+            $db = new Database();
 
-            $result = mysql_query('DELETE FROM datban WHERE MaDatBan = '.$maDatTruoc.'');
+            $db->query('DELETE FROM dat_ban WHERE MaDatBan = '.$maDatTruoc.'');
          
         
-            if($result){
+            if($db->getRowCount() > 0){
 
-                mysql_query('UPDATE ban SET TrangThai = 0 WHERE MaBan = '.$maBan.' ');
+                $db->query('UPDATE ban SET TrangThai = 0 WHERE MaBan = '.$maBan.' ');
                 echo 'success';
              }
             

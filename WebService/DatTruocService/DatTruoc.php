@@ -1,5 +1,5 @@
 <?php
-    include_once '../dbConnect.php';
+    require_once '../dbConnect.php';
  
     function dispInfo(){
 
@@ -7,27 +7,17 @@
         $tenKhachHang = $_POST['tenKhachHang'];
         $soDienThoai = $_POST['soDienThoai'];
         $gioDen = $_POST['gioDen'];
-        $ghiChu = NULL;
-        if(isset($_POST['ghiChu'])){
-            $ghiChu = $_POST['ghiChu'];
-        } 
-        
-        
-    
-        $db = new dbConnect();
+        $ghiChu = isset($_POST['ghiChu']) ? $_POST['ghiChu'] : null;
+ 
+        $db = new Database();
+        $db->query('INSERT INTO dat_ban(TenKhachHang, SDT, GioDen, GhiChu, MaBan, TrangThai) VALUES ("'.$tenKhachHang.'", "'.$soDienThoai.'", "'.$gioDen.'", "'.$ghiChu.'", "'.$maBan.'", "0")');
 
-        $result = mysql_query('INSERT INTO datban(TenKhachHang, SDT, GioDen, GhiChu, MaBan, TrangThai) VALUES ("'.$tenKhachHang.'", "'.$soDienThoai.'", "'.$gioDen.'", "'.$ghiChu.'", "'.$maBan.'", "0")');
-     
-    
-        if($result){
-            $result2 = mysql_query('SELECT MaDatBan FROM datban ORDER BY MaDatBan DESC LIMIT 1');
-            $row2 = mysql_fetch_row($result2);
+        if($db->getRowCount() > 0){
+            $db->query('UPDATE ban SET TrangThai = 1 WHERE MaBan = '.$maBan.' ');
             
-            $maDatTruoc = $row2[0];
+            $db->prepare('SELECT MaDatBan FROM dat_ban ORDER BY MaDatBan DESC LIMIT 1');
             
-            mysql_query('UPDATE ban SET TrangThai = 1 WHERE MaBan = '.$maBan.' ');
-            
-            echo $maDatTruoc;
+            echo $db->getRow()['MaDatBan'];
             
         }
         

@@ -1,17 +1,13 @@
 <?php
-    include_once '../dbConnect.php';
+    require_once '../dbConnect.php';
  
     function dispInfo(){
-        $db = new dbConnect();
-     
+        $db = new Database();
+        $db->prepare('SELECT * FROM ban');
         
         $response["ban"] = array();
-     
-      
-        $result = mysql_query("SELECT * FROM ban");
-     
-    
-        while($row = mysql_fetch_array($result)){ 
+        
+        foreach($db->getArray() as $row){ 
             $t = array();
             $t["maBan"] = $row["MaBan"];
             $t["tenBan"] = $row["TenBan"];

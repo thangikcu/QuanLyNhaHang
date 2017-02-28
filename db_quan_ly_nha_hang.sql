@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 18, 2017 at 03:34 PM
+-- Generation Time: Feb 28, 2017 at 04:48 AM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -43,11 +43,11 @@ INSERT INTO `ban` (`MaBan`, `TenBan`, `TrangThai`, `HienThi`) VALUES
 (3, 'Bàn 3', 0, 1),
 (4, 'Bàn 4', 0, 1),
 (5, 'Bàn 5', 0, 1),
-(6, 'Bàn 6', 2, 1),
+(6, 'Bàn 6', 0, 1),
 (7, 'Bàn 7', 0, 1),
 (8, 'Bàn 8', 0, 1),
 (9, 'Bàn 9', 0, 1),
-(10, 'Bàn 10', 0, 1),
+(10, 'Bàn 10', 2, 1),
 (11, 'Bàn 11', 0, 1),
 (13, 'Bàn 12', 0, 1),
 (14, 'Bàn 13', 1, 1),
@@ -62,10 +62,10 @@ INSERT INTO `ban` (`MaBan`, `TenBan`, `TrangThai`, `HienThi`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `chitiethd`
+-- Table structure for table `chi_tiet_hd`
 --
 
-CREATE TABLE `chitiethd` (
+CREATE TABLE `chi_tiet_hd` (
   `MaChiTietHD` int(11) NOT NULL,
   `MaHoaDon` int(11) NOT NULL,
   `MaMon` int(11) NOT NULL,
@@ -73,10 +73,10 @@ CREATE TABLE `chitiethd` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `chitiethd`
+-- Dumping data for table `chi_tiet_hd`
 --
 
-INSERT INTO `chitiethd` (`MaChiTietHD`, `MaHoaDon`, `MaMon`, `SoLuong`) VALUES
+INSERT INTO `chi_tiet_hd` (`MaChiTietHD`, `MaHoaDon`, `MaMon`, `SoLuong`) VALUES
 (670, 366, 24, 4),
 (671, 367, 20, 3),
 (672, 367, 17, 1),
@@ -85,15 +85,15 @@ INSERT INTO `chitiethd` (`MaChiTietHD`, `MaHoaDon`, `MaMon`, `SoLuong`) VALUES
 (675, 369, 20, 1),
 (676, 370, 25, 3),
 (677, 370, 45, 4),
-(678, 371, 24, 5);
+(679, 372, 20, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `datban`
+-- Table structure for table `dat_ban`
 --
 
-CREATE TABLE `datban` (
+CREATE TABLE `dat_ban` (
   `MaDatBan` int(11) NOT NULL,
   `TenKhachHang` varchar(50) COLLATE utf8_vietnamese_ci NOT NULL,
   `SDT` varchar(50) COLLATE utf8_vietnamese_ci NOT NULL,
@@ -104,10 +104,10 @@ CREATE TABLE `datban` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
 
 --
--- Dumping data for table `datban`
+-- Dumping data for table `dat_ban`
 --
 
-INSERT INTO `datban` (`MaDatBan`, `TenKhachHang`, `SDT`, `GioDen`, `GhiChu`, `MaBan`, `TrangThai`) VALUES
+INSERT INTO `dat_ban` (`MaDatBan`, `TenKhachHang`, `SDT`, `GioDen`, `GhiChu`, `MaBan`, `TrangThai`) VALUES
 (69, 'thang', '0985588756569', '05:45 AM - 13/02/2017', 'Nothing', 14, 0),
 (70, 'thanggun', '1546464646', '07:46 AM - 13/02/2017', '', 4, 1),
 (71, 'abc', '45646546498899', '07:46 AM - 13/02/2017', 'keep', 31, 1);
@@ -115,10 +115,31 @@ INSERT INTO `datban` (`MaDatBan`, `TenKhachHang`, `SDT`, `GioDen`, `GhiChu`, `Ma
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hoadon`
+-- Table structure for table `gop_y`
 --
 
-CREATE TABLE `hoadon` (
+CREATE TABLE `gop_y` (
+  `MaGopY` int(11) NOT NULL,
+  `TieuDe` varchar(100) COLLATE utf8_vietnamese_ci NOT NULL,
+  `NoiDung` varchar(500) COLLATE utf8_vietnamese_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
+
+--
+-- Dumping data for table `gop_y`
+--
+
+INSERT INTO `gop_y` (`MaGopY`, `TieuDe`, `NoiDung`) VALUES
+(3, 'thang', 'khong co gi'),
+(4, 'toi co chut gop y th', 'khong cos gif laf mai mai het lafd asfdalksdjflkajsdk;lfja;ksjdflkajsd;lkfjlkakkkkkkkkkkskrkwejrlwer'),
+(5, 'ham', 'cha ra gi');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `hoa_don`
+--
+
+CREATE TABLE `hoa_don` (
   `MaHoaDon` int(11) NOT NULL,
   `MaDatBan` int(11) DEFAULT NULL,
   `GiamGia` int(11) DEFAULT NULL,
@@ -129,24 +150,24 @@ CREATE TABLE `hoadon` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `hoadon`
+-- Dumping data for table `hoa_don`
 --
 
-INSERT INTO `hoadon` (`MaHoaDon`, `MaDatBan`, `GiamGia`, `MaBan`, `GioDen`, `TongTien`, `TrangThai`) VALUES
+INSERT INTO `hoa_don` (`MaHoaDon`, `MaDatBan`, `GiamGia`, `MaBan`, `GioDen`, `TongTien`, `TrangThai`) VALUES
 (366, NULL, 25, 11, '2017-02-13 07:45:32', 90000, 1),
 (367, NULL, NULL, 6, '2017-02-13 07:45:41', 65000, 1),
 (368, 70, 10, 4, '2017-02-13 07:46:42', 157000, 1),
 (369, NULL, 30, 11, '2017-02-13 07:54:09', 38000, 1),
 (370, 71, 10, 31, '2017-02-13 07:54:51', 184000, 1),
-(371, NULL, NULL, 6, '2017-02-13 07:56:21', NULL, 0);
+(372, NULL, NULL, 10, '2017-02-19 07:48:54', NULL, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `khachhang`
+-- Table structure for table `khach_hang`
 --
 
-CREATE TABLE `khachhang` (
+CREATE TABLE `khach_hang` (
   `MaKhachHang` int(11) NOT NULL,
   `TenKhachHang` varchar(50) COLLATE utf8_vietnamese_ci NOT NULL,
   `SoDienThoai` varchar(50) COLLATE utf8_vietnamese_ci NOT NULL,
@@ -157,29 +178,30 @@ CREATE TABLE `khachhang` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
 
 --
--- Dumping data for table `khachhang`
+-- Dumping data for table `khach_hang`
 --
 
-INSERT INTO `khachhang` (`MaKhachHang`, `TenKhachHang`, `SoDienThoai`, `DiaChi`, `TenDangNhap`, `MatKhau`, `MaToken`) VALUES
-(1, 'Trần Văn Thắng', '0915194096', '323 Phúc Diễn-Từ Liêm-Hà Nội', 'thangikcu', 'thanggun99', 6);
+INSERT INTO `khach_hang` (`MaKhachHang`, `TenKhachHang`, `SoDienThoai`, `DiaChi`, `TenDangNhap`, `MatKhau`, `MaToken`) VALUES
+(1, 'Trần Văn Thắng', '0915194096', '323 Phúc Diễn-Từ Liêm-Hà Nội', 'thangikcu', 'thanggun99', 6),
+(4, 'nguyen van a', '03503811626', 'ha nam ', 'thanggun99', 'chienthan123', 5);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `nhommon`
+-- Table structure for table `nhom_mon`
 --
 
-CREATE TABLE `nhommon` (
+CREATE TABLE `nhom_mon` (
   `MaLoai` int(11) NOT NULL,
   `TenLoai` varchar(55) COLLATE utf8_unicode_ci NOT NULL,
   `MauSac` varchar(50) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `nhommon`
+-- Dumping data for table `nhom_mon`
 --
 
-INSERT INTO `nhommon` (`MaLoai`, `TenLoai`, `MauSac`) VALUES
+INSERT INTO `nhom_mon` (`MaLoai`, `TenLoai`, `MauSac`) VALUES
 (1, 'Cà phê', '#ac3939'),
 (2, 'Nước đóng chai', '#66b3ff'),
 (3, 'Nước-Lon', '#00804f'),
@@ -191,10 +213,10 @@ INSERT INTO `nhommon` (`MaLoai`, `TenLoai`, `MauSac`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `thucdon`
+-- Table structure for table `thuc_don`
 --
 
-CREATE TABLE `thucdon` (
+CREATE TABLE `thuc_don` (
   `MaMon` int(11) NOT NULL,
   `TenMon` varchar(55) COLLATE utf8_unicode_ci NOT NULL,
   `MaLoai` int(11) NOT NULL,
@@ -205,10 +227,10 @@ CREATE TABLE `thucdon` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `thucdon`
+-- Dumping data for table `thuc_don`
 --
 
-INSERT INTO `thucdon` (`MaMon`, `TenMon`, `MaLoai`, `DonGia`, `DVT`, `HinhAnh`, `HienThi`) VALUES
+INSERT INTO `thuc_don` (`MaMon`, `TenMon`, `MaLoai`, `DonGia`, `DVT`, `HinhAnh`, `HienThi`) VALUES
 (0, 'Ca cao nguội', 1, 25000, 'Ly', '', 1),
 (7, 'Nâu đá', 1, 25000, 'Ly', 0xffd8ffe000104a46494600010100000100010000ffdb00840009060710101215121212151515151717161615181715161815151515161715151515181d2820181a251d1515213121252a2b2e2e2f171f3338332d37282d2e2b010a0a0a0e0d0e1710101b2e251f1f2d2d2d372d302d2e2e2d352d2d2f2d2d2d2b2b2d2d2d2d372d2f2b302d302d372d2d302d2d322d2d302f372e2d2b2d2d2d2dffc000110800b4011803012200021101031101ffc4001c0000020203010100000000000000000000000105060304070208ffc40045100001030203050505040902040700000001000203041105213106124151610722718191133252a1c1144272b123334362738292d1f053a215b2e1f10824253483a3c3ffc4001a010100020301000000000000000000000000010203040506ffc4003111000201020403070303050000000000000001020311041221314161c10551718191a1f013b1d122c2e11432426292ffda000c03010002110311003f00e1a842100210840084268010842004249a0042108010842019490840084268048414900d24d24009a1080108420042108048421002134900d24d0801242100d08490021084009a484034249a0042108010565a6a69257b638d8e7bdc6cd635a5ce71e4d68cc95d3f66bb2b89a43f15a96c3c7ecec20bf81b49266d6780b9cf50ab39c60af2762d184a5a455ce5d042e7b8358d2e71c835a0924f20066559a8bb3dc4e5d6031e9948431d9e9dcf787985d6f13adc2a8191b30f63184121ef635c5f6b6a647105e72b6648cd576ae6aba98848239cb06f17bc6f963b41a001a00b1cfaeab46ae31a6d42de26fd0c0e64a53d3910507662c60bd4d7c31702d16241f12ebfc9657ec660cc3deaf7bb3fba2f7ff62deaf74c1a1ee85b1c6fb6e5a36869b127baeb1cef73aad79f129ded2d74b2589bfbc78eb6016b3c54dff93f446f47054970313f67b67f413d4f8e5cadf0f3cd611b2d823c8ddaca86f3de6b0d8f4c85c2f33d5b8ea5c7867a9cadf92c3bae75aeddef2e96fc801e4a3eacf7cccb7f4b4b6ca8f32767d13c8fb3d7c4ebfc6d2cb72b9b95155fb0388c57221f6a00b9313849a0b9ee8ef7c94bbe26f0616fc96583139607031c8e360327731c95a18aaeb8a7e2adee8c73c0517b5d7b9cfe461692d70208c8822c41ea0af2bac4b8ed3d68ddaea664b9583c0dc905b42c95b98ced91b8e8a0369bb3d7471baaa8643534cdcdedb7e9e01c4cac1ab7f7dbd4d80175bf47151a9a3d1f77e0e657c24e96bbaeff00c9464210b64d5042108010842004210801084200421080124d080484210021349002684900d0926806a4f66b67ea311a86d3533379eecc939358d16de92477dd68bebd401724031f4f03a47b58c69739ee0d6b46ae738d801d492bbec14706014429186f5950d0fa995bab6f701a0f068ef347f31e2b1d5aaa9c1c9f03252a4eacd463c454382d1e0d09653bc19ed69aaed67b8df38e23fb365c70ccd8666caab595e093bb72493de76673eab0e2156f93f08cad9e4bce1d4723ee1ac73ba06939f88d179ea939547f52a3f2ee3d251a31a31cb1f52d3b31b232d7c46474c18db90d05bbd7b646c2e2caff00b2513a9e2fb2cb6df86e05b4746492d70e9991e4b9aecfe2f5140fdd2e7c6c3de734b37c5f4bee120f4b8215f2976a69a5b38cb0b88d0877b378bea3725b7c895bb84953566b7fb9a18b8d49369eabec6a6d208a1c2a46bc0b12ef6639174ae31d870b0f902a9d87ecb4b2d13ea8873373bcc0eb0df8c7bc40d4731e0ba0cf86c53c90c8407c71b8bb7751bdba436e3436245bcd78daa6d556451c14addd64c019257641b1e5ddb6a49be8392bba4a6bf570564971e7e1a9585770765c5ddb7c397b1cca8689ae0e9373b8db073ed76b49d2fcaea66928e1bb43bb8d22e32d6e6c1da5c8d7317cf92b5d5e1f4d85504ad71df2f69692eb0323dc2c001c071f25a1816ce9fb048ea82412df691df2316eb490ebf0bf11c96855c0cdc92beb6bbe46dc71b1716f85ecb9991db1f4b27b9331c6d706edcfc00bfe6a0b15d83735a5ccb11cdbde1e7cbd578c0642f7c7704190774e7dd37b03d45c5b356ec39a4973eee6be33694036200fbdc88ff345863abb4535e0fa32d29ca1bcafe28e4959874b4e48dd0473fa84f03c56a28e41342e7020e99d9c38b5c391e5d575dc6f0564c2c40df703b8e02cd92c2e5a47dd7f864572fc4f0f30c970091caf6f22b3e69425967bf7fcd99684a35569e87bc7360db8bb9957863591191dbb53039c1ac864b13ed5b61ee3ada017b9161adad1827617431b41aa9e599fc432d133c858b8f8dc78281d86c67ecd5ad668c9c88dc07ddb9ee5bc1d6f22bb3d5e271411fb599ed6345ef73c4647e6176f0d55d485dee70f174552a965b3392ed7761d188dd261f2bf7c67ec652d21fd19200374fe2b83cc2e255103e37398f696b9a4b5cd22c5ae06c410742be997768ed95af92921f6b1b090e7b9c1a0dad7dd1a9198cd731ed54415ac15cc8bd94ed2d64c069234e4c7f570200bf104725b06a9cc52421002108403493280100909d90500908420121084034909a012684200421080e9fd81e0ac9ab64aa93dca48f7c5f4123ee1a4f834487c404b17c49d533cb3b8e7238b813c1bf75b6e8db0f252fd93f7304c49edf79cfdcf231b07ff00a39404cdcb21a0b789ff0007e4b9b8f9eb189d6ecc8ab4a5e448ecbe126aa5b12771b6deb6a49d1a3c575dc2f0589addde032dd6f75a0f1171a954ad80b470b9c3505cef36b325d030f8c3981a7468035d491773bd495a5868c6a557757e467c65494568ec6bd4608cbdd86dc0dfbe0b7959ca36b367e102eda3a798f22d0c3eb985666b6c00e4b1cb1076bea35f92ea3c2c12bc559fcf15ec73162277d594da7a4963bfb3c28477d4c53fb3fcacb760aea989d134c72c6cf6837b7835e0b5c08b07b3216363980a42af0e7139564b1f4bb7eab1c784b7ef56543fff009001fd2d0b5f2493ee7e31e8677522d6bd7a92d53410cce6ba4635e599b43b30d278ee9cafd56a6290bea5dec736c23395da6f8ff4dbd0f13e4b6a918d8987bc48b97173b5cf526c02a86d1e3d5152e34f4b1bb75ddd73ec4137d77790eab2e22ac210fd5bbe0b77c8c5429ce52d365c5f0356199b5588b1b001ece221a2da0645a91e26f6f2562a5947fc4656b74dd1bde3badbfd147e1546cc2e273df674ef160d1c2dc3c0712b26cf5e28e5ac97575f7786f126f9789c8782e7c2ca514f7be77c923767aa6d6d6cab9b648cafff00cb4801ce225cde63d9bdc1be7dcf9aab6d5c2d3213616710fcf86fb413f32549e1cc78a4909ce4aa7ee347e2399f0cdcb4369676b9efb1c85983c183772f30e5ad8b9e6a517c74fddd2dec67c3472d47e7d3a946ab8dd0cd13dad25c246b8116e0eb86e5ccd967edb85549591c4d0f10ba36388b1dc6c8e2ede6b9da5c000d94c6094a6a2b69e3b5dad7fb57ddbf763ef6be3ba3cd7adb5c624a99e5a78f38c4c2f6e2e646c1af21bc5753b3337d272669f69b4e714557062f8d8208ef6fa91637f15ebb408bd851b58e3de91cd16e8d3bdf4575c0305653b77e4d6d73d172bed33157cf58e616b98d8bbad6b8169cf32eb1e792e9a398549301245d08190921174009a41080108420042108010921002684200420a2c802ea73643656ab139843037219be43ee46de6e3cf90d4a7b19b2d3e2950d822161ac9211dd8d9c5c7af00389f35f506cee074d86c0da7a76eeb47bcefbcf7717bcf125015ba0d91870ea57d042e71754c1292f27df9a30d1934682cf6e43805ce77db6735d66ded7de36dd37038e60e565d3bb479e58e99957166fa499935b9c79c72b4f4dd793fcaabb8d61b0546ee214ee3ec65ef3c3413b92f13607bbbc75fde07e25cfed0a4dc73ae07470159464e0f8fdcd4d909c44e742ee39e7c72b39740d9cabb831b8f79b97f4803f2b1f35ce60a7320de6e4f638ee9200245f2bd9eed0581390bf053d86d5bae1edc9edd4731fe7e6b8d46b3a155499d0af055a0d23a094947e1f8a3266db478d5a7237e8bcc78dc3bdb8f77b37fc2fee9f23a1f22bd0c7134da4efb9c474669b56d891212b35a2f9041765719f87150f558d4ac241a5908e6376c7d14d5ad0a7acbed714e94a7a2157ed35332ed0fbbb4c8122fc2e7928576d14fbb78a002e6dbcd05d9f2c86b9f3b2db7d7179b8a024f503e7dd5b74df6a23f551c2cea774fcaff45c8955a9565a4bfe62fafe4e8469c29ad57ab5d087a6c29c499eb9dba2f711deef75be22341d07c966717573fe0a78b53a34346a2fa175b9643f3cb51053876f4f2999e721132f99e448cdc3a7c97b9dc5f66c8c0d60cd94ed36197fa840b5ba2c0d452b3dbbaf76dffb3e8b5e4664db77e3ecbc175d8f359582ded19dd686fb3a71a59ba3e5b7a00aa78a54b40b92035a2de3cedf252d8dd696ddce3deb0ced60d68be9c80d163c23036b40aaadeec2cef470bb57bb83e40746f26ea78e5ae28d39e2eb5a3b2f9f396866cf0a14f348307ffd368e5ae9cfe9a61689a722d8cfead847327bc7a5b915afb0187875389e4177caf92424f57917f3ddbf9aac6d6e392e2750d63326976e46df136de3f99e815caa6b194b0b61668d0d68fc2d6b5a3cf2f9af4f4e9c69c1457038356a3a93727c4938e56ba5171dc667c2ce70390f01aacdb61b1f4b8c456780c99a3f47301de69e4ef89bd3d156b0899f2bfa057cc35dba02c8b5319f2c6d16055187ceea7a86eebdba1fbaf69d1ed3c5a5462faa3b40d8f8b16a62c2036660261938b5df093f09d08f03c17cbb594b242f745234b5ec716b9a750e06c428062b2484d009084200422c840342484024d080802c845d080166a3a57ccf6c71b4b9ef706b5a352e71b00b0aeb7d806ce096792ba4176c1dc8ff008ae1de77937fe640753d84d968f0aa46c22c65759d33fe27db4fc2340a5a69564aa9568be45640f154d6c8c746e176bda5ae078870b11e8571ec1b179f03aa929a406480ead363bf1bb26c8dbe5722e08d2e08e175d6dcf554db6c05b591e5612b2e637f8fbcc71f84d878100f44681bb4b47054b44f48fdf6718c583d84fdd37d467a1cfc5630d0d3dd19e8e16b11d0dc5c782e574359534529dd73a29186c47d08d08f9157cc33b44648376b21b9b5bdab3277f7f42b9188ecb8c9e6a6ecfbb87f06fd2c6b5a4f52c82163ac4120e808be456d4b1bdcddd95ad95a34b8ef0f02169d1d651cd9d3d5341f85f91f5cbf22a61b4cf232dd7756b87d6cb02c2548a69c5f96a9f97e4cdf5e12e3ea4537058b58657c2795dd6f0b83f45b0ca5ad6e95208e0491f3bd96f1a37fc04f903f92c1f629b835df3feeb1ba338ed17e4da2ff00522f792f3b33008eb4fbf52d68e999ff006a061cc39c924b29f1b0f967f35b4dc36519ee81e247d4a751b8c1fa4a88e31c81bab470d567bc5bf177fbe9ec55d6847692f2fe0d173f772898d673205dc47e23fdd618a1925ca2617679b89b01d5cf391f0175ad5db5586c37ddde9ddd7ddf4d156319dbda9986ec76899c0375b7d1658766393bd59792f9a7918e58d4bfb17a968ad9a8e87bf3bc4f30cdacfbad3c086f3fde3e56542da5da69ab1c4bcd9a3468d07f72a1e698b892e2493a926ebcc6d1abf21cb9aead2a50a51cb056468cea4a6ef2772736428af235e4778e4de80eaef4faa946d3c9573388beeef1b7e1be5f25b7b1b44642e7726903c48b2bbe1f86b2300016595c6e63b9a5866162200594ac6eb2cc635af22ba562ad9254932e37dbfecc063e3c4236e52111cd61f7c0fd1bcf8805a4feeb79aeb14cecd62db2c2856e1f5105ae5d1b8b3f88cefc7fee685568947c9417a2bca7655244990845900249a100909a10090842004d2ba1002faa3b34c2451e174ecb59cf6095fcf7a5ef67e0081e4be5ca5877ded67c4e0df5202fb1dec0c635a34680d1e00582940d0ab9092a3def5b35256992ac40a472d29650722b66a24275e0001e0345115eeb0556ec592233687068ea077c59c3dd78d4743cc74545c43089603de176fc434ffa2e8f4752266969f7dbf31c0ad4ac808b82116a46c7388da4e9c16d4189cf1fbb2bdbe0e2a6714c39b62e634076a6dc7c9423e2b9e5e296172463dabad1a4eff55eced6d71fdbbd46ba81e38058feccee496173766c7aa9fef4cf3fcc569be673b5713e25021723d9a585cf374aebdee2f4234b12780d0332b03f7a57b5a3ef3834799b2d97c64e4a5763f0df6951bee1dd8b3f17bae1a3fe63e49620e9db314421880b66732a7d8d5a544cc82cf5f88d3d2b43aa278a1074f68f6b2fe009b9f257b9067785a9335572afb50c2186c26924eb1c525bd5e1a0f9295c0b6869310639f4d26f6e101ed2d2c7b2f7b6f35dc0d8d88b8c8e7914b91637a052f4c7251318cd4b530c943251f2063b4c22a99e368b064d2300e8d7b80fc969b4290da198495752f1a3a695c3ce4710a3d5090b24809a012101080108420005245d080f45b95f9af2845d01b387cc192c6e3a35ed71f270257d8b506e2ebe31257d6bb198a0acc3e9a7bdcba26877e360dc78fea6952805505a842dead6ad3b705620d69428caf65c2987b6eb4aa2254916452aae67c4f0f69b107fee0f4562a1c49954cea322d3c0f43c943e334d99502d9df0bb7986c47cfa1558e84bd4b655d0aad62186169b8d0eaac1866d0473775ddd7f23c7c0f15bf2c0d78e0565d19428f134dac7c8fd0a6fa72acb2e136376fa242898ed46e9f9210558d39485315696e1a0ac8cc2c7256b0b957651159a3c3c9c8056b6618028fc4eba0a5ccbc023aa8764133c7fc1442c7036f684778dc5a265b317d3788d4f0171c4db568f1ba4a36ef3dc7745cb5ad177cae3ab83786800bd80007555dc5b68e6ab70820690d274e2f3cdc390e0df33d2c5b3dd91d554da49dc230ecc975cbedd1bff00658db2d62131eed47109af1d2b45333e21de9483a1df39372f845c7354895af7b8c92b9cf7b8dc9712e27a971ccab8ed3ecf0a091d09731ee07de69b8b70f03d1552a9e06b97f9c10931340d740355d87b20c16489b254bfba24635ad674243c1775dddd7784a3aae6fb3b85876ed45401eceffa1888b895c0d8b9c3fd26906ff111ba32df2dee9b36e73a36e440d73d4926e49ea4924f52a510c9b859729ed1e2628e8e79cfece27387570077079b8b42d9a68d72eedff6883218e8587bd29124a3946c3dc07c5d9ff22960e1613b24d4d54027645d1742409404dc90280108b2101e134210804ec921002ed3ff0087fda516930f90e79cb0df8e82460f93bfa97162b6b0ac425a59a39e276ec91b839a7a8e07983a11c8a03eb9af878a8f9997039a5b1db4b0e294ad9e3b077bb232f9c72019b4f4e20f1056e5453d95d023ad758658eeb688ceda1fcd331dc286815caea3de1a2ab62786917c9744969d6854d0077055689b9ca6a69c859e931e9e1c8f7dbd7277af1574aec037b40a0aab66dfc94032d1ed6c2ec9ce319fdf161fd432524dc4a37e8f8dde0e0aa7598398bdf21bcae4027c01cca86a86417b5838f46ff7cd5ae458e86eadddcfbbfd4d5a155b54c8ff00691df9076f1f4682553a1c0e590f7616b38660137d6d61903e242913b28582f2ccc8ff001937b7f0999faa662328b13db0a893bb18b03f788b7a0d7d6cab8e6171324ee79d45c59c43ad900d245873e365606e1787b7f595323bf870b5a3d24bdd63a8a3c3e4058da9923f80c901b026d7de315f2eb6e4a1dcb2b12dd94e3d45412c8ea88f7b79a3d9cad05c5a41b969693a1c8e9916f5579da4ed39ae616d3022fab8f25c806cfd591bd0fb39d8320e64b4f7ea0b3da170cefaf0e5a2d6962981dd99cd60e203e391e0748dafbfad942b92ec64c6b152f717b8ddc78f05ee9b0510912d6b7bd916529b87386bbd3db3899a777273aff747796e618eb38368e077b43a4cff00d24c3ac7601b17881bc3e2579d99ecf9d7f6d586e49bee5ee493992f3c558a9a3b25804d5b27da261660b6e8b002c000d0d68c8340000032c801905d5e8e94340006411474a0001a2c064005b753511c11ba491c18c602e7389b0006a4953b03571dc5a1a1a77d44ceb3182fd49d0347324d82f94f68f1a96baa64a997de91d7b5ee1add1ad1d00b0565ed3b6edd8a4db91ddb4d19ee3742f3a7b470fc8700a90140009a135000a442774900210530100908ba100934930100108212410800a49a1013db19b575185d409a23769b092327bb232fa1e44703c3d41fa6766b6869713804d03ae34734fbd1bb8b5e381f91e0be47535b238cd5525435f4b26e389b10736b9ba90f6fde1aa5c1f54d451dff00bad7734b3dec873397cf8ae5189edfe2721d58c63afba1a5ec02c733dc707bbcdd6e41576af6aebdceff00dc16eb9b1ad1e8e20bbe699c9ca77732c76bef5c73682e0395cb41b287c4b69a820b87cf1870e1bcd27fa59bce07f95713645595afdc067a871fba4c9279d892078e4a6697612465bed334700c898db696517e0e0d3b91f2b971f0537162db5fda451b6e2363e4f06860bff11e6fff00d65414fb515d54018a211b0e8f25d9df2037bbb1bfc371d7ba3d9d1d20fd1c7770d1ef02596fcf31b919f0035d56a3f1f04e4d24e999398e47891d2f61c108b0a9f67df212657937cdcd600d07aee8005f9821be2a41b052d36bbb7e4def1e4413a58f23bcb1d3516235793585ac3d371be9c559709ece87bd3bcb8f2190405564c6657f729d85a341ba2ee23913c96cd0ec5d65477a4ee03f1667d1752a0c16080598c68f00b783029ca45ca2e1fd9c5337395ce90f8d87c94db36270fb5bececf9dfd54fe483300a6c85ca657f6594129bb7799e06e3fdd758e93b2ba18cddef7bc72b803e415d1d393a24da573fde39724b2068e1f414f4e3729e26b7a81f99e2a4e0a527372d88e9dac1736681c4e4a87b69dac51d1031d3daa26d3ba7b8d3fbcefa0cd2e2c5cb19c5e9e8a2334f2358c6f13c79068d49e817cedda376873628ef66cbc74cd3932f9c8468e93e8382afed2ed2d562127b4a890bbe160c98c1c9ade1e3aa87542413404c2004f309277402468bd1671ff325e500d320704da058dcd88d32d7cd79ba123e3f4cfd10921008f449325164200142020a01b4734ac8414022b252cee8de1edd5a6fff0042bc1095901d1f67b10c3aa0113c821b8f89ad7b1c72f79cdb3d9969eb65bf56fc0a0693ed9d29e1670209ead8c3bd6e02e508555148bb9dce9b16df194b6969b729a27102f23bd930732f11e64f1bb9e7978f58c176328dd1b4cb29a9245eed7eeb33d774464647c6c792f9696ee1b8bd4d31bc134919fdd7103cc68558a9f569d92a102c29e3b0d2edbfcce6bcc7b394f1feae3637c1a3ea1704c33b5cc5a1b0748c947efb45fd5b6566a2edd64fdad234f563cfe442b5c8b1d75b4cf6e96f4b20b64e4b9c41db9519f7e9a61e1ba7eab6c76d586f18e6f41fdd4dc8b17bdd7f24bd93d509fdb5e1c348663e83eab46a3b73a71faba379fc4e1f4299858e982989d4acf1d0f427f25c4ab7b72ab371153c71f5277be8155715ed2f16a8f7aa0b07260ddf9e6546626c7d235d885252b4ba69e38c0e6e0a83b45db4514176d2c6e9dff11eeb3d4fd02e07535524a77a47b9e79b8971f52b0a8b82d5b51da0621885c49296467f66cbb5b6ea7572aaa10a002134da6c80564eebd1e997f9d5005f53e192012027c3fcfcd2050903cd20bd10840222c92f402480344d2b2680f0bd86a10841e5372108483f55e6e842107a19af2508402421080108420042108010842004210801084200421080674421080f5bd97afd101084024c21084804da8420091b6f4050ecb2ff00382684001bf4f9af29a10089421080ffd9, 1),
 (8, 'Nâu nóng', 1, 25000, 'Ly', '', 1),
@@ -280,45 +302,51 @@ ALTER TABLE `ban`
   ADD PRIMARY KEY (`MaBan`);
 
 --
--- Indexes for table `chitiethd`
+-- Indexes for table `chi_tiet_hd`
 --
-ALTER TABLE `chitiethd`
+ALTER TABLE `chi_tiet_hd`
   ADD PRIMARY KEY (`MaChiTietHD`),
   ADD KEY `MaHoaDon` (`MaHoaDon`),
   ADD KEY `MaMon` (`MaMon`);
 
 --
--- Indexes for table `datban`
+-- Indexes for table `dat_ban`
 --
-ALTER TABLE `datban`
+ALTER TABLE `dat_ban`
   ADD PRIMARY KEY (`MaDatBan`),
   ADD KEY `MaBan` (`MaBan`);
 
 --
--- Indexes for table `hoadon`
+-- Indexes for table `gop_y`
 --
-ALTER TABLE `hoadon`
+ALTER TABLE `gop_y`
+  ADD PRIMARY KEY (`MaGopY`);
+
+--
+-- Indexes for table `hoa_don`
+--
+ALTER TABLE `hoa_don`
   ADD PRIMARY KEY (`MaHoaDon`),
   ADD KEY `MaBan` (`MaBan`),
   ADD KEY `MaDatBan` (`MaDatBan`);
 
 --
--- Indexes for table `khachhang`
+-- Indexes for table `khach_hang`
 --
-ALTER TABLE `khachhang`
+ALTER TABLE `khach_hang`
   ADD PRIMARY KEY (`MaKhachHang`),
   ADD KEY `MaToken` (`MaToken`);
 
 --
--- Indexes for table `nhommon`
+-- Indexes for table `nhom_mon`
 --
-ALTER TABLE `nhommon`
+ALTER TABLE `nhom_mon`
   ADD PRIMARY KEY (`MaLoai`);
 
 --
--- Indexes for table `thucdon`
+-- Indexes for table `thuc_don`
 --
-ALTER TABLE `thucdon`
+ALTER TABLE `thuc_don`
   ADD PRIMARY KEY (`MaMon`),
   ADD KEY `MaLoai` (`MaLoai`);
 
@@ -338,34 +366,39 @@ ALTER TABLE `token`
 ALTER TABLE `ban`
   MODIFY `MaBan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 --
--- AUTO_INCREMENT for table `chitiethd`
+-- AUTO_INCREMENT for table `chi_tiet_hd`
 --
-ALTER TABLE `chitiethd`
-  MODIFY `MaChiTietHD` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=679;
+ALTER TABLE `chi_tiet_hd`
+  MODIFY `MaChiTietHD` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=680;
 --
--- AUTO_INCREMENT for table `datban`
+-- AUTO_INCREMENT for table `dat_ban`
 --
-ALTER TABLE `datban`
+ALTER TABLE `dat_ban`
   MODIFY `MaDatBan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 --
--- AUTO_INCREMENT for table `hoadon`
+-- AUTO_INCREMENT for table `gop_y`
 --
-ALTER TABLE `hoadon`
-  MODIFY `MaHoaDon` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=372;
+ALTER TABLE `gop_y`
+  MODIFY `MaGopY` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
--- AUTO_INCREMENT for table `khachhang`
+-- AUTO_INCREMENT for table `hoa_don`
 --
-ALTER TABLE `khachhang`
-  MODIFY `MaKhachHang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `hoa_don`
+  MODIFY `MaHoaDon` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=373;
 --
--- AUTO_INCREMENT for table `nhommon`
+-- AUTO_INCREMENT for table `khach_hang`
 --
-ALTER TABLE `nhommon`
+ALTER TABLE `khach_hang`
+  MODIFY `MaKhachHang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `nhom_mon`
+--
+ALTER TABLE `nhom_mon`
   MODIFY `MaLoai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
--- AUTO_INCREMENT for table `thucdon`
+-- AUTO_INCREMENT for table `thuc_don`
 --
-ALTER TABLE `thucdon`
+ALTER TABLE `thuc_don`
   MODIFY `MaMon` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 --
 -- AUTO_INCREMENT for table `token`
@@ -377,30 +410,30 @@ ALTER TABLE `token`
 --
 
 --
--- Constraints for table `chitiethd`
+-- Constraints for table `chi_tiet_hd`
 --
-ALTER TABLE `chitiethd`
-  ADD CONSTRAINT `chitiethd_ibfk_1` FOREIGN KEY (`MaHoaDon`) REFERENCES `hoadon` (`MaHoaDon`),
-  ADD CONSTRAINT `chitiethd_ibfk_2` FOREIGN KEY (`MaMon`) REFERENCES `thucdon` (`MaMon`);
+ALTER TABLE `chi_tiet_hd`
+  ADD CONSTRAINT `chi_tiet_hd_ibfk_1` FOREIGN KEY (`MaHoaDon`) REFERENCES `hoa_don` (`MaHoaDon`),
+  ADD CONSTRAINT `chi_tiet_hd_ibfk_2` FOREIGN KEY (`MaMon`) REFERENCES `thuc_don` (`MaMon`);
 
 --
--- Constraints for table `datban`
+-- Constraints for table `dat_ban`
 --
-ALTER TABLE `datban`
-  ADD CONSTRAINT `datban_ibfk_1` FOREIGN KEY (`MaBan`) REFERENCES `ban` (`MaBan`);
+ALTER TABLE `dat_ban`
+  ADD CONSTRAINT `dat_ban_ibfk_1` FOREIGN KEY (`MaBan`) REFERENCES `ban` (`MaBan`);
 
 --
--- Constraints for table `hoadon`
+-- Constraints for table `hoa_don`
 --
-ALTER TABLE `hoadon`
-  ADD CONSTRAINT `hoadon_ibfk_1` FOREIGN KEY (`MaBan`) REFERENCES `ban` (`MaBan`),
-  ADD CONSTRAINT `hoadon_ibfk_2` FOREIGN KEY (`MaDatBan`) REFERENCES `datban` (`MaDatBan`);
+ALTER TABLE `hoa_don`
+  ADD CONSTRAINT `hoa_don_ibfk_1` FOREIGN KEY (`MaBan`) REFERENCES `ban` (`MaBan`),
+  ADD CONSTRAINT `hoa_don_ibfk_2` FOREIGN KEY (`MaDatBan`) REFERENCES `dat_ban` (`MaDatBan`);
 
 --
--- Constraints for table `thucdon`
+-- Constraints for table `thuc_don`
 --
-ALTER TABLE `thucdon`
-  ADD CONSTRAINT `thucdon_ibfk_1` FOREIGN KEY (`MaLoai`) REFERENCES `nhommon` (`MaLoai`);
+ALTER TABLE `thuc_don`
+  ADD CONSTRAINT `thuc_don_ibfk_1` FOREIGN KEY (`MaLoai`) REFERENCES `nhom_mon` (`MaLoai`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

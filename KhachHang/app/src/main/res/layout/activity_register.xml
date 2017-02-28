@@ -3,163 +3,176 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:orientation="vertical"
     android:padding="16dp"
     tools:context="com.thanggun99.khachhang.activity.RegisterActivity">
 
-    <TextView
+    <ImageButton
+        android:id="@+id/btn_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/dang_ky"
-        android:textAllCaps="true"
-        android:textColor="@color/colorTextRegister"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_back" />
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:text="@string/dang_ky"
+            android:textAllCaps="true"
+            android:textColor="@color/colorTextRegister"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/thong_tin_ca_nhan"
-                android:textColor="@color/colorTextRegister"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
                 android:gravity="center"
-                android:orientation="vertical"
-                android:paddingLeft="16dp">
+                android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/edt_ho_ten"
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_name"
-                    android:drawablePadding="8dp"
-                    android:hint="@string/ho_ten"
-                    android:maxLength="20"
-                    android:maxLines="1"
+                    android:text="@string/thong_tin_ca_nhan"
+                    android:textColor="@color/colorTextRegister"
                     android:textSize="12sp"
                     android:textStyle="bold" />
 
-                <EditText
-                    android:id="@+id/edt_dia_chi"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_address"
-                    android:drawablePadding="8dp"
-                    android:hint="@string/dia_chi"
-                    android:maxLength="100"
-                    android:maxLines="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingLeft="16dp">
+
+                    <EditText
+                        android:id="@+id/edt_ho_ten"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_name"
+                        android:drawablePadding="8dp"
+                        android:hint="@string/ho_ten"
+                        android:maxLength="20"
+                        android:maxLines="1"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/edt_dia_chi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_address"
+                        android:drawablePadding="8dp"
+                        android:hint="@string/dia_chi"
+                        android:maxLength="100"
+                        android:maxLines="1"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+
+                    <EditText
+                        android:id="@+id/edt_sdt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_phone"
+                        android:drawablePadding="8dp"
+                        android:hint="@string/so_dien_thoai"
+                        android:inputType="phone"
+                        android:maxLength="20"
+                        android:maxLines="1"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/thong_tin_tai_khoan"
+                    android:textColor="@color/colorTextRegister"
                     android:textSize="12sp"
                     android:textStyle="bold" />
 
-
-                <EditText
-                    android:id="@+id/edt_sdt"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_phone"
-                    android:drawablePadding="8dp"
-                    android:hint="@string/so_dien_thoai"
-                    android:inputType="phone"
-                    android:maxLength="20"
-                    android:maxLines="1"
-                    android:textSize="12sp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingLeft="16dp">
+
+                    <EditText
+                        android:id="@+id/edt_username"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_user"
+                        android:drawablePadding="8dp"
+                        android:hint="@string/tai_khoan"
+                        android:maxLength="20"
+                        android:maxLines="1"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/edt_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_password"
+                        android:drawablePadding="8dp"
+                        android:hint="@string/mat_khau"
+                        android:inputType="textPassword"
+                        android:maxLength="20"
+                        android:maxLines="1"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/edt_re_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_re_password"
+                        android:drawablePadding="8dp"
+                        android:hint="@string/nhap_lai_mat_khau"
+                        android:inputType="textPassword"
+                        android:maxLength="20"
+                        android:maxLines="1"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_error_register"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dang_ky_that_bai"
+                    android:textColor="@color/colorWrong"
+                    android:textSize="14sp"
+                    android:textStyle="italic"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btn_register"
+                    style="?android:textAppearanceSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/dang_ky"
                     android:textStyle="bold" />
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/thong_tin_tai_khoan"
-                android:textColor="@color/colorTextRegister"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:paddingLeft="16dp">
-
-                <EditText
-                    android:id="@+id/edt_username"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_user"
-                    android:drawablePadding="8dp"
-                    android:hint="@string/tai_khoan"
-                    android:maxLength="20"
-                    android:maxLines="1"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/edt_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_password"
-                    android:drawablePadding="8dp"
-                    android:hint="@string/mat_khau"
-                    android:inputType="textPassword"
-                    android:maxLength="20"
-                    android:maxLines="1"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/edt_re_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_re_password"
-                    android:drawablePadding="8dp"
-                    android:hint="@string/nhap_lai_mat_khau"
-                    android:inputType="textPassword"
-                    android:maxLength="20"
-                    android:maxLines="1"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/tv_error_register"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/dang_ky_that_bai"
-                android:textColor="@color/colorWrong"
-                android:textSize="14sp"
-                android:textStyle="italic"
-                android:visibility="gone" />
-
-            <Button
-                android:id="@+id/btn_register"
-                style="?android:textAppearanceSmall"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/dang_ky"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-    </ScrollView>
+        </ScrollView>
+    </LinearLayout>
 </LinearLayout>

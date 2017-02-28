@@ -1,18 +1,18 @@
 <?php
-    include_once '../dbConnect.php';
+    require_once '../dbConnect.php';
  
     function dispInfo(){
-        $db = new dbConnect();
+        $db = new Database();
      
      
         
         $response["thucDon"] = array();
      
       
-        $result = mysql_query("SELECT * FROM thucdon");
+        $db->prepare("SELECT * FROM thuc_don");
      
 
-        while($row = mysql_fetch_array($result)){ 
+        foreach($db->getArray() as $row){ 
             $t = array();
             $t["maMon"] = $row["MaMon"];
             $t["tenMon"] = $row["TenMon"];

@@ -1,5 +1,5 @@
 <?php
-    include_once '../dbConnect.php';
+    require_once '../dbConnect.php';
  
     function dispInfo(){
         if(isset($_GET['maBan'])){
@@ -21,12 +21,11 @@
             }
 
             
-            $db = new dbConnect();
+            $db = new Database();
+            $db->query('UPDATE ban SET '.$qr.' WHERE MaBan = '.$maBan.' ');
+            
 
-            $result = mysql_query('UPDATE ban SET '.$qr.' WHERE MaBan = '.$maBan.' ');
-         
-        
-            if($result){
+            if($db->getRowCount() > 0){
                 echo 'success';
             }
             
