@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.text.ParseException;
@@ -11,6 +12,7 @@ import java.util.Date;
 import java.util.Map;
 
 import thanggun99.quanlynhahang.App;
+import thanggun99.quanlynhahang.view.dialog.NotifiDialog;
 
 /**
  * Created by Thanggun99 on 05/12/2016.
@@ -56,5 +58,14 @@ public class Utils {
             return true;
         }
         return false;
+    }
+
+
+    public static void notifi(String message) {
+        new NotifiDialog(App.getContext()).notifi(message);
+    }
+
+    public static void showLog(String message) {
+        Log.d("Thanggggggggggggg", message);
     }
 }

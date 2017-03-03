@@ -32,7 +32,6 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".view.activity.FeedbackActivity"></activity>
     </application>
 
 </manifest>

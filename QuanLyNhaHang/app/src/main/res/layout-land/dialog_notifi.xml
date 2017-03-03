@@ -18,7 +18,7 @@
         android:id="@+id/tv_notifi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/other_people_login"
+        android:text="@string/thong_tin_dat_ban"
         android:gravity="center"
         android:paddingTop="16dp"
         android:textColor="@color/colorTextNotifi"

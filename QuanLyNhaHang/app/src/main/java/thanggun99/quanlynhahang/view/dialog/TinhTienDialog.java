@@ -10,7 +10,8 @@ import android.widget.TextView;
 
 import thanggun99.quanlynhahang.R;
 import thanggun99.quanlynhahang.model.entity.HoaDon;
-import thanggun99.quanlynhahang.model.phucvu.MainPhucVuManager;
+import thanggun99.quanlynhahang.model.phucvu.MainPhucVuInteractor;
+import thanggun99.quanlynhahang.presenter.phucvu.PhucVuPresenter;
 import thanggun99.quanlynhahang.util.Utils;
 
 /**
@@ -18,16 +19,16 @@ import thanggun99.quanlynhahang.util.Utils;
  */
 
 public class TinhTienDialog extends BaseDialog {
+    private PhucVuPresenter phucVuPresenter;
     private TextView tvTienMon, tvSoLuong, tvTienGiamGia, tvGiamGia, tvTongTien, tvTienTraLai;
     private SearchView edtTienKhachDua;
-    private MainPhucVuManager mainPhucVuManager;
     private int tongtien;
 
-    public TinhTienDialog(Context context, MainPhucVuManager mainPhucVuManager) {
+    public TinhTienDialog(Context context, PhucVuPresenter phucVuPresenter) {
         super(context);
         setContentView(R.layout.dialog_tinh_tien);
 
-        this.mainPhucVuManager = mainPhucVuManager;
+        this.phucVuPresenter = phucVuPresenter;
 
         tvTitle = (TextView) findViewById(R.id.tv_ten_ban);
         tvTienMon = (TextView) findViewById(R.id.tv_tien_mon);
@@ -72,7 +73,7 @@ public class TinhTienDialog extends BaseDialog {
     public void onClick(View v) {
         super.onClick(v);
         if (v.getId() == R.id.btn_ok) {
-            mainPhucVuManager.tinhTien();
+            phucVuPresenter.tinhTien();
         }
     }
 

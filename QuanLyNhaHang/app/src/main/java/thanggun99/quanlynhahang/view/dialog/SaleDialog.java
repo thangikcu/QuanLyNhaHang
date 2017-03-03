@@ -9,7 +9,8 @@ import android.widget.TextView;
 
 import thanggun99.quanlynhahang.R;
 import thanggun99.quanlynhahang.model.entity.HoaDon;
-import thanggun99.quanlynhahang.model.phucvu.MainPhucVuManager;
+import thanggun99.quanlynhahang.model.phucvu.MainPhucVuInteractor;
+import thanggun99.quanlynhahang.presenter.phucvu.PhucVuPresenter;
 
 /**
  * Created by Thanggun99 on 10/12/2016.
@@ -18,14 +19,14 @@ import thanggun99.quanlynhahang.model.phucvu.MainPhucVuManager;
 public class SaleDialog extends BaseDialog {
     private EditText edtSale;
     private int giamGia;
-    private MainPhucVuManager mainPhucVuManager;
+    private PhucVuPresenter phucVuPresenter;
 
 
-    public SaleDialog(Context context, MainPhucVuManager mainPhucVuManager) {
+    public SaleDialog(Context context, PhucVuPresenter phucVuPresenter) {
         super(context);
         setContentView(R.layout.dialog_sale);
 
-        this.mainPhucVuManager = mainPhucVuManager;
+        this.phucVuPresenter = phucVuPresenter;
         tvTitle = (TextView) findViewById(R.id.tv_ten_ban);
         edtSale = (EditText) findViewById(R.id.edt_sale);
         btnCancle = (Button) findViewById(R.id.btn_cancle);
@@ -55,7 +56,7 @@ public class SaleDialog extends BaseDialog {
         super.onClick(v);
         if (v.getId() == R.id.btn_ok) {
             if (!TextUtils.isEmpty(edtSale.getText()) && Integer.parseInt(edtSale.getText().toString()) <= 100 && Integer.parseInt(edtSale.getText().toString()) != giamGia) {
-                mainPhucVuManager.saleHoaDon(Integer.parseInt(edtSale.getText().toString()));
+                mainPhucVuInteractor.saleHoaDon(Integer.parseInt(edtSale.getText().toString()));
             }
         }
     }

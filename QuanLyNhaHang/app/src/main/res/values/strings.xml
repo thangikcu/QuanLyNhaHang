@@ -67,4 +67,7 @@
     <string name="cap_nhat">Cập nhật</string>
     <string name="pv_notify_update_dat_ban">%s: cập nhật thông tin đặt bàn</string>
     <string name="huy_order">Hủy món: %s ?</string>
+    <string name="thong_bao">Thông báo</string>
+    <string name="dong">Đóng</string>
+    <string name="kiem_tra_ket_noi_mang">Kiểm tra kết nối mạng</string>
 </resources>

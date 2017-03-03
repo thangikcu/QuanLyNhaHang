@@ -46,7 +46,7 @@ public class KhachHang {
     }
 
     public boolean isGhiNhoDangNhap() {
-        if (TextUtils.isEmpty(App.getPreferences().getString(USERNAME, null))){
+        if (TextUtils.isEmpty(App.getPreferences().getString(USERNAME, null))) {
             return false;
         }
         return true;
@@ -71,30 +71,32 @@ public class KhachHang {
         khachHangMap.put("mode", kieuDangNhap);
 
         String s = API.callService(API.LOGIN_URL, null, khachHangMap);
-        if (!TextUtils.isEmpty(s) && s.contains("fail")) {
-            return "fail";
+        if (!TextUtils.isEmpty(s)) {
+            if (s.contains("fail")) {
+                return "fail";
 
-        } else if (!TextUtils.isEmpty(s) && s.contains("other")) {
-            return "other";
-        } else {
-            try {
-                JSONObject jsonObject = (JSONObject) new JSONObject(s).getJSONArray("khachHang").get(0);
-                maKhachHang = jsonObject.getInt("maKhachHang");
-                tenKhachHang = jsonObject.getString("tenKhachHang");
-                soDienThoai = jsonObject.getString("sdt");
-                diaChi = jsonObject.getString("diaChi");
-                maToken = jsonObject.getInt("maToken");
-                if (ghiNho) {
-                    ghiNhoDangNhap();
+            } else if (s.contains("other")) {
+                return "other";
+            } else {
+                try {
+                    JSONObject jsonObject = (JSONObject) new JSONObject(s).getJSONArray("khachHang").get(0);
+                    maKhachHang = jsonObject.getInt("maKhachHang");
+                    tenKhachHang = jsonObject.getString("tenKhachHang");
+                    soDienThoai = jsonObject.getString("sdt");
+                    diaChi = jsonObject.getString("diaChi");
+                    maToken = jsonObject.getInt("maToken");
+                    if (ghiNho) {
+                        ghiNhoDangNhap();
+                    }
+                    return "success";
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                return "success";
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            return "fail";
         }
     }
+    return "fail";
+}
 
     public String getKieuDangNhap() {
         return kieuDangNhap;
@@ -194,4 +196,16 @@ public class KhachHang {
         this.maToken = maToken;
     }
 
+    public boolean changePassword(String newPassword) {
+        Map<String, String> postParams = new HashMap<>();
+        postParams.put("maKhachHang", String.valueOf(maKhachHang));
+        postParams.put("matKhauMoi", newPassword);
+        String s = API.callService(API.CHANGE_PASSWORD_URL, null, postParams);
+
+        if (!TextUtils.isEmpty(s) && s.contains("success")) {
+            setMatKhau(newPassword);
+            return true;
+        }
+        return false;
+    }
 }

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    tools:context=".view.fragment.PhucVuFragment">
+    tools:context=".phucVuView.fragment.PhucVuFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

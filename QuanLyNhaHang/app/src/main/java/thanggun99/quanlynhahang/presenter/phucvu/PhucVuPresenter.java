@@ -3,129 +3,165 @@ package thanggun99.quanlynhahang.presenter.phucvu;
 import android.content.Context;
 import android.text.TextUtils;
 
-import thanggun99.quanlynhahang.model.entity.DatTruoc;
-import thanggun99.quanlynhahang.model.entity.NhomMon;
-import thanggun99.quanlynhahang.view.adapter.BanAdapter;
-import thanggun99.quanlynhahang.view.adapter.NhomMonAdapter;
-import thanggun99.quanlynhahang.view.adapter.ThucDonAdapter;
-import thanggun99.quanlynhahang.view.adapter.ThucDonOrderAdapter;
+import java.util.ArrayList;
+
 import thanggun99.quanlynhahang.model.entity.Ban;
+import thanggun99.quanlynhahang.model.entity.DatTruoc;
 import thanggun99.quanlynhahang.model.entity.HoaDon;
-import thanggun99.quanlynhahang.model.phucvu.MainPhucVuManager;
+import thanggun99.quanlynhahang.model.entity.NhomMon;
+import thanggun99.quanlynhahang.model.entity.ThucDon;
+import thanggun99.quanlynhahang.model.phucvu.MainPhucVuInteractor;
 
 /**
  * Created by Thanggun99 on 04/12/2016.
  */
 
-public class PhucVuPresenter implements MainPhucVuManager.OnMainPVFinishProgress {
-    private PhucVuView view;
-    private MainPhucVuManager mainPhucVuManager;
+public class PhucVuPresenter implements MainPhucVuInteractor.OnMainPVFinishProgress {
+    private PhucVuView phucVuView;
+    private MainPhucVuInteractor mainPhucVuInteractor;
 
-    public PhucVuPresenter(PhucVuView view, Context context) {
-        this.view = view;
-        mainPhucVuManager = new MainPhucVuManager(this, context);
+    public PhucVuPresenter(PhucVuView phucVuView, Context context) {
+        this.phucVuView = phucVuView;
+        mainPhucVuInteractor = new MainPhucVuInteractor(this, context);
     }
 
     public void loadDatas() {
-        mainPhucVuManager.loadDatas();
+        if (mainPhucVuInteractor.checkConnect()){
+            phucVuView.showProgress();
+            mainPhucVuInteractor.loadDatas();
+        }
+        else {
+            phucVuView.showDialogConnectFail();
+        }
     }
 
     public void onClickDatBan(DatTruoc datTruoc) {
-        mainPhucVuManager.datBan(datTruoc);
+        if (mainPhucVuInteractor.checkConnect()){
+            mainPhucVuInteractor.datBan(datTruoc);
+        }
+        else {
+            phucVuView.showDialogConnectFail();
+        }
     }
 
     @Override
     public void onChangeNhomMon(NhomMon nhomMon) {
-        view.showNhomMon(nhomMon);
+        phucVuView.showNhomMon(nhomMon);
     }
 
     @Override
-    public void onFinishGetDatas(BanAdapter banAdapter, ThucDonOrderAdapter thucDonOrderAdapter, ThucDonAdapter thucDonAdapter, NhomMonAdapter nhomMonAdapter) {
-        view.showDatas(banAdapter, thucDonOrderAdapter, thucDonAdapter, nhomMonAdapter);
+    public void onFinishGetDatas(ArrayList<Ban> listBan, ArrayList<ThucDon> listThucDon, ArrayList<NhomMon> listNhomMon) {
+        phucVuView.hideProgress();
+        phucVuView.showDatas(listBan, listThucDon, listNhomMon);
+    }
+
+    @Override
+    public void onGetDatasFail() {
+        phucVuView.showDialogGetDatasFail();
     }
 
     @Override
     public void onFinishHuyBan(Ban ban) {
-        view.showBanTrong(ban);
+        phucVuView.showBanTrong(ban);
     }
 
     @Override
-    public void onFinishGetThongTinBanTrong(Ban ban) {
-        if (ban != null) view.showBanTrong(ban);
-
+    public void onFinishGetThongTinBanTrong(Ban currentBan) {
+        if (currentBan != null) phucVuView.showBanTrong(currentBan);
     }
 
     @Override
-    public void onFinishGetThongTinBanDatTruoc(DatTruoc datTruoc) {
-        if (datTruoc != null) view.showBanDatTruoc(datTruoc);
+    public void onFinishGetThongTinBanDatTruoc(DatTruoc currentDatTruoc) {
+        if (currentDatTruoc != null) phucVuView.showBanDatTruoc(currentDatTruoc);
     }
 
     @Override
-    public void onFinishGetThongTinBanPV(HoaDon hoaDon) {
-        if (hoaDon != null) view.showBanPhucVu(hoaDon);
+    public void onFinishGetThongTinBanPV(HoaDon currentHoaDon) {
+        if (currentHoaDon != null) phucVuView.showBanPhucVu(currentHoaDon);
     }
 
     @Override
     public void onChangeGiamGia(int giamGia) {
-        view.showGiamGia(giamGia);
+        phucVuView.showGiamGia(giamGia);
     }
 
     @Override
     public void onFinishHuyDatBan(Ban ban) {
-        if (ban != null) view.showBanTrong(ban);
+        if (ban != null) phucVuView.showBanTrong(ban);
     }
 
     @Override
     public void onFinishDatBan(DatTruoc datTruoc) {
-        if (datTruoc != null) view.showBanDatTruoc(datTruoc);
+        if (datTruoc != null) phucVuView.showBanDatTruoc(datTruoc);
     }
 
     @Override
     public void onChangeTongTien(int tongTien) {
-        view.showTongTien(tongTien);
+        phucVuView.showTongTien(tongTien);
     }
 
     public void onClickNhomMon(int position) {
-        mainPhucVuManager.getNhomMon(position);
+        mainPhucVuInteractor.getNhomMon(position);
     }
 
     public void findThucDon(String keyword) {
-        if (!TextUtils.isEmpty(keyword)) mainPhucVuManager.findThucDon(keyword);
+        if (!TextUtils.isEmpty(keyword)) mainPhucVuInteractor.findThucDon(keyword);
     }
 
     public void onClickSale() {
-        mainPhucVuManager.showDialogSale();
+        mainPhucVuInteractor.showDialogSale();
     }
 
     public void onClickHuyBan() {
-        mainPhucVuManager.huyBan();
+        if (mainPhucVuInteractor.checkConnect()){
+            mainPhucVuInteractor.huyBan();
+        }
+        else {
+            phucVuView.showDialogConnectFail();
+        }
     }
 
     public void onClickTinhTien() {
-        mainPhucVuManager.showDialogTinhTien();
+        mainPhucVuInteractor.showDialogTinhTien();
     }
 
     public void onDestroy() {
-        mainPhucVuManager.destroy();
+        mainPhucVuInteractor.destroy();
     }
 
     public void onClickSuaDatBan() {
-        DatTruoc datTruoc = mainPhucVuManager.getCurrentDatTruoc();
-        if (datTruoc != null) view.showFormUpdateDatBan(datTruoc);
+        DatTruoc datTruoc = mainPhucVuInteractor.getCurrentDatTruoc();
+        if (datTruoc != null) phucVuView.showFormUpdateDatBan(datTruoc);
     }
 
     public void onClickCapNhatDatBan(DatTruoc datTruoc) {
-        mainPhucVuManager.updateDatBan(datTruoc);
+        if (mainPhucVuInteractor.checkConnect()){
+            mainPhucVuInteractor.updateDatBan(datTruoc);
+        }
+        else {
+            phucVuView.showDialogConnectFail();
+        }
     }
 
     public void onClickThongTinDatBan() {
-        mainPhucVuManager.showDialogThongTinDatBan();
+        mainPhucVuInteractor.showDialogThongTinDatBan();
     }
 
-    /*this is interface for view Phuc vu*/
-    public interface PhucVuView {
+    public void getThongTinbanAtPosition(int position) {
+        mainPhucVuInteractor.getThongTinbanAtPosition(position);
+    }
 
-        void showDatas(BanAdapter banAdapter, ThucDonOrderAdapter thucDonOrderAdapter, ThucDonAdapter thucDonAdapter, NhomMonAdapter nhomMonAdapter);
+    public void orderThucDon(int soLuong) {
+        mainPhucVuInteractor.orderThucDon(soLuong);
+    }
+
+    /*this is interface for phucVuView Phuc vu*/
+    public interface PhucVuView {
+        void showProgress();
+
+        void hideProgress();
+
+        void showDialogConnectFail();
 
         void showBanTrong(Ban ban);
 
@@ -140,5 +176,9 @@ public class PhucVuPresenter implements MainPhucVuManager.OnMainPVFinishProgress
         void showBanDatTruoc(DatTruoc datTruoc);
 
         void showFormUpdateDatBan(DatTruoc datTruoc);
+
+        void showDialogGetDatasFail();
+
+        void showDatas(ArrayList<Ban> listBan, ArrayList<ThucDon> listThucDon, ArrayList<NhomMon> listNhomMon);
     }
 }

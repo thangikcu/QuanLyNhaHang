@@ -67,4 +67,9 @@
     <string name="dang_xuat">Đăng xuất</string>
     <string name="mat_khau_cu">Mật khẩu cũ</string>
     <string name="mat_khau_moi">Mật khẩu mới</string>
+    <string name="nhap_mat_khau_moi">Nhập mật khẩu mới</string>
+    <string name="mat_khau_khong_dung">Mật khẩu không đúng</string>
+    <string name="thay_doi_mat_khau_thanh_cong">Thay đổi mật khẩu thành công</string>
+    <string name="thay_doi_mat_khau_that_bai">Thay đổi mật khẩu thất bại</string>
+    <string name="trang_chu">Trang chủ</string>
 </resources>

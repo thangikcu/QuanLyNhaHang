@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.thanggun99.khachhang.R;
+import com.thanggun99.khachhang.model.entity.KhachHang;
 import com.thanggun99.khachhang.util.API;
 import com.thanggun99.khachhang.util.Utils;
 
@@ -62,9 +63,14 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         if (v.getId() == R.id.btn_register) {
             if (checkForm()) {
-                new RegisterTask().execute(edtHoTen.getText().toString(), edtDiaChi.getText().toString(),
-                        edtSdt.getText().toString(), edtUsername.getText().toString(),
-                        edtPassword.getText().toString(), Utils.getToken());
+                KhachHang khachHang = new KhachHang();
+                khachHang.setTenKhachHang(edtHoTen.getText().toString().trim());
+                khachHang.setDiaChi(edtDiaChi.getText().toString().trim());
+                khachHang.setSoDienThoai(edtSdt.getText().toString().trim());
+                khachHang.setTenDangNhap(edtUsername.getText().toString().trim());
+                khachHang.setMatKhau(edtRePassword.getText().toString().trim());
+
+                new RegisterTask().execute(khachHang);
             }
         }
         if (v.getId() == R.id.btn_back){
@@ -72,7 +78,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
         }
     }
 
-    private class RegisterTask extends AsyncTask<String, Void, String> {
+    private class RegisterTask extends AsyncTask<KhachHang, Void, String> {
         @Override
         protected void onPreExecute() {
             if (Utils.isConnectingToInternet()) {
@@ -104,14 +110,14 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
         }
 
         @Override
-        protected String doInBackground(String... params) {
+        protected String doInBackground(KhachHang...khachHangs) {
             Map<String, String> registerInfo = new HashMap<>();
-            registerInfo.put("hoTen", params[0]);
-            registerInfo.put("diaChi", params[1]);
-            registerInfo.put("sdt", params[2]);
-            registerInfo.put("tenDangNhap", params[3]);
-            registerInfo.put("matKhau", params[4]);
-            registerInfo.put("token", params[5]);
+            registerInfo.put("hoTen", khachHangs[0].getTenKhachHang());
+            registerInfo.put("diaChi", khachHangs[0].getDiaChi());
+            registerInfo.put("sdt", khachHangs[0].getSoDienThoai());
+            registerInfo.put("tenDangNhap", khachHangs[0].getTenDangNhap());
+            registerInfo.put("matKhau", khachHangs[0].getMatKhau());
+            registerInfo.put("token", Utils.getToken());
 
             String s = API.callService(API.REGISTER_URL, null, registerInfo);
             if (!TextUtils.isEmpty(s)) {

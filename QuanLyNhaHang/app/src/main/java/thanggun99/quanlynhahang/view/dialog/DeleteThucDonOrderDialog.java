@@ -6,7 +6,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import thanggun99.quanlynhahang.R;
-import thanggun99.quanlynhahang.model.phucvu.MainPhucVuManager;
+import thanggun99.quanlynhahang.model.phucvu.MainPhucVuInteractor;
+import thanggun99.quanlynhahang.presenter.phucvu.PhucVuPresenter;
 import thanggun99.quanlynhahang.util.Utils;
 
 /**
@@ -15,13 +16,13 @@ import thanggun99.quanlynhahang.util.Utils;
 
 public class DeleteThucDonOrderDialog extends BaseDialog {
     private TextView tvTenMon;
-    private MainPhucVuManager mainPhucVuManager;
+    private PhucVuPresenter phucVuPresenter;
 
-    public DeleteThucDonOrderDialog(Context context, MainPhucVuManager mainPhucVuManager) {
+    public DeleteThucDonOrderDialog(Context context, PhucVuPresenter phucVuPresenter) {
         super(context);
         setContentView(R.layout.dialog_delete_thuc_don_order);
 
-        this.mainPhucVuManager = mainPhucVuManager;
+        this.phucVuPresenter = phucVuPresenter;
         tvTenMon = (TextView) findViewById(R.id.tv_ten_mon);
 
         tvTitle = (TextView) findViewById(R.id.tv_ten_ban);
@@ -43,7 +44,7 @@ public class DeleteThucDonOrderDialog extends BaseDialog {
     public void onClick(View v) {
         super.onClick(v);
         if (v.getId() == R.id.btn_ok) {
-            mainPhucVuManager.deleteThucDonOrder();
+            mainPhucVuInteractor.deleteThucDonOrder();
         }
     }
 }

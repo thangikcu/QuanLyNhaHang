@@ -31,6 +31,7 @@ public class API {
     public static final String FEEDBACK_URL = PATH_KHACH_HANG + "Feedback.php";
     public static final String REGISTER_TOKEN_URL = PATH_TOKEN + "RegisterToken.php";
     public static final String TEST_URL = PATH_TEST + "Test.php";
+    public static final String CHANGE_PASSWORD_URL = PATH_KHACH_HANG + "ChangePassword.php";
 
     public static String callService(String url, Map<String, String> getParams) {
         return callService(url, getParams, null);

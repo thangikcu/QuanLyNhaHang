@@ -6,11 +6,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -23,32 +22,37 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.thanggun99.khachhang.R;
-import com.thanggun99.khachhang.adapter.TabsAdapter;
+import com.thanggun99.khachhang.model.entity.KhachHang;
 import com.thanggun99.khachhang.presenter.KhachHangPresenter;
 import com.thanggun99.khachhang.service.MyFirebaseMessagingService;
 import com.thanggun99.khachhang.util.Utils;
-import com.thanggun99.khachhang.view.fragment.ThucDonFragment;
-import com.thanggun99.khachhang.view.fragment.TinTucFragment;
-
-import java.util.ArrayList;
+import com.thanggun99.khachhang.view.dialog.ChangePasswordDialog;
+import com.thanggun99.khachhang.view.fragment.AboutFragment;
+import com.thanggun99.khachhang.view.fragment.DatBanFragment;
+import com.thanggun99.khachhang.view.fragment.FeedbackFragment;
+import com.thanggun99.khachhang.view.fragment.HomeFragment;
+import com.thanggun99.khachhang.view.fragment.MyProfileFragment;
+import com.thanggun99.khachhang.view.fragment.SettingFragment;
 
 public class MainActivity extends AppCompatActivity implements KhachHangPresenter.MainView, PopupMenu.OnMenuItemClickListener, NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-    private LinearLayout lnLogin;
-    private TextView tvUsername, tvFullname;
-    private TabsAdapter tabsAdapter;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle toggle;
     private Toolbar toolbar;
+    private LinearLayout lnLogin;
+    private TextView tvUsername, tvFullname;
     private IntentFilter intentFilter;
-    private ThucDonFragment thucDonFragment;
-    private TinTucFragment tinTucFragment;
     private NavigationView navigationView;
     private PopupMenu popupMenu;
     private ImageButton btnArrowDown;
     private KhachHangPresenter khachHangPresenter;
     private boolean isLogin = false;
+    private HomeFragment homeFragment;
+    private FeedbackFragment feedbackFragment;
+    private SettingFragment settingFragment;
+    private AboutFragment aboutFragment;
+    private DatBanFragment datBanFragment;
+    private MyProfileFragment myProfileFragment;
+    private Fragment fragmentIsShow;
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -69,7 +73,6 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         findViews();
         initComponets();
         setEvents();
@@ -77,15 +80,20 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
 
     private void initComponets() {
         khachHangPresenter = new KhachHangPresenter(this);
+        //initFragment
+        fragmentIsShow = new Fragment();
+        homeFragment = new HomeFragment(khachHangPresenter);
+        feedbackFragment = new FeedbackFragment(khachHangPresenter);
+        settingFragment = new SettingFragment();
+        aboutFragment = new AboutFragment();
+        datBanFragment = new DatBanFragment();
+        myProfileFragment = new MyProfileFragment();
+
         popupMenu = new PopupMenu(this, btnArrowDown);
         popupMenu.getMenuInflater().inflate(R.menu.drop_menu, popupMenu.getMenu());
         toggle = new ActionBarDrawerToggle(this,
                 drawerLayout, toolbar, R.string.navigation_drawer_open,
                 R.string.navigation_drawer_close);
-        ArrayList<Fragment> fragments = new ArrayList<>();
-        fragments.add(thucDonFragment = new ThucDonFragment(khachHangPresenter));
-        fragments.add(tinTucFragment = new TinTucFragment());
-        tabsAdapter = new TabsAdapter(getSupportFragmentManager(), fragments);
         intentFilter = new IntentFilter();
 
     }
@@ -93,14 +101,14 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
     private void setEvents() {
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        viewPager.setAdapter(tabsAdapter);
-        tabLayout.setupWithViewPager(viewPager);
         popupMenu.setOnMenuItemClickListener(this);
         btnArrowDown.setOnClickListener(this);
         navigationView.setNavigationItemSelectedListener(this);
         showNavigationOnUnLogin();
         intentFilter.addAction(MyFirebaseMessagingService.LOGOUT_ACTION);
         intentFilter.addAction(MyFirebaseMessagingService.NOTIFI_ACTION);
+        fillFrame(homeFragment, R.id.btn_home);
+
     }
 
     private void findViews() {
@@ -111,20 +119,44 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
         btnArrowDown = (ImageButton) navigationView.getHeaderView(0).findViewById(R.id.btn_arrow_down);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
-        viewPager = (ViewPager) findViewById(R.id.view_pg);
+    }
+
+    private void fillFrame(Fragment fragment, int id) {
+        if (fragment.isVisible()) return;
+
+        MenuItem menuItem = navigationView.getMenu().findItem(id);
+        menuItem.setChecked(true);
+        String title = menuItem.getTitle().toString();
+        toolbar.setTitle(title);
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        if (fragmentIsShow.isVisible()) transaction.hide(fragmentIsShow);
+        if (fragment.isAdded()) {
+            transaction.show(fragment);
+        } else {
+            transaction.add(R.id.frame, fragment);
+        }
+        transaction.commit();
+        fragmentIsShow = fragment;
     }
 
     public void showNavigationOnUnLogin() {
         lnLogin.setVisibility(View.GONE);
-        navigationView.getMenu().getItem(0).setVisible(false);
         navigationView.getMenu().getItem(1).setVisible(false);
+        navigationView.getMenu().getItem(2).setVisible(false);
     }
 
     public void showNavigationOnLogin() {
         lnLogin.setVisibility(View.VISIBLE);
-        navigationView.getMenu().getItem(0).setVisible(true);
         navigationView.getMenu().getItem(1).setVisible(true);
+        navigationView.getMenu().getItem(2).setVisible(true);
+    }
+
+
+    @Override
+    public void showDialogConnectFail() {
+        Utils.notifi(Utils.getStringByRes(R.string.kiem_tra_ket_noi_mang));
     }
 
     @Override
@@ -157,22 +189,30 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (!(fragmentIsShow instanceof HomeFragment)) {
+                fillFrame(homeFragment, R.id.btn_home);
+            }else {
+                super.onBackPressed();
+            }
         }
     }
 
     @Override
-    public void showViewOnlogin() {
+    public void showViewOnlogin(KhachHang khachHang) {
         isLogin = true;
+        tvUsername.setText(khachHang.getTenDangNhap());
+        tvFullname.setText("(" + khachHang.getTenKhachHang() + ")");
         showNavigationOnLogin();
     }
 
     @Override
     public void showViewOnUnlogin() {
         isLogin = false;
-        viewPager.setCurrentItem(0);
+        tvUsername.setText("");
+        tvFullname.setText("");
         drawerLayout.closeDrawer(GravityCompat.START);
         popupMenu.dismiss();
+        fillFrame(homeFragment, R.id.btn_home);
         showNavigationOnUnLogin();
     }
 
@@ -183,6 +223,8 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
                 khachHangPresenter.logout();
                 return true;
             case R.id.btn_change_password:
+                ChangePasswordDialog changePasswordDialog = new ChangePasswordDialog(this, khachHangPresenter);
+                changePasswordDialog.show();
                 return true;
             default:
                 return false;
@@ -192,12 +234,23 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.btn_home:
+                fillFrame(homeFragment, R.id.btn_home);
+                break;
             case R.id.btn_gop_y:
-                startActivity(new Intent(this, FeedbackActivity.class));
+                fillFrame(feedbackFragment, R.id.btn_gop_y);
                 break;
             case R.id.btn_settings:
+                fillFrame(settingFragment, R.id.btn_settings);
                 break;
-            case R.id.btn_info:
+            case R.id.btn_about:
+                fillFrame(aboutFragment, R.id.btn_about);
+                break;
+            case R.id.btn_dat_ban:
+                fillFrame(datBanFragment, R.id.btn_dat_ban);
+                break;
+            case R.id.btn_my_profile:
+                fillFrame(myProfileFragment, R.id.btn_my_profile);
                 break;
             default:
                 break;

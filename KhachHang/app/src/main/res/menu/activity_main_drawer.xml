@@ -1,25 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/btn_home"
+            android:icon="@drawable/ic_home"
+            android:title="@string/trang_chu" />
+        <item
+            android:id="@+id/btn_my_profile"
+            android:icon="@drawable/ic_profile"
+            android:title="@string/thong_tin_cua_toi" />
+        <item
+            android:id="@+id/btn_dat_ban"
+            android:icon="@drawable/ic_dat_ban"
+            android:title="@string/dat_ban" />
+        <item
+            android:id="@+id/btn_gop_y"
+            android:icon="@drawable/ic_gop_y"
+            android:title="@string/gop_y" />
+        <item
+            android:id="@+id/btn_settings"
+            android:icon="@drawable/ic_settings"
+            android:title="@string/cai_dat" />
+        <item
+            android:id="@+id/btn_about"
+            android:icon="@drawable/ic_info"
+            android:title="@string/thong_tin" />
+    </group>
 
-    <item
-        android:id="@+id/btn_profile"
-        android:icon="@drawable/ic_profile"
-        android:title="@string/thong_tin_cua_toi" />
-    <item
-        android:id="@+id/btn_dat_ban"
-        android:icon="@drawable/ic_dat_ban"
-        android:title="@string/dat_ban" />
-    <item
-        android:id="@+id/btn_gop_y"
-        android:icon="@drawable/ic_gop_y"
-        android:title="@string/gop_y" />
-    <item
-        android:id="@+id/btn_settings"
-        android:icon="@drawable/ic_settings"
-        android:title="@string/cai_dat" />
-    <item
-        android:id="@+id/btn_info"
-        android:icon="@drawable/ic_info"
-        android:title="@string/thong_tin" />
 
 </menu>

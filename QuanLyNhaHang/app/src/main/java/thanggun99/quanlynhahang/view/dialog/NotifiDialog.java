@@ -1,4 +1,4 @@
-package com.thanggun99.khachhang.view.dialog;
+package thanggun99.quanlynhahang.view.dialog;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -6,11 +6,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.thanggun99.khachhang.R;
+import thanggun99.quanlynhahang.R;
 
-/**
- * Created by Thanggun99 on 18/02/2017.
- */
 
 public class NotifiDialog extends BaseDialog {
     private TextView tvNotifi;

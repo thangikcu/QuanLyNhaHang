@@ -20,5 +20,8 @@
     <color name="colorBorderSelected">#e4780c</color>
     <color name="colorTextTenMon">#b31ea2</color>
     <color name="colorTextTongTien">#ca3221</color>
+    <color name="colorTextTitleDialog">#020202</color>
+    <color name="colorBackgroundDialog">#eaeaea</color>
+    <color name="colorTextNotifi">#4e4c50</color>
 
 </resources>

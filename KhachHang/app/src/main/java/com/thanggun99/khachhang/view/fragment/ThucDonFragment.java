@@ -31,7 +31,6 @@ public class ThucDonFragment extends Fragment implements KhachHangPresenter.Thuc
     private CheckBox ckbGhiNho;
     private EditText edtUsername, edtPassword;
     private Button btnLogin;
-    private boolean isLogin = false;
     private ProgressDialog progressDialog;
     private KhachHangPresenter khachHangPresenter;
 
@@ -72,7 +71,6 @@ public class ThucDonFragment extends Fragment implements KhachHangPresenter.Thuc
 
     @Override
     public void showFormLogin() {
-        isLogin = false;
         lnLogin.setVisibility(View.VISIBLE);
         lnThucDon.setVisibility(View.INVISIBLE);
         edtPassword.setText("");

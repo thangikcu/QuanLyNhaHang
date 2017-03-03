@@ -1,4 +1,4 @@
-package thanggun99.quanlynhahang.view.adapter;
+package thanggun99.quanlynhahang.adapter;
 
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
