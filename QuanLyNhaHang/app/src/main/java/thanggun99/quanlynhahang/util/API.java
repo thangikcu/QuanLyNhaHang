@@ -17,13 +17,13 @@ import java.util.Map;
 
 public class API {
     public static final String SCHEME = "http";
-    //public static final String HOST = "192.168.56.1";
-    public static final String HOST = "thanggun99.000webhostapp.com";
+    public static final String HOST = "192.168.56.1";
+    //public static final String HOST = "thanggun99.000webhostapp.com";
     public static final String PATH = "WebService";
     public static final String PATH_BAN = "BanService/";
     public static final String PATH_THUC_DON = "ThucDonService/";
     public static final String PATH_HOA_DON = "HoaDonService/";
-    public static final String PATH_DAT_TRUOC = "DatTruocService/";
+    public static final String PATH_DAT_BAN = "DatBanService/";
     public static final String PATH_NHOM_MON = "NhomMonService/";
 
     public static final String GET_BAN_URL = PATH_BAN + "GetBan.php";
@@ -36,10 +36,10 @@ public class API {
     public static final String TINH_TIEN_HOA_DON_URL = PATH_HOA_DON + "TinhTienHoaDon.php";
     public static final String DELETE_HOA_DON_URL = PATH_HOA_DON + "DeleteHoaDon.php";
 
-    public static final String GET_DAT_TRUOC_URL = PATH_DAT_TRUOC + "GetDatTruoc.php";
-    public static final String DAT_TRUOC_URL = PATH_DAT_TRUOC + "DatTruoc.php";
-    public static final String UPDATE_DAT_TRUOC_URL = PATH_DAT_TRUOC + "UpdateDatTruoc.php";
-    public static final String DELETE_DAT_TRUOC_URL = PATH_DAT_TRUOC + "DeleteDatTruoc.php";
+    public static final String GET_DAT_BAN_URL = PATH_DAT_BAN + "GetDatBan.php";
+    public static final String DAT_BAN_URL = PATH_DAT_BAN + "DatBan.php";
+    public static final String UPDATE_DAT_BAN_URL = PATH_DAT_BAN + "UpdateDatBan.php";
+    public static final String DELETE_DAT_BAN_URL = PATH_DAT_BAN + "DeleteDatBan.php";
 
     public static final String GET_NHOM_MON_URL = PATH_NHOM_MON + "GetNhomMon.php";
 
@@ -99,6 +99,7 @@ public class API {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        Utils.showLog(response);
         return response;
     }
 }

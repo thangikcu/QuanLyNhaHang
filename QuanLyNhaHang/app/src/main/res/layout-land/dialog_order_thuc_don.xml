@@ -53,7 +53,7 @@
             android:lines="1"
             android:text="15"
             android:maxLength="3"
-            android:textColor="@color/colorTextButton"
+            android:textColor="@color/colorTextTitleDialog"
             android:textSize="16sp" />
 
         <TextView

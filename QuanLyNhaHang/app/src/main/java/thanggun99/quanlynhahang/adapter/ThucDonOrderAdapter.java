@@ -65,8 +65,8 @@ public class ThucDonOrderAdapter extends RecyclerView.Adapter<ThucDonOrderAdapte
         notifyItemChanged(thucDonOrders.indexOf(thucDonOrder));
     }
 
-    public void deleteThucDonOrder(ThucDonOrder thucDonOrder){
-        notifyItemRemoved(thucDonOrders.indexOf(thucDonOrder));
+    public void deleteThucDonOrder(){
+        notifyDataSetChanged();
     }
 
     public int getSize() {

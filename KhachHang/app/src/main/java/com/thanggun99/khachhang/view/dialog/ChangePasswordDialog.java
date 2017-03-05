@@ -1,6 +1,5 @@
 package com.thanggun99.khachhang.view.dialog;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
@@ -16,7 +15,6 @@ import com.thanggun99.khachhang.util.Utils;
  */
 
 public class ChangePasswordDialog extends BaseDialog implements KhachHangPresenter.ChangepasswordView {
-    private ProgressDialog progressDialog;
     private EditText edtPassword, edtNewPassword, edtRePassword;
     private KhachHangPresenter khachHangPresenter;
 
@@ -26,11 +24,6 @@ public class ChangePasswordDialog extends BaseDialog implements KhachHangPresent
         setCancelable(true);
         this.khachHangPresenter = khachHangPresenter;
         khachHangPresenter.setChangepasswordView(this);
-
-        progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage(Utils.getStringByRes(R.string.loading));
-        progressDialog.setIndeterminate(true);
-        progressDialog.setCancelable(false);
 
         edtPassword = (EditText) findViewById(R.id.edt_password);
         edtNewPassword = (EditText) findViewById(R.id.edt_new_password);
@@ -84,24 +77,6 @@ public class ChangePasswordDialog extends BaseDialog implements KhachHangPresent
             return false;
         }
         return true;
-    }
-
-    @Override
-    public void onDetachedFromWindow() {
-        if (progressDialog != null) {
-            progressDialog.cancel();
-        }
-        super.onDetachedFromWindow();
-    }
-
-    @Override
-    public void showProgress() {
-        progressDialog.show();
-    }
-
-    @Override
-    public void hideProgress() {
-        progressDialog.dismiss();
     }
 
     @Override

@@ -6,7 +6,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import thanggun99.quanlynhahang.R;
-import thanggun99.quanlynhahang.model.phucvu.MainPhucVuInteractor;
 import thanggun99.quanlynhahang.presenter.phucvu.PhucVuPresenter;
 import thanggun99.quanlynhahang.util.Utils;
 
@@ -44,7 +43,7 @@ public class DeleteThucDonOrderDialog extends BaseDialog {
     public void onClick(View v) {
         super.onClick(v);
         if (v.getId() == R.id.btn_ok) {
-            mainPhucVuInteractor.deleteThucDonOrder();
+            phucVuPresenter.deleteThucDonOrder();
         }
     }
 }

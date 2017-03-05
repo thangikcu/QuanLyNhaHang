@@ -9,5 +9,8 @@
     <color name="colorTextNotifi">#4e4c50</color>
     <color name="colorTextRegister">#0d7b6e</color>
     <color name="colorTextButton">#f2eeee</color>
+    <color name="colorTextButtonDatBan">#670f93</color>
+    <color name="colorTextThongTinDatBan">#7c3c0a</color>
+    <color name="colorTextInfo">#1b1bba</color>
 
 </resources>

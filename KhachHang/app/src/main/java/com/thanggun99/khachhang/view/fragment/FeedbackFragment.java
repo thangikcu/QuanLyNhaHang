@@ -2,7 +2,6 @@ package com.thanggun99.khachhang.view.fragment;
 
 
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,9 +19,8 @@ import com.thanggun99.khachhang.util.Utils;
 @SuppressLint("ValidFragment")
 public class FeedbackFragment extends Fragment implements View.OnClickListener, KhachHangPresenter.FeedbackView {
     private KhachHangPresenter khachHangPresenter;
-    EditText edtTitle, edtContent;
-    ProgressDialog progressDialog;
-    TextView tvError;
+    private EditText edtTitle, edtContent;
+    private TextView tvError;
 
     public FeedbackFragment(KhachHangPresenter khachHangPresenter) {
         this.khachHangPresenter = khachHangPresenter;
@@ -41,10 +39,6 @@ public class FeedbackFragment extends Fragment implements View.OnClickListener, 
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage(Utils.getStringByRes(R.string.loading));
-        progressDialog.setIndeterminate(true);
-        progressDialog.setCancelable(false);
 
         edtContent = (EditText) view.findViewById(R.id.edt_content);
         edtTitle = (EditText) view.findViewById(R.id.edt_title);
@@ -67,24 +61,6 @@ public class FeedbackFragment extends Fragment implements View.OnClickListener, 
             default:
                 break;
         }
-    }
-
-    @Override
-    public void onDestroy() {
-        if (progressDialog != null) {
-            progressDialog.cancel();
-        }
-        super.onDestroy();
-    }
-
-    @Override
-    public void showProgress() {
-        progressDialog.show();
-    }
-
-    @Override
-    public void hideProgress() {
-        progressDialog.dismiss();
     }
 
     @Override

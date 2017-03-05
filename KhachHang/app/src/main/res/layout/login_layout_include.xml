@@ -1,0 +1,81 @@
+<LinearLayout android:id="@+id/ln_login"
+    android:visibility="visible"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="16dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dang_nhap"
+        android:textAllCaps="true"
+        android:textColor="@color/colorTextRegister"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/edt_username"
+        android:layout_marginTop="32dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_user"
+        android:drawablePadding="8dp"
+        android:hint="@string/tai_khoan"
+        android:maxLength="20"
+        android:maxLines="1"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/edt_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_password"
+        android:drawablePadding="8dp"
+        android:hint="@string/mat_khau"
+        android:inputType="textPassword"
+        android:maxLength="20"
+        android:maxLines="1"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+    <CheckBox
+        android:id="@+id/ckb_ghi_nho"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        android:text="@string/ghi_nho_dang_nhap"/>
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tv_error_login"
+        android:textStyle="italic"
+        android:textColor="@color/colorWrong"
+        android:textSize="14sp"
+        android:text="@string/dang_nhap_that_bai"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btn_login"
+        style="?android:textAppearanceSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/dang_nhap"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_register"
+        android:textStyle="italic"
+        android:layout_marginTop="16dp"
+        android:textSize="14sp"
+        android:textColor="@color/colorTextRegister"
+        android:text="@string/dang_ky_tai_khoan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

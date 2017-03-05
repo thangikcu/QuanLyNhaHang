@@ -72,4 +72,18 @@
     <string name="thay_doi_mat_khau_thanh_cong">Thay đổi mật khẩu thành công</string>
     <string name="thay_doi_mat_khau_that_bai">Thay đổi mật khẩu thất bại</string>
     <string name="trang_chu">Trang chủ</string>
+    <string name="gio_den">Giờ đến</string>
+    <string name="yeu_cau">Yêu cầu</string>
+    <string name="nhap_gio_den">Nhập giờ đến</string>
+    <string name="dat_ban_thanh_cong">Đặt bàn thành công</string>
+    <string name="thong_tin_dat_ban">Thông tin đặt bàn</string>
+    <string name="info_yeu_cau">Yêu cầu:</string>
+    <string name="info_gio_den">Giờ đến:</string>
+    <string name="cap_nhat_thong_tin">Cập nhật</string>
+    <string name="huy_dat">Hủy đặt</string>
+    <string name="da_xay_ra_loi">Đã xảy ra lỗi</string>
+    <string name="ban_co_dong_y_huy_dat_ban">Bạn có đồng ý hủy đặt bàn ?</string>
+    <string name="cap_nhat_dat_ban">Cập nhật đặt bàn</string>
+    <string name="cap_nhat">Cập nhật</string>
+    <string name="cap_nhat_dat_ban_thanh_cong">Cập nhật đặt bàn thành công</string>
 </resources>

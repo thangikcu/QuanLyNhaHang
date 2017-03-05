@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import thanggun99.quanlynhahang.R;
 import thanggun99.quanlynhahang.model.entity.HoaDon;
-import thanggun99.quanlynhahang.model.phucvu.MainPhucVuInteractor;
 import thanggun99.quanlynhahang.presenter.phucvu.PhucVuPresenter;
 
 /**
@@ -55,8 +54,11 @@ public class SaleDialog extends BaseDialog {
     public void onClick(View v) {
         super.onClick(v);
         if (v.getId() == R.id.btn_ok) {
-            if (!TextUtils.isEmpty(edtSale.getText()) && Integer.parseInt(edtSale.getText().toString()) <= 100 && Integer.parseInt(edtSale.getText().toString()) != giamGia) {
-                mainPhucVuInteractor.saleHoaDon(Integer.parseInt(edtSale.getText().toString()));
+            if (!TextUtils.isEmpty(edtSale.getText())
+                    && Integer.parseInt(edtSale.getText().toString()) <= 100
+                    && Integer.parseInt(edtSale.getText().toString()) != giamGia) {
+
+                phucVuPresenter.saleHoaDon(Integer.parseInt(edtSale.getText().toString()));
             }
         }
     }

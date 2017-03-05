@@ -32,6 +32,10 @@ public class API {
     public static final String REGISTER_TOKEN_URL = PATH_TOKEN + "RegisterToken.php";
     public static final String TEST_URL = PATH_TEST + "Test.php";
     public static final String CHANGE_PASSWORD_URL = PATH_KHACH_HANG + "ChangePassword.php";
+    public static final String DAT_BAN_URL = PATH_KHACH_HANG + "DatBan.php";
+    public static final String GET_INFO_DAT_BAN_URL = PATH_KHACH_HANG + "GetInfoDatBan.php";
+    public static final String HUY_DAT_BAN_URL = PATH_KHACH_HANG + "HuyDatBan.php";
+    public static final String UPDATE_DAT_BAN_URL = PATH_KHACH_HANG + "UpdateDatBan.php";
 
     public static String callService(String url, Map<String, String> getParams) {
         return callService(url, getParams, null);

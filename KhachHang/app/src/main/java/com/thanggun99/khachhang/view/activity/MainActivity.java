@@ -1,5 +1,6 @@
 package com.thanggun99.khachhang.view.activity;
 
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
     private DatBanFragment datBanFragment;
     private MyProfileFragment myProfileFragment;
     private Fragment fragmentIsShow;
+    private ProgressDialog progressDialog;
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -80,14 +82,15 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
 
     private void initComponets() {
         khachHangPresenter = new KhachHangPresenter(this);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage(Utils.getStringByRes(R.string.loading));
+        progressDialog.setIndeterminate(true);
+        progressDialog.setCancelable(false);
+
         //initFragment
         fragmentIsShow = new Fragment();
         homeFragment = new HomeFragment(khachHangPresenter);
-        feedbackFragment = new FeedbackFragment(khachHangPresenter);
-        settingFragment = new SettingFragment();
-        aboutFragment = new AboutFragment();
-        datBanFragment = new DatBanFragment();
-        myProfileFragment = new MyProfileFragment();
 
         popupMenu = new PopupMenu(this, btnArrowDown);
         popupMenu.getMenuInflater().inflate(R.menu.drop_menu, popupMenu.getMenu());
@@ -119,6 +122,16 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
         btnArrowDown = (ImageButton) navigationView.getHeaderView(0).findViewById(R.id.btn_arrow_down);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+    }
+
+    @Override
+    public void showProgress() {
+        progressDialog.show();
+    }
+
+    @Override
+    public void hideProgress() {
+        progressDialog.dismiss();
     }
 
     private void fillFrame(Fragment fragment, int id) {
@@ -180,6 +193,9 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
 
     @Override
     protected void onDestroy() {
+        if (progressDialog != null) {
+            progressDialog.cancel();
+        }
         khachHangPresenter.onDestroy();
         super.onDestroy();
     }
@@ -217,6 +233,12 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
     }
 
     @Override
+    public void setNullFragments() {
+        datBanFragment = null;
+        myProfileFragment = null;
+    }
+
+    @Override
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.btn_logout:
@@ -238,18 +260,33 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
                 fillFrame(homeFragment, R.id.btn_home);
                 break;
             case R.id.btn_gop_y:
+                if (feedbackFragment == null) {
+                    feedbackFragment = new FeedbackFragment(khachHangPresenter);
+                }
                 fillFrame(feedbackFragment, R.id.btn_gop_y);
                 break;
             case R.id.btn_settings:
+                if (settingFragment == null) {
+                    settingFragment = new SettingFragment();
+                }
                 fillFrame(settingFragment, R.id.btn_settings);
                 break;
             case R.id.btn_about:
+                if (aboutFragment == null) {
+                    aboutFragment = new AboutFragment();
+                }
                 fillFrame(aboutFragment, R.id.btn_about);
                 break;
             case R.id.btn_dat_ban:
+                if (datBanFragment == null) {
+                    datBanFragment = new DatBanFragment(khachHangPresenter);
+                }
                 fillFrame(datBanFragment, R.id.btn_dat_ban);
                 break;
             case R.id.btn_my_profile:
+                if (myProfileFragment == null) {
+                    myProfileFragment = new MyProfileFragment();
+                }
                 fillFrame(myProfileFragment, R.id.btn_my_profile);
                 break;
             default:

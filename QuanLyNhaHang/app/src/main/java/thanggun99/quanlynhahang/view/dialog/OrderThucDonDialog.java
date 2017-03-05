@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import thanggun99.quanlynhahang.R;
-import thanggun99.quanlynhahang.model.entity.HoaDon;
 import thanggun99.quanlynhahang.model.entity.ThucDon;
 import thanggun99.quanlynhahang.presenter.phucvu.PhucVuPresenter;
 
@@ -47,12 +46,12 @@ public class OrderThucDonDialog extends BaseDialog {
         btnCancle.setOnClickListener(this);
     }
 
-    public void setContent(HoaDon currentHoaDon, ThucDon currentThucDon) {
+    public void setContent(String tenBan, ThucDon thucDon) {
         edtSoLuong.setText("1");
-        tvTitle.setText(currentHoaDon.getBan().getTenBan());
-        tvTenMon.setText(currentThucDon.getTenMon());
-        tvDVT.setText(currentThucDon.getDonViTinh());
-        ivThucDon.setImageBitmap(currentThucDon.getHinhAnh());
+        tvTitle.setText(tenBan);
+        tvTenMon.setText(thucDon.getTenMon());
+        tvDVT.setText(thucDon.getDonViTinh());
+        ivThucDon.setImageBitmap(thucDon.getHinhAnh());
         show();
     }
 

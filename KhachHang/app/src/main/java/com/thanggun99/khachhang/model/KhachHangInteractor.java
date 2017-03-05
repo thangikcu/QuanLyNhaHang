@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.text.TextUtils;
 
 import com.thanggun99.khachhang.App;
+import com.thanggun99.khachhang.model.entity.DatBan;
 import com.thanggun99.khachhang.model.entity.KhachHang;
 import com.thanggun99.khachhang.util.API;
 import com.thanggun99.khachhang.util.Utils;
@@ -46,6 +47,11 @@ public class KhachHangInteractor {
     public void changePassword(String password, String newPassword) {
 
         class ChangePasswordTask extends AsyncTask<String, Void, Boolean> {
+            @Override
+            protected void onPreExecute() {
+                onKhachHangFinishedListener.onStartTask();
+                super.onPreExecute();
+            }
 
             @Override
             protected void onPostExecute(Boolean aBoolean) {
@@ -54,6 +60,7 @@ public class KhachHangInteractor {
                 } else {
                     onKhachHangFinishedListener.onChangePasswordFail();
                 }
+                onKhachHangFinishedListener.onFinishTask();
                 super.onPostExecute(aBoolean);
             }
 
@@ -63,7 +70,9 @@ public class KhachHangInteractor {
             }
         }
 
+
         if (!khachHang.getMatKhau().equals(password)) {
+
             onKhachHangFinishedListener.passwordWrong();
         } else {
 
@@ -84,6 +93,13 @@ public class KhachHangInteractor {
 
     public void sentFeedback(String title, String content) {
         class FeedbackTask extends AsyncTask<String, Void, Boolean> {
+
+            @Override
+            protected void onPreExecute() {
+                onKhachHangFinishedListener.onStartTask();
+                super.onPreExecute();
+            }
+
             @Override
             protected void onPostExecute(Boolean aBoolean) {
                 if (aBoolean) {
@@ -92,6 +108,7 @@ public class KhachHangInteractor {
                     onKhachHangFinishedListener.onSentFeedbackFail();
                 }
 
+                onKhachHangFinishedListener.onFinishTask();
                 super.onPostExecute(aBoolean);
             }
 
@@ -111,7 +128,127 @@ public class KhachHangInteractor {
         new FeedbackTask().execute(title, content);
     }
 
+    public void datBan(final DatBan datBan) {
+        class DatBanTask extends AsyncTask<Void, Void, Boolean> {
+            @Override
+            protected void onPreExecute() {
+                onKhachHangFinishedListener.onStartTask();
+                super.onPreExecute();
+            }
+
+            @Override
+            protected void onPostExecute(Boolean aBoolean) {
+                if (aBoolean) {
+                    onKhachHangFinishedListener.onDatBanSuccess();
+                } else {
+                    onKhachHangFinishedListener.onDatBanFail();
+                }
+                onKhachHangFinishedListener.onFinishTask();
+                super.onPostExecute(aBoolean);
+            }
+
+            @Override
+            protected Boolean doInBackground(Void... params) {
+                return khachHang.datBan(datBan);
+            }
+        }
+        new DatBanTask().execute();
+    }
+
+
+    public void getInfoDatBan() {
+        class GetInfoDatBanTask extends AsyncTask<String, Void, Boolean> {
+            @Override
+            protected void onPreExecute() {
+                onKhachHangFinishedListener.onStartTask();
+                super.onPreExecute();
+            }
+
+            @Override
+            protected void onPostExecute(Boolean aBoolean) {
+                if (aBoolean) {
+                    onKhachHangFinishedListener.onGetInfoDatBanSuccess();
+                } else {
+                    onKhachHangFinishedListener.onGetInfoDatBanFail();
+                }
+                onKhachHangFinishedListener.onFinishTask();
+                super.onPostExecute(aBoolean);
+            }
+
+            @Override
+            protected Boolean doInBackground(String... params) {
+                return khachHang.getInfoDatBan();
+            }
+        }
+        new GetInfoDatBanTask().execute();
+    }
+
+
+    public void huyDatBan() {
+        class HuyDatBanTask extends AsyncTask<Void, Void, Boolean> {
+            @Override
+            protected void onPreExecute() {
+                onKhachHangFinishedListener.onStartTask();
+                super.onPreExecute();
+            }
+
+            @Override
+            protected Boolean doInBackground(Void... params) {
+                return khachHang.huyDatBan();
+            }
+
+            @Override
+            protected void onPostExecute(Boolean aBoolean) {
+                if (aBoolean) {
+                    onKhachHangFinishedListener.onFinishHuyDatBan();
+                } else {
+                    onKhachHangFinishedListener.onHuyDatBanFail();
+                }
+                onKhachHangFinishedListener.onFinishTask();
+            }
+
+        }
+        new HuyDatBanTask().execute();
+    }
+
+    public DatBan getCurrentDatBan() {
+        return khachHang.getCurrentDatBan();
+    }
+
+    public void updateDatBan(final DatBan datBan) {
+        class UpdateDatBanTask extends AsyncTask<Void, Void, Boolean> {
+            @Override
+            protected void onPreExecute() {
+                onKhachHangFinishedListener.onStartTask();
+                super.onPreExecute();
+            }
+
+            @Override
+            protected void onPostExecute(Boolean aBoolean) {
+                if (aBoolean) {
+                    onKhachHangFinishedListener.onUpdateDatBanSuccess();
+                } else {
+                    onKhachHangFinishedListener.onUpdateDatBanFail();
+                }
+                onKhachHangFinishedListener.onFinishTask();
+                super.onPostExecute(aBoolean);
+            }
+
+            @Override
+            protected Boolean doInBackground(Void... params) {
+                return khachHang.updateDatBan(datBan);
+            }
+
+        }
+        new UpdateDatBanTask().execute();
+    }
+
     private class LoginAsynTask extends AsyncTask<Void, Void, String> {
+        @Override
+        protected void onPreExecute() {
+            onKhachHangFinishedListener.onStartTask();
+            super.onPreExecute();
+        }
 
         @Override
         protected void onPostExecute(String s) {
@@ -124,6 +261,7 @@ public class KhachHangInteractor {
                 onKhachHangFinishedListener.onLoginFail();
                 khachHang = null;
             }
+            onKhachHangFinishedListener.onFinishTask();
         }
 
         @Override
@@ -150,6 +288,26 @@ public class KhachHangInteractor {
         void onSentFeedbackFail();
 
         void onSentFeedbackSuccess();
+
+        void onDatBanSuccess();
+
+        void onDatBanFail();
+
+        void onGetInfoDatBanSuccess();
+
+        void onGetInfoDatBanFail();
+
+        void onFinishHuyDatBan();
+
+        void onHuyDatBanFail();
+
+        void onUpdateDatBanSuccess();
+
+        void onUpdateDatBanFail();
+
+        void onStartTask();
+
+        void onFinishTask();
     }
 
 }

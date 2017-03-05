@@ -4,27 +4,27 @@ package thanggun99.quanlynhahang.model.entity;
  * Created by Thanggun99 on 18/12/2016.
  */
 
-public class DatTruoc {
+public class DatBan {
     private int maKhachHang;
-    private int maDatTruoc;
+    private int maDatBan;
     private Ban ban;
     private String tenKhachHang;
     private String soDienThoai;
     private String gioDen;
-    private String ghiChu;
+    private String yeuCau;
     private int trangThai;
 
-    public DatTruoc(int maDatTruoc, Ban ban, String tenKhachHang, String soDienThoai, String gioDen, String ghiChu, int trangThai) {
-        this.maDatTruoc = maDatTruoc;
+    public DatBan(int maDatBan, Ban ban, String tenKhachHang, String soDienThoai, String gioDen, String yeuCau, int trangThai) {
+        this.maDatBan = maDatBan;
         this.ban = ban;
         this.tenKhachHang = tenKhachHang;
         this.soDienThoai = soDienThoai;
         this.gioDen = gioDen;
-        this.ghiChu = ghiChu;
+        this.yeuCau = yeuCau;
         this.trangThai = trangThai;
     }
 
-    public DatTruoc() {
+    public DatBan() {
     }
 
     public int getMaKhachHang() {
@@ -35,12 +35,12 @@ public class DatTruoc {
         this.maKhachHang = maKhachHang;
     }
 
-    public int getMaDatTruoc() {
-        return maDatTruoc;
+    public int getMaDatBan() {
+        return maDatBan;
     }
 
-    public void setMaDatTruoc(int maDatTruoc) {
-        this.maDatTruoc = maDatTruoc;
+    public void setMaDatBan(int maDatBan) {
+        this.maDatBan = maDatBan;
     }
 
     public Ban getBan() {
@@ -75,12 +75,12 @@ public class DatTruoc {
         this.gioDen = gioDen;
     }
 
-    public String getGhiChu() {
-        return ghiChu;
+    public String getYeuCau() {
+        return yeuCau;
     }
 
-    public void setGhiChu(String ghiChu) {
-        this.ghiChu = ghiChu;
+    public void setYeuCau(String yeuCau) {
+        this.yeuCau = yeuCau;
     }
 
     public int getTrangThai() {

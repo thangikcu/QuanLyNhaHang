@@ -42,11 +42,15 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.ViewHolder> {
         holder.tvBan.setText(ban.getTenBan());
         holder.tvBan.setBackgroundResource(ban.getIdResBgBan());
 
-        if (tvSelected.getText().toString().equals(ban.getTenBan())) {
+        if (position == 0) {
             holder.tvBan.setSelected(true);
             tvSelected = holder.tvBan;
         }
 
+        if (tvSelected.getText().toString().equals(ban.getTenBan())) {
+            holder.tvBan.setSelected(true);
+            tvSelected = holder.tvBan;
+        }
     }
 
     public void updateBan(Ban ban) {

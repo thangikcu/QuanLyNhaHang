@@ -41,8 +41,8 @@ public class HoaDonManager {
                         if (object.toString().contains("giamGia")) {
                             hoaDon.setGiamGia(object.getInt("giamGia"));
                         }
-                        if (object.toString().contains("maDatTruoc")) {
-                            hoaDon.setDatTruoc(DatTruocManager.getDatTruocByMaDatTruoc(object.getInt("maDatTruoc")));
+                        if (object.toString().contains("maDatBan")) {
+                            hoaDon.setDatBan(DatBanManager.getDatBanByMaDatBan(object.getInt("maDatBan")));
 
                         }
                         hoaDon.setGioDen(object.getString("gioDen"));
@@ -79,8 +79,8 @@ public class HoaDonManager {
 
     public boolean taoMoiHoaDon(HoaDon hoaDonNew, ThucDonOrder thucDonOrderNew) {
         Map<String, String> postParams = new HashMap<>();
-        if (hoaDonNew.getDatTruoc() != null){
-            postParams.put("maDatTruoc", String.valueOf(hoaDonNew.getDatTruoc().getMaDatTruoc()));
+        if (hoaDonNew.getDatBan() != null){
+            postParams.put("maDatBan", String.valueOf(hoaDonNew.getDatBan().getMaDatBan()));
         }
         postParams.put("maBan", String.valueOf(hoaDonNew.getBan().getMaBan()));
         postParams.put("gioDen", hoaDonNew.getGioDen());
@@ -162,8 +162,8 @@ public class HoaDonManager {
 
     public Boolean deleteHoaDon(HoaDon hoaDon) {
         Map<String, String> getParams = new HashMap<>();
-        if (hoaDon.getDatTruoc() != null){
-            getParams.put("maDatTruoc", String.valueOf(hoaDon.getDatTruoc().getMaDatTruoc()));
+        if (hoaDon.getDatBan() != null){
+            getParams.put("maDatBan", String.valueOf(hoaDon.getDatBan().getMaDatBan()));
         }
         getParams.put("maHoaDon", String.valueOf(hoaDon.getMaHoaDon()));
         getParams.put("maBan", String.valueOf(hoaDon.getBan().getMaBan()));

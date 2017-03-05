@@ -1,7 +1,6 @@
 package thanggun99.quanlynhahang.model.entity;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 import thanggun99.quanlynhahang.R;
 import thanggun99.quanlynhahang.util.Utils;
@@ -12,7 +11,7 @@ import thanggun99.quanlynhahang.util.Utils;
 
 public class HoaDon {
     private int maHoaDon;
-    private DatTruoc datTruoc;
+    private DatBan datBan;
     private int giamGia;
     private Ban ban;
     private String gioDen;
@@ -80,12 +79,12 @@ public class HoaDon {
         this.gioDen = gioDen;
     }
 
-    public DatTruoc getDatTruoc() {
-        return datTruoc;
+    public DatBan getDatBan() {
+        return datBan;
     }
 
-    public void setDatTruoc(DatTruoc datTruoc) {
-        this.datTruoc = datTruoc;
+    public void setDatBan(DatBan datBan) {
+        this.datBan = datBan;
     }
 
     public int getTongTien() {

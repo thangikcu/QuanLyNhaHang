@@ -21,7 +21,7 @@
                 }
                 
                 if($row["MaDatBan"] != null){
-                    $t["maDatTruoc"] = $row["MaDatBan"];
+                    $t["maDatBan"] = $row["MaDatBan"];
                 }
                 
                 

@@ -1,0 +1,86 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_dat_ban"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="@string/dat_ban"
+        android:textAllCaps="true"
+        android:textColor="@color/colorTextRegister"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/edt_gio_den"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_time"
+                android:drawablePadding="8dp"
+                android:hint="@string/gio_den"
+                android:inputType="time"
+                android:maxLength="21"
+                android:maxLines="1"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edt_yeu_cau"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_note"
+                android:drawablePadding="8dp"
+                android:hint="@string/yeu_cau"
+                android:inputType="textMultiLine"
+                android:isScrollContainer="true"
+                android:lines="7"
+                android:maxLength="300"
+                android:maxLines="7"
+                android:scrollbars="vertical"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/tv_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/gap_loi"
+        android:textColor="@color/colorWrong"
+        android:textSize="14sp"
+        android:textStyle="italic"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/btn_dat_ban"
+        android:layout_width="136dp"
+        android:layout_height="52dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:drawableLeft="@drawable/ic_dat_truoc"
+        android:text="@string/dat_ban"
+        android:textAllCaps="false"
+        android:textColor="@color/colorTextButtonDatBan"
+        android:textSize="14sp"
+        android:visibility="visible" />
+</LinearLayout>
+
+

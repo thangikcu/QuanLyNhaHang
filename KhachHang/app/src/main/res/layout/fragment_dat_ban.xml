@@ -1,13 +1,132 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.thanggun99.khachhang.view.fragment.DatBanFragment">
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ImageButton
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_back"
+        android:visibility="gone" />
+
+    <include
+        android:id="@+id/ln_dat_ban"
+        layout="@layout/dat_ban_layout_include"
+        android:visibility="visible" />
+
+    <LinearLayout
+        android:id="@+id/ln_thong_tin_dat_ban"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/dat_ban" />
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:visibility="gone">
 
-</FrameLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:text="@string/thong_tin_dat_ban"
+            android:textAllCaps="true"
+            android:textColor="@color/colorTextRegister"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/info_gio_den"
+                    android:textColor="@color/colorTextThongTinDatBan"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_gio_den"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="16dp"
+                    android:text="07:25 SA - 22/12/2016"
+                    android:textColor="@color/colorTextInfo"
+                    android:textSize="14sp"
+                    android:textStyle="normal" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/info_yeu_cau"
+                    android:textColor="@color/colorTextThongTinDatBan"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_yeu_cau"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:isScrollContainer="true"
+                    android:maxLines="4"
+                    android:paddingLeft="16dp"
+                    android:scrollbars="vertical"
+                    android:text="Bàn cạnh cửa sổ"
+                    android:textColor="@color/colorTextInfo"
+                    android:textSize="14sp"
+                    android:textStyle="normal" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="32dp">
+
+                <Button
+                    android:id="@+id/btn_edit_dat_ban"
+                    android:layout_width="110dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginRight="32dp"
+                    android:drawableLeft="@drawable/ic_edit"
+                    android:text="@string/cap_nhat_thong_tin"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorTextButtonDatBan"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/btn_huy_dat_ban"
+                    android:layout_width="110dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_horizontal"
+                    android:drawableLeft="@drawable/ic_cancel"
+                    android:text="@string/huy_dat"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorTextButtonDatBan"
+                    android:textSize="14sp" />
+            </TableRow>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

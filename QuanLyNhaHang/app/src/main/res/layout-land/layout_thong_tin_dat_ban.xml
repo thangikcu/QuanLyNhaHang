@@ -112,17 +112,20 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/info_ghi_chu"
+                    android:text="@string/info_yeu_cau"
                     android:textColor="@color/colorTextThongTinDatBan"
                     android:textSize="12sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tv_ghi_chu"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tv_yeu_cau"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
+                    android:isScrollContainer="true"
+                    android:maxLines="3"
                     android:paddingLeft="16dp"
-                    android:text="Bàn cạnh cửa sổ, 5 người"
+                    android:scrollbars="vertical"
+                    android:text="Bàn cạnh cửa sổ,Bàn cạnh cửa sổ"
                     android:textColor="@color/colorTextInfo"
                     android:textSize="12sp"
                     android:textStyle="normal" />

@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_note"
                 android:drawablePadding="8dp"
-                android:hint="@string/ghi_chu"
+                android:hint="@string/yeu_cau"
                 android:inputType="textMultiLine"
                 android:lines="3"
                 android:maxLength="150"

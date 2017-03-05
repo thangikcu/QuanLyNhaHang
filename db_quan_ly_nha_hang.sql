@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 28, 2017 at 10:41 PM
+-- Generation Time: Mar 06, 2017 at 12:46 AM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -38,7 +38,7 @@ CREATE TABLE `ban` (
 --
 
 INSERT INTO `ban` (`MaBan`, `TenBan`, `TrangThai`, `HienThi`) VALUES
-(1, 'Bàn 1', 0, 1),
+(1, 'Bàn 1', 2, 1),
 (2, 'Bàn 2', 0, 1),
 (3, 'Bàn 3', 0, 1),
 (4, 'Bàn 4', 0, 1),
@@ -50,13 +50,13 @@ INSERT INTO `ban` (`MaBan`, `TenBan`, `TrangThai`, `HienThi`) VALUES
 (10, 'Bàn 10', 2, 1),
 (11, 'Bàn 11', 0, 1),
 (13, 'Bàn 12', 0, 1),
-(14, 'Bàn 13', 1, 1),
+(14, 'Bàn 13', 0, 1),
 (15, 'Bàn 14', 0, 1),
 (16, 'Bàn 15', 0, 1),
 (17, 'Bàn 16', 0, 1),
 (18, 'Bàn 17', 0, 1),
 (19, 'Bàn 18', 0, 1),
-(25, 'Bàn 19', 0, 1),
+(25, 'Bàn 19', 1, 1),
 (31, 'Bàn 20', 0, 1);
 
 -- --------------------------------------------------------
@@ -77,15 +77,12 @@ CREATE TABLE `chi_tiet_hd` (
 --
 
 INSERT INTO `chi_tiet_hd` (`MaChiTietHD`, `MaHoaDon`, `MaMon`, `SoLuong`) VALUES
-(670, 366, 24, 4),
-(671, 367, 20, 3),
-(672, 367, 17, 1),
-(673, 368, 23, 5),
-(674, 369, 40, 2),
-(675, 369, 20, 1),
-(676, 370, 25, 3),
-(677, 370, 45, 4),
-(679, 372, 20, 1);
+(686, 378, 41, 1),
+(687, 379, 20, 3),
+(688, 379, 19, 3),
+(697, 386, 25, 3),
+(698, 386, 7, 2),
+(699, 387, 7, 1);
 
 -- --------------------------------------------------------
 
@@ -95,11 +92,12 @@ INSERT INTO `chi_tiet_hd` (`MaChiTietHD`, `MaHoaDon`, `MaMon`, `SoLuong`) VALUES
 
 CREATE TABLE `dat_ban` (
   `MaDatBan` int(11) NOT NULL,
-  `TenKhachHang` varchar(50) COLLATE utf8_vietnamese_ci NOT NULL,
-  `SDT` varchar(50) COLLATE utf8_vietnamese_ci NOT NULL,
+  `MaKhachHang` int(11) DEFAULT NULL,
+  `TenKhachHang` varchar(50) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `SDT` varchar(50) COLLATE utf8_vietnamese_ci DEFAULT NULL,
   `GioDen` varchar(50) COLLATE utf8_vietnamese_ci NOT NULL,
-  `GhiChu` varchar(150) COLLATE utf8_vietnamese_ci DEFAULT NULL,
-  `MaBan` int(11) NOT NULL,
+  `YeuCau` varchar(300) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `MaBan` int(11) DEFAULT NULL,
   `TrangThai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
 
@@ -107,10 +105,11 @@ CREATE TABLE `dat_ban` (
 -- Dumping data for table `dat_ban`
 --
 
-INSERT INTO `dat_ban` (`MaDatBan`, `TenKhachHang`, `SDT`, `GioDen`, `GhiChu`, `MaBan`, `TrangThai`) VALUES
-(69, 'thang', '0985588756569', '05:45 AM - 13/02/2017', 'Nothing', 14, 0),
-(70, 'thanggun', '1546464646', '07:46 AM - 13/02/2017', '', 4, 1),
-(71, 'abc', '45646546498899', '07:46 AM - 13/02/2017', 'keep', 31, 1);
+INSERT INTO `dat_ban` (`MaDatBan`, `MaKhachHang`, `TenKhachHang`, `SDT`, `GioDen`, `YeuCau`, `MaBan`, `TrangThai`) VALUES
+(74, 6, NULL, NULL, '04:13 AM - 05/03/2017', '12', 13, 1),
+(76, NULL, 'thang tran', '0123456789', '07:22 AM - 05/03/2017', 'to chuc sinh nhat 5 nguoi', 25, 0),
+(92, 1, NULL, NULL, '06:41 PM - 05/03/2017', 'f', NULL, 0),
+(93, 6, NULL, NULL, '06:43 PM - 05/03/2017', '4', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -129,9 +128,7 @@ CREATE TABLE `gop_y` (
 --
 
 INSERT INTO `gop_y` (`MaGopY`, `TieuDe`, `NoiDung`) VALUES
-(3, 'thang', 'khong co gi'),
-(4, 'toi co chut gop y th', 'khong cos gif laf mai mai het lafd asfdalksdjflkajsdk;lfja;ksjdflkajsd;lkfjlkakkkkkkkkkkskrkwejrlwer'),
-(5, 'ham', 'cha ra gi');
+(11, 'Đây là tiêu đề', 'Tôi có góp ý như sau');
 
 -- --------------------------------------------------------
 
@@ -141,6 +138,7 @@ INSERT INTO `gop_y` (`MaGopY`, `TieuDe`, `NoiDung`) VALUES
 
 CREATE TABLE `hoa_don` (
   `MaHoaDon` int(11) NOT NULL,
+  `MaKhachHang` int(11) DEFAULT NULL,
   `MaDatBan` int(11) DEFAULT NULL,
   `GiamGia` int(11) DEFAULT NULL,
   `MaBan` int(11) NOT NULL,
@@ -153,13 +151,11 @@ CREATE TABLE `hoa_don` (
 -- Dumping data for table `hoa_don`
 --
 
-INSERT INTO `hoa_don` (`MaHoaDon`, `MaDatBan`, `GiamGia`, `MaBan`, `GioDen`, `TongTien`, `TrangThai`) VALUES
-(366, NULL, 25, 11, '2017-02-13 07:45:32', 90000, 1),
-(367, NULL, NULL, 6, '2017-02-13 07:45:41', 65000, 1),
-(368, 70, 10, 4, '2017-02-13 07:46:42', 157000, 1),
-(369, NULL, 30, 11, '2017-02-13 07:54:09', 38000, 1),
-(370, 71, 10, 31, '2017-02-13 07:54:51', 184000, 1),
-(372, NULL, NULL, 10, '2017-02-19 07:48:54', NULL, 0);
+INSERT INTO `hoa_don` (`MaHoaDon`, `MaKhachHang`, `MaDatBan`, `GiamGia`, `MaBan`, `GioDen`, `TongTien`, `TrangThai`) VALUES
+(378, 6, 74, NULL, 25, '2017-03-05 04:13:11', 20000, 1),
+(379, NULL, 76, NULL, 13, '2017-03-05 04:13:34', 120000, 1),
+(386, NULL, NULL, 15, 10, '2017-03-05 05:23:01', NULL, 0),
+(387, NULL, NULL, NULL, 1, '2017-03-05 08:13:31', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -182,8 +178,8 @@ CREATE TABLE `khach_hang` (
 --
 
 INSERT INTO `khach_hang` (`MaKhachHang`, `TenKhachHang`, `SoDienThoai`, `DiaChi`, `TenDangNhap`, `MatKhau`, `MaToken`) VALUES
-(1, 'Trần Văn Thắng', '0915194096', '323 Phúc Diễn-Từ Liêm-Hà Nội', 'thangikcu', 'thanggun99', 6),
-(4, 'nguyen van a', '03503811626', 'ha nam ', 'thanggun99', 'chienthan123', 5);
+(1, 'Trần Văn Thắng', '0915194096', '323 Phúc Diễn-Từ Liêm-Hà Nội', 'thangikcu', 'thanggun99', 7),
+(6, 'tran ngoc son', '012345784545454', 'nam dinh my thuan', 'sonsociu', '123456', 7);
 
 -- --------------------------------------------------------
 
@@ -289,7 +285,8 @@ CREATE TABLE `token` (
 
 INSERT INTO `token` (`MaToken`, `Token`, `Type`) VALUES
 (5, 'caf_Kc94dZc:APA91bEjPSMY65Q67IFCv6ioj5qefWL5m6-IzYio6GjEbrffZW_Zm5mvn7p5MP-fB9Um6PZRQJgUtFPuuMWInBkxFpXZs6Jck9SZ5QI14Y262aRkazVXO7GSd6pMis6fCMf9wFrhfjIT', 2),
-(6, 'dxQsuTR3-Xg:APA91bGD9hTzORHgLk6_HE98soeAo1Mpha9JNvm98NLpQ8jsCr1rfCrHUQj5YN2NswM4bjXOFAvjPjtuJrRbuMgXYemPtDn54ZROv2T-uQ4Y7O1C_25BmZG5Z6-zhOrBUB_tEKMMT_rH', 2);
+(6, 'dxQsuTR3-Xg:APA91bGD9hTzORHgLk6_HE98soeAo1Mpha9JNvm98NLpQ8jsCr1rfCrHUQj5YN2NswM4bjXOFAvjPjtuJrRbuMgXYemPtDn54ZROv2T-uQ4Y7O1C_25BmZG5Z6-zhOrBUB_tEKMMT_rH', 2),
+(7, 'e8hgvpoUgcM:APA91bGKZ_rlrj5nZvfXH7eoVVjnV96WQ41pGRq9M57wsqXK92IjY58UYLp4pcE6H4ztm44gJCkr5yCdGdnu6K08DWFhWNHd7c_4BdrxFRK19gHEataL2S9jBAT6K7wHrPC5OjCGRDtU', 2);
 
 --
 -- Indexes for dumped tables
@@ -314,7 +311,8 @@ ALTER TABLE `chi_tiet_hd`
 --
 ALTER TABLE `dat_ban`
   ADD PRIMARY KEY (`MaDatBan`),
-  ADD KEY `MaBan` (`MaBan`);
+  ADD KEY `MaBan` (`MaBan`),
+  ADD KEY `MaKhachHang` (`MaKhachHang`);
 
 --
 -- Indexes for table `gop_y`
@@ -328,7 +326,8 @@ ALTER TABLE `gop_y`
 ALTER TABLE `hoa_don`
   ADD PRIMARY KEY (`MaHoaDon`),
   ADD KEY `MaBan` (`MaBan`),
-  ADD KEY `MaDatBan` (`MaDatBan`);
+  ADD KEY `MaDatBan` (`MaDatBan`),
+  ADD KEY `MaKhachHang` (`MaKhachHang`);
 
 --
 -- Indexes for table `khach_hang`
@@ -369,27 +368,27 @@ ALTER TABLE `ban`
 -- AUTO_INCREMENT for table `chi_tiet_hd`
 --
 ALTER TABLE `chi_tiet_hd`
-  MODIFY `MaChiTietHD` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=680;
+  MODIFY `MaChiTietHD` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=700;
 --
 -- AUTO_INCREMENT for table `dat_ban`
 --
 ALTER TABLE `dat_ban`
-  MODIFY `MaDatBan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `MaDatBan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
 --
 -- AUTO_INCREMENT for table `gop_y`
 --
 ALTER TABLE `gop_y`
-  MODIFY `MaGopY` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `MaGopY` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `hoa_don`
 --
 ALTER TABLE `hoa_don`
-  MODIFY `MaHoaDon` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=373;
+  MODIFY `MaHoaDon` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=388;
 --
 -- AUTO_INCREMENT for table `khach_hang`
 --
 ALTER TABLE `khach_hang`
-  MODIFY `MaKhachHang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `MaKhachHang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `nhom_mon`
 --
@@ -404,7 +403,7 @@ ALTER TABLE `thuc_don`
 -- AUTO_INCREMENT for table `token`
 --
 ALTER TABLE `token`
-  MODIFY `MaToken` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `MaToken` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- Constraints for dumped tables
 --
@@ -420,14 +419,16 @@ ALTER TABLE `chi_tiet_hd`
 -- Constraints for table `dat_ban`
 --
 ALTER TABLE `dat_ban`
-  ADD CONSTRAINT `dat_ban_ibfk_1` FOREIGN KEY (`MaBan`) REFERENCES `ban` (`MaBan`);
+  ADD CONSTRAINT `dat_ban_ibfk_1` FOREIGN KEY (`MaBan`) REFERENCES `ban` (`MaBan`),
+  ADD CONSTRAINT `dat_ban_ibfk_2` FOREIGN KEY (`MaKhachHang`) REFERENCES `khach_hang` (`MaKhachHang`);
 
 --
 -- Constraints for table `hoa_don`
 --
 ALTER TABLE `hoa_don`
   ADD CONSTRAINT `hoa_don_ibfk_1` FOREIGN KEY (`MaBan`) REFERENCES `ban` (`MaBan`),
-  ADD CONSTRAINT `hoa_don_ibfk_2` FOREIGN KEY (`MaDatBan`) REFERENCES `dat_ban` (`MaDatBan`);
+  ADD CONSTRAINT `hoa_don_ibfk_2` FOREIGN KEY (`MaDatBan`) REFERENCES `dat_ban` (`MaDatBan`),
+  ADD CONSTRAINT `hoa_don_ibfk_3` FOREIGN KEY (`MaKhachHang`) REFERENCES `khach_hang` (`MaKhachHang`);
 
 --
 -- Constraints for table `thuc_don`

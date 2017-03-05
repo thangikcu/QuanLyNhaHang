@@ -5,14 +5,14 @@ import android.view.View;
 import android.widget.TextView;
 
 import thanggun99.quanlynhahang.R;
-import thanggun99.quanlynhahang.model.entity.DatTruoc;
+import thanggun99.quanlynhahang.model.entity.DatBan;
 
 /**
  * Created by Thanggun99 on 24/12/2016.
  */
 
 public class ThongTinDatBanDialog extends BaseDialog {
-    private TextView tvTenKhachHang, tvSoDienThoai, tvKhoangGioDen, tvGhiChu;
+    private TextView tvTenKhachHang, tvSoDienThoai, tvKhoangGioDen, tvYeuCau;
 
     public ThongTinDatBanDialog(Context context) {
         super(context);
@@ -21,15 +21,15 @@ public class ThongTinDatBanDialog extends BaseDialog {
         tvTenKhachHang = (TextView) findViewById(R.id.tv_ten_khach_hang);
         tvSoDienThoai = (TextView) findViewById(R.id.tv_so_dien_thoai);
         tvKhoangGioDen = (TextView) findViewById(R.id.tv_khoang_gio_den);
-        tvGhiChu = (TextView) findViewById(R.id.tv_ghi_chu);
+        tvYeuCau = (TextView) findViewById(R.id.tv_yeu_cau);
     }
 
-    public void setContent(DatTruoc datTruoc) {
-        if (datTruoc != null) {
-            tvTenKhachHang.setText(datTruoc.getTenKhachHang());
-            tvSoDienThoai.setText(datTruoc.getSoDienThoai());
-            tvKhoangGioDen.setText(datTruoc.getGioDen());
-            tvGhiChu.setText(datTruoc.getGhiChu());
+    public void setContent(DatBan datBan) {
+        if (datBan != null) {
+            tvTenKhachHang.setText(datBan.getTenKhachHang());
+            tvSoDienThoai.setText(datBan.getSoDienThoai());
+            tvKhoangGioDen.setText(datBan.getGioDen());
+            tvYeuCau.setText(datBan.getYeuCau());
             show();
         }
     }

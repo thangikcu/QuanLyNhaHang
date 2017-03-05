@@ -1,7 +1,6 @@
 package com.thanggun99.khachhang.view.fragment;
 
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -31,7 +30,6 @@ public class ThucDonFragment extends Fragment implements KhachHangPresenter.Thuc
     private CheckBox ckbGhiNho;
     private EditText edtUsername, edtPassword;
     private Button btnLogin;
-    private ProgressDialog progressDialog;
     private KhachHangPresenter khachHangPresenter;
 
     public ThucDonFragment(KhachHangPresenter khachHangPresenter) {
@@ -48,11 +46,6 @@ public class ThucDonFragment extends Fragment implements KhachHangPresenter.Thuc
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-
-        progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage(Utils.getStringByRes(R.string.loading));
-        progressDialog.setIndeterminate(true);
-        progressDialog.setCancelable(false);
 
         lnThucDon = (LinearLayout) view.findViewById(R.id.ln_thuc_don);
 
@@ -120,14 +113,6 @@ public class ThucDonFragment extends Fragment implements KhachHangPresenter.Thuc
     }
 
     @Override
-    public void onDestroy() {
-        if (progressDialog != null) {
-            progressDialog.cancel();
-        }
-        super.onDestroy();
-    }
-
-    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1) {
             if (resultCode == 1) {
@@ -141,11 +126,6 @@ public class ThucDonFragment extends Fragment implements KhachHangPresenter.Thuc
     }
 
     @Override
-    public void showProgress() {
-        progressDialog.show();
-    }
-
-    @Override
     public void showloginFail() {
         tvLoginError.setVisibility(View.VISIBLE);
     }
@@ -153,12 +133,6 @@ public class ThucDonFragment extends Fragment implements KhachHangPresenter.Thuc
     @Override
     public void showOtherLogin() {
         Utils.notifi(Utils.getStringByRes(R.string.other_people_login));
-    }
-
-    @Override
-    public void hideProgress() {
-        if (progressDialog.isShowing())
-            progressDialog.hide();
     }
 
     @Override

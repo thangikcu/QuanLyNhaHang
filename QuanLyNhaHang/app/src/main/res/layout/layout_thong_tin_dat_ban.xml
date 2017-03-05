@@ -112,13 +112,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/info_ghi_chu"
+                    android:text="@string/info_yeu_cau"
                     android:textColor="@color/colorTextThongTinDatBan"
                     android:textSize="12sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tv_ghi_chu"
+                    android:id="@+id/tv_yeu_cau"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="16dp"
