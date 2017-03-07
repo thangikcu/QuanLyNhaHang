@@ -8,34 +8,37 @@
 
     <ImageView
         android:id="@+id/iv_thuc_don"
-        android:src="@drawable/ic_food"
-        android:scaleType="centerCrop"
         android:layout_width="58dp"
-        android:layout_height="58dp" />
+        android:layout_height="58dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_food" />
 
     <LinearLayout
-        android:padding="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <TextView
             android:id="@+id/tv_ten_mon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:isScrollContainer="true"
+            android:maxLines="2"
+            android:scrollbars="horizontal"
             android:text="Cà phê sữa"
             android:textColor="@color/colorTextTenMon"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_don_gia"
-            android:paddingLeft="16dp"
-            android:textStyle="italic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
             android:text="15.000/ly"
-            android:textColor="#ffffff"
-            android:textSize="11sp" />
+            android:textColor="#b73434"
+            android:textSize="11sp"
+            android:textStyle="italic" />
     </LinearLayout>
 </LinearLayout>

@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/menu_button_background"
-            android:drawableLeft="@drawable/ic_btn_home"
+            android:drawableLeft="@drawable/ic_home"
             android:gravity="center_vertical"
             android:padding="5dp"
             android:text="@string/home"
@@ -29,10 +29,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/menu_button_background"
-            android:drawableLeft="@drawable/ic_btn_sell"
+            android:drawableLeft="@drawable/ic_phuc_vu"
             android:gravity="center_vertical"
             android:padding="5dp"
             android:text="@string/ban_hang"
+            android:textAllCaps="false"
+            android:textColor="@color/colorTextButton"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/btn_dat_ban"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/menu_button_background"
+            android:drawableLeft="@drawable/ic_dat_truoc"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:text="@string/dat_ban"
             android:textAllCaps="false"
             android:textColor="@color/colorTextButton"
             android:textSize="12sp" />
@@ -64,19 +77,6 @@
             android:textSize="12sp" />
 
         <Button
-            android:id="@+id/btn_repository"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/menu_button_background"
-            android:drawableLeft="@drawable/ic_btn_repository"
-            android:gravity="center_vertical"
-            android:padding="5dp"
-            android:text="@string/kho_nvl"
-            android:textAllCaps="false"
-            android:textColor="@color/colorTextButton"
-            android:textSize="12sp" />
-
-        <Button
             android:id="@+id/btn_setting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -94,5 +94,5 @@
     <FrameLayout
         android:id="@+id/frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></FrameLayout>
+        android:layout_height="match_parent"/>
 </LinearLayout>

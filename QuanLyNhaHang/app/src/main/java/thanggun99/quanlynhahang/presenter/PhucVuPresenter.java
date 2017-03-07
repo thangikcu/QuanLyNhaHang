@@ -1,61 +1,42 @@
-package thanggun99.quanlynhahang.presenter.phucvu;
+package thanggun99.quanlynhahang.presenter;
 
-import android.content.Context;
 import android.text.TextUtils;
 
 import java.util.ArrayList;
 
+import thanggun99.quanlynhahang.interfaces.ShowOnMain;
+import thanggun99.quanlynhahang.model.Database;
 import thanggun99.quanlynhahang.model.entity.Ban;
 import thanggun99.quanlynhahang.model.entity.DatBan;
 import thanggun99.quanlynhahang.model.entity.HoaDon;
 import thanggun99.quanlynhahang.model.entity.NhomMon;
 import thanggun99.quanlynhahang.model.entity.ThucDon;
 import thanggun99.quanlynhahang.model.entity.ThucDonOrder;
-import thanggun99.quanlynhahang.model.phucvu.PhucVuInteractor;
+import thanggun99.quanlynhahang.model.PhucVuInteractor;
+import thanggun99.quanlynhahang.util.Utils;
 
 public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinishListener {
+    private ShowOnMain showOnMain;
     private PhucVuView phucVuView;
     private PhucVuInteractor phucVuInteractor;
+    private Database database;
 
-    public PhucVuPresenter(PhucVuView phucVuView, Context context) {
-        this.phucVuView = phucVuView;
-        phucVuInteractor = new PhucVuInteractor(this);
+    public PhucVuPresenter(ShowOnMain showOnMain, Database database) {
+        this.showOnMain = showOnMain;
+        this.database = database;
+        phucVuInteractor = new PhucVuInteractor(this, database);
     }
-
 
     //Asynctask
     @Override
     public void onStartTask() {
-        phucVuView.showProgress();
+        showOnMain.showProgress();
     }
 
     @Override
     public void onFinishTask(Boolean isSuccess, String message) {
-        phucVuView.hideProgress();
+        showOnMain.hideProgress();
         phucVuView.showSnackbar(isSuccess, message);
-    }
-
-
-    //getdatas
-    public void loadDatas() {
-        if (phucVuInteractor.checkConnect()) {
-            phucVuInteractor.loadDatas();
-        } else {
-
-            phucVuView.showGetDatasFailDialog();
-            phucVuView.showConnectFailDialog();
-        }
-    }
-
-    @Override
-    public void onFinishGetDatas(ArrayList<Ban> listBan, ArrayList<ThucDon> listThucDon, ArrayList<NhomMon> listNhomMon) {
-        phucVuView.hideGetDatasFailDialog();
-        phucVuView.showDatas(listBan, listThucDon, listNhomMon);
-    }
-
-    @Override
-    public void onGetDatasFail() {
-        phucVuView.showGetDatasFailDialog();
     }
 
 
@@ -83,18 +64,21 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
     }
 
 
-    //on destroy
-    public void onDestroy() {
-        phucVuInteractor.destroy();
+    //check connection
+    private boolean checkConnect() {
+        if (Utils.isConnectingToInternet()) {
+            return true;
+        } else {
+            showOnMain.showConnectFailDialog();
+            return false;
+        }
     }
-
 
     //datban
     public void onClickDatBan(DatBan datBan) {
-        if (phucVuInteractor.checkConnect()) {
+        if (checkConnect()) {
+
             phucVuInteractor.datBan(datBan);
-        } else {
-            phucVuView.showConnectFailDialog();
         }
     }
 
@@ -128,16 +112,13 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
     }
 
     public void saleHoaDon(int sale) {
-        if (phucVuInteractor.checkConnect()) {
+        if (checkConnect()) {
             phucVuInteractor.saleHoaDon(sale);
-        } else {
-            phucVuView.showConnectFailDialog();
         }
     }
 
     @Override
     public void onFinishSale(HoaDon hoaDon) {
-        phucVuView.hideSaleDialog();
         phucVuView.showTongTien(hoaDon.getTongTien());
         phucVuView.showGiamGia(hoaDon.getGiamGia());
     }
@@ -145,11 +126,11 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
 
     //huyban
     public void onClickHuyBan() {
-        if (phucVuInteractor.checkConnect()) {
+        if (checkConnect()) {
             phucVuInteractor.huyBan();
-        } else {
-            phucVuView.showConnectFailDialog();
+
         }
+
     }
 
     @Override
@@ -166,16 +147,15 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
     }
 
     public void tinhTien() {
-        if (phucVuInteractor.checkConnect()) {
+        if (checkConnect()) {
+
             phucVuInteractor.tinhTien();
-        } else {
-            phucVuView.showConnectFailDialog();
         }
+
     }
 
     @Override
     public void onFinishTinhTien(Ban ban) {
-        phucVuView.hideTinhTienDialog();
         onFinishHuyBan(ban);
     }
 
@@ -186,11 +166,11 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
     }
 
     public void onClickUpdateDatBan(DatBan datBan) {
-        if (phucVuInteractor.checkConnect()) {
+        if (checkConnect()) {
+
             phucVuInteractor.updateDatBan(datBan);
-        } else {
-            phucVuView.showConnectFailDialog();
         }
+
     }
 
     @Override
@@ -212,30 +192,26 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
     }
 
     public void orderThucDon(int soLuong) {
-        if (phucVuInteractor.checkConnect()) {
+        if (checkConnect()) {
+
             phucVuInteractor.orderThucDon(soLuong);
-        } else {
-            phucVuView.showConnectFailDialog();
         }
     }
 
     @Override
     public void onFinishOrderUpdateThucDon(int tongTien) {
-        phucVuView.hideOrderThucDonDialog();
         phucVuView.showTongTien(tongTien);
         phucVuView.notifyUpDateListThucDonOrder(phucVuInteractor.getCurrentThucDonOrder());
     }
 
     @Override
     public void onFinishOrderAddThucDon(int tongTien) {
-        phucVuView.hideOrderThucDonDialog();
         phucVuView.showTongTien(tongTien);
         phucVuView.notifyAddListThucDonOrder();
     }
 
     @Override
     public void onFinishOrderCreateHoaDon(HoaDon currentHoaDon) {
-        phucVuView.hideOrderThucDonDialog();
         phucVuView.showBanPhucVu(currentHoaDon);
         phucVuView.notifyUpdateListBan(currentHoaDon.getBan());
 
@@ -251,18 +227,15 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
     }
 
     public void deleteThucDonOrder() {
-        if (phucVuInteractor.checkConnect()) {
+        if (checkConnect()) {
             phucVuInteractor.deleteThucDonOrder();
-        } else {
-            phucVuView.showConnectFailDialog();
         }
     }
 
     @Override
     public void onFinishDeleteThucDonOrder(int tongTien) {
-        phucVuView.hideDeleteThucDonOrderDialog();
+        phucVuView.showTongTien(tongTien);
         phucVuView.notifyRemoveListThucDonOrder();
-
     }
 
 
@@ -271,14 +244,17 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
         phucVuView.showThongTinDatBanDialog(phucVuInteractor.getcurrentHoaDon().getDatBan());
     }
 
+    public void setPhucVuView(PhucVuView phucVuView) {
+        this.phucVuView = phucVuView;
+    }
+
+    public Database getDatabase() {
+        return database;
+    }
+
 
     /*this is interface for phucVuView Phuc vu*/
     public interface PhucVuView {
-        void showProgress();
-
-        void hideProgress();
-
-        void showConnectFailDialog();
 
         void showBanTrong(Ban ban);
 
@@ -294,13 +270,7 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
 
         void showFormUpdateDatBan(DatBan datBan);
 
-        void showGetDatasFailDialog();
-
-        void showDatas(ArrayList<Ban> listBan, ArrayList<ThucDon> listThucDon, ArrayList<NhomMon> listNhomMon);
-
         void showOrderThucDonDialog(String tenBan, ThucDon thucDon);
-
-        void hideOrderThucDonDialog();
 
         void notifyAddListThucDonOrder();
 
@@ -310,8 +280,6 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
 
         void showDeleteThucDonOrderDialog(String tenBan, String tenMon);
 
-        void hideDeleteThucDonOrderDialog();
-
         void notifyRemoveListThucDonOrder();
 
         void showThongTinDatBanDialog(DatBan datBan);
@@ -320,15 +288,9 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
 
         void showSaleDialog(HoaDon hoaDon);
 
-        void hideSaleDialog();
-
         void showTinhTienDialog(HoaDon hoaDon);
 
-        void hideGetDatasFailDialog();
-
         void showSnackbar(Boolean isError, String message);
-
-        void hideTinhTienDialog();
 
     }
 }

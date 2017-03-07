@@ -1,8 +1,8 @@
 package thanggun99.quanlynhahang.view.fragment;
 
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -40,16 +40,16 @@ import thanggun99.quanlynhahang.adapter.NhomMonAdapter;
 import thanggun99.quanlynhahang.adapter.ThucDonAdapter;
 import thanggun99.quanlynhahang.adapter.ThucDonOrderAdapter;
 import thanggun99.quanlynhahang.interfaces.OnItemclickListener;
+import thanggun99.quanlynhahang.model.Database;
 import thanggun99.quanlynhahang.model.entity.Ban;
 import thanggun99.quanlynhahang.model.entity.DatBan;
 import thanggun99.quanlynhahang.model.entity.HoaDon;
 import thanggun99.quanlynhahang.model.entity.NhomMon;
 import thanggun99.quanlynhahang.model.entity.ThucDon;
 import thanggun99.quanlynhahang.model.entity.ThucDonOrder;
-import thanggun99.quanlynhahang.presenter.phucvu.PhucVuPresenter;
+import thanggun99.quanlynhahang.presenter.PhucVuPresenter;
 import thanggun99.quanlynhahang.util.Utils;
 import thanggun99.quanlynhahang.view.dialog.DeleteThucDonOrderDialog;
-import thanggun99.quanlynhahang.view.dialog.ErrorDialog;
 import thanggun99.quanlynhahang.view.dialog.OrderThucDonDialog;
 import thanggun99.quanlynhahang.view.dialog.SaleDialog;
 import thanggun99.quanlynhahang.view.dialog.ThongTinDatBanDialog;
@@ -59,7 +59,10 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static thanggun99.quanlynhahang.R.string.error;
 
+@SuppressLint("ValidFragment")
 public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuView, View.OnClickListener {
+    private Database database;
+
     private RecyclerView listViewBan, listViewThucDonOrder;
     private Button btnThucDon, btnSale, btnDatBan, btnTinhTien;
     private ListView listViewNhomMon;
@@ -74,7 +77,6 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
     private PopupMenu popupMenu;
     private EditText edtTenKhachHang, edtSoDienThoai, edtYeuCau;
     private TimePicker timePicker;
-    private DatBan datBan;
 
     //adapter
     private BanAdapter banAdapter;
@@ -87,12 +89,17 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
     private ThongTinDatBanDialog thongTinDatBanDialog;
     private OrderThucDonDialog orderThucDonDialog;
     private TinhTienDialog tinhTienDialog;
-    private ErrorDialog errorDialog;
     private SaleDialog saleDialog;
-    private ProgressDialog progressDialog;
 
     static EditText edtGioDen;
     private View view;
+
+    public PhucVuFragment(PhucVuPresenter phucVuPresenter) {
+        database = phucVuPresenter.getDatabase();
+        this.phucVuPresenter = phucVuPresenter;
+        phucVuPresenter.setPhucVuView(this);
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -107,23 +114,19 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
         findViews(view);
         initComponents();
         setEvents();
+        showContent();
+
     }
 
-    private void initComponents() {
-        phucVuPresenter = new PhucVuPresenter(this, getContext());
+     private void initComponents() {
         timePicker = new TimePicker();
         //initDialogs
-        errorDialog = new ErrorDialog(getContext(), phucVuPresenter);
         tinhTienDialog = new TinhTienDialog(getContext(), phucVuPresenter);
         thongTinDatBanDialog = new ThongTinDatBanDialog(getContext());
         deleteThucDonOrderDialog = new DeleteThucDonOrderDialog(getContext(), phucVuPresenter);
         orderThucDonDialog = new OrderThucDonDialog(getContext(), phucVuPresenter);
         saleDialog = new SaleDialog(getContext(), phucVuPresenter);
 
-        progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage(Utils.getStringByRes(R.string.loading));
-        progressDialog.setIndeterminate(true);
-        progressDialog.setCancelable(false);
     }
 
     private void setEvents() {
@@ -190,29 +193,11 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
                 return false;
             }
         });
-        phucVuPresenter.loadDatas();
     }
 
     @Override
     public void showThongTinDatBanDialog(DatBan datBan) {
         thongTinDatBanDialog.setContent(datBan);
-    }
-
-    @Override
-    public void showGetDatasFailDialog() {
-        errorDialog.cancel();
-        errorDialog.show();
-    }
-
-    @Override
-    public void showProgress() {
-        progressDialog.show();
-    }
-
-    @Override
-    public void hideProgress() {
-
-        progressDialog.hide();
     }
 
     @Override
@@ -236,26 +221,18 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
         }
     }
 
-    @Override
-    public void hideGetDatasFailDialog() {
-        if (errorDialog.isShowing()) {
-            errorDialog.dismiss();
-        }
+    public void showContent() {
+        setDatas(database.getBanList(), database.getThucDonList(), database.getNhomMonList());
     }
 
     @Override
     public void onDestroy() {
-        if (progressDialog != null) {
-            progressDialog.cancel();
-        }
+
         if (deleteThucDonOrderDialog != null) deleteThucDonOrderDialog.cancel();
-        if (errorDialog != null) errorDialog.cancel();
         if (orderThucDonDialog != null) orderThucDonDialog.cancel();
         if (saleDialog != null) saleDialog.cancel();
         if (tinhTienDialog != null) tinhTienDialog.cancel();
-        if (progressDialog != null) progressDialog.cancel();
 
-        phucVuPresenter.onDestroy();
         super.onDestroy();
     }
 
@@ -319,6 +296,11 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
                 break;
             case R.id.btn_dat_ban:
                 if (chekForm()) {
+                    DatBan datBan = new DatBan();
+                    datBan.setTenKhachHang(edtTenKhachHang.getText().toString().trim());
+                    datBan.setSoDienThoai(edtSoDienThoai.getText().toString().trim());
+                    datBan.setGioDen(edtGioDen.getText().toString().trim());
+                    datBan.setYeuCau(edtYeuCau.getText().toString().trim());
                     if (btnDatBan.getText().equals(Utils.getStringByRes(R.string.dat_ban)))
                         phucVuPresenter.onClickDatBan(datBan);
                     else phucVuPresenter.onClickUpdateDatBan(datBan);
@@ -335,18 +317,8 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
     }
 
     @Override
-    public void hideTinhTienDialog() {
-        tinhTienDialog.dismiss();
-    }
-
-    @Override
     public void showSaleDialog(HoaDon hoaDon) {
         saleDialog.setContent(hoaDon);
-    }
-
-    @Override
-    public void hideSaleDialog() {
-        saleDialog.dismiss();
     }
 
     public void clearForm() {
@@ -390,18 +362,9 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
             focusView.requestFocus();
             return false;
         } else {
-            datBan = new DatBan();
-            datBan.setTenKhachHang(edtTenKhachHang.getText().toString().trim());
-            datBan.setSoDienThoai(edtSoDienThoai.getText().toString().trim());
-            datBan.setGioDen(edtGioDen.getText().toString().trim());
-            datBan.setYeuCau(edtYeuCau.getText().toString().trim());
+
             return true;
         }
-    }
-
-    @Override
-    public void showConnectFailDialog() {
-        Utils.notifi(Utils.getStringByRes(R.string.kiem_tra_ket_noi_mang));
     }
 
     @Override
@@ -427,8 +390,7 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
         else btnSale.setText(Utils.getStringByRes(R.string.sale));
     }
 
-    @Override
-    public void showDatas(ArrayList<Ban> listBan, ArrayList<ThucDon> listThucDon, ArrayList<NhomMon> listNhomMon) {
+    public void setDatas(ArrayList<Ban> listBan, ArrayList<ThucDon> listThucDon, ArrayList<NhomMon> listNhomMon) {
 
         banAdapter = new BanAdapter(listBan);
         listViewBan.setAdapter(banAdapter);
@@ -495,19 +457,9 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
     }
 
     @Override
-    public void hideOrderThucDonDialog() {
-        orderThucDonDialog.dismiss();
-    }
-
-    @Override
     public void notifyAddListThucDonOrder() {
         thucDonOrderAdapter.notifyItemInserted(0);
 
-    }
-
-    @Override
-    public void hideDeleteThucDonOrderDialog() {
-        deleteThucDonOrderDialog.dismiss();
     }
 
     @Override
@@ -568,7 +520,7 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
         tvTenBan.setText(hoaDon.getBan().getTenBan());
         tvTrangThai.setText(hoaDon.getBan().getStringTrangThai());
 
-        tvGioDen.setText(Utils.formatDate(hoaDon.getGioDen()));
+        tvGioDen.setText(hoaDon.getGioDen());
         tvTongTien.setText(Utils.formatMoney(hoaDon.getTongTien()));
         btnSale.setText(hoaDon.getStringGiamGia());
 

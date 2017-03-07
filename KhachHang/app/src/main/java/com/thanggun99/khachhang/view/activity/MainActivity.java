@@ -58,15 +58,20 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent.getAction() == MyFirebaseMessagingService.NOTIFI_ACTION) {
+            switch (intent.getAction()) {
+                case MyFirebaseMessagingService.NOTIFI_ACTION:
 
-                Utils.showToast(intent.getStringExtra(MyFirebaseMessagingService.NOTIFI));
+                    Utils.showToast(intent.getStringExtra(MyFirebaseMessagingService.NOTIFI));
+                    break;
+                case MyFirebaseMessagingService.LOGOUT_ACTION:
 
-            } else if (intent.getAction() == MyFirebaseMessagingService.LOGOUT_ACTION) {
-                if (isLogin) {
-                    khachHangPresenter.onOtherLogin();
-                    khachHangPresenter.logout();
-                }
+                    if (isLogin) {
+                        khachHangPresenter.onOtherLogin();
+                        khachHangPresenter.logout();
+                    }
+                    break;
+                default:
+                    break;
             }
         }
     };
@@ -207,7 +212,7 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
         } else {
             if (!(fragmentIsShow instanceof HomeFragment)) {
                 fillFrame(homeFragment, R.id.btn_home);
-            }else {
+            } else {
                 super.onBackPressed();
             }
         }

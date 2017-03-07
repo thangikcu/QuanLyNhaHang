@@ -7,7 +7,6 @@ import com.thanggun99.khachhang.App;
 import com.thanggun99.khachhang.model.entity.DatBan;
 import com.thanggun99.khachhang.model.entity.KhachHang;
 import com.thanggun99.khachhang.util.API;
-import com.thanggun99.khachhang.util.Utils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -85,10 +84,6 @@ public class KhachHangInteractor {
             return true;
         }
         return false;
-    }
-
-    public boolean checkConnect() {
-        return Utils.isConnectingToInternet();
     }
 
     public void sentFeedback(String title, String content) {

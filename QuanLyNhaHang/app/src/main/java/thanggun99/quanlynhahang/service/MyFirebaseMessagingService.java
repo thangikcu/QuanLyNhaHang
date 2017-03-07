@@ -1,4 +1,4 @@
-package thanggun99.quanlynhahang;
+package thanggun99.quanlynhahang.service;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -9,6 +9,7 @@ import android.support.v4.app.NotificationCompat;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import thanggun99.quanlynhahang.R;
 import thanggun99.quanlynhahang.view.activity.MainActivity;
 
 /**

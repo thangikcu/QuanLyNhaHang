@@ -14,7 +14,6 @@ public class NotifiDialog extends BaseDialog {
 
     public NotifiDialog(@NonNull Context context) {
         super(context);
-        getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
         setContentView(R.layout.dialog_notifi);
         setCancelable(true);
 

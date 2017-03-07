@@ -47,6 +47,13 @@ public class ThucDonFragment extends Fragment implements KhachHangPresenter.Thuc
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
+        findViews(view);
+        setEvents();
+
+        khachHangPresenter.loginAuto();
+    }
+
+    private void findViews(View view) {
         lnThucDon = (LinearLayout) view.findViewById(R.id.ln_thuc_don);
 
         lnLogin = (LinearLayout) view.findViewById(R.id.ln_login);
@@ -56,10 +63,6 @@ public class ThucDonFragment extends Fragment implements KhachHangPresenter.Thuc
         edtUsername = (EditText) lnLogin.findViewById(R.id.edt_username);
         ckbGhiNho = (CheckBox) lnLogin.findViewById(R.id.ckb_ghi_nho);
         tvLoginError = (TextView) lnLogin.findViewById(R.id.tv_error_login);
-
-        setEvents();
-
-        khachHangPresenter.loginAuto();
     }
 
     @Override
@@ -76,26 +79,33 @@ public class ThucDonFragment extends Fragment implements KhachHangPresenter.Thuc
         tvRegister.setOnClickListener(this);
     }
 
+    private boolean checkForm() {
+        View focusView = null;
+        boolean cancel = false;
+
+        if (TextUtils.isEmpty(edtPassword.getText()) || edtPassword.getText().length() < 6) {
+            edtPassword.setError(Utils.getStringByRes(R.string.nhap_mat_khau));
+            focusView = edtPassword;
+            cancel = true;
+        }
+        if (TextUtils.isEmpty(edtUsername.getText())) {
+            edtUsername.setError(Utils.getStringByRes(R.string.nhap_ten_dang_nhap));
+            focusView = edtUsername;
+            cancel = true;
+        }
+
+        if (cancel) {
+            focusView.requestFocus();
+            return false;
+        }
+        return true;
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_login:
-                View focusView = null;
-                boolean cancel = false;
-                if (TextUtils.isEmpty(edtPassword.getText()) || edtPassword.getText().length() < 6) {
-                    edtPassword.setError(Utils.getStringByRes(R.string.nhap_mat_khau));
-                    focusView = edtPassword;
-                    cancel = true;
-                }
-                if (TextUtils.isEmpty(edtUsername.getText())) {
-                    edtUsername.setError(Utils.getStringByRes(R.string.nhap_ten_dang_nhap));
-                    focusView = edtUsername;
-                    cancel = true;
-                }
-
-                if (cancel) {
-                    focusView.requestFocus();
-                } else {
+                if (checkForm()) {
                     KhachHang khachHang = new KhachHang();
                     khachHang.setTenDangNhap(edtUsername.getText().toString());
                     khachHang.setMatKhau(edtPassword.getText().toString());

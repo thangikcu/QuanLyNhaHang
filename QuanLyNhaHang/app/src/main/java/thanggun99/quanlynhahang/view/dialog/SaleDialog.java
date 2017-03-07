@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import thanggun99.quanlynhahang.R;
 import thanggun99.quanlynhahang.model.entity.HoaDon;
-import thanggun99.quanlynhahang.presenter.phucvu.PhucVuPresenter;
+import thanggun99.quanlynhahang.presenter.PhucVuPresenter;
 
 /**
  * Created by Thanggun99 on 10/12/2016.
@@ -59,6 +59,7 @@ public class SaleDialog extends BaseDialog {
                     && Integer.parseInt(edtSale.getText().toString()) != giamGia) {
 
                 phucVuPresenter.saleHoaDon(Integer.parseInt(edtSale.getText().toString()));
+                dismiss();
             }
         }
     }

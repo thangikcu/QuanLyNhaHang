@@ -24,7 +24,7 @@
                     $t["maDatBan"] = $row["MaDatBan"];
                 }
                 
-                
+                $t["trangThai"] = $row["TrangThai"];
                 $t["gioDen"] = $row["GioDen"];
                 $t["maBan"] = $row["MaBan"];
                 

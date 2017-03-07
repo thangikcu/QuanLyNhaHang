@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -70,6 +71,9 @@ public class Utils {
     }
 
     public static void showLog(String message) {
-        Log.d("Thanggggggggggggg", message);
+        if (!TextUtils.isEmpty(message)) {
+
+            Log.d("Thanggggggggggggg", message);
+        }
     }
 }

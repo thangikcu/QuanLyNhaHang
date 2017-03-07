@@ -1,6 +1,11 @@
 package thanggun99.quanlynhahang.model.entity;
 
-import android.graphics.Bitmap;
+import android.text.TextUtils;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import thanggun99.quanlynhahang.util.API;
 
 /**
  * Created by Thanggun99 on 24/11/2016.
@@ -18,6 +23,32 @@ public class ThucDonOrder extends ThucDon{
 
     public ThucDonOrder() {
     }
+
+    public void setThucDon(ThucDon thucDon) {
+        setTenMon(thucDon.getTenMon());
+        setMaLoai(thucDon.getMaLoai());
+        setDonGia(thucDon.getDonGia());
+        setDonViTinh(thucDon.getDonViTinh());
+        setHinhAnh(thucDon.getHinhAnh());
+    }
+
+    public boolean updateThucDonOrder(int soLuong) {
+        Map<String, String> getParams, postParams;
+        getParams = new HashMap<>();
+        postParams = new HashMap<>();
+        int newSoLuong = getSoLuong() + soLuong;
+        postParams.put("soLuong", String.valueOf(newSoLuong));
+        getParams.put("maChiTietHD", String.valueOf(getMaChitietHD()));
+
+        String s = API.callService(API.UPDATE_THUC_DON_ORDER_URL, getParams, postParams);
+
+        if (!TextUtils.isEmpty(s) && s.trim().contains("success")) {
+            setSoLuong(newSoLuong);
+            return true;
+        }
+        return false;
+    }
+
 
     public int getMaChitietHD() {
         return maChitietHD;

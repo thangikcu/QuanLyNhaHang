@@ -1,6 +1,12 @@
 package thanggun99.quanlynhahang.model.entity;
 
+import android.text.TextUtils;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import thanggun99.quanlynhahang.R;
+import thanggun99.quanlynhahang.util.API;
 import thanggun99.quanlynhahang.util.Utils;
 
 /**
@@ -23,6 +29,28 @@ public class Ban {
     public Ban() {
         trangThai = NOT_SET;
         hienThi = NOT_SET;
+    }
+
+    public boolean updateBan(Ban ban) {
+        Map<String, String> getParams, postParams;
+        getParams = new HashMap<>();
+        postParams = new HashMap();
+        getParams.put("maBan", String.valueOf(ban.getMaBan()));
+
+        if (ban.getTrangThai() != Ban.NOT_SET) {
+            postParams.put("trangThai", String.valueOf(ban.getTrangThai()));
+        }
+        if (!TextUtils.isEmpty(ban.getTenBan())) {
+            postParams.put("tenBan", ban.getTenBan());
+        }
+        if (ban.getHienThi() != Ban.NOT_SET) {
+            postParams.put("hienThi", String.valueOf(ban.getHienThi()));
+        }
+
+        String s = API.callService(API.UPDATE_BAN_URL, getParams, postParams);
+
+        if (!TextUtils.isEmpty(s) && s.trim().contains("success")) return true;
+        return false;
     }
 
     public int getHienThi() {

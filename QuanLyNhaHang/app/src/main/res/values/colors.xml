@@ -7,11 +7,11 @@
     <color name="colorTextThongTinBan">#670f93</color>
     <color name="colorSeparatorThongTinDatBan">#7e8484</color>
     <color name="colorTextThongTinDatBan">#7c3c0a</color>
-    <color name="colorBackgroudMenu">#893a01</color>
+    <color name="colorBackgroudMenu">#4c9ea6</color>
     <color name="colorBackgroud">#e67474</color>
     <color name="colorBackgroudSesion">#f6f7f9</color>
     <color name="colorBackgroudMain">#c5cbd2</color>
-    <color name="colorButtonSelected">#60300f</color>
+    <color name="colorButtonSelected">#34878f</color>
     <color name="colorTextButton">#ffffff</color>
     <color name="colorBackgroundTableFree">#6161d6</color>
     <color name="colorTextInfo">#1b1bba</color>

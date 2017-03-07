@@ -1,5 +1,6 @@
 package thanggun99.quanlynhahang.view.activity;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -8,24 +9,32 @@ import android.view.View;
 import android.widget.Button;
 
 import thanggun99.quanlynhahang.R;
+import thanggun99.quanlynhahang.model.Database;
+import thanggun99.quanlynhahang.presenter.MainPresenter;
+import thanggun99.quanlynhahang.presenter.PhucVuPresenter;
+import thanggun99.quanlynhahang.util.Utils;
+import thanggun99.quanlynhahang.view.dialog.ErrorDialog;
+import thanggun99.quanlynhahang.view.dialog.NotifiDialog;
+import thanggun99.quanlynhahang.view.fragment.DatBanFragment;
 import thanggun99.quanlynhahang.view.fragment.HomeFragment;
 import thanggun99.quanlynhahang.view.fragment.PhucVuFragment;
 import thanggun99.quanlynhahang.view.fragment.SettingFragment;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private Button btnHome, btnPhucVu, btnManage, btnStatistic, btnRepository, btnSetting, btnSelected;
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, MainPresenter.MainView {
+    private Database database;
+
+    private MainPresenter mainPresenter;
+    private PhucVuPresenter phucVuPresenter;
+
+    private Button btnHome, btnPhucVu, btnManage, btnStatistic, btnDatBan, btnSetting, btnSelected;
     private PhucVuFragment phucVuFragment;
     private SettingFragment settingFragment;
     private HomeFragment homeFragment;
     private Fragment fragmentIsShow;
-
-
-    public MainActivity() {
-        homeFragment = new HomeFragment();
-        phucVuFragment = new PhucVuFragment();
-        fragmentIsShow = new Fragment();
-
-    }
+    private DatBanFragment datBanFragment;
+    private ProgressDialog progressDialog;
+    private ErrorDialog errorDialog;
+    private NotifiDialog notifiDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +42,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         initViews();
+        initComponents();
         setEvents();
-        //fillFrame(homeFragment, btnHome);
-        fillFrame(phucVuFragment, btnPhucVu);
+        mainPresenter.getDatas();
+    }
+
+    private void initComponents() {
+
+        database = new Database();
+        mainPresenter = new MainPresenter(this, database);
+        phucVuPresenter = new PhucVuPresenter(this, database);
+
+        notifiDialog = new NotifiDialog(this);
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage(Utils.getStringByRes(R.string.loading));
+        progressDialog.setIndeterminate(true);
+        progressDialog.setCancelable(false);
+
+        errorDialog = new ErrorDialog(this, mainPresenter);
+
+        phucVuFragment = new PhucVuFragment(phucVuPresenter);
+        fragmentIsShow = new Fragment();
+
     }
 
     private void setEvents() {
@@ -45,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnPhucVu.setOnClickListener(this);
         btnManage.setOnClickListener(this);
         btnStatistic.setOnClickListener(this);
-        btnRepository.setOnClickListener(this);
+        btnDatBan.setOnClickListener(this);
         btnSetting.setOnClickListener(this);
     }
 
@@ -54,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnPhucVu = (Button) findViewById(R.id.btn_sell);
         btnManage = (Button) findViewById(R.id.btn_manager);
         btnStatistic = (Button) findViewById(R.id.btn_statistic);
-        btnRepository = (Button) findViewById(R.id.btn_repository);
+        btnDatBan = (Button) findViewById(R.id.btn_dat_ban);
         btnSetting = (Button) findViewById(R.id.btn_setting);
         //btnSelected = btnHome;
         btnSelected = btnPhucVu;
@@ -68,14 +96,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 fillFrame(homeFragment, btnHome);
                 break;
             case R.id.btn_sell:
-                if (phucVuFragment == null) phucVuFragment = new PhucVuFragment();
+                if (phucVuFragment == null) phucVuFragment = new PhucVuFragment(phucVuPresenter);
                 fillFrame(phucVuFragment, btnPhucVu);
                 break;
             case R.id.btn_manager:
                 break;
             case R.id.btn_statistic:
                 break;
-            case R.id.btn_repository:
+            case R.id.btn_dat_ban:
+                if (datBanFragment == null) datBanFragment = new DatBanFragment();
+                fillFrame(datBanFragment, btnDatBan);
                 break;
             case R.id.btn_setting:
                 if (settingFragment == null) settingFragment = new SettingFragment();
@@ -84,6 +114,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             default:
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (notifiDialog != null) {
+            notifiDialog.cancel();
+        }
+        if (progressDialog != null) {
+            progressDialog.cancel();
+        }
+        if (errorDialog != null) {
+            errorDialog.cancel();
+        }
+        super.onDestroy();
     }
 
     private void fillFrame(Fragment fragment, Button button) {
@@ -104,5 +148,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         transaction.commit();
         fragmentIsShow = fragment;
     }
+
+    @Override
+    public void showGetDatasFailDialog() {
+        errorDialog.cancel();
+        errorDialog.show();
+    }
+
+    @Override
+    public void showContent() {
+        fillFrame(phucVuFragment, btnPhucVu);
+    }
+
+    @Override
+    public void showProgress() {
+        progressDialog.show();
+    }
+
+    @Override
+    public void hideProgress() {
+
+        progressDialog.hide();
+    }
+
+    @Override
+    public void showConnectFailDialog() {
+        notifiDialog.notifi(Utils.getStringByRes(R.string.kiem_tra_ket_noi_mang));
+    }
+
 
 }

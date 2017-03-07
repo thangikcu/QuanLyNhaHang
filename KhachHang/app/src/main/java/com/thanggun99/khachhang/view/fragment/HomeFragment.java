@@ -17,9 +17,6 @@ import com.thanggun99.khachhang.presenter.KhachHangPresenter;
 
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 @SuppressLint("ValidFragment")
 public class HomeFragment extends Fragment implements KhachHangPresenter.HomeView{
     private KhachHangPresenter khachHangPresenter;

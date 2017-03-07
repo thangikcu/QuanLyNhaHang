@@ -12,6 +12,7 @@
         foreach($db->getArray() as $row){ 
             $t = array();
             $t["maDatBan"] = $row["MaDatBan"];
+            $t["maKhachHang"] = $row["MaKhachHang"];
             $t["tenKhachHang"] = $row["TenKhachHang"];
             $t["soDienThoai"] = $row["SDT"];
             $t["gioDen"] = $row["GioDen"];

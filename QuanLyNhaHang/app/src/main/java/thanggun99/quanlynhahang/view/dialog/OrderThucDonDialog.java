@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import thanggun99.quanlynhahang.R;
 import thanggun99.quanlynhahang.model.entity.ThucDon;
-import thanggun99.quanlynhahang.presenter.phucvu.PhucVuPresenter;
+import thanggun99.quanlynhahang.presenter.PhucVuPresenter;
 
 /**
  * Created by Thanggun99 on 22/11/2016.
@@ -60,8 +60,11 @@ public class OrderThucDonDialog extends BaseDialog {
         super.onClick(v);
         switch (v.getId()) {
             case R.id.btn_ok:
-                if (!TextUtils.isEmpty(edtSoLuong.getText()))
+                if (!TextUtils.isEmpty(edtSoLuong.getText())) {
+
                     phucVuPresenter.orderThucDon(Integer.parseInt(edtSoLuong.getText().toString()));
+                    dismiss();
+                }
                 break;
             case R.id.btn_cong:
                 int sl = 1;

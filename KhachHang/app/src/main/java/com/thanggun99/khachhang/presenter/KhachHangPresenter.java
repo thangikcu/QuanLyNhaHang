@@ -4,6 +4,7 @@ package com.thanggun99.khachhang.presenter;
 import com.thanggun99.khachhang.model.KhachHangInteractor;
 import com.thanggun99.khachhang.model.entity.DatBan;
 import com.thanggun99.khachhang.model.entity.KhachHang;
+import com.thanggun99.khachhang.util.Utils;
 
 /**
  * Created by Thanggun99 on 28/02/2017.
@@ -33,15 +34,21 @@ public class KhachHangPresenter implements KhachHangInteractor.OnKhachHangFinish
         mainView.hideProgress();
     }
 
+    private boolean checkConnect() {
+        if (Utils.isConnectingToInternet()) {
+            return true;
+        } else {
+            mainView.showDialogConnectFail();
+            return false;
+        }
+    }
+
     public void loginAuto() {
-        if (khachHangInteractor.checkConnect()) {
+        if (checkConnect()) {
             if (khachHangInteractor.isGhiNhoDangNhap()) {
                 khachHangInteractor.loginAuto();
             }
-        } else {
-            mainView.showDialogConnectFail();
         }
-
     }
 
     @Override
@@ -61,12 +68,9 @@ public class KhachHangPresenter implements KhachHangInteractor.OnKhachHangFinish
     }
 
     public void login(KhachHang khachHang) {
-        if (khachHangInteractor.checkConnect()) {
+        if (checkConnect()) {
             khachHangInteractor.login(khachHang);
-        } else {
-            mainView.showDialogConnectFail();
         }
-
     }
 
     public void setThucDonView(ThucDonView thucDonView) {
@@ -112,10 +116,8 @@ public class KhachHangPresenter implements KhachHangInteractor.OnKhachHangFinish
     }
 
     public void changePassWord(String password, String newPassword) {
-        if (khachHangInteractor.checkConnect()) {
+        if (checkConnect()) {
             khachHangInteractor.changePassword(password, newPassword);
-        } else {
-            mainView.showDialogConnectFail();
         }
     }
 
@@ -132,19 +134,15 @@ public class KhachHangPresenter implements KhachHangInteractor.OnKhachHangFinish
     }
 
     public void sentFeedback(String title, String content) {
-        if (khachHangInteractor.checkConnect()) {
+        if (checkConnect()) {
             khachHangInteractor.sentFeedback(title, content);
-        } else {
-            mainView.showDialogConnectFail();
         }
     }
 
     //dat ban
     public void onClickDatBan(DatBan datBan) {
-        if (khachHangInteractor.checkConnect()) {
+        if (checkConnect()) {
             khachHangInteractor.datBan(datBan);
-        } else {
-            mainView.showDialogConnectFail();
         }
 
     }
@@ -168,10 +166,8 @@ public class KhachHangPresenter implements KhachHangInteractor.OnKhachHangFinish
 
     //get thong tin dat ban
     public void getInfoDatBan() {
-        if (khachHangInteractor.checkConnect()) {
+        if (checkConnect()) {
             khachHangInteractor.getInfoDatBan();
-        } else {
-            mainView.showDialogConnectFail();
         }
     }
 
@@ -188,10 +184,8 @@ public class KhachHangPresenter implements KhachHangInteractor.OnKhachHangFinish
 
     //huy dat ban
     public void onClickHuyDatBan() {
-        if (khachHangInteractor.checkConnect()) {
+        if (checkConnect()) {
             khachHangInteractor.huyDatBan();
-        } else {
-            mainView.showDialogConnectFail();
         }
     }
 
@@ -211,10 +205,8 @@ public class KhachHangPresenter implements KhachHangInteractor.OnKhachHangFinish
     }
 
     public void UpdateDatBan(DatBan datBan) {
-        if (khachHangInteractor.checkConnect()) {
+        if (checkConnect()) {
             khachHangInteractor.updateDatBan(datBan);
-        } else {
-            mainView.showDialogConnectFail();
         }
     }
 
