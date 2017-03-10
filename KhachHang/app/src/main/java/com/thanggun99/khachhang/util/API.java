@@ -59,6 +59,7 @@ public class API {
             connect.setRequestProperty("accept", "application/json");
             connect.setRequestProperty("Connection", "close");
             connect.setDoInput(true);
+            connect.setConnectTimeout(5000);
 
             if (postParams != null) {
                 Uri.Builder builderPostParams = new Uri.Builder();
@@ -68,6 +69,7 @@ public class API {
                         "application/x-www-form-urlencoded;charset=UTF-8");
                 connect.setRequestMethod("POST");
                 connect.setDoOutput(true);
+                connect.setReadTimeout(5000);
 
                 OutputStream outputStream = connect.getOutputStream();
                 outputStream.write(builderPostParams.build().getEncodedQuery().getBytes());

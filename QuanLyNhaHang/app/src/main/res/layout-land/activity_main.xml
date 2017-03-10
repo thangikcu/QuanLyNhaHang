@@ -8,91 +8,61 @@
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorBackgroudMenu"
+        android:background="@color/colorPrimary"
         android:gravity="center_vertical">
 
         <Button
             android:id="@+id/btn_home"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/CommonButton"
             android:background="@drawable/menu_button_background"
             android:drawableLeft="@drawable/ic_home"
-            android:gravity="center_vertical"
-            android:padding="5dp"
-            android:text="@string/home"
-            android:textAllCaps="false"
-            android:textColor="@color/colorTextButton"
-            android:textSize="12sp" />
+            android:padding="@dimen/layout_padding"
+            android:text="@string/home" />
 
         <Button
             android:id="@+id/btn_sell"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/CommonButton"
             android:background="@drawable/menu_button_background"
             android:drawableLeft="@drawable/ic_phuc_vu"
-            android:gravity="center_vertical"
-            android:padding="5dp"
-            android:text="@string/ban_hang"
-            android:textAllCaps="false"
-            android:textColor="@color/colorTextButton"
-            android:textSize="12sp" />
+            android:padding="@dimen/layout_padding"
+            android:text="@string/ban_hang" />
 
         <Button
             android:id="@+id/btn_dat_ban"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/CommonButton"
             android:background="@drawable/menu_button_background"
             android:drawableLeft="@drawable/ic_dat_truoc"
-            android:gravity="center_vertical"
-            android:padding="5dp"
-            android:text="@string/dat_ban"
-            android:textAllCaps="false"
-            android:textColor="@color/colorTextButton"
-            android:textSize="12sp" />
+            android:padding="@dimen/layout_padding"
+            android:text="@string/dat_ban" />
 
         <Button
             android:id="@+id/btn_manager"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/CommonButton"
             android:background="@drawable/menu_button_background"
             android:drawableLeft="@drawable/ic_btn_manager"
-            android:gravity="center_vertical"
-            android:padding="5dp"
-            android:text="@string/quan_ly"
-            android:textAllCaps="false"
-            android:textColor="@color/colorTextButton"
-            android:textSize="12sp" />
+            android:padding="@dimen/layout_padding"
+            android:text="@string/quan_ly" />
 
         <Button
             android:id="@+id/btn_statistic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/CommonButton"
             android:background="@drawable/menu_button_background"
             android:drawableLeft="@drawable/ic_btn_statistic"
-            android:gravity="center_vertical"
-            android:padding="5dp"
-            android:text="@string/thong_ke"
-            android:textAllCaps="false"
-            android:textColor="@color/colorTextButton"
-            android:textSize="12sp" />
+            android:padding="@dimen/layout_padding"
+            android:text="@string/thong_ke" />
 
         <Button
             android:id="@+id/btn_setting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/CommonButton"
             android:background="@drawable/menu_button_background"
             android:drawableLeft="@drawable/ic_btn_setting"
-            android:gravity="center_vertical"
-            android:padding="5dp"
-            android:text="@string/cai_dat"
-            android:textAllCaps="false"
-            android:textColor="@color/colorTextButton"
-            android:textSize="12sp" />
+            android:padding="@dimen/layout_padding"
+            android:text="@string/cai_dat" />
 
     </TableRow>
 
     <FrameLayout
         android:id="@+id/frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 </LinearLayout>

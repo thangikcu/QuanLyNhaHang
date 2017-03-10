@@ -27,13 +27,14 @@
 
             <TextView
                 android:id="@+id/tv_ten_loai"
+                style="@style/CommonTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
+                android:gravity="start"
                 android:paddingLeft="16dp"
                 android:text="@string/thuc_don"
-                android:textColor="@color/colorTextButton"
-                android:textSize="14sp"
+                android:textColor="@color/white"
                 android:textStyle="bold" />
 
             <SearchView

@@ -6,7 +6,7 @@
     <string name="thong_ke">Thống kê</string>
     <string name="kho_nvl">Kho-NVL</string>
     <string name="cai_dat">Cài đặt</string>
-    <string name="dat_truoc">Đã đặt trước</string>
+    <string name="da_dat_truoc">Đã đặt trước</string>
     <string name="dang_phuc_vu">Đang phục vụ</string>
     <string name="loading">Loading...</string>
     <string name="trong">Trống</string>
@@ -72,4 +72,7 @@
     <string name="kiem_tra_ket_noi_mang">Kiểm tra kết nối mạng</string>
     <string name="them_moi">Thêm mới</string>
     <string name="danh_sach_dat_ban">Danh sách đặt bàn</string>
+    <string name="dat_truoc">Đặt trước</string>
+    <string name="dong_y">Đồng ý</string>
+    <string name="huy">Hủy</string>
 </resources>

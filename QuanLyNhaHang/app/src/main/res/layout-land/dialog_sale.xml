@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Bàn 12"
-        android:textColor="@color/colorTextNameBan"
+        android:textColor="@color/colorPrimary"
         android:textSize="18sp"
         android:textStyle="bold" />
 
@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Giảm giá:"
-            android:textColor="@color/colorTextTenMon"
+            android:textColor="@color/colorTextField"
             android:textSize="14sp"
             android:paddingRight="16dp"
             android:textStyle="bold" />
@@ -52,23 +52,21 @@
 
         <Button
             android:id="@+id/btn_ok"
+            style="@style/CommonButton"
             android:layout_width="0dp"
             android:layout_height="32dp"
             android:layout_weight="1"
             android:background="@drawable/btn_radius"
-            android:text="Đồng ý"
-            android:textAllCaps="false"
-            android:textColor="@color/colorTextButton" />
+            android:text="Đồng ý"/>
 
         <Button
             android:id="@+id/btn_cancle"
+            style="@style/CommonButton"
             android:layout_width="0dp"
             android:layout_height="32dp"
             android:layout_marginLeft="16dp"
             android:layout_weight="1"
             android:background="@drawable/btn_radius"
-            android:text="Hủy"
-            android:textAllCaps="false"
-            android:textColor="@color/colorTextButton" />
+            android:text="Hủy"/>
     </TableRow>
 </LinearLayout>

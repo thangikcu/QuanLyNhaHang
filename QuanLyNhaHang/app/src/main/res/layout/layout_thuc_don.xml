@@ -32,7 +32,7 @@
                 android:layout_weight="2"
                 android:paddingLeft="16dp"
                 android:text="@string/thuc_don"
-                android:textColor="@color/colorTextButton"
+                android:textColor="@color/white"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 

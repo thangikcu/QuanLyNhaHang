@@ -10,19 +10,19 @@
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
         android:text="@string/info_thong_tin_dat_ban"
-        android:textColor="@color/colorTextThongTinBan"
-        android:textSize="12sp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/text_size_normal"
         android:textStyle="bold" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/colorSeparatorThongTinDatBan" />
+        android:background="@color/colorPrimary" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="16dp">
+        android:paddingLeft="@dimen/margin">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,25 +32,20 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="16dp">
+                android:paddingTop="@dimen/margin">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/CommonTextView"
                     android:text="@string/info_ten_khach_hang"
-                    android:textColor="@color/colorTextThongTinDatBan"
-                    android:textSize="12sp"
+                    android:textColor="@color/colorTextField"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tv_ten_khach_hang"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="16dp"
+                    style="@style/CommonTextView"
+                    android:paddingLeft="@dimen/margin"
                     android:text="Nguyễn Văn Nam"
-                    android:textColor="@color/colorTextInfo"
-                    android:textSize="12sp"
-                    android:textStyle="normal" />
+                    android:textColor="@color/colorTextInfo" />
 
             </TableRow>
 
@@ -60,22 +55,17 @@
                 android:paddingTop="8dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/CommonTextView"
                     android:text="@string/info_so_dien_thoai"
-                    android:textColor="@color/colorTextThongTinDatBan"
-                    android:textSize="12sp"
+                    android:textColor="@color/colorTextField"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tv_so_dien_thoai"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="16dp"
-                    android:text="0915194096"
-                    android:textColor="@color/colorTextInfo"
-                    android:textSize="12sp"
-                    android:textStyle="normal" />
+                    style="@style/CommonTextView"
+                    android:paddingLeft="@dimen/margin"
+                    android:text="09878765654"
+                    android:textColor="@color/colorTextInfo" />
 
             </TableRow>
 
@@ -85,22 +75,17 @@
                 android:paddingTop="8dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/CommonTextView"
                     android:text="@string/info_khoang_gio_den"
-                    android:textColor="@color/colorTextThongTinDatBan"
-                    android:textSize="12sp"
+                    android:textColor="@color/colorTextField"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tv_khoang_gio_den"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="16dp"
+                    style="@style/CommonTextView"
+                    android:paddingLeft="@dimen/margin"
                     android:text="07:25 SA - 22/12/2016"
-                    android:textColor="@color/colorTextInfo"
-                    android:textSize="12sp"
-                    android:textStyle="normal" />
+                    android:textColor="@color/colorTextInfo" />
 
             </TableRow>
 
@@ -110,25 +95,21 @@
                 android:paddingTop="8dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/CommonTextView"
                     android:text="@string/info_yeu_cau"
-                    android:textColor="@color/colorTextThongTinDatBan"
-                    android:textSize="12sp"
+                    android:textColor="@color/colorTextField"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tv_yeu_cau"
+                    style="@style/CommonTextView"
                     android:layout_width="200dp"
-                    android:layout_height="wrap_content"
                     android:isScrollContainer="true"
-                    android:maxLines="3"
-                    android:paddingLeft="16dp"
+                    android:maxLines="4"
+                    android:paddingLeft="@dimen/margin"
                     android:scrollbars="vertical"
                     android:text="Bàn cạnh cửa sổ,Bàn cạnh cửa sổ"
-                    android:textColor="@color/colorTextInfo"
-                    android:textSize="12sp"
-                    android:textStyle="normal" />
+                    android:textColor="@color/colorTextInfo" />
 
             </TableRow>
         </LinearLayout>

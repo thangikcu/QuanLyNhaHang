@@ -1,6 +1,7 @@
 package thanggun99.quanlynhahang.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +11,8 @@ import java.util.ArrayList;
 
 import thanggun99.quanlynhahang.App;
 import thanggun99.quanlynhahang.R;
-import thanggun99.quanlynhahang.interfaces.OnItemclickListener;
 import thanggun99.quanlynhahang.model.entity.Ban;
+import thanggun99.quanlynhahang.presenter.PhucVuPresenter;
 
 /**
  * Created by Thanggun99 on 19/11/2016.
@@ -19,15 +20,12 @@ import thanggun99.quanlynhahang.model.entity.Ban;
 
 public class BanAdapter extends RecyclerView.Adapter<BanAdapter.ViewHolder> {
     private ArrayList<Ban> banList;
-    private OnItemclickListener onItemclickListener;
     private TextView tvSelected = new TextView(App.getContext());
+    private PhucVuPresenter phucVuPresenter;
 
-    public BanAdapter(ArrayList<Ban> banList) {
+    public BanAdapter(ArrayList<Ban> banList, PhucVuPresenter phucVuPresenter) {
         this.banList = banList;
-    }
-
-    public void setOnItemclickListener(OnItemclickListener onItemclickListener) {
-        this.onItemclickListener = onItemclickListener;
+        this.phucVuPresenter = phucVuPresenter;
     }
 
     @Override
@@ -69,6 +67,7 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.ViewHolder> {
         public ViewHolder(final View itemView) {
             super(itemView);
             tvBan = (TextView) itemView.findViewById(R.id.tv_ten_ban);
+            tvBan.setMovementMethod(new ScrollingMovementMethod());
             tvBan.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -76,7 +75,8 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.ViewHolder> {
                     tvSelected.setSelected(false);
                     tvSelected = tvBan;
                     tvBan.setSelected(true);
-                    onItemclickListener.onItemClick(itemView, getAdapterPosition());
+
+                    phucVuPresenter.getThongTinbanAtPosition(getAdapterPosition());
                 }
             });
         }

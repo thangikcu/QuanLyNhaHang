@@ -53,7 +53,7 @@
             android:lines="1"
             android:text="15"
             android:maxLength="3"
-            android:textColor="@color/colorTextButton"
+            android:textColor="@color/white"
             android:textSize="16sp" />
 
         <TextView
@@ -85,7 +85,7 @@
             android:background="@drawable/btn_radius"
             android:text="Đồng ý"
             android:textAllCaps="false"
-            android:textColor="@color/colorTextButton" />
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/btn_cancle"
@@ -96,6 +96,6 @@
             android:background="@drawable/btn_radius"
             android:text="Hủy"
             android:textAllCaps="false"
-            android:textColor="@color/colorTextButton" />
+            android:textColor="@color/white" />
     </TableRow>
 </LinearLayout>

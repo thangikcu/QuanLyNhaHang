@@ -13,6 +13,6 @@
         android:paddingLeft="5dp"
         android:text="Bàn 22"
         android:textAllCaps="false"
-        android:textColor="@color/colorTextButton"
+        android:textColor="@color/white"
         android:textSize="11dp" />
 </LinearLayout>

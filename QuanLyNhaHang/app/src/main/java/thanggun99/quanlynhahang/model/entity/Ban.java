@@ -83,7 +83,7 @@ public class Ban {
 
     public String getStringTrangThai() {
         if (trangThai == 0) return Utils.getStringByRes(R.string.trong);
-        else if (trangThai == 1)return Utils.getStringByRes(R.string.dat_truoc);
+        else if (trangThai == 1)return Utils.getStringByRes(R.string.da_dat_truoc);
         else return Utils.getStringByRes(R.string.dang_phuc_vu);
     }
 

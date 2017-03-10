@@ -1,6 +1,7 @@
 package thanggun99.quanlynhahang.adapter;
 
 import android.support.annotation.NonNull;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,27 +12,30 @@ import java.util.ArrayList;
 
 import thanggun99.quanlynhahang.R;
 import thanggun99.quanlynhahang.model.entity.NhomMon;
+import thanggun99.quanlynhahang.presenter.PhucVuPresenter;
 
 /**
  * Created by Thanggun99 on 19/11/2016.
  */
 
 public class NhomMonAdapter extends BaseAdapter {
-    private ArrayList<NhomMon> nhomMons;
+    private ArrayList<NhomMon> nhomMonList;
+    private PhucVuPresenter phucVuPresenter;
 
-    public NhomMonAdapter(ArrayList<NhomMon> nhomMons) {
-        this.nhomMons = nhomMons;
+    public NhomMonAdapter(ArrayList<NhomMon> nhomMonList, PhucVuPresenter phucVuPresenter) {
+        this.nhomMonList = nhomMonList;
+        this.phucVuPresenter = phucVuPresenter;
     }
 
     @Override
     public int getCount() {
-        if (nhomMons == null) return 0;
-        return nhomMons.size();
+        if (nhomMonList == null) return 0;
+        return nhomMonList.size();
     }
 
     @Override
     public NhomMon getItem(int position) {
-        return nhomMons.get(position);
+        return nhomMonList.get(position);
     }
 
     @Override
@@ -41,11 +45,12 @@ public class NhomMonAdapter extends BaseAdapter {
 
     @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
         if (convertView == null) {
             viewHolder = new ViewHolder();
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_nhom_mon, parent, false);
+
             viewHolder.tvTenNhom = (TextView) convertView.findViewById(R.id.tv_ten_loai);
 
             convertView.setTag(viewHolder);
@@ -53,13 +58,20 @@ public class NhomMonAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.tvTenNhom.setText(nhomMons.get(position).getTenLoai());
-        viewHolder.tvTenNhom.setBackgroundColor(nhomMons.get(position).getMauSac());
-
+        viewHolder.tvTenNhom.setMovementMethod(new ScrollingMovementMethod());
+        viewHolder.tvTenNhom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                phucVuPresenter.onClickNhomMon(position);
+            }
+        });
+        viewHolder.tvTenNhom.setText(nhomMonList.get(position).getTenLoai());
+        viewHolder.tvTenNhom.setBackgroundColor(nhomMonList.get(position).getMauSac());
         return convertView;
     }
 
     class ViewHolder {
         TextView tvTenNhom;
     }
+
 }

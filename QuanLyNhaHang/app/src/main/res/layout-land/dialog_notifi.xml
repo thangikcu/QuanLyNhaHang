@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/thong_bao"
-        android:textColor="@color/colorTextTitleDialog"
+        android:textColor="@color/colorPrimary"
         android:textSize="18sp"
         android:textStyle="bold" />
 
@@ -21,7 +21,7 @@
         android:text="@string/thong_tin_dat_ban"
         android:gravity="center"
         android:paddingTop="16dp"
-        android:textColor="@color/colorTextNotifi"
+        android:textColor="@color/colorTextInfo"
         android:textSize="14sp"
         android:textStyle="bold" />
 
@@ -32,12 +32,11 @@
 
         <Button
             android:id="@+id/btn_cancle"
+            style="@style/CommonButton"
             android:layout_width="0dp"
             android:layout_height="32dp"
             android:layout_weight="1"
             android:background="@drawable/btn_radius"
-            android:text="@string/dong"
-            android:textAllCaps="false"
-            android:textColor="@color/colorTextButton" />
+            android:text="@string/dong"/>
     </TableRow>
 </LinearLayout>

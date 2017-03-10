@@ -63,9 +63,11 @@
                 android:drawableLeft="@drawable/ic_note"
                 android:drawablePadding="8dp"
                 android:hint="@string/yeu_cau"
+                android:isScrollContainer="true"
+                android:scrollbars="vertical"
                 android:inputType="textMultiLine"
                 android:lines="3"
-                android:maxLength="150"
+                android:maxLength="500"
                 android:maxLines="3"
                 android:textSize="12sp"
                 android:textStyle="bold" />
@@ -75,14 +77,12 @@
 
     <Button
         android:id="@+id/btn_dat_ban"
+        style="@style/CommonButton"
         android:layout_width="136dp"
         android:layout_height="52dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp"
         android:drawableLeft="@drawable/ic_dat_truoc"
         android:text="@string/dat_ban"
-        android:textAllCaps="false"
-        android:textColor="@color/colorTextThongTinBan"
-        android:textSize="14sp"
-        android:visibility="visible" />
+        android:textColor="@color/colorTextInfo"/>
 </LinearLayout>

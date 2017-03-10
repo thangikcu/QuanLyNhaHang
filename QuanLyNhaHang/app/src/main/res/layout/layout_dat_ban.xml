@@ -82,7 +82,7 @@
         android:drawableLeft="@drawable/ic_dat_truoc"
         android:text="@string/dat_ban"
         android:textAllCaps="false"
-        android:textColor="@color/colorTextThongTinBan"
+        android:textColor="@color/colorTextInfo"
         android:textSize="14sp"
         android:visibility="visible" />
 </LinearLayout>

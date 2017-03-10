@@ -16,14 +16,15 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
@@ -39,7 +40,6 @@ import thanggun99.quanlynhahang.adapter.BanAdapter;
 import thanggun99.quanlynhahang.adapter.NhomMonAdapter;
 import thanggun99.quanlynhahang.adapter.ThucDonAdapter;
 import thanggun99.quanlynhahang.adapter.ThucDonOrderAdapter;
-import thanggun99.quanlynhahang.interfaces.OnItemclickListener;
 import thanggun99.quanlynhahang.model.Database;
 import thanggun99.quanlynhahang.model.entity.Ban;
 import thanggun99.quanlynhahang.model.entity.DatBan;
@@ -64,7 +64,8 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
     private Database database;
 
     private RecyclerView listViewBan, listViewThucDonOrder;
-    private Button btnThucDon, btnSale, btnDatBan, btnTinhTien;
+    private ImageButton btnThucDon;
+    private Button btnSale, btnDatBan, btnTinhTien;
     private ListView listViewNhomMon;
     private RecyclerView listViewThucDon;
     private TableRow tableRow;
@@ -101,6 +102,9 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
 
     }
 
+    public PhucVuFragment() {
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -114,8 +118,7 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
         findViews(view);
         initComponents();
         setEvents();
-        showContent();
-
+        phucVuPresenter.getThongTinbanAtPosition(0);
     }
 
      private void initComponents() {
@@ -127,9 +130,34 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
         orderThucDonDialog = new OrderThucDonDialog(getContext(), phucVuPresenter);
         saleDialog = new SaleDialog(getContext(), phucVuPresenter);
 
+         banAdapter = new BanAdapter(database.getBanList(), phucVuPresenter);
+         listViewBan.setAdapter(banAdapter);
+         listViewBan.setLayoutManager(new GridLayoutManager(getContext(), 4));
+
+         nhomMonAdapter = new NhomMonAdapter(database.getNhomMonList(), phucVuPresenter);
+         listViewNhomMon.setAdapter(nhomMonAdapter);
+
+         thucDonAdapter = new ThucDonAdapter(database.getThucDonList(), phucVuPresenter);
+         listViewThucDon.setAdapter(thucDonAdapter);
+         listViewThucDon.setLayoutManager(new LinearLayoutManager(getContext()));
+
+         thucDonOrderAdapter = new ThucDonOrderAdapter(phucVuPresenter);
+         listViewThucDonOrder.setAdapter(thucDonOrderAdapter);
+         listViewThucDonOrder.setLayoutManager(new LinearLayoutManager(getContext()));
+
+    }
+
+    @Override
+    public void clearTimKiem() {
+        if (edtTimKiemMon.hasFocus()) edtTimKiemMon.onActionViewCollapsed();
     }
 
     private void setEvents() {
+        tvYeuCau.setMovementMethod(new ScrollingMovementMethod());
+        tvTenLoai.setMovementMethod(new ScrollingMovementMethod());
+        edtYeuCau.setMovementMethod(new ScrollingMovementMethod());
+        tvTenBan.setMovementMethod(new ScrollingMovementMethod());
+
         btnThucDon.setOnClickListener(this);
         btnSale.setOnClickListener(this);
         btnTinhTien.setOnClickListener(this);
@@ -221,10 +249,6 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
         }
     }
 
-    public void showContent() {
-        setDatas(database.getBanList(), database.getThucDonList(), database.getNhomMonList());
-    }
-
     @Override
     public void onDestroy() {
 
@@ -232,6 +256,7 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
         if (orderThucDonDialog != null) orderThucDonDialog.cancel();
         if (saleDialog != null) saleDialog.cancel();
         if (tinhTienDialog != null) tinhTienDialog.cancel();
+        if (thongTinDatBanDialog != null) thongTinDatBanDialog.cancel();
 
         super.onDestroy();
     }
@@ -251,7 +276,7 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
         tvTongTien = (TextView) layoutThongTinBan.findViewById(R.id.tv_tong_tien);
         listViewThucDonOrder = (RecyclerView) layoutThongTinBan.findViewById(R.id.list_thuc_don_order);
 
-        btnThucDon = (Button) view.findViewById(R.id.btn_thuc_don);
+        btnThucDon = (ImageButton) view.findViewById(R.id.btn_thuc_don);
         listViewBan = (RecyclerView) view.findViewById(R.id.list_ban);
         tvTenBan = (TextView) view.findViewById(R.id.tv_ten_ban);
         tvTrangThai = (TextView) view.findViewById(R.id.tv_trang_thai);
@@ -388,57 +413,6 @@ public class PhucVuFragment extends Fragment implements PhucVuPresenter.PhucVuVi
     public void showGiamGia(int giamGia) {
         if (giamGia > 0) btnSale.setText(giamGia + "%");
         else btnSale.setText(Utils.getStringByRes(R.string.sale));
-    }
-
-    public void setDatas(ArrayList<Ban> listBan, ArrayList<ThucDon> listThucDon, ArrayList<NhomMon> listNhomMon) {
-
-        banAdapter = new BanAdapter(listBan);
-        listViewBan.setAdapter(banAdapter);
-        listViewBan.setLayoutManager(new GridLayoutManager(getContext(), 4));
-        banAdapter.setOnItemclickListener(new OnItemclickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                phucVuPresenter.getThongTinbanAtPosition(position);
-            }
-        });
-
-        nhomMonAdapter = new NhomMonAdapter(listNhomMon);
-        listViewNhomMon.setAdapter(nhomMonAdapter);
-        listViewNhomMon.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (edtTimKiemMon.hasFocus()) edtTimKiemMon.onActionViewCollapsed();
-
-                phucVuPresenter.onClickNhomMon(position);
-            }
-        });
-
-        thucDonAdapter = new ThucDonAdapter(listThucDon);
-        listViewThucDon.setAdapter(thucDonAdapter);
-        listViewThucDon.setLayoutManager(new LinearLayoutManager(getContext()));
-        thucDonAdapter.setOnItemclickListener(new OnItemclickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                phucVuPresenter.onClickThucdon(thucDonAdapter.getItem(position));
-            }
-        });
-
-        thucDonOrderAdapter = new ThucDonOrderAdapter();
-        listViewThucDonOrder.setAdapter(thucDonOrderAdapter);
-        listViewThucDonOrder.setLayoutManager(new LinearLayoutManager(getContext()));
-        thucDonOrderAdapter.setOnItemclickListener(new OnItemclickListener() {
-            @Override
-            public void onItemClick(View view, final int position) {
-
-                if (view.getId() == R.id.btn_delete_mon_order) {
-                    phucVuPresenter.onClickDeleteMonOrder(thucDonOrderAdapter.getItem(position));
-
-                } else {
-                    phucVuPresenter.onClickThucdonOrder(thucDonOrderAdapter.getItem(position));
-                }
-            }
-        });
-        phucVuPresenter.getThongTinbanAtPosition(0);
     }
 
     @Override

@@ -44,64 +44,6 @@
   </component>
   <component name="FavoritesManager">
     <favorites_list name="QuanLyNhaHang">
-      <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/service" module="app" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
-        <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/util" module="app" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
-          <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/util/API.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
-          <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/util/Utils.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
-        </favorite_root>
-        <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/service" module="app" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
-          <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/dialog" module="app" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
-            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/dialog/BaseDialog.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
-            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/dialog/SaleDialog.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
-            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/dialog/ErrorDialog.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
-            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/dialog/TinhTienDialog.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
-            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/dialog/OrderThucDonDialog.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
-            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/dialog/DeleteThucDonOrderDialog.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
-          </favorite_root>
-          <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/adapter" module="app" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
-            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/adapter/BanAdapter.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
-            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/adapter/NhomMonAdapter.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
-            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/adapter/ThucDonAdapter.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
-            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/adapter/ThucDonOrderAdapter.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
-          </favorite_root>
-          <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/activity" module="app" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
-            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/activity/MainActivity.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
-            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/activity/LoginActivity.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
-          </favorite_root>
-          <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/fragment" module="app" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
-            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/fragment/HomeFragment.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
-            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/fragment/PhucVuFragment.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
-            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/fragment/SettingFragment.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
-          </favorite_root>
-        </favorite_root>
-        <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model" module="app" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
-          <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/entity" module="app" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
-            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/entity/Ban.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
-            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/entity/HoaDon.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
-            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/entity/NhomMon.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
-            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/entity/ThucDon.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
-            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/entity/ThucDonOrder.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
-          </favorite_root>
-          <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model" module="app" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
-            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/phucvu/BanManager.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
-            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/phucvu/HoaDonManager.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
-            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/phucvu/NhomMonManager.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
-            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/phucvu/ThucDonManager.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
-            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/PhucVuInteractor.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
-          </favorite_root>
-        </favorite_root>
-        <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/App.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
-        <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/presenter" module="app" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
-          <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/presenter/home" module="app" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-          <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/presenter" module="app" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
-            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/presenter/PhucVuPresenter.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
-          </favorite_root>
-        </favorite_root>
-        <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/interfaces" module="app" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
-          <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/interfaces/OnItemclickListener.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
-          <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/interfaces/OnFinishProgressListener.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
-        </favorite_root>
-      </favorite_root>
       <favorite_root url="file://$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi" module="app" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
         <favorite_root url="file://$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/home_background.jpg" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
         <favorite_root url="file://$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/sell_background_right.jpg" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
@@ -160,35 +102,128 @@
         <favorite_root url="file://$PROJECT_DIR$/app/src/main/res/layout-land/dialog_order_thuc_don.xml" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
         <favorite_root url="file://$PROJECT_DIR$/app/src/main/res/layout-land/dialog_delete_thuc_don_order.xml" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
       </favorite_root>
+      <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang" module="app" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+        <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/util" module="app" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+          <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/util/API.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/util/Utils.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+        </favorite_root>
+        <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view" module="app" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+          <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/dialog" module="app" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/dialog/BaseDialog.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/dialog/SaleDialog.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/dialog/ErrorDialog.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/dialog/NotifiDialog.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/dialog/TinhTienDialog.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/dialog/OrderThucDonDialog.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/dialog/ThongTinDatBanDialog.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/dialog/DeleteThucDonOrderDialog.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          </favorite_root>
+          <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/activity" module="app" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/activity/MainActivity.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/activity/LoginActivity.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          </favorite_root>
+          <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/fragment" module="app" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/fragment/HomeFragment.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/fragment/DatBanFragment.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/fragment/PhucVuFragment.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/fragment/SettingFragment.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          </favorite_root>
+        </favorite_root>
+        <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model" module="app" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+          <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/entity" module="app" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/entity/Ban.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/entity/DatBan.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/entity/HoaDon.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/entity/NhomMon.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/entity/ThucDon.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/entity/ThucDonOrder.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          </favorite_root>
+          <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/Database.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/MainInteractor.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/PhucVuInteractor.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+        </favorite_root>
+        <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/adapter" module="app" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+          <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/adapter/BanAdapter.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/adapter/NhomMonAdapter.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/adapter/ThucDonAdapter.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/adapter/ThucDonOrderAdapter.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+        </favorite_root>
+        <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/service" module="app" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+          <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/service/MyFirebaseIDService.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/service/MyFirebaseMessagingService.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+        </favorite_root>
+        <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/App.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+        <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/presenter" module="app" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+          <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/presenter/MainPresenter.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/presenter/PhucVuPresenter.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+        </favorite_root>
+        <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/interfaces" module="app" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+          <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/interfaces/ShowOnMain.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/interfaces/OnItemclickListener.java" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+        </favorite_root>
+      </favorite_root>
     </favorites_list>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Database.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/Database.java">
+      <file leaf-file-name="PhucVuFragment.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/fragment/PhucVuFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1496">
-              <caret line="280" column="40" selection-start-line="280" selection-start-column="40" selection-end-line="280" selection-end-column="40" />
+            <state relative-caret-position="45">
+              <caret line="104" column="29" selection-start-line="104" selection-start-column="29" selection-end-line="104" selection-end-column="29" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#loadListNhomMon#0;class#Database#0" expanded="false" />
-                <element signature="method#loadListHoaDon#0;class#Database#0" expanded="false" />
-                <element signature="method#loadListDatBan#0;class#Database#0" expanded="false" />
-                <element signature="method#loadListBan#0;class#Database#0" expanded="false" />
-                <element signature="method#loadListThucDon#0;class#Database#0" expanded="false" />
-                <element signature="e#10306#10307#0" expanded="true" />
-                <element signature="e#11279#11280#0" expanded="true" />
-                <element signature="e#11323#11324#0" expanded="true" />
-                <element signature="e#11612#11613#0" expanded="true" />
-                <element signature="e#11658#11659#0" expanded="true" />
-                <element signature="e#11702#11703#0" expanded="true" />
-                <element signature="e#11740#11741#0" expanded="true" />
-                <element signature="e#11796#11797#0" expanded="true" />
-                <element signature="e#11846#11847#0" expanded="true" />
-                <element signature="e#11905#11906#0" expanded="true" />
-                <element signature="e#11958#11959#0" expanded="true" />
-                <element signature="e#12005#12006#0" expanded="true" />
-                <element signature="e#12046#12047#0" expanded="true" />
+                <element signature="method#showSnackbar#0;class#PhucVuFragment#0" expanded="false" />
+                <element signature="method#onClick#0;class#PhucVuFragment#0" expanded="false" />
+                <element signature="method#clearForm#0;class#PhucVuFragment#0" expanded="false" />
+                <element signature="method#chekForm#0;class#PhucVuFragment#0" expanded="false" />
+                <element signature="method#showFormUpdateDatBan#0;class#PhucVuFragment#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PhucVuPresenter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/presenter/PhucVuPresenter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="62">
+              <caret line="44" column="0" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PhucVuInteractor.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/PhucVuInteractor.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="71">
+              <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="menu.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/menu.xml">
+          <provider editor-type-id="android-designer2">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="70">
+              <caret line="7" column="20" selection-start-line="7" selection-start-column="20" selection-end-line="7" selection-end-column="20" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/activity/MainActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="62">
+              <caret line="40" column="0" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+              <folding>
+                <element signature="method#initViews#0;class#MainActivity#0" expanded="false" />
+                <element signature="e#5516#5517#0" expanded="true" />
+                <element signature="e#5568#5569#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -197,21 +232,12 @@
       <file leaf-file-name="MainPresenter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/presenter/MainPresenter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="124">
-              <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+            <state relative-caret-position="225">
+              <caret line="40" column="5" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#984#985#0" expanded="true" />
+                <element signature="e#1022#1023#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PhucVuPresenter.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/presenter/PhucVuPresenter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -1816,7 +1842,7 @@
     <option name="modificationStamps">
       <map>
         <entry key="$PROJECT_DIR$" value="4440485834036" />
-        <entry key="E:\Project\QuanLyNhaHang\QuanLyNhaHang" value="4456437597956" />
+        <entry key="E:\Project\QuanLyNhaHang\QuanLyNhaHang" value="4456508383152" />
       </map>
     </option>
     <option name="projectBuildClasspath">
@@ -2124,40 +2150,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/../KhachHang/app/src/main/res/drawable/btn_radius.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/btn_radius.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/dialog_order_thuc_don.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_phuc_vu.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/activity_login.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_setting.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_setting.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_phuc_vu.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/adapter/BanAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/dialog/ThongTinDatBanDialog.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/phucvu/DatTruocManager.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/entity/DatTruoc.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/layout_thong_tin_dat_ban.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/util/API.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/dialog/OrderThucDonDialog.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/dialog/DeleteThucDonOrderDialog.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/dialog/SaleDialog.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/dialog/TinhTienDialog.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/util/Utils.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/activity_main.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/item_nhom_mon.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/item_mon.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/bg_list_item_thuc_don.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/item_thuc_don_order.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/item_dat_ban.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_dat_ban.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/main/MainInteractor.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/interfaces/ShowOnMain.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/dialog/NotifiDialog.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/phucvu/ThucDonManager.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/phucvu/HoaDonManager.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/phucvu/DatBanManager.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/entity/DatBan.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/phucvu/NhomMonManager.java" />
@@ -2169,12 +2161,46 @@
         <option value="$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/Database.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/dialog/ErrorDialog.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/presenter/main/MainPresenter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/activity/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/presenter/phucvu/PhucVuPresenter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/fragment/PhucVuFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/presenter/MainPresenter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/presenter/PhucVuPresenter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/service/MyFirebaseMessagingService.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/activity/LoginActivity.java" />
+        <option value="$PROJECT_DIR$/app/build.gradle" />
+        <option value="$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/util/API.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/entity/NhomMon.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/util/Utils.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/dialog/ThongTinDatBanDialog.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/interfaces/OnItemClickListener.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/presenter/PhucVuPresenter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/adapter/BanAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/adapter/NhomMonAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/adapter/ThucDonOrderAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/adapter/ThucDonAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/activity_main.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/dialog_delete_thuc_don_order.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/dialog_error.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/dialog_notifi.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/dialog_order_thuc_don.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/dialog_sale.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/dialog_tinh_tien.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/layout_thong_tin_dat_ban.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_dat_ban.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_home.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_phuc_vu.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/layout_dat_ban.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/layout_ban_phuc_vu.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/item_ban.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/item_dat_ban.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/item_mon.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/item_nhom_mon.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/item_thuc_don_order.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/layout_thuc_don.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/activity/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/fragment/PhucVuFragment.java" />
       </list>
     </option>
   </component>
@@ -2225,31 +2251,14 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="AndroidView">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="QuanLyNhaHang" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="QuanLyNhaHang" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="ProjectPane">
         <subPane />
       </pane>
       <pane id="PackagesPane" />
+      <pane id="ProjectPane">
+        <subPane />
+      </pane>
+      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -2257,10 +2266,10 @@
     <property name="settings.editor.selected.configurable" value="com.genymobile.genymotion.ide.idea.GdmSettings" />
     <property name="android.sdk.path" value="E:/sdk" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
-    <property name="android.project.structure.last.selected" value="Project" />
+    <property name="android.project.structure.last.selected" value="app" />
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="last_opened_file_path" value="$USER_HOME$/Desktop/AiLaTrieuPhu" />
-    <property name="device.picker.selection" value="192.168.111.101:5555" />
+    <property name="device.picker.selection" value="192.168.83.102:5555" />
     <property name="UI_DESIGNER_EDITOR_MODE.NlPaletteManager-NlPreviewForm.SHOW" value="false" />
     <property name="CpuMonitor.minimized" value="true" />
     <property name="GpuMonitor.minimized" value="true" />
@@ -2471,16 +2480,16 @@
     <configuration default="true" type="GradleRunConfiguration" factoryName="Gradle">
       <ExternalSystemSettings>
         <option name="executionName" />
-        <option name="externalProjectPath" />
+        <option name="externalProjectPath" value="" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
+        <option name="scriptParameters" value="" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list />
         </option>
-        <option name="vmOptions" />
+        <option name="vmOptions" value="" />
       </ExternalSystemSettings>
       <method />
     </configuration>
@@ -2634,27 +2643,27 @@
     <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32935917" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.58128834" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32936507" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.45092025" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.2613546" sideWeight="0.5092025" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32668713" sideWeight="0.5314741" order="4" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5214724" sideWeight="0.49402392" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5545817" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32668713" sideWeight="0.4685259" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32668713" sideWeight="0.53466135" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.6303681" sideWeight="0.47888446" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42470118" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32668713" sideWeight="0.46533865" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.24940239" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5797546" sideWeight="0.5059761" order="5" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25737053" sideWeight="0.4947839" order="7" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2613546" sideWeight="0.49079755" order="7" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.52607363" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24940239" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32936507" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.48740742" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3187251" sideWeight="0.5052161" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2" sideWeight="0.5052161" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -2693,20 +2702,87 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_dat_truoc.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/entity/NhomMon.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="26" column="15" selection-start-line="26" selection-start-column="15" selection-end-line="26" selection-end-column="15" />
+          <folding>
+            <element signature="e#526#527#0" expanded="false" />
+            <element signature="e#573#574#0" expanded="false" />
+          </folding>
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_cong.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/dialog/ThongTinDatBanDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="15" column="77" selection-start-line="15" selection-start-column="77" selection-end-line="15" selection-end-column="77" />
+          <folding />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_dat_ban.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/util/Utils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="884">
+          <caret line="69" column="0" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
+          <folding />
+        </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/adapter/BanAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1071">
+          <caret line="77" column="20" selection-start-line="77" selection-start-column="20" selection-end-line="77" selection-end-column="20" />
+          <folding>
+            <element signature="e#2216#2621#0" expanded="false" />
+            <element signature="e#2620#2621#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/interfaces/OnItemClickListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/adapter/NhomMonAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="326">
+          <caret line="67" column="48" selection-start-line="67" selection-start-column="48" selection-end-line="67" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/entity/ThucDonOrder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="42" column="19" selection-start-line="42" selection-start-column="19" selection-end-line="42" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/adapter/ThucDonAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="426">
+          <caret line="74" column="18" selection-start-line="74" selection-start-column="18" selection-end-line="74" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/adapter/ThucDonOrderAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="218">
+          <caret line="69" column="21" selection-start-line="69" selection-start-column="21" selection-end-line="69" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values-w820dp/dimens.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -2714,10 +2790,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/menu_button_background.xml">
+    <entry file="android-dummy://E:/Project/QuanLyNhaHang/QuanLyNhaHang//Theme Editor">
+      <provider selected="true" editor-type-id="themeEditor">
+        <state theme-name="AppTheme" module-name="app" proportion="0.67" />
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.android/build-cache/38feee77fc4606181a321d8bb8bf15255fd80f72/output/res/values/values.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="47" selection-start-line="4" selection-start-column="47" selection-end-line="4" selection-end-column="47" />
+        <state relative-caret-position="208">
+          <caret line="1560" column="87" selection-start-line="1560" selection-start-column="87" selection-end-line="1560" selection-end-column="87" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="62" selection-start-line="5" selection-start-column="62" selection-end-line="5" selection-end-column="62" />
           <folding />
         </state>
       </provider>
@@ -2727,59 +2819,21 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="19" column="42" selection-start-line="19" selection-start-column="42" selection-end-line="19" selection-end-column="42" />
-          <folding />
+        <state relative-caret-position="170">
+          <caret line="10" column="39" selection-start-line="10" selection-start-column="39" selection-end-line="10" selection-end-column="39" />
+          <folding>
+            <element signature="e#704#727#0" expanded="true" />
+            <element signature="e#1017#1040#0" expanded="true" />
+            <element signature="e#1339#1362#0" expanded="true" />
+            <element signature="e#1388#1405#0" expanded="true" />
+            <element signature="e#1662#1685#0" expanded="true" />
+            <element signature="e#1989#2012#0" expanded="true" />
+            <element signature="e#2313#2336#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/layout_thuc_don.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="36" selection-start-line="11" selection-start-column="36" selection-end-line="11" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_cancel.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/item_nhom_mon.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="34" selection-start-line="7" selection-start-column="34" selection-end-line="7" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="488">
-          <caret line="72" column="36" selection-start-line="72" selection-start-column="36" selection-end-line="72" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/layout_dat_ban.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-47">
-          <caret line="71" column="0" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/bg_list_item_thuc_don_order.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/menu_button_background.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -2787,234 +2841,83 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/bg_list.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="8" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/bg_list_item_thuc_don.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="8" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/item_mon.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
       <provider editor-type-id="android-designer2">
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="39" selection-start-line="4" selection-start-column="39" selection-end-line="5" selection-end-column="37" />
+        <state relative-caret-position="-272">
+          <caret line="9" column="56" selection-start-line="9" selection-start-column="56" selection-end-line="9" selection-end-column="56" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_delete.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_edit.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/item_thuc_don_order.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/layout_thuc_don.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
       <provider editor-type-id="android-designer2">
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
-          <caret line="18" column="29" selection-start-line="18" selection-start-column="29" selection-end-line="18" selection-end-column="29" />
+          <caret line="1" column="64" selection-start-line="1" selection-start-column="64" selection-end-line="1" selection-end-column="64" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/fragment_phuc_vu.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/dialog_delete_thuc_don_order.xml">
       <provider editor-type-id="android-designer2">
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="178" column="20" selection-start-line="178" selection-start-column="20" selection-end-line="178" selection-end-column="20" />
+        <state relative-caret-position="212">
+          <caret line="39" column="38" selection-start-line="39" selection-start-column="38" selection-end-line="39" selection-end-column="38" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/item_dat_ban.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/dialog_error.xml">
       <provider editor-type-id="android-designer2">
         <state />
       </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" column="35" selection-start-line="24" selection-start-column="35" selection-end-line="24" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/fragment_dat_ban.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="69" column="43" selection-start-line="69" selection-start-column="43" selection-end-line="69" selection-end-column="43" />
-          <folding>
-            <element signature="e#1769#1796#0" expanded="true" />
-            <element signature="e#2233#2251#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/fragment/DatBanFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/interfaces/OnFinishProgressListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="17" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/interfaces/OnItemclickListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/interfaces/ShowOnMain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="33" selection-start-line="11" selection-start-column="33" selection-end-line="11" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/dialog/NotifiDialog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="25" column="16" selection-start-line="25" selection-start-column="16" selection-end-line="25" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/util/Utils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
-          <caret line="23" column="45" selection-start-line="23" selection-start-column="45" selection-end-line="23" selection-end-column="45" />
+          <caret line="4" column="38" selection-start-line="4" selection-start-column="38" selection-end-line="4" selection-end-column="38" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/phucvu/ThucDonManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
-          <folding />
-        </state>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/dialog_notifi.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/phucvu/NhomMonManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="27" column="36" selection-start-line="27" selection-start-column="36" selection-end-line="27" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/phucvu/HoaDonManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-595">
-          <caret line="25" column="37" selection-start-line="25" selection-start-column="37" selection-end-line="25" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/phucvu/DatBanManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-694">
-          <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/phucvu/BanManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="445">
-          <caret line="69" column="0" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/entity/Ban.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="35" column="36" selection-start-line="35" selection-start-column="36" selection-end-line="35" selection-end-column="36" />
+        <state relative-caret-position="212">
+          <caret line="25" column="33" selection-start-line="25" selection-start-column="33" selection-end-line="25" selection-end-column="33" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#1362#1376#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/entity/DatBan.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/dialog_order_thuc_don.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-150">
-          <caret line="87" column="37" selection-start-line="87" selection-start-column="37" selection-end-line="87" selection-end-column="37" />
+        <state relative-caret-position="705">
+          <caret line="81" column="44" selection-start-line="81" selection-start-column="44" selection-end-line="81" selection-end-column="44" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#2794#2809#0" expanded="false" />
+            <element signature="e#3102#3118#0" expanded="true" />
+            <element signature="e#3461#3474#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/entity/HoaDon.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="69" column="9" selection-start-line="69" selection-start-column="9" selection-end-line="69" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/entity/ThucDonOrder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="328">
-          <caret line="42" column="19" selection-start-line="42" selection-start-column="19" selection-end-line="42" selection-end-column="19" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="85">
+          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -3023,8 +2926,19 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="5" column="34" selection-start-line="5" selection-start-column="34" selection-end-line="5" selection-end-column="34" />
+        <state relative-caret-position="17">
+          <caret line="36" column="35" selection-start-line="36" selection-start-column="35" selection-end-line="36" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/dialog_thong_tin_dat_ban.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="9" column="36" selection-start-line="9" selection-start-column="36" selection-end-line="9" selection-end-column="36" />
           <folding />
         </state>
       </provider>
@@ -3034,152 +2948,287 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="140" column="41" selection-start-line="140" selection-start-column="41" selection-end-line="140" selection-end-column="41" />
+        <state relative-caret-position="153">
+          <caret line="172" column="34" selection-start-line="172" selection-start-column="34" selection-end-line="172" selection-end-column="34" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/dialog/TinhTienDialog.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/fragment_home.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="27" column="46" selection-start-line="27" selection-start-column="46" selection-end-line="27" selection-end-column="46" />
+        <state relative-caret-position="68">
+          <caret line="4" column="50" selection-start-line="4" selection-start-column="50" selection-end-line="4" selection-end-column="50" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/dialog/SaleDialog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="25" column="40" selection-start-line="25" selection-start-column="40" selection-end-line="25" selection-end-column="40" />
-          <folding />
-        </state>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/fragment_dat_ban.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/dialog/ErrorDialog.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
-          <caret line="28" column="14" selection-start-line="28" selection-start-column="14" selection-end-line="28" selection-end-column="14" />
+          <caret line="10" column="36" selection-start-line="10" selection-start-column="36" selection-end-line="10" selection-end-column="36" />
+          <folding>
+            <element signature="e#262#285#0" expanded="true" />
+            <element signature="e#873#891#0" expanded="true" />
+            <element signature="e#1581#1596#0" expanded="true" />
+            <element signature="e#1626#1653#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/layout_dat_ban.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="86" column="43" selection-start-line="86" selection-start-column="43" selection-end-line="86" selection-end-column="43" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/MainInteractor.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/fragment_phuc_vu.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="35" column="59" selection-start-line="35" selection-start-column="59" selection-end-line="35" selection-end-column="59" />
+        <state relative-caret-position="246">
+          <caret line="168" column="45" selection-start-line="168" selection-start-column="45" selection-end-line="168" selection-end-column="45" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#5256#5271#0" expanded="true" />
+            <element signature="e#6375#6390#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/fragment/PhucVuFragment.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-798">
-          <caret line="121" column="15" selection-start-line="121" selection-start-column="15" selection-end-line="121" selection-end-column="15" />
+        <state relative-caret-position="214">
+          <caret line="15" column="50" selection-start-line="15" selection-start-column="50" selection-end-line="15" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/fragment_setting.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/item_ban.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="16" column="39" selection-start-line="16" selection-start-column="39" selection-end-line="16" selection-end-column="39" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#findViews#0;class#PhucVuFragment#0" expanded="false" />
-            <element signature="method#onClick#0;class#PhucVuFragment#0" expanded="false" />
-            <element signature="method#clearForm#0;class#PhucVuFragment#0" expanded="false" />
-            <element signature="method#chekForm#0;class#PhucVuFragment#0" expanded="false" />
+            <element signature="e#615#638#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/activity/MainActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/item_thuc_don_order.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="160" column="0" selection-start-line="160" selection-start-column="0" selection-end-line="160" selection-end-column="0" />
+        <state relative-caret-position="382">
+          <caret line="49" column="36" selection-start-line="49" selection-start-column="36" selection-end-line="49" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/layout_thuc_don.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="24" column="37" selection-start-line="24" selection-start-column="37" selection-end-line="24" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/layout_thong_tin_dat_ban.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="50" selection-start-line="13" selection-start-column="50" selection-end-line="13" selection-end-column="50" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#initViews#0;class#MainActivity#0" expanded="false" />
-            <element signature="e#5453#5454#0" expanded="true" />
+            <element signature="e#540#565#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/PhucVuInteractor.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/layout_ban_phuc_vu.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="85" column="0" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
+        <state relative-caret-position="200">
+          <caret line="36" column="12" selection-start-line="36" selection-start-column="12" selection-end-line="36" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/item_nhom_mon.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="29" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/item_mon.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="178">
+          <caret line="27" column="32" selection-start-line="27" selection-start-column="32" selection-end-line="27" selection-end-column="32" />
           <folding>
-            <element signature="e#3242#3243#0" expanded="true" />
-            <element signature="e#3288#3289#0" expanded="true" />
-            <element signature="e#4264#4265#0" expanded="true" />
-            <element signature="e#4320#4321#0" expanded="true" />
-            <element signature="e#10201#10202#0" expanded="true" />
-            <element signature="e#10264#10265#0" expanded="true" />
-            <element signature="e#12577#12578#0" expanded="true" />
-            <element signature="e#12636#12637#0" expanded="true" />
-            <element signature="e#13700#13701#0" expanded="true" />
-            <element signature="e#13756#13757#0" expanded="true" />
-            <element signature="e#14284#14285#0" expanded="true" />
-            <element signature="e#14338#14339#0" expanded="true" />
+            <element signature="e#1137#1162#0" expanded="true" />
+            <element signature="e#1519#1543#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/Database.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/item_dat_ban.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1496">
-          <caret line="280" column="40" selection-start-line="280" selection-start-column="40" selection-end-line="280" selection-end-column="40" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#loadListNhomMon#0;class#Database#0" expanded="false" />
-            <element signature="method#loadListHoaDon#0;class#Database#0" expanded="false" />
-            <element signature="method#loadListDatBan#0;class#Database#0" expanded="false" />
-            <element signature="method#loadListBan#0;class#Database#0" expanded="false" />
-            <element signature="method#loadListThucDon#0;class#Database#0" expanded="false" />
-            <element signature="e#10306#10307#0" expanded="true" />
-            <element signature="e#11279#11280#0" expanded="true" />
-            <element signature="e#11323#11324#0" expanded="true" />
-            <element signature="e#11612#11613#0" expanded="true" />
-            <element signature="e#11658#11659#0" expanded="true" />
-            <element signature="e#11702#11703#0" expanded="true" />
-            <element signature="e#11740#11741#0" expanded="true" />
-            <element signature="e#11796#11797#0" expanded="true" />
-            <element signature="e#11846#11847#0" expanded="true" />
-            <element signature="e#11905#11906#0" expanded="true" />
-            <element signature="e#11958#11959#0" expanded="true" />
-            <element signature="e#12005#12006#0" expanded="true" />
-            <element signature="e#12046#12047#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="25">
+          <caret line="18" column="41" selection-start-line="18" selection-start-column="41" selection-end-line="18" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/dimens.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/test/java/thanggun99/quanlynhahang/ExampleUnitTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="16" selection-start-line="2" selection-start-column="16" selection-end-line="2" selection-end-column="16" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/presenter/MainPresenter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="124">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+        <state relative-caret-position="225">
+          <caret line="40" column="5" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#984#985#0" expanded="true" />
+            <element signature="e#1022#1023#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/service/MyFirebaseMessagingService.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/menu.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+        <state relative-caret-position="70">
+          <caret line="7" column="20" selection-start-line="7" selection-start-column="20" selection-end-line="7" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/service/MyFirebaseIDService.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/model/PhucVuInteractor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+        <state relative-caret-position="71">
+          <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/sdk/extras/android/m2repository/com/android/support/support-fragment/24.2.1/support-fragment-24.2.1-sources.jar!/android/support/v4/app/FragmentManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="71">
+          <caret line="1126" column="0" selection-start-line="1126" selection-start-column="0" selection-end-line="1126" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/activity/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="62">
+          <caret line="40" column="0" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+          <folding>
+            <element signature="method#initViews#0;class#MainActivity#0" expanded="false" />
+            <element signature="e#5516#5517#0" expanded="true" />
+            <element signature="e#5568#5569#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/presenter/PhucVuPresenter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+        <state relative-caret-position="62">
+          <caret line="44" column="0" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/fragment/DatBanFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/fragment/HomeFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/fragment/SettingFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/thanggun99/quanlynhahang/view/fragment/PhucVuFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="104" column="29" selection-start-line="104" selection-start-column="29" selection-end-line="104" selection-end-column="29" />
+          <folding>
+            <element signature="method#showSnackbar#0;class#PhucVuFragment#0" expanded="false" />
+            <element signature="method#onClick#0;class#PhucVuFragment#0" expanded="false" />
+            <element signature="method#clearForm#0;class#PhucVuFragment#0" expanded="false" />
+            <element signature="method#chekForm#0;class#PhucVuFragment#0" expanded="false" />
+            <element signature="method#showFormUpdateDatBan#0;class#PhucVuFragment#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
+    android:padding="@dimen/layout_padding"
     tools:context="thanggun99.quanlynhahang.view.fragment.DatBanFragment">
 
     <LinearLayout
@@ -14,15 +15,13 @@
 
         <Button
             android:id="@+id/btn_them_dat_ban"
+            style="@style/CommonButton"
             android:layout_width="136dp"
             android:layout_height="52dp"
-            android:layout_gravity="center_horizontal"
             android:layout_marginTop="8dp"
             android:drawableLeft="@drawable/ic_add"
             android:text="@string/them_moi"
-            android:textAllCaps="false"
-            android:textColor="@color/colorTextThongTinBan"
-            android:textSize="14sp" />
+            android:textColor="@color/colorTextInfo" />
     </LinearLayout>
 
     <LinearLayout
@@ -36,18 +35,15 @@
             android:id="@+id/tbr"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorBackgroudMenu"
+            android:background="@color/colorPrimary"
             android:gravity="right|center_vertical">
 
             <TextView
                 android:id="@+id/tv_ten_loai"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:paddingLeft="16dp"
+                style="@style/CommonTextView"
+                android:paddingLeft="@dimen/margin"
                 android:text="@string/danh_sach_dat_ban"
-                android:textColor="@color/colorTextButton"
-                android:textSize="14sp"
+                android:textColor="@color/white"
                 android:textStyle="bold" />
 
             <SearchView
@@ -67,7 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/bg_list"
-            android:scrollbars="vertical"/>
+            android:scrollbars="vertical" />
     </LinearLayout>
 
 

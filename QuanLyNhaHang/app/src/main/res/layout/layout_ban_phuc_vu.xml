@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/gio_den"
-            android:textColor="@color/colorTextThongTinBan"
+            android:textColor="@color/colorTextInfo"
             android:textSize="12sp"
             android:textStyle="bold" />
 
@@ -48,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/tong_tien"
-            android:textColor="@color/colorTextThongTinBan"
+            android:textColor="@color/colorTextInfo"
             android:textSize="12sp"
             android:textStyle="bold" />
 
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:paddingLeft="32dp"
             android:text="150K"
-            android:textColor="@color/colorTextTongTien"
+            android:textColor="@color/colorTextMoney"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -69,7 +69,7 @@
             android:background="@drawable/ic_sale"
             android:gravity="center"
             android:text="@string/sale"
-            android:textColor="@color/colorTextButton"
+            android:textColor="@color/white"
             android:textSize="11sp"
             android:textStyle="bold" />
     </TableRow>
@@ -85,7 +85,7 @@
         android:paddingLeft="0dp"
         android:text="@string/tinh_tien"
         android:textAllCaps="false"
-        android:textColor="@color/colorTextThongTinBan"
+        android:textColor="@color/colorTextInfo"
         android:textSize="14sp" />
 </LinearLayout>
 

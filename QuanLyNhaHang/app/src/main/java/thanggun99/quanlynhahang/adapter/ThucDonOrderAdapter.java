@@ -1,6 +1,7 @@
 package thanggun99.quanlynhahang.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +12,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import thanggun99.quanlynhahang.R;
-import thanggun99.quanlynhahang.interfaces.OnItemclickListener;
 import thanggun99.quanlynhahang.model.entity.ThucDonOrder;
+import thanggun99.quanlynhahang.presenter.PhucVuPresenter;
 import thanggun99.quanlynhahang.util.Utils;
 
 
@@ -22,13 +23,10 @@ import thanggun99.quanlynhahang.util.Utils;
 
 public class ThucDonOrderAdapter extends RecyclerView.Adapter<ThucDonOrderAdapter.ViewHolder> {
     private ArrayList<ThucDonOrder> thucDonOrders;
-    private OnItemclickListener onItemclickListener;
+    private PhucVuPresenter phucVuPresenter;
 
-    public ThucDonOrderAdapter() {
-    }
-
-    public void setOnItemclickListener(OnItemclickListener onItemclickListener) {
-        this.onItemclickListener = onItemclickListener;
+    public ThucDonOrderAdapter(PhucVuPresenter phucVuPresenter) {
+        this.phucVuPresenter = phucVuPresenter;
     }
 
     @Override
@@ -83,11 +81,15 @@ public class ThucDonOrderAdapter extends RecyclerView.Adapter<ThucDonOrderAdapte
 
         public ViewHolder(final View itemView) {
             super(itemView);
-            tvTenMon = (TextView) itemView.findViewById(R.id.tv_ten_mon);
             tvThanhTien = (TextView) itemView.findViewById(R.id.tv_don_gia);
             tvSoLuong = (TextView) itemView.findViewById(R.id.tv_so_luong);
             ivThucDon = (ImageView) itemView.findViewById(R.id.iv_thuc_don);
             btnDelete = (ImageButton) itemView.findViewById(R.id.btn_delete_mon_order);
+            tvTenMon = (TextView) itemView.findViewById(R.id.tv_ten_mon);
+
+            tvTenMon.setMovementMethod(new ScrollingMovementMethod());
+            tvTenMon.setOnClickListener(this);
+
             btnDelete.setOnClickListener(this);
             itemView.setOnClickListener(this);
         }
@@ -96,10 +98,10 @@ public class ThucDonOrderAdapter extends RecyclerView.Adapter<ThucDonOrderAdapte
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.btn_delete_mon_order:
-                    onItemclickListener.onItemClick(btnDelete, getAdapterPosition());
+                    phucVuPresenter.onClickDeleteMonOrder(getItem(getAdapterPosition()));
                     break;
                 default:
-                    onItemclickListener.onItemClick(itemView, getAdapterPosition());
+                    phucVuPresenter.onClickThucdonOrder(getItem(getAdapterPosition()));
                     break;
             }
         }

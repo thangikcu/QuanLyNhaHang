@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Bàn 12"
-        android:textColor="@color/colorTextNameBan"
+        android:textColor="@color/colorPrimary"
         android:textSize="18sp"
         android:textStyle="bold" />
 
@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/tinh_tien"
-        android:textColor="@color/colorTextTenMon"
+        android:textColor="@color/colorTextInfo"
         android:textSize="22sp"
         android:textStyle="bold" />
 
@@ -34,8 +34,8 @@
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:text="@string/tien_mon"
-            android:textColor="@color/colorTextThongTinBan"
-            android:textSize="16sp"
+            android:textColor="@color/colorTextField"
+            android:textSize="@dimen/text_size_normal"
             android:textStyle="bold" />
 
         <TextView
@@ -43,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="150K"
-            android:textColor="@color/colorTextTongTien"
+            android:textColor="@color/colorTextMoney"
             android:textSize="18sp"
             android:textStyle="italic" />
 
@@ -69,8 +69,8 @@
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:text="@string/tien_giam_gia"
-            android:textColor="@color/colorTextThongTinBan"
-            android:textSize="16sp"
+            android:textColor="@color/colorTextField"
+            android:textSize="14sp"
             android:textStyle="bold" />
 
         <TextView
@@ -78,7 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="25k"
-            android:textColor="@color/colorTextTongTien"
+            android:textColor="@color/colorTextMoney"
             android:textSize="18sp"
             android:textStyle="italic" />
 
@@ -104,7 +104,7 @@
             android:layout_width="0dp"
             android:layout_height="2dp"
             android:layout_weight="1.8"
-            android:background="#910e91" />
+            android:background="@color/colorPrimary" />
     </TableRow>
 
     <TableRow
@@ -117,7 +117,7 @@
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:text="@string/tong_tien"
-            android:textColor="@color/colorTextThongTinBan"
+            android:textColor="@color/colorTextField"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -126,7 +126,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="125k"
-            android:textColor="@color/colorTextTongTien"
+            android:textColor="@color/colorTextMoney"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -152,7 +152,7 @@
             android:layout_height="wrap_content"
             android:paddingRight="16dp"
             android:text="@string/tien_tra_lai"
-            android:textColor="@color/colorTextThongTinBan"
+            android:textColor="@color/colorTextField"
             android:textSize="16sp"
             android:textStyle="italic" />
 
@@ -161,7 +161,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="25k"
-            android:textColor="@color/colorTextTongTien"
+            android:textColor="@color/colorTextMoney"
             android:textSize="18sp"
             android:textStyle="italic" />
 
@@ -174,23 +174,21 @@
 
         <Button
             android:id="@+id/btn_ok"
+            style="@style/CommonButton"
             android:layout_width="0dp"
             android:layout_height="32dp"
             android:layout_weight="1"
             android:background="@drawable/btn_radius"
-            android:text="Đồng ý"
-            android:textAllCaps="false"
-            android:textColor="@color/colorTextButton" />
+            android:text="@string/dong_y"/>
 
         <Button
             android:id="@+id/btn_cancle"
+            style="@style/CommonButton"
             android:layout_width="0dp"
             android:layout_height="32dp"
             android:layout_marginLeft="16dp"
             android:layout_weight="1"
             android:background="@drawable/btn_radius"
-            android:text="Hủy"
-            android:textAllCaps="false"
-            android:textColor="@color/colorTextButton" />
+            android:text="@string/huy" />
     </TableRow>
 </LinearLayout>

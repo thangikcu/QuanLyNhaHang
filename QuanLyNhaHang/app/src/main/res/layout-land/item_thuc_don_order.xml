@@ -32,16 +32,16 @@
         android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:text="5 ly"
-        android:textColor="@color/colorTextThongTinBan"
-        android:textSize="11sp" />
+        android:textColor="@color/colorTextInfo"
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/tv_don_gia"
         android:layout_width="52dp"
         android:layout_height="wrap_content"
         android:text="1k"
-        android:textColor="@color/colorTextTongTien"
-        android:textSize="11sp"
+        android:textColor="@color/colorTextMoney"
+        android:textSize="12sp"
         android:textStyle="italic" />
 
     <ImageButton

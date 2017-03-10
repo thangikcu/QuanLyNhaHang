@@ -2,6 +2,7 @@ package thanggun99.quanlynhahang.view.dialog;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,6 +33,7 @@ public class OrderThucDonDialog extends BaseDialog {
         this.phucVuPresenter = phucVuPresenter;
         tvTitle = (TextView) findViewById(R.id.tv_ten_ban);
         tvDVT = (TextView) findViewById(R.id.tv_don_vi_tinh);
+        tvDVT.setMovementMethod(new ScrollingMovementMethod());
         edtSoLuong = (EditText) findViewById(R.id.edt_so_luong);
         btnCong = (ImageButton) findViewById(R.id.btn_cong);
         btnTru = (ImageButton) findViewById(R.id.btn_tru);
@@ -39,6 +41,7 @@ public class OrderThucDonDialog extends BaseDialog {
         btnCancle = (Button) findViewById(R.id.btn_cancle);
         ivThucDon = (ImageView) findViewById(R.id.iv_thuc_don);
         tvTenMon = (TextView) findViewById(R.id.tv_ten_mon);
+        tvTenMon.setMovementMethod(new ScrollingMovementMethod());
 
         btnOk.setOnClickListener(this);
         btnCong.setOnClickListener(this);

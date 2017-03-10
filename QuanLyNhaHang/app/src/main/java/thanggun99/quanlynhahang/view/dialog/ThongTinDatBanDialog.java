@@ -1,6 +1,7 @@
 package thanggun99.quanlynhahang.view.dialog;
 
 import android.content.Context;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.TextView;
 
@@ -22,6 +23,7 @@ public class ThongTinDatBanDialog extends BaseDialog {
         tvSoDienThoai = (TextView) findViewById(R.id.tv_so_dien_thoai);
         tvKhoangGioDen = (TextView) findViewById(R.id.tv_khoang_gio_den);
         tvYeuCau = (TextView) findViewById(R.id.tv_yeu_cau);
+        tvYeuCau.setMovementMethod(new ScrollingMovementMethod());
     }
 
     public void setContent(DatBan datBan) {

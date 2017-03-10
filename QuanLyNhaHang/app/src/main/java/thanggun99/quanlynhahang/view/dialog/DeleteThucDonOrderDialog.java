@@ -1,6 +1,7 @@
 package thanggun99.quanlynhahang.view.dialog;
 
 import android.content.Context;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -23,6 +24,7 @@ public class DeleteThucDonOrderDialog extends BaseDialog {
 
         this.phucVuPresenter = phucVuPresenter;
         tvTenMon = (TextView) findViewById(R.id.tv_ten_mon);
+        tvTenMon.setMovementMethod(new ScrollingMovementMethod());
 
         tvTitle = (TextView) findViewById(R.id.tv_ten_ban);
 

@@ -1,6 +1,7 @@
 package thanggun99.quanlynhahang.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +11,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import thanggun99.quanlynhahang.R;
-import thanggun99.quanlynhahang.interfaces.OnItemclickListener;
 import thanggun99.quanlynhahang.model.entity.ThucDon;
+import thanggun99.quanlynhahang.presenter.PhucVuPresenter;
 import thanggun99.quanlynhahang.util.Utils;
 
 
@@ -21,14 +22,11 @@ import thanggun99.quanlynhahang.util.Utils;
 
 public class ThucDonAdapter extends RecyclerView.Adapter<ThucDonAdapter.ViewHolder> {
     private ArrayList<ThucDon> thucDons;
-    private OnItemclickListener onItemclickListener;
+    private PhucVuPresenter phucVuPresenter;
 
-    public ThucDonAdapter(ArrayList<ThucDon> thucDons) {
+    public ThucDonAdapter(ArrayList<ThucDon> thucDons, PhucVuPresenter phucVuPresenter) {
         this.thucDons = thucDons;
-    }
-
-    public void setOnItemclickListener(OnItemclickListener onItemclickListener) {
-        this.onItemclickListener = onItemclickListener;
+        this.phucVuPresenter = phucVuPresenter;
     }
 
     @Override
@@ -61,22 +59,26 @@ public class ThucDonAdapter extends RecyclerView.Adapter<ThucDonAdapter.ViewHold
         return thucDons.get(position);
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView tvTenMon;
         TextView tvDonGia;
         ImageView ivThucDon;
 
         public ViewHolder(final View itemView) {
             super(itemView);
-            tvTenMon = (TextView) itemView.findViewById(R.id.tv_ten_mon);
             tvDonGia = (TextView) itemView.findViewById(R.id.tv_don_gia);
             ivThucDon = (ImageView) itemView.findViewById(R.id.iv_thuc_don);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onItemclickListener.onItemClick(itemView, getAdapterPosition());
-                }
-            });
+            tvTenMon = (TextView) itemView.findViewById(R.id.tv_ten_mon);
+
+            tvTenMon.setMovementMethod(new ScrollingMovementMethod());
+            tvTenMon.setOnClickListener(this);
+            itemView.setOnClickListener(this);
+
+        }
+
+        @Override
+        public void onClick(View v) {
+            phucVuPresenter.onClickThucdon(getItem(getAdapterPosition()));
 
         }
     }

@@ -261,7 +261,16 @@ public class KhachHangInteractor {
 
         @Override
         protected String doInBackground(Void... params) {
+            delay(2000);
             return khachHang.login();
+        }
+    }
+
+    private void delay(int milis){
+        try {
+            Thread.sleep(milis);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 

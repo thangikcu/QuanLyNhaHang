@@ -8,7 +8,7 @@
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorBackgroudMenu"
+        android:background="@color/colorPrimary"
         android:gravity="center_vertical">
 
         <Button
@@ -21,7 +21,7 @@
             android:padding="5dp"
             android:text="@string/home"
             android:textAllCaps="false"
-            android:textColor="@color/colorTextButton"
+            android:textColor="@color/white"
             android:textSize="12sp" />
 
         <Button
@@ -34,7 +34,7 @@
             android:padding="5dp"
             android:text="@string/ban_hang"
             android:textAllCaps="false"
-            android:textColor="@color/colorTextButton"
+            android:textColor="@color/white"
             android:textSize="12sp" />
 
         <Button
@@ -47,7 +47,7 @@
             android:padding="5dp"
             android:text="@string/quan_ly"
             android:textAllCaps="false"
-            android:textColor="@color/colorTextButton"
+            android:textColor="@color/white"
             android:textSize="12sp" />
 
         <Button
@@ -60,7 +60,7 @@
             android:padding="5dp"
             android:text="@string/thong_ke"
             android:textAllCaps="false"
-            android:textColor="@color/colorTextButton"
+            android:textColor="@color/white"
             android:textSize="12sp" />
 
         <Button
@@ -73,7 +73,7 @@
             android:padding="5dp"
             android:text="@string/kho_nvl"
             android:textAllCaps="false"
-            android:textColor="@color/colorTextButton"
+            android:textColor="@color/white"
             android:textSize="12sp" />
 
         <Button
@@ -86,7 +86,7 @@
             android:padding="5dp"
             android:text="@string/cai_dat"
             android:textAllCaps="false"
-            android:textColor="@color/colorTextButton"
+            android:textColor="@color/white"
             android:textSize="12sp" />
 
     </TableRow>

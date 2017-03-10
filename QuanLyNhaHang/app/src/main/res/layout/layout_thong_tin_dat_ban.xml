@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
         android:text="@string/info_thong_tin_dat_ban"
-        android:textColor="@color/colorTextThongTinBan"
+        android:textColor="@color/colorTextInfo"
         android:textSize="12sp"
         android:textStyle="bold" />
 
@@ -38,7 +38,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/info_ten_khach_hang"
-                    android:textColor="@color/colorTextThongTinDatBan"
+                    android:textColor="@color/colorTextField"
                     android:textSize="12sp"
                     android:textStyle="bold" />
 
@@ -63,7 +63,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/info_so_dien_thoai"
-                    android:textColor="@color/colorTextThongTinDatBan"
+                    android:textColor="@color/colorTextField"
                     android:textSize="12sp"
                     android:textStyle="bold" />
 
@@ -88,7 +88,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/info_khoang_gio_den"
-                    android:textColor="@color/colorTextThongTinDatBan"
+                    android:textColor="@color/colorTextField"
                     android:textSize="12sp"
                     android:textStyle="bold" />
 
@@ -113,7 +113,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/info_yeu_cau"
-                    android:textColor="@color/colorTextThongTinDatBan"
+                    android:textColor="@color/colorTextField"
                     android:textSize="12sp"
                     android:textStyle="bold" />
 

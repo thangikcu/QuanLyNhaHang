@@ -1,27 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
     <color name="colorTextNameBan">#933b0f</color>
-    <color name="colorTextThongTinBan">#670f93</color>
+    <color name="colorTextInfo">#670f93</color>
     <color name="colorSeparatorThongTinDatBan">#7e8484</color>
-    <color name="colorTextThongTinDatBan">#7c3c0a</color>
-    <color name="colorBackgroudMenu">#4c9ea6</color>
+    <color name="colorTextField">#7c3c0a</color>
+    <color name="colorPrimary">#4c9ea6</color>
     <color name="colorBackgroud">#e67474</color>
     <color name="colorBackgroudSesion">#f6f7f9</color>
     <color name="colorBackgroudMain">#c5cbd2</color>
     <color name="colorButtonSelected">#34878f</color>
-    <color name="colorTextButton">#ffffff</color>
+    <color name="white">#ffffff</color>
     <color name="colorBackgroundTableFree">#6161d6</color>
-    <color name="colorTextInfo">#1b1bba</color>
     <color name="colorBackgroundTableReserved">#da4e7d</color>
     <color name="colorBackgroundTableServing">#37c937</color>
     <color name="colorBorderSelected">#e4780c</color>
     <color name="colorTextTenMon">#b31ea2</color>
-    <color name="colorTextTongTien">#ca3221</color>
+    <color name="colorTextMoney">#ca3221</color>
     <color name="colorTextTitleDialog">#020202</color>
     <color name="colorBackgroundDialog">#eaeaea</color>
     <color name="colorTextNotifi">#4e4c50</color>
+    <color name="black">#111111</color>
 
 </resources>

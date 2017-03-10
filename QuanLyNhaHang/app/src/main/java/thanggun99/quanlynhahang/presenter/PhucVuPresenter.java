@@ -92,6 +92,7 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
     //on click nhom mon
     public void onClickNhomMon(int position) {
         NhomMon nhomMon = phucVuInteractor.getNhomMonAt(position);
+        phucVuView.clearTimKiem();
         phucVuView.showNhomMon(nhomMon);
         phucVuView.notifyChangeListThucDon(phucVuInteractor.getListThucDonByMaLoai(nhomMon.getMaLoai()));
 
@@ -292,5 +293,6 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
 
         void showSnackbar(Boolean isError, String message);
 
+        void clearTimKiem();
     }
 }

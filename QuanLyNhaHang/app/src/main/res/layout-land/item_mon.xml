@@ -21,14 +21,15 @@
 
         <TextView
             android:id="@+id/tv_ten_mon"
-            android:layout_width="wrap_content"
+            android:layout_width="97dp"
             android:layout_height="wrap_content"
             android:isScrollContainer="true"
-            android:maxLines="2"
+            android:lines="1"
+            android:maxLines="1"
             android:scrollbars="horizontal"
             android:text="Cà phê sữa"
             android:textColor="@color/colorTextTenMon"
-            android:textSize="14sp"
+            android:textSize="@dimen/text_size_normal"
             android:textStyle="bold" />
 
         <TextView
@@ -37,8 +38,8 @@
             android:layout_height="wrap_content"
             android:paddingLeft="16dp"
             android:text="15.000/ly"
-            android:textColor="#b73434"
-            android:textSize="11sp"
+            android:textColor="@color/colorTextMoney"
+            android:textSize="@dimen/text_size_small"
             android:textStyle="italic" />
     </LinearLayout>
 </LinearLayout>

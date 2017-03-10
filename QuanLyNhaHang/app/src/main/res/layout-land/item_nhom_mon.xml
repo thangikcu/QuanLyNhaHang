@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <TextView
         android:id="@+id/tv_ten_loai"
+        style="@style/CommonTextView"
         android:layout_width="102dp"
         android:layout_height="36dp"
         android:layout_margin="2dp"
-        android:isScrollContainer="true"
-        android:scrollbars="horizontal"
         android:background="#884b00"
-        android:gravity="center"
-        android:text="Caffe"
-        android:textColor="@color/colorTextButton"
+        android:isScrollContainer="true"
+        android:lines="1"
+        android:padding="8dp"
+        android:scrollbars="horizontal"
+        android:text="Coffee"
+        android:textColor="@color/white"
         android:textStyle="bold" />
 </LinearLayout>

@@ -20,7 +20,7 @@
         android:text="@string/gap_loi"
         android:gravity="center"
         android:paddingTop="16dp"
-        android:textColor="@color/colorTextThongTinBan"
+        android:textColor="@color/colorTextInfo"
         android:textSize="14sp"
         android:textStyle="bold" />
 
@@ -37,6 +37,6 @@
             android:background="@drawable/btn_radius"
             android:text="@string/tai_lai"
             android:textAllCaps="false"
-            android:textColor="@color/colorTextButton" />
+            android:textColor="@color/white" />
     </TableRow>
 </LinearLayout>
