@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_dat_ban_chua_set_ban"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="bottom"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:id="@+id/scroll_layout_dat_ban"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingTop="8dp"
+        android:scrollbars="vertical">
+
+        <include layout="@layout/form_dat_ban" />
+    </ScrollView>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp">
+
+        <Button
+            android:id="@+id/btn_dat_ban"
+            style="@style/CommonButton"
+            android:layout_width="136dp"
+            android:layout_height="52dp"
+            android:layout_gravity="center_horizontal"
+            android:drawableLeft="@drawable/ic_dat_truoc"
+            android:text="@string/dat_ban"
+            android:textColor="@color/colorTextInfo" />
+
+        <Button
+            android:id="@+id/btn_cancel"
+            style="@style/CommonButton"
+            android:layout_width="136dp"
+            android:layout_height="52dp"
+            android:layout_marginLeft="16dp"
+            android:drawableLeft="@drawable/ic_cancel"
+            android:text="@string/huy"
+            android:textColor="@color/colorTextInfo" />
+    </TableRow>
+
+
+</LinearLayout>

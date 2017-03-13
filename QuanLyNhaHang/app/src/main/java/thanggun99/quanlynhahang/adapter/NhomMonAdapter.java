@@ -22,9 +22,9 @@ public class NhomMonAdapter extends BaseAdapter {
     private ArrayList<NhomMon> nhomMonList;
     private PhucVuPresenter phucVuPresenter;
 
-    public NhomMonAdapter(ArrayList<NhomMon> nhomMonList, PhucVuPresenter phucVuPresenter) {
-        this.nhomMonList = nhomMonList;
+    public NhomMonAdapter(PhucVuPresenter phucVuPresenter) {
         this.phucVuPresenter = phucVuPresenter;
+        this.nhomMonList = phucVuPresenter.getDatabase().getNhomMonList();
     }
 
     @Override
@@ -62,7 +62,7 @@ public class NhomMonAdapter extends BaseAdapter {
         viewHolder.tvTenNhom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                phucVuPresenter.onClickNhomMon(position);
+                phucVuPresenter.onClickNhomMon(nhomMonList.get(position));
             }
         });
         viewHolder.tvTenNhom.setText(nhomMonList.get(position).getTenLoai());

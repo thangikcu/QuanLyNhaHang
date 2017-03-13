@@ -75,4 +75,10 @@
     <string name="dat_truoc">Đặt trước</string>
     <string name="dong_y">Đồng ý</string>
     <string name="huy">Hủy</string>
+    <string name="dat_ban_that_bai">Đặt bàn thất bại !</string>
+    <string name="xac_nhan">Xác nhận</string>
+    <string name="ban_co_muon_huy_dat_ban">Bạn có muốn huỷ đặt bàn ?</string>
+    <string name="huy_dat_ban_that_bai">Huỷ đặt bàn thất bại !</string>
+    <string name="cap_nhat_dat_ban_that_bai">Cập nhật đặt bàn thất bại !</string>
+    <string name="info_chon_ban">Chọn bàn:</string>
 </resources>

@@ -7,7 +7,7 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/tv_ten_ban"
+        android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Bàn 12"
@@ -182,7 +182,7 @@
             android:text="@string/dong_y"/>
 
         <Button
-            android:id="@+id/btn_cancle"
+            android:id="@+id/btn_cancel"
             style="@style/CommonButton"
             android:layout_width="0dp"
             android:layout_height="32dp"

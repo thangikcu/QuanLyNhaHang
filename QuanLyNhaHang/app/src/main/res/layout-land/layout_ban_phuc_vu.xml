@@ -3,6 +3,7 @@
     android:id="@+id/ln_thong_tin_ban"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:paddingTop="@dimen/layout_padding">
@@ -35,6 +36,7 @@
         android:scrollbars="vertical" />
 
     <TableRow
+        android:id="@+id/container_money_and_sale"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical">

@@ -20,7 +20,7 @@
         android:padding="16dp">
 
         <TextView
-            android:id="@+id/tv_ten_mon"
+            android:id="@+id/tv_message"
             android:layout_width="97dp"
             android:layout_height="wrap_content"
             android:isScrollContainer="true"

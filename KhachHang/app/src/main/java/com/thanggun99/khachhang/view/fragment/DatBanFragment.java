@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,6 +61,8 @@ public class DatBanFragment extends Fragment implements View.OnClickListener, Kh
         lnThongTinDatBan = (LinearLayout) view.findViewById(R.id.ln_thong_tin_dat_ban);
         tvGioDen = (TextView) view.findViewById(R.id.tv_gio_den);
         tvYeuCau = (TextView) view.findViewById(R.id.tv_yeu_cau);
+
+        tvYeuCau.setMovementMethod(new ScrollingMovementMethod());
 
         edtGioDen = (EditText) view.findViewById(R.id.edt_gio_den);
         edtGioDen.setOnClickListener(this);

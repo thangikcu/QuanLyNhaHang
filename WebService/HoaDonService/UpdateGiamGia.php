@@ -12,7 +12,10 @@
  
             $db = new Database();
 
-            $db->query('UPDATE hoa_don SET GiamGia = '.$giamGia.' WHERE MaHoaDon = '.$maHoaDon.' ');
+            $db->prepare('UPDATE hoa_don SET GiamGia = :giamGia WHERE MaHoaDon = :maHoaDon ');
+            $db->bind(':giamGia', $giamGia);
+            $db->bind(':maHoaDon', $maHoaDon);
+            $db->execute();
          
         
             if($db->getRowCount() > 0){

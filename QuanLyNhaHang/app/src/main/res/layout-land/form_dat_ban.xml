@@ -1,0 +1,61 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/edt_ten_khach_hang"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_name"
+        android:drawablePadding="8dp"
+        android:hint="@string/ten_khach_hang"
+        android:lines="1"
+        android:maxLength="20"
+        android:maxLines="1"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/edt_so_dien_thoai"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_phone"
+        android:drawablePadding="8dp"
+        android:hint="@string/so_dien_thoai"
+        android:inputType="phone"
+        android:maxLength="15"
+        android:maxLines="1"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/edt_gio_den"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_time"
+        android:drawablePadding="8dp"
+        android:hint="@string/gio_den_hint"
+        android:inputType="time"
+        android:maxLength="21"
+        android:maxLines="1"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/edt_ghi_chu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_note"
+        android:drawablePadding="8dp"
+        android:hint="@string/yeu_cau"
+        android:inputType="textMultiLine"
+        android:isScrollContainer="true"
+        android:lines="3"
+        android:maxLength="500"
+        android:maxLines="3"
+        android:scrollbars="vertical"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+</LinearLayout>

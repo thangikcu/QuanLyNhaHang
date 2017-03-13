@@ -9,7 +9,11 @@
     
         $db = new Database();
 
-        $db->query('INSERT INTO chi_tiet_hd (MaHoaDon, MaMon, SoLuong) VALUES ("'.$maHoaDon.'", "'.$maMon.'", "'.$soLuong.'")');
+        $db->prepare('INSERT INTO chi_tiet_hd (MaHoaDon, MaMon, SoLuong) VALUES (:maHoaDon, :maMon, :soLuong)');
+        $db->bind(':maHoaDon', $maHoaDon);
+        $db->bind(':maMon', $maMon);
+        $db->bind(':soLuong', $soLuong);
+        $db->execute();
      
     
         if($db->getRowCount() > 0){

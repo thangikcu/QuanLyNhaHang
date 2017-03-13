@@ -31,16 +31,16 @@ public class OrderThucDonDialog extends BaseDialog {
         setContentView(R.layout.dialog_order_thuc_don);
 
         this.phucVuPresenter = phucVuPresenter;
-        tvTitle = (TextView) findViewById(R.id.tv_ten_ban);
+        tvTitle = (TextView) findViewById(R.id.tv_title);
         tvDVT = (TextView) findViewById(R.id.tv_don_vi_tinh);
         tvDVT.setMovementMethod(new ScrollingMovementMethod());
         edtSoLuong = (EditText) findViewById(R.id.edt_so_luong);
         btnCong = (ImageButton) findViewById(R.id.btn_cong);
         btnTru = (ImageButton) findViewById(R.id.btn_tru);
         btnOk = (Button) findViewById(R.id.btn_ok);
-        btnCancle = (Button) findViewById(R.id.btn_cancle);
+        btnCancle = (Button) findViewById(R.id.btn_cancel);
         ivThucDon = (ImageView) findViewById(R.id.iv_thuc_don);
-        tvTenMon = (TextView) findViewById(R.id.tv_ten_mon);
+        tvTenMon = (TextView) findViewById(R.id.tv_message);
         tvTenMon.setMovementMethod(new ScrollingMovementMethod());
 
         btnOk.setOnClickListener(this);

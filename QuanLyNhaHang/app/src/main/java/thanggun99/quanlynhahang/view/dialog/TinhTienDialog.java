@@ -29,7 +29,7 @@ public class TinhTienDialog extends BaseDialog {
 
         this.phucVuPresenter = phucVuPresenter;
 
-        tvTitle = (TextView) findViewById(R.id.tv_ten_ban);
+        tvTitle = (TextView) findViewById(R.id.tv_title);
         tvTienMon = (TextView) findViewById(R.id.tv_tien_mon);
         tvSoLuong = (TextView) findViewById(R.id.tv_so_luong);
         tvGiamGia = (TextView) findViewById(R.id.tv_giam_gia);
@@ -38,7 +38,7 @@ public class TinhTienDialog extends BaseDialog {
         tvTienTraLai = (TextView) findViewById(R.id.tv_tien_tra_lai);
 
         btnOk = (Button) findViewById(R.id.btn_ok);
-        btnCancle = (Button) findViewById(R.id.btn_cancle);
+        btnCancle = (Button) findViewById(R.id.btn_cancel);
         btnOk.setOnClickListener(this);
         btnCancle.setOnClickListener(this);
 

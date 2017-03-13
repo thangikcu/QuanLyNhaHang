@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackgroudMain"
     android:orientation="horizontal"
     android:padding="@dimen/layout_padding"
     tools:context="thanggun99.quanlynhahang.view.fragment.DatBanFragment">
@@ -9,25 +10,70 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:layout_marginRight="@dimen/layout_padding"
         android:layout_weight="1"
-        android:gravity="center"
+        android:background="@color/colorBackgroudFrame"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btn_them_dat_ban"
-            style="@style/CommonButton"
-            android:layout_width="136dp"
-            android:layout_height="52dp"
+        <include
+            layout="@layout/layout_thong_tin_dat_ban_chua_set_ban"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <include
+            layout="@layout/layout_dat_ban_chua_set_ban"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:drawableLeft="@drawable/ic_add"
-            android:text="@string/them_moi"
-            android:textColor="@color/colorTextInfo" />
+            android:gravity="center|bottom"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp">
+
+            <Button
+                android:id="@+id/btn_them_dat_ban"
+                style="@style/CommonButton"
+                android:layout_width="136dp"
+                android:layout_height="52dp"
+                android:drawableLeft="@drawable/ic_add"
+                android:text="@string/them_moi"
+                android:textColor="@color/colorTextInfo"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/btn_vao_ban"
+                style="@style/CommonButton"
+                android:layout_width="136dp"
+                android:layout_height="52dp"
+                android:drawableLeft="@drawable/ic_vao_ban"
+                android:text="Vào bàn"
+                android:textColor="@color/colorTextInfo"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/btn_cancel"
+                style="@style/CommonButton"
+                android:layout_width="136dp"
+                android:layout_height="52dp"
+                android:layout_marginLeft="16dp"
+                android:drawableLeft="@drawable/ic_cancel"
+                android:text="@string/huy"
+                android:textColor="@color/colorTextInfo"
+                android:visibility="gone" />
+        </TableRow>
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="2"
+        android:layout_weight="1"
+        android:background="@color/colorBackgroudFrame"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -35,7 +81,7 @@
             android:id="@+id/tbr"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
+            android:background="@color/colorTextField"
             android:gravity="right|center_vertical">
 
             <TextView
@@ -47,7 +93,7 @@
                 android:textStyle="bold" />
 
             <SearchView
-                android:id="@+id/edt_tim_kiem_mon"
+                android:id="@+id/edt_tim_kiem_dat_ban"
                 android:layout_width="match_parent"
                 android:layout_height="38dp"
                 android:isScrollContainer="true"
@@ -58,12 +104,20 @@
 
         </TableRow>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/list_dat_ban"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/bg_list"
-            android:scrollbars="vertical" />
+            android:padding="@dimen/layout_padding">
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/list_dat_ban"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_list"
+                android:scrollbars="vertical" />
+        </FrameLayout>
+
     </LinearLayout>
 
 

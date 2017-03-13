@@ -95,11 +95,20 @@ public class HoaDon {
         getParams.put("maHoaDon", String.valueOf(getMaHoaDon()));
         postParams.put("tongTien", String.valueOf(getTongTien()));
         postParams.put("maBan", String.valueOf(getBan().getMaBan()));
+        int maDatBan = 0;
+        if (getDatBan() != null) {
+            maDatBan = getDatBan().getMaDatBan();
+        }
+        postParams.put("maDatBan", String.valueOf(maDatBan));
 
         String s = API.callService(API.TINH_TIEN_HOA_DON_URL, getParams, postParams);
 
         if (!TextUtils.isEmpty(s) && s.trim().contains("success")) {
             getBan().setTrangThai(0);
+            if (getDatBan() != null) {
+
+                getDatBan().setTrangThai(2);
+            }
             setTrangThai(1);
             return true;
         }

@@ -93,7 +93,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tv_khoang_gio_den"
+                    android:id="@+id/tv_gio_den"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="16dp"
@@ -122,6 +122,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="16dp"
+                    android:isScrollContainer="true"
+                    android:scrollbars="vertical"
                     android:text="Bàn cạnh cửa sổ, 5 người"
                     android:textColor="@color/colorTextInfo"
                     android:textSize="12sp"

@@ -35,6 +35,17 @@ public class DatBan {
     public DatBan() {
     }
 
+    public DatBan(int maDatBan, int maKhachHang, String tenKhachHang, String soDienThoai, String gioDen, String yeuCau, int trangThai) {
+
+        this.maDatBan = maDatBan;
+        this.maKhachHang = maKhachHang;
+        this.tenKhachHang = tenKhachHang;
+        this.soDienThoai = soDienThoai;
+        this.gioDen = gioDen;
+        this.yeuCau = yeuCau;
+        this.trangThai = trangThai;
+    }
+
     public Boolean updateDatBan(DatBan datBanUpdate) {
         Map<String, String> postParams, getParams;
         postParams = new HashMap<>();
@@ -65,13 +76,19 @@ public class DatBan {
         postParams.put("gioDen", getGioDen());
         if (!TextUtils.isEmpty(getYeuCau()))
             postParams.put("yeuCau", getYeuCau());
-        postParams.put("maBan", String.valueOf(getBan().getMaBan()));
+        if (getBan() != null) {
+
+            postParams.put("maBan", String.valueOf(getBan().getMaBan()));
+        }
 
         String s = API.callService(API.DAT_BAN_URL, null, postParams);
 
         if (!TextUtils.isEmpty(s)) {
             setMaDatBan(Integer.parseInt(s.trim()));
-            getBan().setTrangThai(1);
+            if (getBan() != null) {
+
+                getBan().setTrangThai(1);
+            }
             return true;
         }
         return false;
@@ -80,12 +97,18 @@ public class DatBan {
     public Boolean huyDatBan() {
         Map<String, String> getParams = new HashMap<>();
         getParams.put("maDatBan", String.valueOf(getMaDatBan()));
-        getParams.put("maBan", String.valueOf(getBan().getMaBan()));
+        if (getBan() != null) {
+
+            getParams.put("maBan", String.valueOf(getBan().getMaBan()));
+        }
 
         String s = API.callService(API.DELETE_DAT_BAN_URL, getParams);
 
         if (!TextUtils.isEmpty(s) && s.trim().contains("success")) {
-            getBan().setTrangThai(0);
+            if (getBan() != null) {
+
+                getBan().setTrangThai(0);
+            }
             return true;
         }
         return false;
@@ -154,4 +177,5 @@ public class DatBan {
     public void setTrangThai(int trangThai) {
         this.trangThai = trangThai;
     }
+
 }

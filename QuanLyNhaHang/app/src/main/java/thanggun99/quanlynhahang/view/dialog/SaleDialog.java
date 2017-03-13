@@ -26,9 +26,9 @@ public class SaleDialog extends BaseDialog {
         setContentView(R.layout.dialog_sale);
 
         this.phucVuPresenter = phucVuPresenter;
-        tvTitle = (TextView) findViewById(R.id.tv_ten_ban);
+        tvTitle = (TextView) findViewById(R.id.tv_title);
         edtSale = (EditText) findViewById(R.id.edt_sale);
-        btnCancle = (Button) findViewById(R.id.btn_cancle);
+        btnCancle = (Button) findViewById(R.id.btn_cancel);
         btnOk = (Button) findViewById(R.id.btn_ok);
 
         btnCancle.setOnClickListener(this);

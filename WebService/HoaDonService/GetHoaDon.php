@@ -9,7 +9,7 @@
             $response["hoaDon"] = array();
          
           
-            $db->prepare('Select * From hoa_don Where TrangThai = 0');
+            $db->prepare('Select * From hoa_don Where TrangThai = 0 ORDER BY MaHoaDon DESC');
          
          
             foreach($db->getArray() as $row){
@@ -31,7 +31,10 @@
                 $t['thucDonOrder'] = array();
                 
                 
-                $db->prepare("Select ct.MaMon, SoLuong, MaChiTietHD From chi_tiet_hd AS ct INNER JOIN thuc_don AS td ON ct.MaMon = td.MaMon Where ct.MaHoaDon = '".$row['MaHoaDon']."'");
+                $db->prepare("Select ct.MaMon, SoLuong, MaChiTietHD From chi_tiet_hd AS ct INNER JOIN thuc_don AS td ON ct.MaMon = td.MaMon 
+                                    Where ct.MaHoaDon = :maHoaDon ORDER BY ct.MaChiTietHD DESC");
+                                    
+                $db->bind(':maHoaDon', $row['MaHoaDon']);
                 
                 foreach($db->getArray() as $row){
                     $r = array();

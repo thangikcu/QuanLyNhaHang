@@ -9,7 +9,7 @@
         $response["thucDon"] = array();
      
       
-        $db->prepare("SELECT * FROM thuc_don");
+        $db->prepare("SELECT * FROM thuc_don ORDER BY MaMon DESC");
      
 
         foreach($db->getArray() as $row){ 

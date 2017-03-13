@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 import thanggun99.quanlynhahang.R;
+import thanggun99.quanlynhahang.interfaces.CommondActionForView;
 import thanggun99.quanlynhahang.model.Database;
 import thanggun99.quanlynhahang.presenter.MainPresenter;
 import thanggun99.quanlynhahang.presenter.PhucVuPresenter;
@@ -20,7 +21,7 @@ import thanggun99.quanlynhahang.view.fragment.HomeFragment;
 import thanggun99.quanlynhahang.view.fragment.PhucVuFragment;
 import thanggun99.quanlynhahang.view.fragment.SettingFragment;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, MainPresenter.MainView {
+public class MainActivity extends AppCompatActivity implements CommondActionForView, View.OnClickListener, MainPresenter.MainView {
     private Database database;
 
     private MainPresenter mainPresenter;
@@ -40,14 +41,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        initViews();
+        findViews(null);
         initComponents();
         setEvents();
         mainPresenter.getDatas();
     }
 
-    private void initComponents() {
+    @Override
+    public void findViews(View view) {
+        btnHome = (Button) findViewById(R.id.btn_home);
+        btnPhucVu = (Button) findViewById(R.id.btn_sell);
+        btnManage = (Button) findViewById(R.id.btn_manager);
+        btnStatistic = (Button) findViewById(R.id.btn_statistic);
+        btnDatBan = (Button) findViewById(R.id.btn_dat_ban);
+        btnSetting = (Button) findViewById(R.id.btn_setting);
+        //btnSelected = btnHome;
+        btnSelected = btnPhucVu;
+    }
+
+    @Override
+    public void initComponents() {
 
         database = new Database();
         mainPresenter = new MainPresenter(this, database);
@@ -66,7 +79,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void setEvents() {
+    @Override
+    public void setEvents() {
         btnHome.setOnClickListener(this);
         //btnHome.setSelected(true);
         btnPhucVu.setSelected(true);
@@ -75,17 +89,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnStatistic.setOnClickListener(this);
         btnDatBan.setOnClickListener(this);
         btnSetting.setOnClickListener(this);
-    }
-
-    private void initViews() {
-        btnHome = (Button) findViewById(R.id.btn_home);
-        btnPhucVu = (Button) findViewById(R.id.btn_sell);
-        btnManage = (Button) findViewById(R.id.btn_manager);
-        btnStatistic = (Button) findViewById(R.id.btn_statistic);
-        btnDatBan = (Button) findViewById(R.id.btn_dat_ban);
-        btnSetting = (Button) findViewById(R.id.btn_setting);
-        //btnSelected = btnHome;
-        btnSelected = btnPhucVu;
     }
 
     @Override
@@ -104,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_statistic:
                 break;
             case R.id.btn_dat_ban:
-                if (datBanFragment == null) datBanFragment = new DatBanFragment();
+                if (datBanFragment == null) datBanFragment = new DatBanFragment(phucVuPresenter);
                 fillFrame(datBanFragment, btnDatBan);
                 break;
             case R.id.btn_setting:
@@ -114,6 +117,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             default:
                 break;
         }
+    }
+
+    @Override
+    protected void onPause() {
+        fragmentIsShow.onPause();
+        super.onPause();
     }
 
     @Override

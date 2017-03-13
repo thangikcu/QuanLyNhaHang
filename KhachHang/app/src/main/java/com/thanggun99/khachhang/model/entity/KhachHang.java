@@ -79,9 +79,11 @@ public class KhachHang {
         String s = API.callService(API.LOGIN_URL, null, khachHangMap);
         if (!TextUtils.isEmpty(s)) {
             if (s.contains("fail")) {
+                huyGhiNhoDangNhap();
                 return "fail";
 
             } else if (s.contains("other")) {
+                huyGhiNhoDangNhap();
                 return "other";
             } else {
                 try {

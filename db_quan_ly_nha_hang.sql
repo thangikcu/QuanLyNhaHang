@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 07, 2017 at 10:03 PM
+-- Generation Time: Mar 13, 2017 at 10:37 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -38,21 +38,21 @@ CREATE TABLE `ban` (
 --
 
 INSERT INTO `ban` (`MaBan`, `TenBan`, `TrangThai`, `HienThi`) VALUES
-(1, 'Bàn 1', 0, 1),
+(1, 'Bàn 1', 2, 1),
 (2, 'Bàn 2', 0, 1),
 (3, 'Bàn 3', 0, 1),
-(4, 'Bàn 4', 0, 1),
+(4, 'Bàn 4', 2, 1),
 (5, 'Bàn 5', 0, 1),
-(6, 'Bàn 6', 1, 1),
+(6, 'Bàn 6', 2, 1),
 (7, 'Bàn 7', 0, 1),
 (8, 'Bàn 8', 0, 1),
 (9, 'Bàn 9', 0, 1),
 (10, 'Bàn 10', 0, 1),
-(11, 'Bàn 11', 2, 1),
+(11, 'Bàn 11', 0, 1),
 (13, 'Bàn 12', 0, 1),
-(14, 'Bàn 13', 0, 1),
-(15, 'Bàn 14', 2, 1),
-(16, 'Bàn 15', 0, 1),
+(14, 'Bàn 13', 1, 1),
+(15, 'Bàn 14', 0, 1),
+(16, 'Bàn 15', 1, 1),
 (17, 'Bàn 16', 0, 1),
 (18, 'Bàn 17', 0, 1),
 (19, 'Bàn 18', 0, 1),
@@ -77,11 +77,16 @@ CREATE TABLE `chi_tiet_hd` (
 --
 
 INSERT INTO `chi_tiet_hd` (`MaChiTietHD`, `MaHoaDon`, `MaMon`, `SoLuong`) VALUES
-(721, 397, 8, 1),
-(723, 399, 0, 3),
-(724, 399, 20, 3),
-(725, 400, 18, 2),
-(726, 401, 7, 2);
+(788, 417, 11, 1),
+(789, 418, 7, 1),
+(790, 418, 0, 1),
+(792, 417, 28, 1),
+(794, 419, 19, 1),
+(796, 420, 12, 3),
+(797, 420, 59, 1),
+(801, 417, 41, 1),
+(802, 417, 15, 1),
+(803, 417, 7, 4);
 
 -- --------------------------------------------------------
 
@@ -93,9 +98,9 @@ CREATE TABLE `dat_ban` (
   `MaDatBan` int(11) NOT NULL,
   `MaKhachHang` int(11) DEFAULT NULL,
   `TenKhachHang` varchar(50) COLLATE utf8_vietnamese_ci DEFAULT NULL,
-  `SDT` varchar(50) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `SoDienThoai` varchar(50) COLLATE utf8_vietnamese_ci DEFAULT NULL,
   `GioDen` varchar(50) COLLATE utf8_vietnamese_ci NOT NULL,
-  `YeuCau` varchar(300) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `YeuCau` varchar(500) COLLATE utf8_vietnamese_ci DEFAULT NULL,
   `MaBan` int(11) DEFAULT NULL,
   `TrangThai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
@@ -104,9 +109,15 @@ CREATE TABLE `dat_ban` (
 -- Dumping data for table `dat_ban`
 --
 
-INSERT INTO `dat_ban` (`MaDatBan`, `MaKhachHang`, `TenKhachHang`, `SDT`, `GioDen`, `YeuCau`, `MaBan`, `TrangThai`) VALUES
-(101, NULL, 'thang', '65449849898', '03:55 PM - 07/03/2017', 'kkk', 6, 0),
-(102, NULL, 'asdf', '123213123123', '03:56 PM - 07/03/2017', 'wwww', 15, 1);
+INSERT INTO `dat_ban` (`MaDatBan`, `MaKhachHang`, `TenKhachHang`, `SoDienThoai`, `GioDen`, `YeuCau`, `MaBan`, `TrangThai`) VALUES
+(107, 6, 'tran ngoc sonf', '0123457845454', '07:52 PM - 13/03/2017', 'èm cái đã cái mát lạnh sảng khoái này không nàooooooo... Mau chạy làm 1 ly ngay và luôn nào ♡♡♡ #Pepsi #SangKhoaiTungGiay\nKhoe ngay hình bạn chụp với ly, chai, lon Pepsi cực đã nàoooooo, hình nào xuất sắc là Pepsi trao quà ngay và luôn ;)\n\n\nPhát	\n-0:16\nCài đặt hiển thị bổ sungVào xem và cuộnChuyển sang chế độ toàn màn hình	\nTắt tiếng\n85 bình luận41 lượt chia sẻ315K lượt xem\n2,7K Đình Đức và 2,7K người khác\nThíchHiển thị thêm cảm xúcBình l', NULL, 0),
+(117, NULL, 'thangikcu', '123456802', '03:15 PM - 13/03/2017', 'banAdapter.setw\n        banAdapter.setw\n        banAdapter.setwasdfawef\nàwefffffffawegawgawegfawegawegawegawegawegawegawegaaaaaakjasdkjfhakjhdfkhasjdfhahdsfjahdfjkhajkdsfajdhsfkjadfjadfjajsdfaksdjflajsdfl', 16, 0),
+(118, NULL, '110j', '124225252', '08:52 AM - 13/03/2017', '2223', 6, 1),
+(119, NULL, '444', '1022233333', '06:14 PM - 13/03/2017', 'hhn', 14, 0),
+(125, NULL, 'thắng trần', '000000000000000', '06:09 AM - 13/03/2017', 'lala', 17, 2),
+(132, NULL, 'Phạm Tuấn Quân', '012354797', '04:58 PM - 13/03/2017', 'tiệc cưới 50 người', NULL, 0),
+(133, NULL, 'Phạm Trung Hòa', '44455782665', '04:00 PM - 13/03/2017', 'KKKKOof', NULL, 0),
+(138, 1, NULL, NULL, '06:24 PM - 13/03/2017', 'fffffsafwefawef\nà\nawefsdfdsfasdfawefawefawefawefawefawefawefawefawefaewf\nawfe\nawe\nfasdf\nasdf\nafd\n\nawef\năef', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -125,7 +136,8 @@ CREATE TABLE `gop_y` (
 --
 
 INSERT INTO `gop_y` (`MaGopY`, `TieuDe`, `NoiDung`) VALUES
-(11, 'Đây là tiêu đề', 'Tôi có góp ý như sau');
+(11, 'Đây là tiêu đề', 'Tôi có góp ý như sau'),
+(12, 'thang', 'không ổn');
 
 -- --------------------------------------------------------
 
@@ -149,10 +161,10 @@ CREATE TABLE `hoa_don` (
 --
 
 INSERT INTO `hoa_don` (`MaHoaDon`, `MaKhachHang`, `MaDatBan`, `GiamGia`, `MaBan`, `GioDen`, `TongTien`, `TrangThai`) VALUES
-(397, NULL, NULL, NULL, 11, '03:13 PM - 07/03/2017', 25000, 1),
-(399, NULL, NULL, NULL, 6, '03:15 PM - 07/03/2017', 120000, 1),
-(400, NULL, NULL, NULL, 11, '03:16 PM - 07/03/2017', NULL, 0),
-(401, NULL, 102, NULL, 15, '03:56 PM - 07/03/2017', NULL, 0);
+(417, NULL, 118, NULL, 6, '08:52 AM - 13/03/2017', NULL, 0),
+(418, NULL, NULL, 10, 4, '08:53 AM - 13/03/2017', NULL, 0),
+(419, NULL, NULL, NULL, 1, '09:12 AM - 13/03/2017', NULL, 0),
+(420, NULL, 125, 10, 17, '11:09 AM - 13/03/2017', 117000, 1);
 
 -- --------------------------------------------------------
 
@@ -176,7 +188,7 @@ CREATE TABLE `khach_hang` (
 
 INSERT INTO `khach_hang` (`MaKhachHang`, `TenKhachHang`, `SoDienThoai`, `DiaChi`, `TenDangNhap`, `MatKhau`, `MaToken`) VALUES
 (1, 'Trần Văn Thắng', '0915194096', '323 Phúc Diễn-Từ Liêm-Hà Nội', 'thangikcu', 'thanggun99', 7),
-(6, 'tran ngoc son', '012345784545454', 'nam dinh my thuan', 'sonsociu', '12345678', 7);
+(6, 'tran ngoc son', '012345784545454', 'nam dinh my thuan', 'sonsociu', '12345678', 5);
 
 -- --------------------------------------------------------
 
@@ -365,22 +377,22 @@ ALTER TABLE `ban`
 -- AUTO_INCREMENT for table `chi_tiet_hd`
 --
 ALTER TABLE `chi_tiet_hd`
-  MODIFY `MaChiTietHD` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=727;
+  MODIFY `MaChiTietHD` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=804;
 --
 -- AUTO_INCREMENT for table `dat_ban`
 --
 ALTER TABLE `dat_ban`
-  MODIFY `MaDatBan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
+  MODIFY `MaDatBan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=139;
 --
 -- AUTO_INCREMENT for table `gop_y`
 --
 ALTER TABLE `gop_y`
-  MODIFY `MaGopY` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `MaGopY` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `hoa_don`
 --
 ALTER TABLE `hoa_don`
-  MODIFY `MaHoaDon` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=402;
+  MODIFY `MaHoaDon` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=424;
 --
 -- AUTO_INCREMENT for table `khach_hang`
 --

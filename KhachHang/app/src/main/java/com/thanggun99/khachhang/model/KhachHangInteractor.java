@@ -65,6 +65,7 @@ public class KhachHangInteractor {
 
             @Override
             protected Boolean doInBackground(String... params) {
+                delay(500);
                 return khachHang.changePassword(params[0]);
             }
         }
@@ -109,6 +110,7 @@ public class KhachHangInteractor {
 
             @Override
             protected Boolean doInBackground(String... params) {
+                delay(500);
                 Map<String, String> valuesPost = new HashMap<>();
                 valuesPost.put("title", params[0]);
                 valuesPost.put("content", params[1]);
@@ -144,6 +146,7 @@ public class KhachHangInteractor {
 
             @Override
             protected Boolean doInBackground(Void... params) {
+                delay(500);
                 return khachHang.datBan(datBan);
             }
         }
@@ -172,6 +175,7 @@ public class KhachHangInteractor {
 
             @Override
             protected Boolean doInBackground(String... params) {
+                delay(500);
                 return khachHang.getInfoDatBan();
             }
         }
@@ -189,6 +193,7 @@ public class KhachHangInteractor {
 
             @Override
             protected Boolean doInBackground(Void... params) {
+                delay(500);
                 return khachHang.huyDatBan();
             }
 
@@ -231,6 +236,7 @@ public class KhachHangInteractor {
 
             @Override
             protected Boolean doInBackground(Void... params) {
+                delay(500);
                 return khachHang.updateDatBan(datBan);
             }
 

@@ -8,7 +8,7 @@
         $response["nhomMon"] = array();
      
       
-        $db->prepare("SELECT * FROM nhom_mon");
+        $db->prepare("SELECT * FROM nhom_mon ORDER BY MaLoai DESC");
      
      
         foreach($db->getArray() as $row){ 

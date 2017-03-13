@@ -21,7 +21,7 @@ public class ThongTinDatBanDialog extends BaseDialog {
 
         tvTenKhachHang = (TextView) findViewById(R.id.tv_ten_khach_hang);
         tvSoDienThoai = (TextView) findViewById(R.id.tv_so_dien_thoai);
-        tvKhoangGioDen = (TextView) findViewById(R.id.tv_khoang_gio_den);
+        tvKhoangGioDen = (TextView) findViewById(R.id.tv_gio_den);
         tvYeuCau = (TextView) findViewById(R.id.tv_yeu_cau);
         tvYeuCau.setMovementMethod(new ScrollingMovementMethod());
     }

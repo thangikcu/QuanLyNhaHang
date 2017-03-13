@@ -3,6 +3,7 @@
     android:id="@+id/layout_thong_tin_dat_ban"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     android:orientation="vertical">
 
     <TextView
@@ -81,7 +82,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tv_khoang_gio_den"
+                    android:id="@+id/tv_gio_den"
                     style="@style/CommonTextView"
                     android:paddingLeft="@dimen/margin"
                     android:text="07:25 SA - 22/12/2016"

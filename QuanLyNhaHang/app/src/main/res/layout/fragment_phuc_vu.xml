@@ -17,7 +17,7 @@
             android:layout_height="match_parent"
             android:layout_marginRight="5dp"
             android:layout_weight="2.9"
-            android:background="@color/colorBackgroudSesion"
+            android:background="@color/colorBackgroudFrame"
             android:orientation="vertical"
             android:padding="5dp">
 
@@ -112,7 +112,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
-            android:background="@color/colorBackgroudSesion"
+            android:background="@color/colorBackgroudFrame"
             android:orientation="vertical"
             android:padding="5dp">
 
@@ -127,7 +127,7 @@
                     android:src="@drawable/logo_thong_tin_ban" />
 
                 <TextView
-                    android:id="@+id/tv_ten_ban"
+                    android:id="@+id/tv_title"
                     android:layout_width="130dp"
                     android:layout_height="wrap_content"
                     android:paddingLeft="16dp"
@@ -173,7 +173,7 @@
                 android:visibility="gone" />
 
             <include
-                layout="@layout/layout_dat_ban"
+                layout="@layout/layout_dat_ban_set_ban"
                 android:visibility="visible" />
 
             <include

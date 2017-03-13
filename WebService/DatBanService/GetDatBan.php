@@ -4,7 +4,7 @@
     function dispInfo(){
         $db = new Database();
      
-        $db->prepare("SELECT * FROM dat_ban");
+        $db->prepare("SELECT * FROM dat_ban WHERE TrangThai != 2 ORDER BY MaDatBan DESC");
      
         
         $response["datBan"] = array();
@@ -12,9 +12,21 @@
         foreach($db->getArray() as $row){ 
             $t = array();
             $t["maDatBan"] = $row["MaDatBan"];
-            $t["maKhachHang"] = $row["MaKhachHang"];
-            $t["tenKhachHang"] = $row["TenKhachHang"];
-            $t["soDienThoai"] = $row["SDT"];
+            $maKhachHang = $row["MaKhachHang"];
+            
+            
+            if($maKhachHang != NULL){
+                $db->prepare("SELECT TenKhachHang, SoDienThoai FROM khach_hang WHERE MaKhachHang =:maKhachHang");
+                $db->bind(":maKhachHang", $maKhachHang);
+                
+                $t["tenKhachHang"] = $db->getRow()["TenKhachHang"];
+                $t["soDienThoai"] = $db->getRow()["SoDienThoai"];   
+            }else{
+                $t["tenKhachHang"] = $row["TenKhachHang"];
+                $t["soDienThoai"] = $row["SoDienThoai"];
+            }
+            
+            $t["maKhachHang"] = $maKhachHang;
             $t["gioDen"] = $row["GioDen"];
             $t["yeuCau"] = $row["YeuCau"];
             $t["maBan"] = $row["MaBan"];

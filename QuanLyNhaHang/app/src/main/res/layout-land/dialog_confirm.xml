@@ -7,20 +7,22 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/tv_ten_ban"
+        android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Bàn 12"
-        android:textColor="@color/colorTextNameBan"
+        android:textColor="@color/colorPrimary"
         android:textSize="18sp"
         android:textStyle="bold" />
 
     <TextView
-        android:paddingTop="16dp"
-        android:id="@+id/tv_ten_mon"
+        android:id="@+id/tv_message"
+        style="@style/CommonTextView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
+        android:isScrollContainer="true"
+        android:maxLines="2"
+        android:paddingTop="16dp"
+        android:scrollbars="vertical"
         android:text="Hủy món: Chanh muối không đường ?"
         android:textColor="@color/colorTextTenMon"
         android:textSize="14sp"
@@ -34,23 +36,21 @@
 
         <Button
             android:id="@+id/btn_ok"
+            style="@style/CommonButton"
             android:layout_width="0dp"
             android:layout_height="32dp"
             android:layout_weight="1"
             android:background="@drawable/btn_radius"
-            android:text="Đồng ý"
-            android:textAllCaps="false"
-            android:textColor="@color/white" />
+            android:text="@string/dong_y" />
 
         <Button
-            android:id="@+id/btn_cancle"
+            android:id="@+id/btn_cancel"
+            style="@style/CommonButton"
             android:layout_width="0dp"
             android:layout_height="32dp"
             android:layout_marginLeft="16dp"
             android:layout_weight="1"
             android:background="@drawable/btn_radius"
-            android:text="Hủy"
-            android:textAllCaps="false"
-            android:textColor="@color/white" />
+            android:text="@string/huy" />
     </TableRow>
 </LinearLayout>

@@ -107,8 +107,8 @@ public class ThucDonFragment extends Fragment implements KhachHangPresenter.Thuc
             case R.id.btn_login:
                 if (checkForm()) {
                     KhachHang khachHang = new KhachHang();
-                    khachHang.setTenDangNhap(edtUsername.getText().toString());
-                    khachHang.setMatKhau(edtPassword.getText().toString());
+                    khachHang.setTenDangNhap(edtUsername.getText().toString().trim());
+                    khachHang.setMatKhau(edtPassword.getText().toString().trim());
                     khachHang.setKieuDangNhap("notAuto");
                     khachHang.setGhiNho(ckbGhiNho.isChecked());
                     khachHangPresenter.login(khachHang);

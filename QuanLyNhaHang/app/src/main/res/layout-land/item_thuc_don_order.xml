@@ -15,7 +15,7 @@
         android:src="@drawable/ic_food" />
 
     <TextView
-        android:id="@+id/tv_ten_mon"
+        android:id="@+id/tv_message"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:paddingLeft="16dp"
@@ -46,8 +46,8 @@
 
     <ImageButton
         android:id="@+id/btn_delete_mon_order"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:background="@android:color/transparent"
         android:src="@drawable/ic_delete" />
 </LinearLayout>

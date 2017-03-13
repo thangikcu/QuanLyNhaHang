@@ -5,11 +5,14 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import thanggun99.quanlynhahang.App;
 import thanggun99.quanlynhahang.R;
 import thanggun99.quanlynhahang.model.entity.ThucDon;
 import thanggun99.quanlynhahang.presenter.PhucVuPresenter;
@@ -23,10 +26,12 @@ import thanggun99.quanlynhahang.util.Utils;
 public class ThucDonAdapter extends RecyclerView.Adapter<ThucDonAdapter.ViewHolder> {
     private ArrayList<ThucDon> thucDons;
     private PhucVuPresenter phucVuPresenter;
+    private Animation animationBounce;
 
-    public ThucDonAdapter(ArrayList<ThucDon> thucDons, PhucVuPresenter phucVuPresenter) {
-        this.thucDons = thucDons;
+    public ThucDonAdapter(PhucVuPresenter phucVuPresenter) {
         this.phucVuPresenter = phucVuPresenter;
+        this.animationBounce = AnimationUtils.loadAnimation(App.getContext(), R.anim.bounce);
+        this.thucDons = phucVuPresenter.getDatabase().getThucDonList();
     }
 
     @Override
@@ -39,8 +44,11 @@ public class ThucDonAdapter extends RecyclerView.Adapter<ThucDonAdapter.ViewHold
         ThucDon thucDon = thucDons.get(position);
 
         holder.tvTenMon.setText(thucDon.getTenMon());
+        holder.tvTenMon.scrollTo(0, 0);
         holder.tvDonGia.setText(Utils.formatMoney(thucDon.getDonGia()) + "/" + thucDon.getDonViTinh());
         holder.ivThucDon.setImageBitmap(thucDon.getHinhAnh());
+
+        holder.itemView.startAnimation(animationBounce);
 
     }
 
@@ -68,7 +76,7 @@ public class ThucDonAdapter extends RecyclerView.Adapter<ThucDonAdapter.ViewHold
             super(itemView);
             tvDonGia = (TextView) itemView.findViewById(R.id.tv_don_gia);
             ivThucDon = (ImageView) itemView.findViewById(R.id.iv_thuc_don);
-            tvTenMon = (TextView) itemView.findViewById(R.id.tv_ten_mon);
+            tvTenMon = (TextView) itemView.findViewById(R.id.tv_message);
 
             tvTenMon.setMovementMethod(new ScrollingMovementMethod());
             tvTenMon.setOnClickListener(this);

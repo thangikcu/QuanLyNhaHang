@@ -18,6 +18,7 @@ import thanggun99.quanlynhahang.model.entity.NhomMon;
 import thanggun99.quanlynhahang.model.entity.ThucDon;
 import thanggun99.quanlynhahang.model.entity.ThucDonOrder;
 import thanggun99.quanlynhahang.util.API;
+import thanggun99.quanlynhahang.util.Utils;
 
 import static thanggun99.quanlynhahang.util.API.callService;
 
@@ -31,10 +32,13 @@ public class Database {
     private ArrayList<HoaDon> hoaDonTinhTienList;
     private ArrayList<ThucDon> thucDonList;
     private ArrayList<NhomMon> nhomMonList;
-    private ArrayList<DatBan> datBanList;
+    private ArrayList<DatBan> datBanChuaTinhTienList;
+    private ArrayList<DatBan> datBanTinhTienList;
+    private ArrayList<DatBan> datBanChuaSetBanList;
 
     public Database() {
         hoaDonTinhTienList = new ArrayList<>();
+        datBanTinhTienList = new ArrayList<>();
     }
 
     public boolean getDatas() {
@@ -89,7 +93,7 @@ public class Database {
                             hoaDon.setGiamGia(object.getInt("giamGia"));
                         }
                         if (object.toString().contains("maDatBan")) {
-                            hoaDon.setDatBan(getDatBanByMaDatBan(object.getInt("maDatBan")));
+                            hoaDon.setDatBan(getDatBanChuaTinhTienByMaDatBan(object.getInt("maDatBan")));
 
                         }
                         hoaDon.setGioDen(object.getString("gioDen"));
@@ -122,24 +126,31 @@ public class Database {
                 JSONObject jsonObj = new JSONObject(s);
                 if (jsonObj != null) {
                     JSONArray jsonArray = jsonObj.getJSONArray("datBan");
-                    datBanList = new ArrayList<>();
+                    datBanChuaTinhTienList = new ArrayList<>();
+                    datBanChuaSetBanList = new ArrayList<>();
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject object = (JSONObject) jsonArray.get(i);
-                        Ban ban = null;
                         int maKhachHang = 0;
 
-                        if (!object.isNull("maBan")) {
-
-                            ban = getBanByMaBan(object.getInt("maBan"));
-                        }
                         if (!object.isNull("maKhachHang")) {
+
                             maKhachHang = object.getInt("maKhachHang");
                         }
+                        if (!object.isNull("maBan")) {
 
-                        DatBan datBan = new DatBan(object.getInt("maDatBan"), maKhachHang, ban,
-                                object.getString("tenKhachHang"), object.getString("soDienThoai"), object.getString("gioDen"),
-                                object.getString("yeuCau"), object.getInt("trangThai"));
-                        datBanList.add(datBan);
+                            DatBan datBan = new DatBan(object.getInt("maDatBan"), maKhachHang, getBanByMaBan(object.getInt("maBan")),
+                                    object.getString("tenKhachHang"), object.getString("soDienThoai"), object.getString("gioDen"),
+                                    object.getString("yeuCau"), object.getInt("trangThai"));
+
+                            datBanChuaTinhTienList.add(datBan);
+                        } else {
+                            DatBan datBan = new DatBan(object.getInt("maDatBan"), maKhachHang,
+                                    object.getString("tenKhachHang"), object.getString("soDienThoai"), object.getString("gioDen"),
+                                    object.getString("yeuCau"), object.getInt("trangThai"));
+
+                            datBanChuaSetBanList.add(datBan);
+                        }
+
                     }
                     return true;
                 }
@@ -218,14 +229,10 @@ public class Database {
         return null;
     }
 
-    public NhomMon getNhomMonAt(int position) {
-        return nhomMonList.get(position);
-    }
-
     public ArrayList<ThucDon> getListThucDonByTenMon(String newText) {
         ArrayList<ThucDon> thucDonTimKiem = new ArrayList<>();
         for (ThucDon thucDon : thucDonList) {
-            if (thucDon.getTenMon().toLowerCase().trim().contains(newText.toLowerCase().trim())) {
+            if (Utils.removeAccent(thucDon.getTenMon().trim().toLowerCase()).contains(Utils.removeAccent(newText.trim().toLowerCase()))) {
                 thucDonTimKiem.add(thucDon);
             }
         }
@@ -242,7 +249,7 @@ public class Database {
         return thucDonTheoLoai;
     }
 
-    public HoaDon getHoaDonByMaBan(int maBan) {
+    public HoaDon getHoaDonChuaTinhTienByMaBan(int maBan) {
         for (HoaDon hoaDon : hoaDonChuaTinhTienList) {
             if (hoaDon.getBan().getMaBan() == maBan) {
                 return hoaDon;
@@ -251,8 +258,8 @@ public class Database {
         return null;
     }
 
-    public DatBan getDatBanByMaBan(int maBan) {
-        for (DatBan datBan : datBanList) {
+    public DatBan getDatBanChuaTinhTienByMaBan(int maBan) {
+        for (DatBan datBan : datBanChuaTinhTienList) {
             if (datBan.getBan().getMaBan() == maBan) {
                 return datBan;
             }
@@ -269,8 +276,8 @@ public class Database {
         return null;
     }
 
-    public DatBan getDatBanByMaDatBan(int maDatBan) {
-        for (DatBan datBan : datBanList) {
+    public DatBan getDatBanChuaTinhTienByMaDatBan(int maDatBan) {
+        for (DatBan datBan : datBanChuaTinhTienList) {
             if (datBan.getMaDatBan() == maDatBan) {
                 return datBan;
             }
@@ -310,12 +317,12 @@ public class Database {
         this.nhomMonList = nhomMonList;
     }
 
-    public ArrayList<DatBan> getDatBanList() {
-        return datBanList;
+    public ArrayList<DatBan> getDatBanChuaTinhTienList() {
+        return datBanChuaTinhTienList;
     }
 
-    public void setDatBanList(ArrayList<DatBan> datBanList) {
-        this.datBanList = datBanList;
+    public void setDatBanChuaTinhTienList(ArrayList<DatBan> datBanChuaTinhTienList) {
+        this.datBanChuaTinhTienList = datBanChuaTinhTienList;
     }
 
     public Ban getBanAt(int position) {
@@ -332,22 +339,73 @@ public class Database {
     }
 
     public void addHoaDonTinhTien(HoaDon hoaDon) {
-        hoaDonTinhTienList.add(hoaDon);
+        hoaDonTinhTienList.add(0, hoaDon);
     }
 
-    public void addDatBan(DatBan datBan) {
-        datBanList.add(datBan);
+    public void addDatBanChuaTinhTien(DatBan datBan) {
+        datBanChuaTinhTienList.add(0, datBan);
     }
 
     public void addhoaDonChuaTinhTien(HoaDon hoaDon) {
-        hoaDonChuaTinhTienList.add(hoaDon);
+        hoaDonChuaTinhTienList.add(0, hoaDon);
     }
 
     public void removeHoaDonChuaTinhTien(HoaDon hoaDon) {
         hoaDonChuaTinhTienList.remove(hoaDon);
     }
 
-    public void removeDatBan(DatBan datBan) {
-        datBanList.remove(datBan);
+    public void removeDatBanChuaTinhTien(DatBan datBan) {
+        datBanChuaTinhTienList.remove(datBan);
+    }
+
+    public ArrayList<DatBan> getDatBanTinhTienList() {
+        return datBanTinhTienList;
+    }
+
+    public void setDatBanTinhTienList(ArrayList<DatBan> datBanTinhTienList) {
+        this.datBanTinhTienList = datBanTinhTienList;
+    }
+
+    public void onTinhTienHoaDon(HoaDon currentHoaDon) {
+        if (currentHoaDon.getDatBan() != null) {
+            addDatBanTinhTien(currentHoaDon.getDatBan());
+            removeDatBanChuaTinhTien(currentHoaDon.getDatBan());
+        }
+        addHoaDonTinhTien(currentHoaDon);
+        removeHoaDonChuaTinhTien(currentHoaDon);
+    }
+
+    public void addDatBanTinhTien(DatBan datBan) {
+        datBanTinhTienList.add(0, datBan);
+    }
+
+    public void onHuyBan(HoaDon currentHoaDon) {
+        if (currentHoaDon.getDatBan() != null) {
+
+           removeDatBanChuaTinhTien(currentHoaDon.getDatBan());
+        }
+        removeHoaDonChuaTinhTien(currentHoaDon);
+    }
+
+    public ArrayList<DatBan> getDatBanChuaSetBanList() {
+        return this.datBanChuaSetBanList;
+    }
+
+    public ArrayList<DatBan> getListDatBanChuaSetBanByTenKhachHang(String keyWord) {
+        ArrayList<DatBan> datBans = new ArrayList<>();
+        for (DatBan datBan : datBanChuaSetBanList) {
+            if (Utils.removeAccent(datBan.getTenKhachHang().trim().toLowerCase()).contains(Utils.removeAccent(keyWord.trim().toLowerCase()))) {
+                datBans.add(datBan);
+            }
+        }
+        return datBans;
+    }
+
+    public void addDatBanChuaSetBan(DatBan datBan) {
+        datBanChuaSetBanList.add(0, datBan);
+    }
+
+    public void removeDatBanChuaSetBan(DatBan datBan) {
+        datBanChuaSetBanList.remove(datBan);
     }
 }

@@ -2,24 +2,30 @@
     require_once '../dbConnect.php';
  
     function dispInfo(){
-        if(isset($_GET['maDatBan'])){
+
         
-            $maDatBan = $_GET['maDatBan'];
-            $maBan = $_GET['maBan'];
+        $maDatBan = $_GET['maDatBan'];
+        $maBan = isset($_GET['maBan']) ? $_GET['maBan'] : NULL;
+        
+
+        $db = new Database();
+
+        $db->prepare('DELETE FROM dat_ban WHERE MaDatBan = :maDatBan');
+        $db->bind(':maDatBan', $maDatBan);
+        $db->execute();
+     
+    
+        if($db->getRowCount() > 0){
             
-
-            $db = new Database();
-
-            $db->query('DELETE FROM dat_ban WHERE MaDatBan = '.$maDatBan.'');
-         
-        
-            if($db->getRowCount() > 0){
-
+            if(!empty($maBan)){
+                
                 $db->query('UPDATE ban SET TrangThai = 0 WHERE MaBan = '.$maBan.' ');
-                echo 'success';
-             }
+            }
             
-        }
+            echo 'success';
+         }
+        
+   
 
 
     }

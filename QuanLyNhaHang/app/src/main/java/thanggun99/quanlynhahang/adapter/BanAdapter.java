@@ -23,13 +23,15 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.ViewHolder> {
     private TextView tvSelected = new TextView(App.getContext());
     private PhucVuPresenter phucVuPresenter;
 
-    public BanAdapter(ArrayList<Ban> banList, PhucVuPresenter phucVuPresenter) {
-        this.banList = banList;
+    public BanAdapter(PhucVuPresenter phucVuPresenter) {
+        this.banList = phucVuPresenter.getDatabase().getBanList();
         this.phucVuPresenter = phucVuPresenter;
+
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
         return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_ban, parent, false));
     }
 
@@ -38,6 +40,7 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.ViewHolder> {
         Ban ban = banList.get(position);
 
         holder.tvBan.setText(ban.getTenBan());
+
         holder.tvBan.setBackgroundResource(ban.getIdResBgBan());
 
         if (position == 0) {
@@ -66,7 +69,7 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.ViewHolder> {
 
         public ViewHolder(final View itemView) {
             super(itemView);
-            tvBan = (TextView) itemView.findViewById(R.id.tv_ten_ban);
+            tvBan = (TextView) itemView.findViewById(R.id.tv_title);
             tvBan.setMovementMethod(new ScrollingMovementMethod());
             tvBan.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -76,7 +79,7 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.ViewHolder> {
                     tvSelected = tvBan;
                     tvBan.setSelected(true);
 
-                    phucVuPresenter.getThongTinbanAtPosition(getAdapterPosition());
+                    phucVuPresenter.onClickBan(banList.get(getAdapterPosition()));
                 }
             });
         }

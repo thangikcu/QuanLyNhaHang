@@ -48,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/tong_tien"
-            android:textColor="@color/colorTextInfo"
+            android:textColor="@color/colorTextField"
             android:textSize="12sp"
             android:textStyle="bold" />
 

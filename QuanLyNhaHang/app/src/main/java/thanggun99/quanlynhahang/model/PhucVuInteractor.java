@@ -2,15 +2,12 @@ package thanggun99.quanlynhahang.model;
 
 import android.os.AsyncTask;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 import thanggun99.quanlynhahang.R;
-import thanggun99.quanlynhahang.model.Database;
 import thanggun99.quanlynhahang.model.entity.Ban;
 import thanggun99.quanlynhahang.model.entity.DatBan;
 import thanggun99.quanlynhahang.model.entity.HoaDon;
-import thanggun99.quanlynhahang.model.entity.NhomMon;
 import thanggun99.quanlynhahang.model.entity.ThucDon;
 import thanggun99.quanlynhahang.model.entity.ThucDonOrder;
 import thanggun99.quanlynhahang.util.Utils;
@@ -26,6 +23,7 @@ public class PhucVuInteractor {
     private DatBan currentDatBan;
     private ThucDonOrder currentThucDonOrder;
     private ThucDon currentThucDon;
+    private DatBan currentDatBanChuaSetBan;
 
 
     //constructor
@@ -36,13 +34,13 @@ public class PhucVuInteractor {
     }
 
 
-    public void getThongTinbanAtPosition(int position) {
-        currentBan = database.getBanAt(position);
+    public void getThongTinBan(Ban ban) {
+        currentBan = ban;
 
         if (currentBan != null) {
             if (currentBan.getTrangThai() == 2) {
 
-                currentHoaDon = database.getHoaDonByMaBan(currentBan.getMaBan());
+                currentHoaDon = database.getHoaDonChuaTinhTienByMaBan(currentBan.getMaBan());
 
                 if (currentHoaDon != null && currentHoaDon.getDatBan() != null) {
 
@@ -55,7 +53,7 @@ public class PhucVuInteractor {
                 onPhucVuInteractorFinishListener.onFinishGetThongTinBanPV(currentHoaDon);
             } else if (currentBan.getTrangThai() == 1) {
 
-                currentDatBan = database.getDatBanByMaBan(currentBan.getMaBan());
+                currentDatBan = database.getDatBanChuaTinhTienByMaBan(currentBan.getMaBan());
                 currentHoaDon = null;
                 onPhucVuInteractorFinishListener.onFinishGetThongTinBanDatBan(currentDatBan);
             } else {
@@ -102,8 +100,10 @@ public class PhucVuInteractor {
 
         @Override
         protected Boolean doInBackground(Void... params) {
+            delay(500);
             return currentThucDonOrder.updateThucDonOrder(soLuong);
         }
+
         @Override
         protected void onPostExecute(Boolean aBoolean) {
             if (aBoolean) {
@@ -113,6 +113,14 @@ public class PhucVuInteractor {
                     currentBan.getTenBan(), soLuong, currentThucDonOrder.getTenMon()));
         }
 
+    }
+
+    private void delay(int millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private class ThemThucDonOrderTask extends AsyncTask<Void, Void, Boolean> {
@@ -131,8 +139,10 @@ public class PhucVuInteractor {
 
         @Override
         protected Boolean doInBackground(Void... params) {
+            delay(500);
             return currentHoaDon.themThucDonOrder(thucDonOrder);
         }
+
         @Override
         protected void onPostExecute(Boolean aBoolean) {
             if (aBoolean) {
@@ -168,8 +178,10 @@ public class PhucVuInteractor {
 
         @Override
         protected Boolean doInBackground(Void... params) {
+            delay(500);
             return hoaDonNew.taoMoiHoaDon(thucDonOrder);
         }
+
         @Override
         protected void onPostExecute(Boolean aBoolean) {
             if (aBoolean) {
@@ -183,8 +195,39 @@ public class PhucVuInteractor {
 
     }
 
-    public void datBan(final DatBan datBan) {
-        class DatBanTask extends AsyncTask<Void, Void, Boolean> {
+    public void datBanChuaSetBan(final DatBan datBan) {
+
+        class DatBanChuaSetBanTask extends AsyncTask<Void, Void, Boolean> {
+
+            @Override
+            protected void onPreExecute() {
+                onPhucVuInteractorFinishListener.onStartTask();
+                super.onPreExecute();
+            }
+
+            @Override
+            protected Boolean doInBackground(Void... params) {
+                delay(500);
+                return datBan.datBan();
+            }
+
+            @Override
+            protected void onPostExecute(Boolean aBoolean) {
+                if (aBoolean) {
+                    database.addDatBanChuaSetBan(datBan);
+                    onPhucVuInteractorFinishListener.onFinishDatBanChuaSetBan();
+                } else {
+                    onPhucVuInteractorFinishListener.onDatBanChuaSetBanFail();
+                }
+                onPhucVuInteractorFinishListener.onFinishTask(false, null);
+            }
+        }
+        new DatBanChuaSetBanTask().execute();
+
+    }
+
+    public void datBanSetBan(final DatBan datBan) {
+        class DatBanSetBanTask extends AsyncTask<Void, Void, Boolean> {
 
             @Override
             protected void onPreExecute() {
@@ -195,6 +238,7 @@ public class PhucVuInteractor {
             @Override
             protected Boolean doInBackground(Void... params) {
                 datBan.setBan(currentBan);
+                delay(500);
                 return datBan.datBan();
             }
 
@@ -202,18 +246,19 @@ public class PhucVuInteractor {
             protected void onPostExecute(Boolean aBoolean) {
                 if (aBoolean) {
                     currentDatBan = datBan;
-                    database.addDatBan(currentDatBan);
-                    onPhucVuInteractorFinishListener.onFinishDatBan(currentDatBan);
+                    database.addDatBanChuaTinhTien(currentDatBan);
+                    onPhucVuInteractorFinishListener.onFinishDatBanSetBan(currentDatBan);
                 }
                 onPhucVuInteractorFinishListener.onFinishTask(aBoolean, String.format(Utils.getStringByRes(R.string.pv_notify_dat_ban), currentBan.getTenBan()));
             }
         }
-        new DatBanTask().execute();
+        new DatBanSetBanTask().execute();
     }
 
     public void deleteThucDonOrder() {
         class DeleteThucDonOrderTask extends AsyncTask<Void, Void, Boolean> {
             private String tenMon;
+
             @Override
             protected void onPreExecute() {
                 tenMon = currentThucDonOrder.getTenMon();
@@ -223,6 +268,7 @@ public class PhucVuInteractor {
 
             @Override
             protected Boolean doInBackground(Void... params) {
+                delay(500);
                 return currentHoaDon.deleteThucDonOrder(currentThucDonOrder.getMaChitietHD());
             }
 
@@ -232,8 +278,8 @@ public class PhucVuInteractor {
                     currentThucDonOrder = null;
                     onPhucVuInteractorFinishListener.onFinishDeleteThucDonOrder(currentHoaDon.getTongTien());
                 }
-                onPhucVuInteractorFinishListener.onFinishTask(aBoolean,String.format(Utils.getStringByRes(R.string.pv_notify_delete_thucdon_order),
-                        currentBan.getTenBan(), tenMon) );
+                onPhucVuInteractorFinishListener.onFinishTask(aBoolean, String.format(Utils.getStringByRes(R.string.pv_notify_delete_thucdon_order),
+                        currentBan.getTenBan(), tenMon));
             }
         }
         new DeleteThucDonOrderTask().execute();
@@ -250,6 +296,7 @@ public class PhucVuInteractor {
 
             @Override
             protected Boolean doInBackground(Void... params) {
+                delay(500);
                 return currentHoaDon.saleHoaDon(presentSale);
             }
 
@@ -268,6 +315,7 @@ public class PhucVuInteractor {
     public void tinhTien() {
         class TinhTienTask extends AsyncTask<Void, Void, Boolean> {
             private int tongTien;
+
             @Override
             protected void onPreExecute() {
                 tongTien = currentHoaDon.getTongTien();
@@ -277,14 +325,15 @@ public class PhucVuInteractor {
 
             @Override
             protected Boolean doInBackground(Void... params) {
+                delay(500);
                 return currentHoaDon.tinhTien();
             }
 
             @Override
             protected void onPostExecute(Boolean aBoolean) {
                 if (aBoolean) {
-                    database.addHoaDonTinhTien(currentHoaDon);
-                    database.removeHoaDonChuaTinhTien(currentHoaDon);
+                    database.onTinhTienHoaDon(currentHoaDon);
+
                     currentHoaDon = null;
                     currentThucDon = null;
                     currentDatBan = null;
@@ -299,8 +348,9 @@ public class PhucVuInteractor {
         new TinhTienTask().execute();
     }
 
-    public void updateDatBan(final DatBan datBanUpdate) {
-        class UpdateDatBanTask extends AsyncTask<Void, Void, Boolean> {
+    public void updateDatBanChuaSetBan(final DatBan datBan) {
+
+        class UpdateDatBanChuaSetBanTask extends AsyncTask<Void, Void, Boolean> {
             @Override
             protected void onPreExecute() {
                 onPhucVuInteractorFinishListener.onStartTask();
@@ -309,26 +359,62 @@ public class PhucVuInteractor {
 
             @Override
             protected Boolean doInBackground(Void... params) {
+                delay(500);
+                if (currentDatBanChuaSetBan != null) {
+                    return currentDatBanChuaSetBan.updateDatBan(datBan);
+
+                } else {
+                    return false;
+                }
+            }
+
+            @Override
+            protected void onPostExecute(Boolean aBoolean) {
+                if (aBoolean) {
+                    currentDatBanChuaSetBan = datBan;
+                    onPhucVuInteractorFinishListener.onFinishUpdateDatBanChuaSetBan();
+                } else {
+                    onPhucVuInteractorFinishListener.onUpdateDatBanChuaSetBanFail();
+                }
+                onPhucVuInteractorFinishListener.onFinishTask(
+                        false, null);
+            }
+        }
+        new UpdateDatBanChuaSetBanTask().execute();
+
+    }
+
+    public void updateDatBanSetBan(final DatBan datBanUpdate) {
+        class UpdateDatBanSetBanTask extends AsyncTask<Void, Void, Boolean> {
+            @Override
+            protected void onPreExecute() {
+                onPhucVuInteractorFinishListener.onStartTask();
+                super.onPreExecute();
+            }
+
+            @Override
+            protected Boolean doInBackground(Void... params) {
+                delay(500);
                 return currentDatBan.updateDatBan(datBanUpdate);
             }
 
             @Override
             protected void onPostExecute(Boolean aBoolean) {
                 if (aBoolean) {
-                    onPhucVuInteractorFinishListener.onFinishUpdateDatBan(currentDatBan);
+                    onPhucVuInteractorFinishListener.onFinishUpdateDatBanSetBan();
                 }
                 onPhucVuInteractorFinishListener.onFinishTask(
                         aBoolean, String.format(Utils.getStringByRes(R.string.pv_notify_update_dat_ban), currentBan.getTenBan()));
             }
         }
-        new UpdateDatBanTask().execute();
+        new UpdateDatBanSetBanTask().execute();
     }
 
     public void huyBan() {
         if (currentBan.getTrangThai() == 2) {
             new HuyBanTask().execute();
         } else {
-            new HuyDatBanTask().execute();
+            new HuyDatBanSetBanTask().execute();
         }
     }
 
@@ -342,16 +428,15 @@ public class PhucVuInteractor {
 
         @Override
         protected Boolean doInBackground(Void... params) {
+            delay(500);
             return currentHoaDon.deleteHoaDon();
         }
+
         @Override
         protected void onPostExecute(Boolean aBoolean) {
             if (aBoolean) {
-                if (currentHoaDon.getDatBan() != null) {
+                database.onHuyBan(currentHoaDon);
 
-                    database.removeDatBan(currentDatBan);
-                }
-                database.removeHoaDonChuaTinhTien(currentHoaDon);
                 currentHoaDon = null;
                 currentThucDon = null;
                 currentDatBan = null;
@@ -364,7 +449,39 @@ public class PhucVuInteractor {
 
     }
 
-    private class HuyDatBanTask extends AsyncTask<Void, Void, Boolean> {
+    public void huyDatBanChuaSetBan() {
+        class HuyDatBanChuaSetBanTask extends AsyncTask<Void, Void, Boolean> {
+
+            @Override
+            protected void onPreExecute() {
+                onPhucVuInteractorFinishListener.onStartTask();
+                super.onPreExecute();
+            }
+
+            @Override
+            protected Boolean doInBackground(Void... params) {
+                delay(500);
+                return currentDatBanChuaSetBan.huyDatBan();
+            }
+
+            @Override
+            protected void onPostExecute(Boolean aBoolean) {
+                if (aBoolean) {
+                    database.removeDatBanChuaSetBan(currentDatBanChuaSetBan);
+                    currentDatBanChuaSetBan = null;
+                    onPhucVuInteractorFinishListener.onFinishHuyDatBanChuaSetBan();
+                } else {
+                    onPhucVuInteractorFinishListener.onHuyDatBanChuaSetBanFail();
+                }
+                onPhucVuInteractorFinishListener.onFinishTask(false, null);
+            }
+        }
+
+        new HuyDatBanChuaSetBanTask().execute();
+    }
+
+
+    private class HuyDatBanSetBanTask extends AsyncTask<Void, Void, Boolean> {
 
         @Override
         protected void onPreExecute() {
@@ -374,13 +491,14 @@ public class PhucVuInteractor {
 
         @Override
         protected Boolean doInBackground(Void... params) {
+            delay(500);
             return currentDatBan.huyDatBan();
         }
 
         @Override
         protected void onPostExecute(Boolean aBoolean) {
             if (aBoolean) {
-                database.removeDatBan(currentDatBan);
+                database.removeDatBanChuaTinhTien(currentDatBan);
                 currentDatBan = null;
                 onPhucVuInteractorFinishListener.onFinishHuyBan(currentBan);
             }
@@ -389,16 +507,8 @@ public class PhucVuInteractor {
     }
 
     //set and get
-    public NhomMon getNhomMonAt(int position) {
-        return database.getNhomMonAt(position);
-    }
-
     public DatBan getCurrentDatBan() {
         return currentDatBan;
-    }
-
-    public ArrayList<ThucDon> getListThucDonByTenMon(String keyword) {
-        return database.getListThucDonByTenMon(keyword);
     }
 
     public void setcurrentThucDon(ThucDon currentThucDon) {
@@ -421,10 +531,17 @@ public class PhucVuInteractor {
         this.currentThucDonOrder = currentThucDonOrder;
     }
 
-    public ArrayList<ThucDon> getListThucDonByMaLoai(int maLoai) {
-        return database.getListThucDonByMaLoai(maLoai);
+    public Database getDatabase() {
+        return database;
     }
 
+    public void setCurrentDatBanChuaSetBan(DatBan currentDatBanChuaSetBan) {
+        this.currentDatBanChuaSetBan = currentDatBanChuaSetBan;
+    }
+
+    public DatBan getCurrentDatBanChuaSetBan() {
+        return currentDatBanChuaSetBan;
+    }
 
 
     //interface PhucVuPresenter implement
@@ -437,7 +554,7 @@ public class PhucVuInteractor {
 
         void onFinishHuyBan(Ban ban);
 
-        void onFinishDatBan(DatBan datBan);
+        void onFinishDatBanSetBan(DatBan datBan);
 
         void onFinishOrderUpdateThucDon(int tongTien);
 
@@ -451,10 +568,22 @@ public class PhucVuInteractor {
 
         void onFinishTinhTien(Ban ban);
 
-        void onFinishUpdateDatBan(DatBan datBan);
+        void onFinishUpdateDatBanSetBan();
 
         void onFinishTask(Boolean isSuccess, String message);
 
         void onStartTask();
+
+        void onFinishDatBanChuaSetBan();
+
+        void onDatBanChuaSetBanFail();
+
+        void onFinishHuyDatBanChuaSetBan();
+
+        void onHuyDatBanChuaSetBanFail();
+
+        void onFinishUpdateDatBanChuaSetBan();
+
+        void onUpdateDatBanChuaSetBanFail();
     }
 }

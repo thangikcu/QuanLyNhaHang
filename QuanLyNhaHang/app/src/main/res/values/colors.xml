@@ -6,7 +6,7 @@
     <color name="colorTextField">#7c3c0a</color>
     <color name="colorPrimary">#4c9ea6</color>
     <color name="colorBackgroud">#e67474</color>
-    <color name="colorBackgroudSesion">#f6f7f9</color>
+    <color name="colorBackgroudFrame">#f6f7f9</color>
     <color name="colorBackgroudMain">#c5cbd2</color>
     <color name="colorButtonSelected">#34878f</color>
     <color name="white">#ffffff</color>

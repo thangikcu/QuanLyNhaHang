@@ -5,12 +5,15 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import thanggun99.quanlynhahang.App;
 import thanggun99.quanlynhahang.R;
 import thanggun99.quanlynhahang.model.entity.ThucDonOrder;
 import thanggun99.quanlynhahang.presenter.PhucVuPresenter;
@@ -24,9 +27,12 @@ import thanggun99.quanlynhahang.util.Utils;
 public class ThucDonOrderAdapter extends RecyclerView.Adapter<ThucDonOrderAdapter.ViewHolder> {
     private ArrayList<ThucDonOrder> thucDonOrders;
     private PhucVuPresenter phucVuPresenter;
+    private int currentPosition;
+    private Animation animationBounce;
 
     public ThucDonOrderAdapter(PhucVuPresenter phucVuPresenter) {
         this.phucVuPresenter = phucVuPresenter;
+        animationBounce = AnimationUtils.loadAnimation(App.getContext(), R.anim.bounce);
     }
 
     @Override
@@ -36,12 +42,16 @@ public class ThucDonOrderAdapter extends RecyclerView.Adapter<ThucDonOrderAdapte
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+
         ThucDonOrder thucDonOrder = thucDonOrders.get(position);
 
         holder.tvTenMon.setText(thucDonOrder.getTenMon());
         holder.tvSoLuong.setText(thucDonOrder.getSoLuong() + thucDonOrder.getDonViTinh());
         holder.tvThanhTien.setText(Utils.formatMoney(thucDonOrder.getTongTien()));
         holder.ivThucDon.setImageBitmap(thucDonOrder.getHinhAnh());
+
+        holder.itemView.startAnimation(animationBounce);
+
     }
 
     @Override
@@ -59,12 +69,16 @@ public class ThucDonOrderAdapter extends RecyclerView.Adapter<ThucDonOrderAdapte
         return thucDonOrders.get(position);
     }
 
-    public void updateThucDonOrder(ThucDonOrder thucDonOrder){
-        notifyItemChanged(thucDonOrders.indexOf(thucDonOrder));
+    public void updateThucDonOrder(ThucDonOrder currentThucDonOrder){
+        notifyItemChanged(thucDonOrders.indexOf(currentThucDonOrder));
     }
 
     public void deleteThucDonOrder(){
-        notifyDataSetChanged();
+       notifyItemRemoved(currentPosition);
+    }
+
+    public int getCurrentPosition() {
+        return currentPosition;
     }
 
     public int getSize() {
@@ -85,23 +99,26 @@ public class ThucDonOrderAdapter extends RecyclerView.Adapter<ThucDonOrderAdapte
             tvSoLuong = (TextView) itemView.findViewById(R.id.tv_so_luong);
             ivThucDon = (ImageView) itemView.findViewById(R.id.iv_thuc_don);
             btnDelete = (ImageButton) itemView.findViewById(R.id.btn_delete_mon_order);
-            tvTenMon = (TextView) itemView.findViewById(R.id.tv_ten_mon);
+            tvTenMon = (TextView) itemView.findViewById(R.id.tv_message);
 
             tvTenMon.setMovementMethod(new ScrollingMovementMethod());
             tvTenMon.setOnClickListener(this);
 
             btnDelete.setOnClickListener(this);
             itemView.setOnClickListener(this);
+
         }
 
         @Override
         public void onClick(View v) {
+            currentPosition = getAdapterPosition();
+
             switch (v.getId()) {
                 case R.id.btn_delete_mon_order:
-                    phucVuPresenter.onClickDeleteMonOrder(getItem(getAdapterPosition()));
+                    phucVuPresenter.onClickDeleteMonOrder(getItem(currentPosition));
                     break;
                 default:
-                    phucVuPresenter.onClickThucdonOrder(getItem(getAdapterPosition()));
+                    phucVuPresenter.onClickThucdonOrder(getItem(currentPosition));
                     break;
             }
         }
