@@ -15,6 +15,12 @@ import thanggun99.quanlynhahang.R;
 public class HomeFragment extends Fragment {
 
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.clear();
+    }
+
     public HomeFragment() {
         // Required empty public constructor
     }

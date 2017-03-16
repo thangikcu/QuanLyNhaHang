@@ -25,6 +25,8 @@ public class API {
     public static final String PATH_HOA_DON = "HoaDonService/";
     public static final String PATH_DAT_BAN = "DatBanService/";
     public static final String PATH_NHOM_MON = "NhomMonService/";
+    public static final String PATH_TOKEN = "TokenService/";
+    private static final String PATH_KHACH_HANG = "KhachHangService/";
 
     public static final String GET_BAN_URL = PATH_BAN + "GetBan.php";
     public static final String UPDATE_BAN_URL = "UpdateBan.php";
@@ -38,6 +40,7 @@ public class API {
 
     public static final String GET_DAT_BAN_URL = PATH_DAT_BAN + "GetDatBan.php";
     public static final String DAT_BAN_URL = PATH_DAT_BAN + "DatBan.php";
+    public static final String KHACH_VAO_BAN_URL = PATH_DAT_BAN + "KhachVaoBan.php";
     public static final String UPDATE_DAT_BAN_URL = PATH_DAT_BAN + "UpdateDatBan.php";
     public static final String DELETE_DAT_BAN_URL = PATH_DAT_BAN + "DeleteDatBan.php";
 
@@ -47,6 +50,8 @@ public class API {
     public static final String UPDATE_GIAM_GIA_URL = PATH_HOA_DON + "UpdateGiamGia.php";
     public static final String THEM_THUC_DON_ORDER_URL = PATH_HOA_DON + "ThemThucDonOrder.php";
     public static final String DELETE_MON_ORDER_URL = PATH_HOA_DON + "DeleteMonOrder.php";
+    public static final String REGISTER_TOKEN_URL = PATH_TOKEN + "RegisterToken.php";
+    public static final String GET_KHACH_HANG = PATH_KHACH_HANG + "GetKhachHang.php";
 
     public static String callService(String path, Map<String, String> getParams) {
         return callService(path, getParams, null);

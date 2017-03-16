@@ -244,6 +244,14 @@ public class KhachHangInteractor {
         new UpdateDatBanTask().execute();
     }
 
+    public void updateThongTinKhachHang(KhachHang khachHangUpdate) {
+        khachHang.setTenKhachHang(khachHangUpdate.getTenKhachHang());
+        khachHang.setSoDienThoai(khachHangUpdate.getSoDienThoai());
+        DatBan datBan = getCurrentDatBan();
+        datBan.setGioDen(khachHangUpdate.getCurrentDatBan().getGioDen());
+        datBan.setYeuCau(khachHangUpdate.getCurrentDatBan().getYeuCau());
+    }
+
     private class LoginAsynTask extends AsyncTask<Void, Void, String> {
         @Override
         protected void onPreExecute() {

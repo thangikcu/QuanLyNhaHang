@@ -109,7 +109,6 @@
             android:layout_height="match_parent"
             android:padding="@dimen/layout_padding">
 
-
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/list_dat_ban"
                 android:layout_width="match_parent"

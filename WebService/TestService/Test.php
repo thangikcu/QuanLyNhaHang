@@ -5,9 +5,12 @@
         include_once '../dbConnect.php';
         include_once '../Firebase.php';
         
+        
+        
+        $db = new Database();
+        
         $firebase = new Firebase();
         $push = new Push();
-        $db = new Database();
 
         $title = isset($_POST['title']) ? $_POST['title'] : 'test';
         $message = isset($_POST['message']) ? $_POST['message'] : 'message test';
@@ -20,11 +23,11 @@
         }
     
         $push->setNotification($title, $message);
-        $data = array();
-        $data['action'] = 'TEST_ACTION';
+        $push->setDatas("TEST_ACTION", null);
+
         
         
-        $respond = $firebase ->sendMultiple($tokens, $push->getNotification(), $data);
+        $respond = $firebase ->sendMultiple($tokens, $push->getNotification(), $push->getDatas());
         echo $respond;
 
      }

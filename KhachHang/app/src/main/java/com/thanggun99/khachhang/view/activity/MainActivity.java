@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -70,11 +69,26 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
                         khachHangPresenter.logout();
                     }
                     break;
+                case MyFirebaseMessagingService.UPDATE_DAT_BAN_ACTION:
+                    if (khachHangPresenter != null) {
+                        KhachHang khachHangUpdate = (KhachHang) intent.getSerializableExtra(MyFirebaseMessagingService.KHACH_HANG);
+
+                        khachHangPresenter.updateThongTinKhachHang(khachHangUpdate);
+
+                        tvFullname.setText("(" + khachHangUpdate.getTenKhachHang() + ")");
+                    }
+                    break;
                 default:
                     break;
             }
         }
     };
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.clear();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +129,7 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
         showNavigationOnUnLogin();
         intentFilter.addAction(MyFirebaseMessagingService.LOGOUT_ACTION);
         intentFilter.addAction(MyFirebaseMessagingService.NOTIFI_ACTION);
+        intentFilter.addAction(MyFirebaseMessagingService.UPDATE_DAT_BAN_ACTION);
         fillFrame(homeFragment, R.id.btn_home);
 
     }
@@ -179,9 +194,20 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
 
     @Override
     protected void onResume() {
-        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver,
+        registerReceiver(broadcastReceiver,
                 intentFilter);
         super.onResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(broadcastReceiver);
+
+        if (progressDialog != null) {
+            progressDialog.cancel();
+        }
+        khachHangPresenter.onDestroy();
+        super.onDestroy();
     }
 
     @Override
@@ -194,15 +220,6 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
                 break;
         }
 
-    }
-
-    @Override
-    protected void onDestroy() {
-        if (progressDialog != null) {
-            progressDialog.cancel();
-        }
-        khachHangPresenter.onDestroy();
-        super.onDestroy();
     }
 
     @Override

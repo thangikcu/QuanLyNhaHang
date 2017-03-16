@@ -1,10 +1,12 @@
 package com.thanggun99.khachhang.model.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by Thanggun99 on 17/11/2016.
  */
 
-public class Ban {
+public class Ban implements Serializable{
     private int maBan;
     private String tenBan;
     private int trangThai;

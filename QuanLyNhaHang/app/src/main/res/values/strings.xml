@@ -81,4 +81,8 @@
     <string name="huy_dat_ban_that_bai">Huỷ đặt bàn thất bại !</string>
     <string name="cap_nhat_dat_ban_that_bai">Cập nhật đặt bàn thất bại !</string>
     <string name="info_chon_ban">Chọn bàn:</string>
+    <string name="da_xay_ra_loi">Đã xảy ra lỗi !</string>
+    <string name="khach_hang_dat_ban">Khách hàng đặt bàn</string>
+    <string name="khach_hang_huy_dat_ban">Khách hàng huỷ đặt bàn</string>
+    <string name="update_dat_ban">Cập nhật thông tin đặt bàn</string>
 </resources>

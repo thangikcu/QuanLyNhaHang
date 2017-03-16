@@ -1,7 +1,6 @@
 package thanggun99.quanlynhahang.adapter;
 
 import android.support.v7.widget.RecyclerView;
-import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +11,13 @@ import java.util.ArrayList;
 import thanggun99.quanlynhahang.R;
 import thanggun99.quanlynhahang.model.entity.DatBan;
 import thanggun99.quanlynhahang.presenter.PhucVuPresenter;
+import thanggun99.quanlynhahang.util.Utils;
 
 /**
  * Created by Thanggun99 on 11/03/2017.
  */
 
-public class DatBanChuaSetBanAdapter extends RecyclerView.Adapter<DatBanChuaSetBanAdapter.ViewHolder>{
+public class DatBanChuaSetBanAdapter extends RecyclerView.Adapter<DatBanChuaSetBanAdapter.ViewHolder> {
 
 
     private ArrayList<DatBan> datBanChuaSetBanList;
@@ -39,7 +39,9 @@ public class DatBanChuaSetBanAdapter extends RecyclerView.Adapter<DatBanChuaSetB
     public void onBindViewHolder(ViewHolder holder, int position) {
         DatBan datBan = datBanChuaSetBanList.get(position);
 
+
         holder.tvTenKhachHang.setText(datBan.getTenKhachHang());
+
         holder.tvGioDen.setText(datBan.getGioDen());
     }
 
@@ -65,15 +67,29 @@ public class DatBanChuaSetBanAdapter extends RecyclerView.Adapter<DatBanChuaSetB
         notifyDataSetChanged();
     }
 
-    public void notifyItemRemoved() {
-        notifyItemRemoved(currentPosition);
+    public void notifyItemRemoved(DatBan datBan) {
+        if (datBan != null) {
+            notifyItemRemoved(datBanChuaSetBanList.indexOf(datBan));
+        } else {
+
+            notifyItemRemoved(currentPosition);
+        }
     }
 
-    public void notifyItemChanged() {
-        notifyItemChanged(currentPosition);
+    public void notifyItemChanged(DatBan datBan) {
+        if (datBan != null) {
+            notifyItemChanged(datBanChuaSetBanList.indexOf(datBan));
+        } else {
+
+            notifyItemChanged(currentPosition);
+        }
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public int getPositonOf(DatBan datBan) {
+        return datBanChuaSetBanList.indexOf(datBan);
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView tvTenKhachHang;
         TextView tvGioDen;
 

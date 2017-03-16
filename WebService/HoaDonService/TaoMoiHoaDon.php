@@ -24,21 +24,18 @@
             $maMon = $_POST['maMon'];
             $soLuong = $_POST['soLuong'];
             
-            $db->prepare('SELECT MaHoaDon FROM hoa_don ORDER BY MaHoaDon DESC LIMIT 1');
             
-            
-            $maHoaDon = $db->getRow()['MaHoaDon'];
+            $maHoaDon = $db->getLastInsertId();
             
             $db->query('INSERT INTO chi_tiet_hd (MaHoaDon, MaMon, SoLuong) VALUES ("'.$maHoaDon.'", "'.$maMon.'", "'.$soLuong.'")');
      
     
             if($db->getRowCount() > 0){
-                $db->prepare('SELECT MaChiTietHD FROM chi_tiet_hd ORDER BY MaChiTietHD DESC LIMIT 1');
                 
                 $response["ma"] = array();
                 $t = array();
                 $t['maHoaDon'] = $maHoaDon;
-                $t['maChiTietHD'] = $db->getRow()['MaChiTietHD'];
+                $t['maChiTietHD'] = $db->getLastInsertId();
             
                 $db->query('UPDATE ban SET TrangThai = 2 WHERE MaBan = '.$maBan.' ');
                 $db->query('UPDATE dat_ban SET TrangThai = 1 WHERE MaDatBan = '.$maDatBan.' ');

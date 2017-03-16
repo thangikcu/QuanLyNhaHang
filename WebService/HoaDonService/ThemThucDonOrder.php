@@ -17,9 +17,9 @@
      
     
         if($db->getRowCount() > 0){
-            $db->prepare('SELECT MaChiTietHD FROM chi_tiet_hd ORDER BY MaChiTietHD DESC LIMIT 1');
             
-            echo $db->getRow()['MaChiTietHD'];
+            
+            echo $db->getLastInsertId();
         }
         
     }

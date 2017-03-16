@@ -28,7 +28,7 @@
             }
                     
             $maToken = $db->getRow()['MaToken'];
-            $db->query('SELECT tk.Token FROM khach_hang AS kh JOIN token AS tk WHERE tk.MaToken = "'.$maToken.'" AND tk.Type = 2');
+            $db->query('SELECT Token FROM token WHERE MaToken = "'.$maToken.'"');
             
             if($db->getRowCount() > 0){
                 $lastToken = $db->getRow()['Token'];
@@ -57,11 +57,10 @@
                             $firebase = new Firebase();
                             $push = new Push();
                             
-                            $push->setNotification(null, null);
-                            $data = array();
-                            $data['action'] = "LOGOUT_ACTION";
+                            $push->setDatas("LOGOUT_ACTION", null);
+
                             
-                            $firebase->send($lastToken, $push->getNotification(), $data);
+                            $firebase->send($lastToken, null, $push->getDatas());
                         }
                         
                     }

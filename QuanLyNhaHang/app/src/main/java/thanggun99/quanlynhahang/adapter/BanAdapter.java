@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import thanggun99.quanlynhahang.App;
 import thanggun99.quanlynhahang.R;
 import thanggun99.quanlynhahang.model.entity.Ban;
 import thanggun99.quanlynhahang.presenter.PhucVuPresenter;
@@ -20,13 +19,21 @@ import thanggun99.quanlynhahang.presenter.PhucVuPresenter;
 
 public class BanAdapter extends RecyclerView.Adapter<BanAdapter.ViewHolder> {
     private ArrayList<Ban> banList;
-    private TextView tvSelected = new TextView(App.getContext());
+    private Ban banSelected;
     private PhucVuPresenter phucVuPresenter;
 
     public BanAdapter(PhucVuPresenter phucVuPresenter) {
         this.banList = phucVuPresenter.getDatabase().getBanList();
         this.phucVuPresenter = phucVuPresenter;
+        if (banList != null && banList.size() > 0) {
 
+            banSelected = banList.get(0);
+        }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return banList.get(position).getSelected();
     }
 
     @Override
@@ -39,23 +46,26 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         Ban ban = banList.get(position);
 
+        if (getItemViewType(position) == 1) {
+            holder.tvBan.setSelected(true);
+        }
+
         holder.tvBan.setText(ban.getTenBan());
 
         holder.tvBan.setBackgroundResource(ban.getIdResBgBan());
 
-        if (position == 0) {
+/*        if (tvSelected.getText().toString().equals(ban.getTenBan())) {
             holder.tvBan.setSelected(true);
             tvSelected = holder.tvBan;
-        }
-
-        if (tvSelected.getText().toString().equals(ban.getTenBan())) {
-            holder.tvBan.setSelected(true);
-            tvSelected = holder.tvBan;
-        }
+        }*/
     }
 
     public void updateBan(Ban ban) {
+        banSelected.setSelected(0);
+        notifyItemChanged(banList.indexOf(banSelected));
+        ban.setSelected(1);
         notifyItemChanged(banList.indexOf(ban));
+        banSelected = ban;
     }
 
     @Override
@@ -74,10 +84,19 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.ViewHolder> {
             tvBan.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (tvBan.isSelected()) return;
-                    tvSelected.setSelected(false);
-                    tvSelected = tvBan;
-                    tvBan.setSelected(true);
+                    Ban ban = banList.get(getAdapterPosition());
+                    if (ban.getSelected() == 1) {
+
+                        return;
+                    }
+
+                    banSelected.setSelected(0);
+                    notifyItemChanged(banList.indexOf(banSelected));
+
+                    ban.setSelected(1);
+                    notifyItemChanged(getAdapterPosition());
+
+                    banSelected = ban;
 
                     phucVuPresenter.onClickBan(banList.get(getAdapterPosition()));
                 }

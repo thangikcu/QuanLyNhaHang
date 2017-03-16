@@ -5,6 +5,9 @@
         private $title;
         private $message;
         
+        private $action;
+        private $datas;
+        
         function __construct() {
              
         }
@@ -20,16 +23,30 @@
             $res['body'] = $this->message;
             return $res;
         }
-      
+        
+        
+        public function setDatas($action, $datas) {
+            $this->action = $action;
+            $this->datas = $datas;
+            $res = array();
+
+        }
+        
+        public function getDatas() {
+            $this->datas['action'] = $this->action;
+
+            return $this->datas;
+
+        }      
     }
     
     class Firebase {
 
-        public function send($to, $notifi, $data) {
+        public function send($to, $notifi, $datas) {
             $fields = array(
                 'to' => $to,
                 'notification' => $notifi,
-                'data' => $data,
+                'data' => $datas,
             );
             return $this->sendPushNotification($fields);
         }

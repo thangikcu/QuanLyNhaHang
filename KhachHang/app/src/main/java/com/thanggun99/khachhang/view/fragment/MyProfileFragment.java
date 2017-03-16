@@ -14,6 +14,12 @@ import com.thanggun99.khachhang.R;
  */
 public class MyProfileFragment extends Fragment {
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.clear();
+    }
+
 
     public MyProfileFragment() {
         // Required empty public constructor

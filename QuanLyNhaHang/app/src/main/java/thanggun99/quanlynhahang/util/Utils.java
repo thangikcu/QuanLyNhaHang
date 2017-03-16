@@ -10,6 +10,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+
 import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Date;
@@ -42,6 +44,10 @@ public class Utils {
         return App.getContext().getResources().getString(id);
     }
 
+    public static String getToken() {
+        return FirebaseInstanceId.getInstance().getToken();
+    }
+
     public static Uri.Builder builderParams(Uri.Builder builder, Map<String, String> params) {
         for (Map.Entry<String, String> entry : params.entrySet()) {
             builder.appendQueryParameter(entry.getKey(), entry.getValue());
@@ -49,7 +55,7 @@ public class Utils {
         return builder;
     }
 
-    public void showToast(String message) {
+    public static void showToast(String message) {
         Toast.makeText(App.getContext(), message, Toast.LENGTH_SHORT).show();
     }
 

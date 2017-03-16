@@ -10,6 +10,7 @@ import com.thanggun99.khachhang.util.Utils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +19,7 @@ import java.util.Map;
  * Created by Thanggun99 on 28/02/2017.
  */
 
-public class KhachHang {
+public class KhachHang implements Serializable{
     private int maKhachHang;
     private String tenKhachHang;
     private String soDienThoai;
@@ -226,7 +227,8 @@ public class KhachHang {
 
     public Boolean huyDatBan() {
         Map<String, String> getParams = new HashMap<>();
-        getParams.put("maDatTruoc", String.valueOf(currentDatBan.getMaDatBan()));
+        getParams.put("maDatBan", String.valueOf(currentDatBan.getMaDatBan()));
+        getParams.put("tenKhachHang", getTenKhachHang());
 
         String s = API.callService(API.HUY_DAT_BAN_URL, getParams);
 
@@ -257,6 +259,7 @@ public class KhachHang {
         Map<String, String> valuesPost = new HashMap<>();
         valuesPost.put("maKhachHang", String.valueOf(maKhachHang));
         valuesPost.put("gioDen", datBan.getGioDen());
+        valuesPost.put("tenKhachHang", getTenKhachHang());
         if (!TextUtils.isEmpty(datBan.getYeuCau())) {
 
             valuesPost.put("yeuCau", datBan.getYeuCau());
@@ -305,13 +308,14 @@ public class KhachHang {
         Map<String, String> valuesPost = new HashMap<>();
         valuesPost.put("maDatBan", String.valueOf(currentDatBan.getMaDatBan()));
         valuesPost.put("gioDen", datBan.getGioDen());
+        valuesPost.put("tenKhachHang", getTenKhachHang());
         if (!TextUtils.isEmpty(datBan.getYeuCau())) {
 
             valuesPost.put("yeuCau", datBan.getYeuCau());
         }
         String s = API.callService(API.UPDATE_DAT_BAN_URL, null, valuesPost);
 
-        if (!TextUtils.isEmpty(s)) {
+        if (!TextUtils.isEmpty(s) && s.contains("success")) {
             currentDatBan.setYeuCau(datBan.getYeuCau());
             currentDatBan.setGioDen(datBan.getGioDen());
             return true;

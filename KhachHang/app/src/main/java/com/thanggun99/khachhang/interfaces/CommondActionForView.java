@@ -1,4 +1,4 @@
-package thanggun99.quanlynhahang.interfaces;
+package com.thanggun99.khachhang.interfaces;
 
 import android.view.View;
 

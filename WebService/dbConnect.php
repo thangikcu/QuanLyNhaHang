@@ -41,6 +41,26 @@
              
         }
         
+        public function getTokenKhachHangByMa($maToken){
+            $this->query('SELECT Token FROM token WHERE MaToken = "'.$maToken.'"');
+            
+            return $this->getRow()['Token'];
+        }
+        
+        public function getAllTokenKhachHang(){
+            
+        }
+        
+        public function getAllTokenAdmin(){
+            $this->prepare('SELECT * FROM token WHERE Type = 1');
+            
+            $tokens = array();
+            foreach($this->getArray() as $row){
+                $tokens[] = $row['Token'];
+            }
+            return $tokens;
+        }
+        
         public function query($query){
             $this->stm = $this->dpo->query($query);        
         }

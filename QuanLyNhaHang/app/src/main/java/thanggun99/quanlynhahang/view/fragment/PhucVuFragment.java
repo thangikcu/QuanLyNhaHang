@@ -5,7 +5,6 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -13,10 +12,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -38,7 +35,6 @@ import thanggun99.quanlynhahang.adapter.BanAdapter;
 import thanggun99.quanlynhahang.adapter.NhomMonAdapter;
 import thanggun99.quanlynhahang.adapter.ThucDonAdapter;
 import thanggun99.quanlynhahang.adapter.ThucDonOrderAdapter;
-import thanggun99.quanlynhahang.interfaces.CommondActionForView;
 import thanggun99.quanlynhahang.model.entity.Ban;
 import thanggun99.quanlynhahang.model.entity.DatBan;
 import thanggun99.quanlynhahang.model.entity.HoaDon;
@@ -58,9 +54,9 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static thanggun99.quanlynhahang.R.string.error;
 
-public class PhucVuFragment extends Fragment implements CommondActionForView, PhucVuPresenter.PhucVuView, View.OnClickListener, TimePicker.OnFinishPickTimeListener {
+@SuppressLint("ValidFragment")
+public class PhucVuFragment extends BaseFragment implements PhucVuPresenter.PhucVuView, View.OnClickListener, TimePicker.OnFinishPickTimeListener {
 
-    private View view;
     private RecyclerView listViewBan, listViewThucDonOrder;
     private ImageButton btnThucDon;
     private Button btnSale, btnDatBan, btnCancel, btnTinhTien;
@@ -99,32 +95,16 @@ public class PhucVuFragment extends Fragment implements CommondActionForView, Ph
 
     private TimePicker timePicker;
 
-
-    public PhucVuFragment() {
-    }
-
-    @SuppressLint("ValidFragment")
     public PhucVuFragment(PhucVuPresenter phucVuPresenter) {
+        super(R.layout.fragment_phuc_vu);
         this.phucVuPresenter = phucVuPresenter;
         phucVuPresenter.setPhucVuView(this);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_phuc_vu, container, false);
-    }
-
-    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        if (phucVuPresenter != null) {
-            findViews(view);
-            initComponents();
-            setEvents();
-            phucVuPresenter.getThongTinBanAt(0);
-        }
+        phucVuPresenter.getThongTinBanAt(0);
     }
 
     @Override
@@ -141,7 +121,6 @@ public class PhucVuFragment extends Fragment implements CommondActionForView, Ph
 
     @Override
     public void findViews(View view) {
-        this.view = view;
         layoutThongTinDatBan = (LinearLayout) view.findViewById(R.id.layout_thong_tin_dat_ban);
         tvTenKhachHang = (TextView) layoutThongTinDatBan.findViewById(R.id.tv_ten_khach_hang);
         tvSoDienThoai = (TextView) layoutThongTinDatBan.findViewById(R.id.tv_so_dien_thoai);
@@ -351,6 +330,7 @@ public class PhucVuFragment extends Fragment implements CommondActionForView, Ph
                     datBan.setSoDienThoai(edtSoDienThoai.getText().toString().trim());
                     datBan.setGioDen(edtGioDen.getText().toString().trim());
                     datBan.setYeuCau(edtYeuCau.getText().toString().trim());
+                    datBan.setTrangThai(1);
                     if (btnDatBan.getText().equals(Utils.getStringByRes(R.string.dat_ban)))
                         phucVuPresenter.onClickDatBanSetBan(datBan);
                     else phucVuPresenter.updateDatBanSetBan(datBan);
@@ -498,7 +478,7 @@ public class PhucVuFragment extends Fragment implements CommondActionForView, Ph
 
     @Override
     public void notifyUpDateListThucDonOrder(ThucDonOrder currentThucDonOrder) {
-        listViewThucDonOrder.scrollToPosition(thucDonOrderAdapter.getCurrentPosition());
+        listViewThucDonOrder.scrollToPosition(thucDonOrderAdapter.getPositionOf(currentThucDonOrder));
         thucDonOrderAdapter.updateThucDonOrder(currentThucDonOrder);
 
     }
@@ -513,7 +493,6 @@ public class PhucVuFragment extends Fragment implements CommondActionForView, Ph
 
     @Override
     public void notifyChangeListThucDon(ArrayList<ThucDon> thucDons) {
-        clearItemThucDonAnimation(thucDonAdapter.getItemCount());
         thucDonAdapter.changeData(thucDons);
     }
 
@@ -610,16 +589,6 @@ public class PhucVuFragment extends Fragment implements CommondActionForView, Ph
         View view;
         for (int i = 0; i < itemCount; i++) {
             view = listViewThucDonOrder.getChildAt(i);
-            if (view != null) {
-                view.clearAnimation();
-            }
-        }
-    }
-
-    private void clearItemThucDonAnimation(int itemCount) {
-        View view;
-        for (int i = 0; i < itemCount; i++) {
-            view = listViewThucDon.getChildAt(i);
             if (view != null) {
                 view.clearAnimation();
             }

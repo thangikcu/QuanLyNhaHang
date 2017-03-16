@@ -22,6 +22,16 @@ public class FeedbackFragment extends Fragment implements View.OnClickListener, 
     private EditText edtTitle, edtContent;
     private TextView tvError;
 
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.clear();
+    }
+
+    public FeedbackFragment() {
+    }
+
     public FeedbackFragment(KhachHangPresenter khachHangPresenter) {
         this.khachHangPresenter = khachHangPresenter;
         khachHangPresenter.setFeedbackView(this);

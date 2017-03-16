@@ -25,7 +25,7 @@ import thanggun99.quanlynhahang.util.Utils;
  */
 
 public class ThucDonOrderAdapter extends RecyclerView.Adapter<ThucDonOrderAdapter.ViewHolder> {
-    private ArrayList<ThucDonOrder> thucDonOrders;
+    private ArrayList<ThucDonOrder> thucDonOrderList;
     private PhucVuPresenter phucVuPresenter;
     private int currentPosition;
     private Animation animationBounce;
@@ -43,7 +43,7 @@ public class ThucDonOrderAdapter extends RecyclerView.Adapter<ThucDonOrderAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        ThucDonOrder thucDonOrder = thucDonOrders.get(position);
+        ThucDonOrder thucDonOrder = thucDonOrderList.get(position);
 
         holder.tvTenMon.setText(thucDonOrder.getTenMon());
         holder.tvSoLuong.setText(thucDonOrder.getSoLuong() + thucDonOrder.getDonViTinh());
@@ -56,21 +56,21 @@ public class ThucDonOrderAdapter extends RecyclerView.Adapter<ThucDonOrderAdapte
 
     @Override
     public int getItemCount() {
-        if (thucDonOrders == null) return 0;
-        return thucDonOrders.size();
+        if (thucDonOrderList == null) return 0;
+        return thucDonOrderList.size();
     }
 
     public void changeData(ArrayList<ThucDonOrder> data) {
-        thucDonOrders = data;
+        thucDonOrderList = data;
         notifyDataSetChanged();
     }
 
     public ThucDonOrder getItem(int position) {
-        return thucDonOrders.get(position);
+        return thucDonOrderList.get(position);
     }
 
     public void updateThucDonOrder(ThucDonOrder currentThucDonOrder){
-        notifyItemChanged(thucDonOrders.indexOf(currentThucDonOrder));
+        notifyItemChanged(thucDonOrderList.indexOf(currentThucDonOrder));
     }
 
     public void deleteThucDonOrder(){
@@ -82,8 +82,12 @@ public class ThucDonOrderAdapter extends RecyclerView.Adapter<ThucDonOrderAdapte
     }
 
     public int getSize() {
-        if (thucDonOrders == null) return 0;
-        return thucDonOrders.size();
+        if (thucDonOrderList == null) return 0;
+        return thucDonOrderList.size();
+    }
+
+    public int getPositionOf(ThucDonOrder thucDonOrder) {
+        return thucDonOrderList.indexOf(thucDonOrder);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

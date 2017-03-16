@@ -43,6 +43,17 @@ public class KhachHangPresenter implements KhachHangInteractor.OnKhachHangFinish
         }
     }
 
+    //on receive broadcast
+    public void updateThongTinKhachHang(KhachHang khachHangUpdate) {
+        khachHangInteractor.updateThongTinKhachHang(khachHangUpdate);
+        if (datBanView != null) {
+            datBanView.showLayoutThongTinDatBan(khachHangInteractor.getCurrentDatBan());
+        }
+    }
+
+
+
+
     public void loginAuto() {
         if (checkConnect()) {
             if (khachHangInteractor.isGhiNhoDangNhap()) {
@@ -224,6 +235,9 @@ public class KhachHangPresenter implements KhachHangInteractor.OnKhachHangFinish
     public void backToThongTinDatBan() {
         datBanView.showLayoutThongTinDatBan(khachHangInteractor.getCurrentDatBan());
     }
+
+
+
 
     public interface ThucDonView {
 

@@ -1,23 +1,9 @@
 package thanggun99.quanlynhahang.model.entity;
 
-import android.content.SharedPreferences;
-import android.text.TextUtils;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-import thanggun99.quanlynhahang.App;
-import thanggun99.quanlynhahang.util.API;
-import thanggun99.quanlynhahang.util.Utils;
-
-import static android.provider.Telephony.Carriers.PASSWORD;
+import java.io.Serializable;
 
 
-public class KhachHang {
+public class KhachHang implements Serializable{
     private int maKhachHang;
     private String tenKhachHang;
     private String soDienThoai;

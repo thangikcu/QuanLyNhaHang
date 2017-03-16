@@ -5,6 +5,7 @@
 
         $maKhachHang = $_POST['maKhachHang'];
         $gioDen = $_POST['gioDen'];
+        $tenKhachHang = $_POST['tenKhachHang'];
         $yeuCau = isset($_POST['yeuCau']) ? $_POST['yeuCau'] : NULL;
     
         $db = new Database();
@@ -18,9 +19,28 @@
      
     
         if($db->getRowCount() > 0){
-            $db->prepare('SELECT `MaDatBan` FROM `dat_ban` ORDER BY MaDatBan DESC LIMIT 1');
             
-            echo $db->getRow()['MaDatBan'];
+            $maDatBan = $db->getLastInsertId();
+
+            echo $maDatBan;
+            
+            include_once '../Firebase.php';
+            $firebase = new Firebase();
+            $push = new Push();           
+
+        
+            $datas = array();
+            $datas['maDatBan'] = $maDatBan;
+            $datas['tenKhachHang'] = $tenKhachHang;
+            $datas['maKhachHang'] = $maKhachHang;
+            $datas['gioDen'] = $gioDen;
+            $datas['yeuCau'] = $yeuCau;
+            
+            $push->setDatas("DAT_BAN_CHUA_SET_BAN_ACTION", $datas);
+            
+
+            $firebase ->sendMultiple($db->getAllTokenAdmin(), null, $push->getDatas());
+                      
         }
         
     }

@@ -1,6 +1,10 @@
 package thanggun99.quanlynhahang.view.activity;
 
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -11,8 +15,10 @@ import android.widget.Button;
 import thanggun99.quanlynhahang.R;
 import thanggun99.quanlynhahang.interfaces.CommondActionForView;
 import thanggun99.quanlynhahang.model.Database;
+import thanggun99.quanlynhahang.model.entity.DatBan;
 import thanggun99.quanlynhahang.presenter.MainPresenter;
 import thanggun99.quanlynhahang.presenter.PhucVuPresenter;
+import thanggun99.quanlynhahang.service.MyFirebaseMessagingService;
 import thanggun99.quanlynhahang.util.Utils;
 import thanggun99.quanlynhahang.view.dialog.ErrorDialog;
 import thanggun99.quanlynhahang.view.dialog.NotifiDialog;
@@ -36,6 +42,42 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
     private ProgressDialog progressDialog;
     private ErrorDialog errorDialog;
     private NotifiDialog notifiDialog;
+    private IntentFilter intentFilter;
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            switch (intent.getAction()) {
+                case MyFirebaseMessagingService.DAT_BAN_CHUA_SET_BAN_ACTION:
+
+                    DatBan datBan = (DatBan) intent.getSerializableExtra(MyFirebaseMessagingService.DAT_BAN);
+                    if (phucVuPresenter != null) {
+
+                        phucVuPresenter.khachHangDatBanService(datBan);
+                    }
+                    break;
+                case MyFirebaseMessagingService.HUY_DAT_BAN_CHUA_SET_BAN_ACTION:
+                    if (phucVuPresenter != null) {
+                        phucVuPresenter.khachHangHuyDatBanService(intent.getIntExtra(MyFirebaseMessagingService.MA_DAT_BAN, 0));
+                    }
+                    break;
+                case MyFirebaseMessagingService.UPDATE_DAT_BAN_ACTION:
+                    Utils.showLog("Update Dat ban service");
+                    if (phucVuPresenter != null) {
+                        DatBan datBanUpdate = (DatBan) intent.getSerializableExtra(MyFirebaseMessagingService.DAT_BAN);
+                        phucVuPresenter.updateDatBanService(datBanUpdate);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.clear();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +87,29 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
         initComponents();
         setEvents();
         mainPresenter.getDatas();
+    }
+
+    @Override
+    protected void onResume() {
+        registerReceiver(broadcastReceiver, intentFilter);
+        super.onResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(broadcastReceiver);
+        Utils.showLog("onDestroy");
+
+        if (notifiDialog != null) {
+            notifiDialog.cancel();
+        }
+        if (progressDialog != null) {
+            progressDialog.cancel();
+        }
+        if (errorDialog != null) {
+            errorDialog.cancel();
+        }
+        super.onDestroy();
     }
 
     @Override
@@ -76,6 +141,7 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
 
         phucVuFragment = new PhucVuFragment(phucVuPresenter);
         fragmentIsShow = new Fragment();
+        intentFilter = new IntentFilter();
 
     }
 
@@ -89,6 +155,10 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
         btnStatistic.setOnClickListener(this);
         btnDatBan.setOnClickListener(this);
         btnSetting.setOnClickListener(this);
+
+        intentFilter.addAction(MyFirebaseMessagingService.DAT_BAN_CHUA_SET_BAN_ACTION);
+        intentFilter.addAction(MyFirebaseMessagingService.HUY_DAT_BAN_CHUA_SET_BAN_ACTION);
+        intentFilter.addAction(MyFirebaseMessagingService.UPDATE_DAT_BAN_ACTION);
     }
 
     @Override
@@ -120,23 +190,15 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
     }
 
     @Override
-    protected void onPause() {
-        fragmentIsShow.onPause();
-        super.onPause();
+    public void showPhucVu() {
+
+        fillFrame(phucVuFragment, btnPhucVu);
     }
 
     @Override
-    protected void onDestroy() {
-        if (notifiDialog != null) {
-            notifiDialog.cancel();
-        }
-        if (progressDialog != null) {
-            progressDialog.cancel();
-        }
-        if (errorDialog != null) {
-            errorDialog.cancel();
-        }
-        super.onDestroy();
+    protected void onPause() {
+        fragmentIsShow.onPause();
+        super.onPause();
     }
 
     private void fillFrame(Fragment fragment, Button button) {

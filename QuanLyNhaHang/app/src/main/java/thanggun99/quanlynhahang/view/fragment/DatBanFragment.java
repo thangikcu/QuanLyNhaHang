@@ -1,17 +1,12 @@
 package thanggun99.quanlynhahang.view.fragment;
 
 import android.annotation.SuppressLint;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
@@ -28,7 +23,6 @@ import java.util.ArrayList;
 import thanggun99.quanlynhahang.App;
 import thanggun99.quanlynhahang.R;
 import thanggun99.quanlynhahang.adapter.DatBanChuaSetBanAdapter;
-import thanggun99.quanlynhahang.interfaces.CommondActionForView;
 import thanggun99.quanlynhahang.model.entity.Ban;
 import thanggun99.quanlynhahang.model.entity.DatBan;
 import thanggun99.quanlynhahang.presenter.PhucVuPresenter;
@@ -39,9 +33,8 @@ import thanggun99.quanlynhahang.view.dialog.ConfirmDialog;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
-
 @SuppressLint("ValidFragment")
-public class DatBanFragment extends Fragment implements CommondActionForView, View.OnClickListener, PhucVuPresenter.DatBanView, TimePicker.OnFinishPickTimeListener {
+public class DatBanFragment extends BaseFragment implements View.OnClickListener, PhucVuPresenter.DatBanView, TimePicker.OnFinishPickTimeListener {
 
     private PhucVuPresenter phucVuPresenter;
 
@@ -51,47 +44,23 @@ public class DatBanFragment extends Fragment implements CommondActionForView, Vi
     private DatBanChuaSetBanAdapter datBanChuaSetBanAdapter;
     private EditText edtTenKhachHang, edtSoDienThoai, edtYeuCau, edtGioDen;
     private Spinner spnBan;
-    private ArrayList<String> banList;
+    private ArrayList<Ban> banList;
     private ArrayAdapter<String> banAdapter;
     private TimePicker timePicker;
     private LinearLayout layoutDatBan, layoutThongTinDatBan;
     private TextView tvTenKhachHang, tvSoDienThoai, tvKhoangGioDen, tvYeuCau;
-    private View view;
     private ConfirmDialog confirmDialog;
 
     private Animation animationZoom;
 
-
-    public DatBanFragment() {
-    }
-
     public DatBanFragment(PhucVuPresenter phucVuPresenter) {
+        super(R.layout.fragment_dat_ban);
         this.phucVuPresenter = phucVuPresenter;
         phucVuPresenter.setDatBanView(this);
     }
 
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dat_ban, container, false);
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        if (phucVuPresenter != null) {
-            findViews(view);
-            initComponents();
-            setEvents();
-        }
-    }
-
     @Override
     public void findViews(View view) {
-        this.view = view;
         spnBan = (Spinner) view.findViewById(R.id.spn_ban);
 
         layoutThongTinDatBan = (LinearLayout) view.findViewById(R.id.layout_thong_tin_dat_ban_chua_set_ban);
@@ -188,7 +157,7 @@ public class DatBanFragment extends Fragment implements CommondActionForView, Vi
         this.banList.clear();
         for (Ban ban : banList) {
             if (ban.getTrangThai() == 0) {
-                this.banList.add(ban.getTenBan());
+                this.banList.add(ban);
             }
         }
         banAdapter.notifyDataSetChanged();
@@ -239,7 +208,6 @@ public class DatBanFragment extends Fragment implements CommondActionForView, Vi
         btnCancel.setVisibility(VISIBLE);
 
         btnThemDatBan.setText(Utils.getStringByRes(R.string.cap_nhat));
-
         edtTenKhachHang.setText(datBan.getTenKhachHang());
         edtSoDienThoai.setText(datBan.getSoDienThoai());
         edtGioDen.setText(datBan.getGioDen());
@@ -253,14 +221,14 @@ public class DatBanFragment extends Fragment implements CommondActionForView, Vi
     }
 
     @Override
-    public void notifyRemoveListDatBanChuaSetBan() {
-        datBanChuaSetBanAdapter.notifyItemRemoved();
+    public void notifyRemoveListDatBanChuaSetBan(DatBan datBan) {
+        datBanChuaSetBanAdapter.notifyItemRemoved(datBan);
     }
 
     @Override
-    public void notifyUpdateListDatBanChuaSetBan() {
-        listDatBanChuaSetBan.scrollToPosition(datBanChuaSetBanAdapter.getCurrentPosition());
-        datBanChuaSetBanAdapter.notifyItemChanged();
+    public void notifyUpdateListDatBanChuaSetBan(DatBan datBan) {
+        listDatBanChuaSetBan.scrollToPosition(datBanChuaSetBanAdapter.getPositonOf(datBan));
+        datBanChuaSetBanAdapter.notifyItemChanged(datBan);
     }
 
     @Override
@@ -321,13 +289,17 @@ public class DatBanFragment extends Fragment implements CommondActionForView, Vi
                     datBan.setSoDienThoai(edtSoDienThoai.getText().toString().trim());
                     datBan.setGioDen(edtGioDen.getText().toString().trim());
                     datBan.setYeuCau(edtYeuCau.getText().toString().trim());
+                    datBan.setTrangThai(0);
                     if (btnThemDatBan.getText().equals(Utils.getStringByRes(R.string.them_moi))) {
 
                         phucVuPresenter.onClickDatBanChuaSetBan(datBan);
                     } else {
-                        phucVuPresenter.updatdatbanChuaSetBan(datBan);
+                        phucVuPresenter.updateDatBanChuaSetBan(datBan);
                     }
                 }
+                break;
+            case R.id.btn_vao_ban:
+                phucVuPresenter.khachDatBanVaoBan(banList.get(spnBan.getSelectedItemPosition()));
                 break;
             case R.id.btn_cancel:
                 clearFormDatBan();

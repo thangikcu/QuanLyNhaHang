@@ -10,4 +10,6 @@ public interface ShowOnMain {
     void hideProgress();
 
     void showConnectFailDialog();
+
+    void showPhucVu();
 }

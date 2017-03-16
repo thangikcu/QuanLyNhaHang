@@ -1,10 +1,12 @@
 package com.thanggun99.khachhang.model.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by Thanggun99 on 05/03/2017.
  */
 
-public class DatBan {
+public class DatBan implements Serializable{
     private int maDatBan;
     private String gioDen;
     private String yeuCau;

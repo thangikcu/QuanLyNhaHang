@@ -4,11 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -23,7 +20,7 @@ import com.thanggun99.khachhang.view.activity.RegisterActivity;
 
 
 @SuppressLint("ValidFragment")
-public class ThucDonFragment extends Fragment implements KhachHangPresenter.ThucDonView,
+public class ThucDonFragment extends BaseFragment implements KhachHangPresenter.ThucDonView,
         View.OnClickListener {
     private LinearLayout lnLogin, lnThucDon;
     private TextView tvLoginError, tvRegister;
@@ -33,27 +30,19 @@ public class ThucDonFragment extends Fragment implements KhachHangPresenter.Thuc
     private KhachHangPresenter khachHangPresenter;
 
     public ThucDonFragment(KhachHangPresenter khachHangPresenter) {
+        super(R.layout.fragment_thuc_don);
         this.khachHangPresenter = khachHangPresenter;
         khachHangPresenter.setThucDonView(this);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_thuc_don, container, false);
-    }
-
-    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-
-        findViews(view);
-        setEvents();
-
+        super.onViewCreated(view, savedInstanceState);
         khachHangPresenter.loginAuto();
     }
 
-    private void findViews(View view) {
+    @Override
+    public void findViews(View view) {
         lnThucDon = (LinearLayout) view.findViewById(R.id.ln_thuc_don);
 
         lnLogin = (LinearLayout) view.findViewById(R.id.ln_login);
@@ -66,17 +55,23 @@ public class ThucDonFragment extends Fragment implements KhachHangPresenter.Thuc
     }
 
     @Override
+    public void initComponents() {
+
+    }
+
+    @Override
+    public void setEvents() {
+        btnLogin.setOnClickListener(this);
+        tvRegister.setOnClickListener(this);
+    }
+
+    @Override
     public void showFormLogin() {
         lnLogin.setVisibility(View.VISIBLE);
         lnThucDon.setVisibility(View.INVISIBLE);
         edtPassword.setText("");
         edtUsername.requestFocus();
         ckbGhiNho.setChecked(false);
-    }
-
-    private void setEvents() {
-        btnLogin.setOnClickListener(this);
-        tvRegister.setOnClickListener(this);
     }
 
     private boolean checkForm() {

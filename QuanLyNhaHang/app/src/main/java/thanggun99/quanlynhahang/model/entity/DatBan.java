@@ -2,6 +2,7 @@ package thanggun99.quanlynhahang.model.entity;
 
 import android.text.TextUtils;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,8 +12,7 @@ import thanggun99.quanlynhahang.util.API;
  * Created by Thanggun99 on 18/12/2016.
  */
 
-public class DatBan {
-    private int maKhachHang;
+public class DatBan implements Serializable {
     private int maDatBan;
     private Ban ban;
     private String tenKhachHang;
@@ -21,29 +21,28 @@ public class DatBan {
     private String yeuCau;
     private int trangThai;
 
-    public DatBan(int maDatBan, int maKhachHang, Ban ban, String tenKhachHang, String soDienThoai, String gioDen, String yeuCau, int trangThai) {
+    private KhachHang khachHang;
+
+    public DatBan(int maDatBan, String tenKhachHang, String soDienThoai, String gioDen, String yeuCau, int trangThai) {
         this.maDatBan = maDatBan;
-        this.maKhachHang = maKhachHang;
-        this.ban = ban;
         this.tenKhachHang = tenKhachHang;
         this.soDienThoai = soDienThoai;
+        this.gioDen = gioDen;
+        this.yeuCau = yeuCau;
+        this.trangThai = trangThai;
+    }
+
+    public DatBan(int maDatBan, KhachHang khachHang, Ban maBan, String gioDen, String yeuCau, int trangThai) {
+        this.maDatBan = maDatBan;
+        this.khachHang = khachHang;
+        ban = maBan;
         this.gioDen = gioDen;
         this.yeuCau = yeuCau;
         this.trangThai = trangThai;
     }
 
     public DatBan() {
-    }
 
-    public DatBan(int maDatBan, int maKhachHang, String tenKhachHang, String soDienThoai, String gioDen, String yeuCau, int trangThai) {
-
-        this.maDatBan = maDatBan;
-        this.maKhachHang = maKhachHang;
-        this.tenKhachHang = tenKhachHang;
-        this.soDienThoai = soDienThoai;
-        this.gioDen = gioDen;
-        this.yeuCau = yeuCau;
-        this.trangThai = trangThai;
     }
 
     public Boolean updateDatBan(DatBan datBanUpdate) {
@@ -54,15 +53,21 @@ public class DatBan {
         postParams.put("tenKhachHang", datBanUpdate.getTenKhachHang());
         postParams.put("soDienThoai", datBanUpdate.getSoDienThoai());
         postParams.put("gioDen", datBanUpdate.getGioDen());
-        if (!TextUtils.isEmpty(datBanUpdate.getYeuCau()))
+        if (getKhachHang() != null) {
+            postParams.put("maKhachHang", String.valueOf(getKhachHang().getMaKhachHang()));
+            postParams.put("maToken", String.valueOf(getKhachHang().getMaToken()));
+        }
+        if (!TextUtils.isEmpty(datBanUpdate.getYeuCau())) {
+
             postParams.put("yeuCau", datBanUpdate.getYeuCau());
+        }
 
         String s = API.callService(API.UPDATE_DAT_BAN_URL, getParams, postParams);
 
         if (!TextUtils.isEmpty(s) && s.trim().contains("success")) {
             setTenKhachHang(datBanUpdate.getTenKhachHang());
-            setYeuCau(datBanUpdate.getYeuCau());
             setSoDienThoai(datBanUpdate.getSoDienThoai());
+            setYeuCau(datBanUpdate.getYeuCau());
             setGioDen(datBanUpdate.getGioDen());
             return true;
         }
@@ -94,6 +99,22 @@ public class DatBan {
         return false;
     }
 
+    public Boolean KhachVaoBan() {
+        Map<String, String> postParams = new HashMap<>();
+        postParams.put("maDatBan", String.valueOf(getMaDatBan()));
+        postParams.put("maBan", String.valueOf(getBan().getMaBan()));
+
+        String s = API.callService(API.KHACH_VAO_BAN_URL, null, postParams);
+
+        if (!TextUtils.isEmpty(s) && s.contains("success")) {
+
+            getBan().setTrangThai(1);
+            return true;
+        }
+        return false;
+
+    }
+
     public Boolean huyDatBan() {
         Map<String, String> getParams = new HashMap<>();
         getParams.put("maDatBan", String.valueOf(getMaDatBan()));
@@ -114,14 +135,6 @@ public class DatBan {
         return false;
     }
 
-    public int getMaKhachHang() {
-        return maKhachHang;
-    }
-
-    public void setMaKhachHang(int maKhachHang) {
-        this.maKhachHang = maKhachHang;
-    }
-
     public int getMaDatBan() {
         return maDatBan;
     }
@@ -139,19 +152,36 @@ public class DatBan {
     }
 
     public String getTenKhachHang() {
+        if (khachHang != null) {
+            return khachHang.getTenKhachHang();
+        }
+
         return tenKhachHang;
     }
 
     public void setTenKhachHang(String tenKhachHang) {
-        this.tenKhachHang = tenKhachHang;
+        if (khachHang != null) {
+            khachHang.setTenKhachHang(tenKhachHang);
+        } else {
+
+            this.tenKhachHang = tenKhachHang;
+        }
     }
 
     public String getSoDienThoai() {
+        if (khachHang != null) {
+            return khachHang.getSoDienThoai();
+        }
         return soDienThoai;
     }
 
     public void setSoDienThoai(String soDienThoai) {
-        this.soDienThoai = soDienThoai;
+        if (khachHang != null) {
+            khachHang.setSoDienThoai(soDienThoai);
+        } else {
+
+            this.soDienThoai = soDienThoai;
+        }
     }
 
     public String getGioDen() {
@@ -178,4 +208,12 @@ public class DatBan {
         this.trangThai = trangThai;
     }
 
+
+    public KhachHang getKhachHang() {
+        return khachHang;
+    }
+
+    public void setKhachHang(KhachHang khachHang) {
+        this.khachHang = khachHang;
+    }
 }

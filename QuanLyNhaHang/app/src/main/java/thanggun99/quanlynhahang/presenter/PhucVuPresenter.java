@@ -41,6 +41,39 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
     }
 
 
+    //receive broadcast
+    public void khachHangDatBanService(DatBan datBan) {
+        datBan.setKhachHang(getDatabase().getKhachHangByMa(datBan.getKhachHang().getMaKhachHang()));
+        getDatabase().addDatBanChuaSetBan(datBan);
+        if (datBanView != null) {
+            datBanView.clearFormDatBan();
+            phucVuInteractor.setCurrentDatBanChuaSetBan(datBan);
+            datBanView.showThongTinDatBanChuaSetBan(phucVuInteractor.getCurrentDatBanChuaSetBan(),
+                    getDatabase().getBanList());
+            datBanView.notifyAddListDatBanChuaSetBan();
+        }
+    }
+
+    public void khachHangHuyDatBanService(int maDatBan) {
+        DatBan datBan = getDatabase().getDatBanChuaSetBanByMa(maDatBan);
+        getDatabase().removeDatBanChuaSetBan(datBan);
+        if (datBanView != null) {
+            datBanView.notifyRemoveListDatBanChuaSetBan(datBan);
+            datBanView.clearFormDatBan();
+        }
+    }
+
+    public void updateDatBanService(DatBan datBanUpdate) {
+        phucVuInteractor.updateDatBanService(datBanUpdate);
+
+        if (datBanView != null) {
+            datBanView.clearFormDatBan();
+            datBanView.showThongTinDatBanChuaSetBan(phucVuInteractor.getCurrentDatBanChuaSetBan(),
+                    getDatabase().getBanList());
+            datBanView.notifyUpdateListDatBanChuaSetBan(phucVuInteractor.getCurrentDatBanChuaSetBan());
+        }
+    }
+
     //on click ban
     public void onClickBan(Ban ban) {
         phucVuInteractor.getThongTinBan(ban);
@@ -100,15 +133,15 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
     //dat ban set ban
     public void onClickDatBanSetBan(DatBan datBan) {
         if (checkConnect()) {
-
+            datBan.setBan(phucVuInteractor.getcurrentBan());
             phucVuInteractor.datBanSetBan(datBan);
         }
     }
 
     @Override
-    public void onFinishDatBanSetBan(DatBan datBan) {
+    public void onFinishDatBanSetBan() {
         phucVuView.notifyUpdateListBan(phucVuInteractor.getcurrentBan());
-        phucVuView.showBanDatBan(datBan);
+        phucVuView.showBanDatBan(phucVuInteractor.getCurrentDatBan());
     }
 
 
@@ -163,7 +196,7 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
     @Override
     public void onFinishHuyDatBanChuaSetBan() {
         datBanView.clearFormDatBan();
-        datBanView.notifyRemoveListDatBanChuaSetBan();
+        datBanView.notifyRemoveListDatBanChuaSetBan(null);
     }
 
     @Override
@@ -209,9 +242,33 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
 
     //view dat ban chua set ban
     public void onClickDatBanChuaSetBanItem(DatBan datBan) {
-
+        phucVuInteractor.setCurrentDatBanChuaSetBan(datBan);
         datBanView.showThongTinDatBanChuaSetBan(datBan, getDatabase().getBanList());
     }
+
+    //khach vao ban
+    public void khachDatBanVaoBan(Ban ban) {
+        if (checkConnect()) {
+            DatBan datBan = phucVuInteractor.getCurrentDatBanChuaSetBan();
+            datBan.setBan(ban);
+            phucVuInteractor.khachDatBanVaoBan(datBan);
+        }
+    }
+
+    @Override
+    public void onFinishKhachDatBanVaoBan() {
+        datBanView.clearFormDatBan();
+        datBanView.notifyRemoveListDatBanChuaSetBan(null);
+        showOnMain.showPhucVu();
+        onFinishDatBanSetBan();
+    }
+
+    @Override
+    public void onKhachDatBanVaoBanFail() {
+        datBanView.showSnackbar(Utils.getStringByRes(R.string.da_xay_ra_loi));
+    }
+
+
 
     //sua dat ban chua set ban
     public void onClickUpdateDatBanChuaSetBan(DatBan datBan) {
@@ -220,7 +277,7 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
     }
 
 
-    public void updatdatbanChuaSetBan(DatBan datBan) {
+    public void updateDatBanChuaSetBan(DatBan datBan) {
         if (checkConnect()) {
 
             phucVuInteractor.updateDatBanChuaSetBan(datBan);
@@ -230,8 +287,9 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
     @Override
     public void onFinishUpdateDatBanChuaSetBan() {
         datBanView.clearFormDatBan();
-        datBanView.showThongTinDatBanChuaSetBan(phucVuInteractor.getCurrentDatBanChuaSetBan(), getDatabase().getBanList());
-        datBanView.notifyUpdateListDatBanChuaSetBan();
+        datBanView.showThongTinDatBanChuaSetBan(phucVuInteractor.getCurrentDatBanChuaSetBan(),
+                getDatabase().getBanList());
+        datBanView.notifyUpdateListDatBanChuaSetBan(phucVuInteractor.getCurrentDatBanChuaSetBan());
     }
 
     @Override
@@ -332,7 +390,9 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
     }
 
     public void getThongTinBanAt(int position) {
-        phucVuInteractor.getThongTinBan(getDatabase().getBanList().get(position));
+        Ban ban = getDatabase().getBanList().get(position);
+        ban.setSelected(1);
+        phucVuInteractor.getThongTinBan(ban);
     }
 
     public void findDatBan(String keyWord) {
@@ -342,6 +402,7 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
     public void setDatBanView(DatBanView datBanView) {
         this.datBanView = datBanView;
     }
+
 
 
 
@@ -401,11 +462,11 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
 
         void showConfirmDialog();
 
-        void notifyRemoveListDatBanChuaSetBan();
+        void notifyRemoveListDatBanChuaSetBan(DatBan datBan);
 
         void fillFormUpdateDatBanChuaSetBan(DatBan datBan);
 
-        void notifyUpdateListDatBanChuaSetBan();
+        void notifyUpdateListDatBanChuaSetBan(DatBan datBan);
 
         void showThongTinDatBanChuaSetBan(DatBan datBan, ArrayList<Ban> banList);
 

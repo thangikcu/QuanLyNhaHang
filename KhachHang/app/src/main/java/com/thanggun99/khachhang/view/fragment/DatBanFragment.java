@@ -8,12 +8,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -30,7 +27,7 @@ import java.util.Calendar;
 
 
 @SuppressLint("ValidFragment")
-public class DatBanFragment extends Fragment implements View.OnClickListener, KhachHangPresenter.DatBanView {
+public class DatBanFragment extends BaseFragment implements View.OnClickListener, KhachHangPresenter.DatBanView {
     private KhachHangPresenter khachHangPresenter;
     private EditText edtYeuCau;
     private static EditText edtGioDen;
@@ -42,29 +39,44 @@ public class DatBanFragment extends Fragment implements View.OnClickListener, Kh
     private ImageButton btnBack;
 
     public DatBanFragment(KhachHangPresenter khachHangPresenter) {
+        super(R.layout.fragment_dat_ban);
         this.khachHangPresenter = khachHangPresenter;
         khachHangPresenter.setDatBanView(this);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dat_ban, container, false);
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        khachHangPresenter.getInfoDatBan();
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        timePicker = new TimePicker();
-
+    public void findViews(View view) {
         lnDatBan = (LinearLayout) view.findViewById(R.id.ln_dat_ban);
         lnThongTinDatBan = (LinearLayout) view.findViewById(R.id.ln_thong_tin_dat_ban);
         tvGioDen = (TextView) view.findViewById(R.id.tv_gio_den);
         tvYeuCau = (TextView) view.findViewById(R.id.tv_yeu_cau);
+        edtGioDen = (EditText) view.findViewById(R.id.edt_gio_den);
+        edtYeuCau = (EditText) view.findViewById(R.id.edt_yeu_cau);
 
+        tvTitle = (TextView) view.findViewById(R.id.tv_title);
+        tvError = (TextView) view.findViewById(R.id.tv_error);
+        view.findViewById(R.id.btn_huy_dat_ban).setOnClickListener(this);
+        view.findViewById(R.id.btn_edit_dat_ban).setOnClickListener(this);
+
+        btnDatBan = (Button) view.findViewById(R.id.btn_dat_ban);
+        btnBack = (ImageButton) view.findViewById(R.id.btn_back);
+    }
+
+    @Override
+    public void initComponents() {
+        timePicker = new TimePicker();
+    }
+
+    @Override
+    public void setEvents() {
         tvYeuCau.setMovementMethod(new ScrollingMovementMethod());
 
-        edtGioDen = (EditText) view.findViewById(R.id.edt_gio_den);
         edtGioDen.setOnClickListener(this);
         edtGioDen.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -74,24 +86,11 @@ public class DatBanFragment extends Fragment implements View.OnClickListener, Kh
             }
         });
 
-        edtYeuCau = (EditText) view.findViewById(R.id.edt_yeu_cau);
         edtYeuCau.requestFocus();
 
-        tvTitle = (TextView) view.findViewById(R.id.tv_title);
-        tvError = (TextView) view.findViewById(R.id.tv_error);
-
-        btnDatBan = (Button) view.findViewById(R.id.btn_dat_ban);
         btnDatBan.setOnClickListener(this);
 
-        btnBack = (ImageButton) view.findViewById(R.id.btn_back);
         btnBack.setOnClickListener(this);
-
-        view.findViewById(R.id.btn_huy_dat_ban).setOnClickListener(this);
-        view.findViewById(R.id.btn_edit_dat_ban).setOnClickListener(this);
-
-        khachHangPresenter.getInfoDatBan();
-
-        super.onViewCreated(view, savedInstanceState);
     }
 
     @Override

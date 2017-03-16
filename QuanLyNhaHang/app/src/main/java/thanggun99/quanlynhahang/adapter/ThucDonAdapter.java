@@ -26,11 +26,9 @@ import thanggun99.quanlynhahang.util.Utils;
 public class ThucDonAdapter extends RecyclerView.Adapter<ThucDonAdapter.ViewHolder> {
     private ArrayList<ThucDon> thucDons;
     private PhucVuPresenter phucVuPresenter;
-    private Animation animationBounce;
 
     public ThucDonAdapter(PhucVuPresenter phucVuPresenter) {
         this.phucVuPresenter = phucVuPresenter;
-        this.animationBounce = AnimationUtils.loadAnimation(App.getContext(), R.anim.bounce);
         this.thucDons = phucVuPresenter.getDatabase().getThucDonList();
     }
 
@@ -47,9 +45,6 @@ public class ThucDonAdapter extends RecyclerView.Adapter<ThucDonAdapter.ViewHold
         holder.tvTenMon.scrollTo(0, 0);
         holder.tvDonGia.setText(Utils.formatMoney(thucDon.getDonGia()) + "/" + thucDon.getDonViTinh());
         holder.ivThucDon.setImageBitmap(thucDon.getHinhAnh());
-
-        holder.itemView.startAnimation(animationBounce);
-
     }
 
     @Override

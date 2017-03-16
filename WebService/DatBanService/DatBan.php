@@ -20,17 +20,16 @@
         
         $db->execute();
         
+        
         if($db->getRowCount() > 0){
+            
+            echo $db->getLastInsertId();
             
             if(!empty($maBan)){
                 $db->query('UPDATE ban SET TrangThai = 1 WHERE MaBan = '.$maBan.' ');
             }
             
-            $db->prepare('SELECT MaDatBan FROM dat_ban ORDER BY MaDatBan DESC LIMIT 1');
-            
-            echo $db->getRow()['MaDatBan'];
-            
-        }
+         }
         
     }
 

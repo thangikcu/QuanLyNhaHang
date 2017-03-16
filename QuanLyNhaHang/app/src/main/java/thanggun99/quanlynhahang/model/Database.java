@@ -2,6 +2,7 @@ package thanggun99.quanlynhahang.model;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Base64;
 
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import thanggun99.quanlynhahang.model.entity.Ban;
 import thanggun99.quanlynhahang.model.entity.DatBan;
 import thanggun99.quanlynhahang.model.entity.HoaDon;
+import thanggun99.quanlynhahang.model.entity.KhachHang;
 import thanggun99.quanlynhahang.model.entity.NhomMon;
 import thanggun99.quanlynhahang.model.entity.ThucDon;
 import thanggun99.quanlynhahang.model.entity.ThucDonOrder;
@@ -35,6 +37,7 @@ public class Database {
     private ArrayList<DatBan> datBanChuaTinhTienList;
     private ArrayList<DatBan> datBanTinhTienList;
     private ArrayList<DatBan> datBanChuaSetBanList;
+    private ArrayList<KhachHang> khachHangList;
 
     public Database() {
         hoaDonTinhTienList = new ArrayList<>();
@@ -46,9 +49,43 @@ public class Database {
         taskOk = loadListNhomMon();
         if (taskOk) taskOk = loadListThucDon();
         if (taskOk) taskOk = loadListBan();
+        if (taskOk) taskOk = loadListKhachHang();
         if (taskOk) taskOk = loadListDatBan();
         if (taskOk) taskOk = loadListHoaDon();
         return taskOk;
+    }
+
+    private boolean loadListKhachHang() {
+        String s = API.callService(API.GET_KHACH_HANG, null);
+
+        if (!TextUtils.isEmpty(s)) {
+            try {
+                JSONObject jsonObject = new JSONObject(s);
+                JSONArray jsonArray = jsonObject.getJSONArray("khachHang");
+
+                khachHangList = new ArrayList<>();
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject object = (JSONObject) jsonArray.get(i);
+
+                    KhachHang khachHang = new KhachHang();
+                    khachHang.setMaKhachHang(object.getInt("maKhachHang"));
+                    khachHang.setTenKhachHang(object.getString("tenKhachHang"));
+                    khachHang.setSoDienThoai(object.getString("sdt"));
+                    khachHang.setDiaChi(object.getString("diaChi"));
+                    khachHang.setTenDangNhap(object.getString("tenDangNhap"));
+                    khachHang.setMatKhau(object.getString("matKhau"));
+                    khachHang.setMaToken(object.getInt("maToken"));
+
+                    khachHangList.add(khachHang);
+                }
+                return true;
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+        return false;
     }
 
     private boolean loadListNhomMon() {
@@ -130,23 +167,24 @@ public class Database {
                     datBanChuaSetBanList = new ArrayList<>();
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject object = (JSONObject) jsonArray.get(i);
-                        int maKhachHang = 0;
+                        DatBan datBan = new DatBan();
+
+                        datBan.setMaDatBan(object.getInt("maDatBan"));
+                        datBan.setGioDen(object.getString("gioDen"));
+                        datBan.setYeuCau(object.getString("yeuCau"));
+                        datBan.setTrangThai(object.getInt("trangThai"));
 
                         if (!object.isNull("maKhachHang")) {
-
-                            maKhachHang = object.getInt("maKhachHang");
+                            datBan.setKhachHang(getKhachHangByMa(object.getInt("maKhachHang")));
+                        } else {
+                            datBan.setTenKhachHang(object.getString("tenKhachHang"));
+                            datBan.setSoDienThoai(object.getString("soDienThoai"));
                         }
+
                         if (!object.isNull("maBan")) {
-
-                            DatBan datBan = new DatBan(object.getInt("maDatBan"), maKhachHang, getBanByMaBan(object.getInt("maBan")),
-                                    object.getString("tenKhachHang"), object.getString("soDienThoai"), object.getString("gioDen"),
-                                    object.getString("yeuCau"), object.getInt("trangThai"));
-
+                            datBan.setBan(getBanByMaBan(object.getInt("maBan")));
                             datBanChuaTinhTienList.add(datBan);
                         } else {
-                            DatBan datBan = new DatBan(object.getInt("maDatBan"), maKhachHang,
-                                    object.getString("tenKhachHang"), object.getString("soDienThoai"), object.getString("gioDen"),
-                                    object.getString("yeuCau"), object.getInt("trangThai"));
 
                             datBanChuaSetBanList.add(datBan);
                         }
@@ -160,6 +198,16 @@ public class Database {
             }
         }
         return false;
+    }
+
+    @Nullable
+    public KhachHang getKhachHangByMa(int maKhachHang) {
+        for (KhachHang khachHang : khachHangList) {
+            if (khachHang.getMaKhachHang() == maKhachHang) {
+                return khachHang;
+            }
+        }
+        return null;
     }
 
     private boolean loadListBan() {
@@ -382,7 +430,7 @@ public class Database {
     public void onHuyBan(HoaDon currentHoaDon) {
         if (currentHoaDon.getDatBan() != null) {
 
-           removeDatBanChuaTinhTien(currentHoaDon.getDatBan());
+            removeDatBanChuaTinhTien(currentHoaDon.getDatBan());
         }
         removeHoaDonChuaTinhTien(currentHoaDon);
     }
@@ -394,7 +442,8 @@ public class Database {
     public ArrayList<DatBan> getListDatBanChuaSetBanByTenKhachHang(String keyWord) {
         ArrayList<DatBan> datBans = new ArrayList<>();
         for (DatBan datBan : datBanChuaSetBanList) {
-            if (Utils.removeAccent(datBan.getTenKhachHang().trim().toLowerCase()).contains(Utils.removeAccent(keyWord.trim().toLowerCase()))) {
+            if (Utils.removeAccent(datBan.getTenKhachHang().trim().toLowerCase())
+                    .contains(Utils.removeAccent(keyWord.trim().toLowerCase()))) {
                 datBans.add(datBan);
             }
         }
@@ -407,5 +456,19 @@ public class Database {
 
     public void removeDatBanChuaSetBan(DatBan datBan) {
         datBanChuaSetBanList.remove(datBan);
+    }
+
+    public void onKhachDatBanVaoBan(DatBan datBan) {
+        addDatBanChuaTinhTien(datBan);
+        removeDatBanChuaSetBan(datBan);
+    }
+
+    public DatBan getDatBanChuaSetBanByMa(int maDatBan) {
+        for (DatBan datBan : datBanChuaSetBanList) {
+            if (datBan.getMaDatBan() == maDatBan) {
+                return datBan;
+            }
+        }
+        return null;
     }
 }

@@ -2,6 +2,7 @@ package thanggun99.quanlynhahang.model.entity;
 
 import android.text.TextUtils;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,11 +14,12 @@ import thanggun99.quanlynhahang.util.Utils;
  * Created by Thanggun99 on 17/11/2016.
  */
 
-public class Ban {
+public class Ban implements Serializable{
     private int maBan, hienThi;
     private String tenBan;
     private int trangThai;
     public static final int NOT_SET = -1;
+    private int selected;
 
     public Ban(int maBan, String tenBan, int trangThai, int hienThi) {
         this.maBan = maBan;
@@ -115,5 +117,18 @@ public class Ban {
     @Override
     public int hashCode() {
         return tenBan.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return tenBan;
+    }
+
+    public int getSelected() {
+        return selected;
+    }
+
+    public void setSelected(int selected) {
+        this.selected = selected;
     }
 }

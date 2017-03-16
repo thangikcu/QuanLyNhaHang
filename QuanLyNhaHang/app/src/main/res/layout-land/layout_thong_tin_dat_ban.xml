@@ -107,6 +107,7 @@
                     android:layout_width="200dp"
                     android:isScrollContainer="true"
                     android:maxLines="4"
+                    android:gravity="center_vertical"
                     android:paddingLeft="@dimen/margin"
                     android:scrollbars="vertical"
                     android:text="Bàn cạnh cửa sổ,Bàn cạnh cửa sổ"

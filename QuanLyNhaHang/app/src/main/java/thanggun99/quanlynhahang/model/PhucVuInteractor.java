@@ -85,6 +85,18 @@ public class PhucVuInteractor {
         }
     }
 
+    public void updateDatBanService(DatBan datBanUpdate) {
+        DatBan datBan = getDatabase().getDatBanChuaSetBanByMa(datBanUpdate.getMaDatBan());
+        datBan.setYeuCau(datBanUpdate.getYeuCau());
+        datBan.setGioDen(datBanUpdate.getGioDen());
+        if (datBanUpdate.getKhachHang() != null) {
+            datBan.setTenKhachHang(datBanUpdate.getTenKhachHang());
+            datBan.setSoDienThoai(datBanUpdate.getSoDienThoai());
+        }
+        this.currentDatBanChuaSetBan = datBan;
+    }
+
+
     private class UpdateThucDonOrderTask extends AsyncTask<Void, Void, Boolean> {
         private int soLuong;
 
@@ -226,6 +238,43 @@ public class PhucVuInteractor {
 
     }
 
+    public void khachDatBanVaoBan(final DatBan datBan) {
+
+        class KhachDatBanVaoBanTask extends AsyncTask<Void, Void, Boolean> {
+
+            @Override
+            protected void onPreExecute() {
+                onPhucVuInteractorFinishListener.onStartTask();
+                super.onPreExecute();
+            }
+
+            @Override
+            protected Boolean doInBackground(Void... params) {
+                delay(500);
+                return datBan.KhachVaoBan();
+            }
+
+            @Override
+            protected void onPostExecute(Boolean aBoolean) {
+                if (aBoolean) {
+                    currentBan = datBan.getBan();
+                    currentDatBan = datBan;
+                    currentDatBan.setTrangThai(1);
+                    currentDatBanChuaSetBan = null;
+                    database.onKhachDatBanVaoBan(currentDatBan);
+                    onPhucVuInteractorFinishListener.onFinishKhachDatBanVaoBan();
+                } else {
+                    currentDatBanChuaSetBan.setBan(null);
+                    onPhucVuInteractorFinishListener.onKhachDatBanVaoBanFail();
+                }
+                onPhucVuInteractorFinishListener.onFinishTask(aBoolean,
+                        String.format(Utils.getStringByRes(R.string.pv_notify_dat_ban), currentBan.getTenBan()));
+            }
+        }
+        new KhachDatBanVaoBanTask().execute();
+
+    }
+
     public void datBanSetBan(final DatBan datBan) {
         class DatBanSetBanTask extends AsyncTask<Void, Void, Boolean> {
 
@@ -237,7 +286,6 @@ public class PhucVuInteractor {
 
             @Override
             protected Boolean doInBackground(Void... params) {
-                datBan.setBan(currentBan);
                 delay(500);
                 return datBan.datBan();
             }
@@ -247,9 +295,10 @@ public class PhucVuInteractor {
                 if (aBoolean) {
                     currentDatBan = datBan;
                     database.addDatBanChuaTinhTien(currentDatBan);
-                    onPhucVuInteractorFinishListener.onFinishDatBanSetBan(currentDatBan);
+                    onPhucVuInteractorFinishListener.onFinishDatBanSetBan();
                 }
-                onPhucVuInteractorFinishListener.onFinishTask(aBoolean, String.format(Utils.getStringByRes(R.string.pv_notify_dat_ban), currentBan.getTenBan()));
+                onPhucVuInteractorFinishListener.onFinishTask(aBoolean,
+                        String.format(Utils.getStringByRes(R.string.pv_notify_dat_ban), currentBan.getTenBan()));
             }
         }
         new DatBanSetBanTask().execute();
@@ -371,7 +420,6 @@ public class PhucVuInteractor {
             @Override
             protected void onPostExecute(Boolean aBoolean) {
                 if (aBoolean) {
-                    currentDatBanChuaSetBan = datBan;
                     onPhucVuInteractorFinishListener.onFinishUpdateDatBanChuaSetBan();
                 } else {
                     onPhucVuInteractorFinishListener.onUpdateDatBanChuaSetBanFail();
@@ -554,7 +602,7 @@ public class PhucVuInteractor {
 
         void onFinishHuyBan(Ban ban);
 
-        void onFinishDatBanSetBan(DatBan datBan);
+        void onFinishDatBanSetBan();
 
         void onFinishOrderUpdateThucDon(int tongTien);
 
@@ -585,5 +633,9 @@ public class PhucVuInteractor {
         void onFinishUpdateDatBanChuaSetBan();
 
         void onUpdateDatBanChuaSetBanFail();
+
+        void onFinishKhachDatBanVaoBan();
+
+        void onKhachDatBanVaoBanFail();
     }
 }
