@@ -124,6 +124,7 @@ public class ThucDonFragment extends BaseFragment implements KhachHangPresenter.
                 edtUsername.setText(data.getStringExtra(RegisterActivity.USERNAME));
                 edtPassword.setText("");
                 edtPassword.requestFocus();
+                tvLoginError.setVisibility(View.GONE);
                 Utils.notifi(Utils.getStringByRes(R.string.dang_ky_thanh_cong));
             }
         }

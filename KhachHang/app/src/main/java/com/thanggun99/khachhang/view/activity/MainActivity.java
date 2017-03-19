@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -59,8 +60,7 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
         public void onReceive(Context context, Intent intent) {
             switch (intent.getAction()) {
                 case MyFirebaseMessagingService.NOTIFI_ACTION:
-
-                    Utils.showToast(intent.getStringExtra(MyFirebaseMessagingService.NOTIFI));
+                    Utils.showToast("okkkkkkkk");
                     break;
                 case MyFirebaseMessagingService.LOGOUT_ACTION:
 
@@ -76,6 +76,9 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
                         khachHangPresenter.updateThongTinKhachHang(khachHangUpdate);
 
                         tvFullname.setText("(" + khachHangUpdate.getTenKhachHang() + ")");
+
+                        Utils.showNotify(Utils.getStringByRes(R.string.thong_bao),
+                                Utils.getStringByRes(R.string.thong_tin_cua_ban_da_duoc_cap_nhat));
                     }
                     break;
                 default:
@@ -194,14 +197,14 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
 
     @Override
     protected void onResume() {
-        registerReceiver(broadcastReceiver,
+        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver,
                 intentFilter);
         super.onResume();
     }
 
     @Override
     protected void onDestroy() {
-        unregisterReceiver(broadcastReceiver);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
 
         if (progressDialog != null) {
             progressDialog.cancel();

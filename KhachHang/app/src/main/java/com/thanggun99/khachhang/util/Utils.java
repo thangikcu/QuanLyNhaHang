@@ -1,15 +1,19 @@
 package com.thanggun99.khachhang.util;
 
+import android.app.NotificationManager;
 import android.content.Context;
+import android.media.RingtoneManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.thanggun99.khachhang.App;
+import com.thanggun99.khachhang.R;
 import com.thanggun99.khachhang.view.dialog.NotifiDialog;
 
 import java.text.ParseException;
@@ -21,6 +25,8 @@ import java.util.Map;
  */
 
 public class Utils {
+    private static int id = 0;
+
 
     public static String formatMoney(int s) {
         return s / 1000 + "k";
@@ -45,6 +51,23 @@ public class Utils {
             builder.appendQueryParameter(entry.getKey(), entry.getValue());
         }
         return builder;
+    }
+
+
+
+    public static void showNotify(String title, String message) {
+/*        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        .setContentIntent(PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT))*/
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(App.getContext())
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setAutoCancel(true)
+                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
+        ((NotificationManager) App.getContext().getSystemService(Context.NOTIFICATION_SERVICE)).notify(id, builder.build());
+        id++;
     }
 
     public static void showToast(String message) {

@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,8 @@ import android.widget.Button;
 import thanggun99.quanlynhahang.R;
 import thanggun99.quanlynhahang.interfaces.CommondActionForView;
 import thanggun99.quanlynhahang.model.Database;
+import thanggun99.quanlynhahang.model.LoginTask;
+import thanggun99.quanlynhahang.model.entity.Admin;
 import thanggun99.quanlynhahang.model.entity.DatBan;
 import thanggun99.quanlynhahang.presenter.MainPresenter;
 import thanggun99.quanlynhahang.presenter.PhucVuPresenter;
@@ -29,6 +32,8 @@ import thanggun99.quanlynhahang.view.fragment.SettingFragment;
 
 public class MainActivity extends AppCompatActivity implements CommondActionForView, View.OnClickListener, MainPresenter.MainView {
     private Database database;
+
+    private Admin admin;
 
     private MainPresenter mainPresenter;
     private PhucVuPresenter phucVuPresenter;
@@ -53,19 +58,35 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
                     if (phucVuPresenter != null) {
 
                         phucVuPresenter.khachHangDatBanService(datBan);
+
+                        Utils.showNotify(Utils.getStringByRes(R.string.khach_hang_dat_ban),
+                                intent.getStringExtra(MyFirebaseMessagingService.TEN_KHACH_HANG));
                     }
                     break;
                 case MyFirebaseMessagingService.HUY_DAT_BAN_CHUA_SET_BAN_ACTION:
                     if (phucVuPresenter != null) {
                         phucVuPresenter.khachHangHuyDatBanService(intent.getIntExtra(MyFirebaseMessagingService.MA_DAT_BAN, 0));
+
+                        Utils.showNotify(Utils.getStringByRes(R.string.khach_hang_huy_dat_ban),
+                                intent.getStringExtra(MyFirebaseMessagingService.TEN_KHACH_HANG));
                     }
                     break;
                 case MyFirebaseMessagingService.UPDATE_DAT_BAN_ACTION:
                     Utils.showLog("Update Dat ban service");
                     if (phucVuPresenter != null) {
-                        DatBan datBanUpdate = (DatBan) intent.getSerializableExtra(MyFirebaseMessagingService.DAT_BAN);
-                        phucVuPresenter.updateDatBanService(datBanUpdate);
+                        if (intent.getSerializableExtra(MyFirebaseMessagingService.DAT_BAN) != null) {
+                            DatBan datBanUpdate = (DatBan) intent.getSerializableExtra(MyFirebaseMessagingService.DAT_BAN);
+
+                            phucVuPresenter.updateDatBanService(datBanUpdate);
+
+                            Utils.showNotify(Utils.getStringByRes(R.string.update_dat_ban),
+                                    intent.getStringExtra(MyFirebaseMessagingService.TEN_KHACH_HANG));
+                        }
                     }
+                    break;
+                case MyFirebaseMessagingService.LOGOUT_ACTION:
+                    phucVuPresenter.logout();
+
                     break;
                 default:
                     break;
@@ -83,6 +104,9 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        admin = (Admin) getIntent().getSerializableExtra(LoginTask.ADMIN);
+
         findViews(null);
         initComponents();
         setEvents();
@@ -91,13 +115,13 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
 
     @Override
     protected void onResume() {
-        registerReceiver(broadcastReceiver, intentFilter);
+        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, intentFilter);
         super.onResume();
     }
 
     @Override
     protected void onDestroy() {
-        unregisterReceiver(broadcastReceiver);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
         Utils.showLog("onDestroy");
 
         if (notifiDialog != null) {
@@ -110,6 +134,12 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
             errorDialog.cancel();
         }
         super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed() {
+        admin.huyGhiNhoDangNhap();
+        System.exit(0);
     }
 
     @Override
@@ -128,6 +158,7 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
     public void initComponents() {
 
         database = new Database();
+        database.setAdmin(admin);
         mainPresenter = new MainPresenter(this, database);
         phucVuPresenter = new PhucVuPresenter(this, database);
 
@@ -147,6 +178,12 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
 
     @Override
     public void setEvents() {
+        if (admin.getType() == 2) {
+            btnManage.setEnabled(false);
+            btnStatistic.setEnabled(false);
+            btnSetting.setEnabled(false);
+        }
+
         btnHome.setOnClickListener(this);
         //btnHome.setSelected(true);
         btnPhucVu.setSelected(true);
@@ -159,6 +196,7 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
         intentFilter.addAction(MyFirebaseMessagingService.DAT_BAN_CHUA_SET_BAN_ACTION);
         intentFilter.addAction(MyFirebaseMessagingService.HUY_DAT_BAN_CHUA_SET_BAN_ACTION);
         intentFilter.addAction(MyFirebaseMessagingService.UPDATE_DAT_BAN_ACTION);
+        intentFilter.addAction(MyFirebaseMessagingService.LOGOUT_ACTION);
     }
 
     @Override
@@ -187,6 +225,13 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
             default:
                 break;
         }
+    }
+
+    @Override
+    public void showLogin() {
+        Utils.notifi(Utils.getStringByRes(R.string.other_people_login));
+        finish();
+        startActivity(new Intent(MainActivity.this, LoginActivity.class));
     }
 
     @Override

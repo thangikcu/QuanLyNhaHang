@@ -1,45 +1,41 @@
 <?php
-    require_once '../dbConnect.php';
- 
-    function dispInfo(){
+require_once '../dbConnect.php';
 
-        
-        $maDatBan = $_POST['maDatBan'];
-        $tenKhachHang = $_POST['tenKhachHang'];
-        $gioDen = $_POST['gioDen'];
-        $yeuCau = isset($_POST['yeuCau']) ? $_POST['yeuCau'] : NULL;
- 
-        $db = new Database();
+function dispInfo() {
 
-        $db->prepare('UPDATE dat_ban SET GioDen=:gioDen, YeuCau=:yeuCau WHERE MaDatBan =:maDatBan');
-        $db->bind(':gioDen', $gioDen);
-        $db->bind(':yeuCau', $yeuCau);
-        $db->bind(':maDatBan', $maDatBan);
-        $db->execute();
-    
-        if($db->getRowCount() > 0){
-            echo 'success';
-            
-            include_once '../Firebase.php';
-            $firebase = new Firebase();
-            $push = new Push();     
+    $maDatBan = $_POST['maDatBan'];
+    $tenKhachHang = $_POST['tenKhachHang'];
+    $gioDen = $_POST['gioDen'];
+    $yeuCau = isset($_POST['yeuCau']) ? $_POST['yeuCau'] : null;
 
-            
-            $datas = array();
-            $datas['maDatBan'] = $maDatBan;
-            $datas['tenKhachHang'] = $tenKhachHang;
-            $datas['gioDen'] = $gioDen;
-            $datas['yeuCau'] = $yeuCau;
+    $db = new Database();
 
-            
-            $push->setDatas("UPDATE_DAT_BAN_ACTION", $datas);
-            
+    $db->prepare('UPDATE dat_ban SET GioDen=:gioDen, YeuCau=:yeuCau WHERE MaDatBan =:maDatBan');
+    $db->bind(':gioDen', $gioDen);
+    $db->bind(':yeuCau', $yeuCau);
+    $db->bind(':maDatBan', $maDatBan);
+    $db->execute();
 
-            $firebase ->sendMultiple($db->getAllTokenAdmin(), null, $push->getDatas());
-            
-        }
-        
+    if ($db->getRowCount() > 0) {
+        echo 'success';
+
+        include_once '../Firebase.php';
+        $firebase = new Firebase();
+        $push = new Push();
+
+        $datas = array();
+        $datas['maDatBan'] = $maDatBan;
+        $datas['tenKhachHang'] = $tenKhachHang;
+        $datas['gioDen'] = $gioDen;
+        $datas['yeuCau'] = $yeuCau;
+
+        $push->setDatas("UPDATE_DAT_BAN_ACTION", $datas);
+
+        $firebase->sendMultiple($db->getAllTokenAdmin(), null, $push->getDatas());
+
     }
 
-    dispInfo();
+}
+
+dispInfo();
 ?>

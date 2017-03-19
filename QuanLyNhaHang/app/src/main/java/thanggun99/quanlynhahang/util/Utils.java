@@ -1,11 +1,14 @@
 package thanggun99.quanlynhahang.util;
 
+import android.app.NotificationManager;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.RingtoneManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
@@ -18,6 +21,7 @@ import java.util.Date;
 import java.util.Map;
 
 import thanggun99.quanlynhahang.App;
+import thanggun99.quanlynhahang.R;
 import thanggun99.quanlynhahang.view.dialog.NotifiDialog;
 
 /**
@@ -25,6 +29,7 @@ import thanggun99.quanlynhahang.view.dialog.NotifiDialog;
  */
 
 public class Utils {
+    private static int id = 0;
 
     public static String formatMoney(int s) {
         return s / 1000 + "k";
@@ -53,6 +58,21 @@ public class Utils {
             builder.appendQueryParameter(entry.getKey(), entry.getValue());
         }
         return builder;
+    }
+
+    public static void showNotify(String title, String message) {
+/*        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        .setContentIntent(PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT))*/
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(App.getContext())
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setAutoCancel(true)
+                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
+        ((NotificationManager) App.getContext().getSystemService(Context.NOTIFICATION_SERVICE)).notify(id, builder.build());
+        id++;
     }
 
     public static void showToast(String message) {

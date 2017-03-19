@@ -114,7 +114,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
             Map<String, String> registerInfo = new HashMap<>();
             registerInfo.put("hoTen", khachHangs[0].getTenKhachHang());
             registerInfo.put("diaChi", khachHangs[0].getDiaChi());
-            registerInfo.put("sdt", khachHangs[0].getSoDienThoai());
+            registerInfo.put("soDienThoai", khachHangs[0].getSoDienThoai());
             registerInfo.put("tenDangNhap", khachHangs[0].getTenDangNhap());
             registerInfo.put("matKhau", khachHangs[0].getMatKhau());
             registerInfo.put("token", Utils.getToken());

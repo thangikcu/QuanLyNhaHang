@@ -85,4 +85,12 @@
     <string name="khach_hang_dat_ban">Khách hàng đặt bàn</string>
     <string name="khach_hang_huy_dat_ban">Khách hàng huỷ đặt bàn</string>
     <string name="update_dat_ban">Cập nhật thông tin đặt bàn</string>
+    <string name="dang_nhap">Đăng nhập</string>
+    <string name="tai_khoan">Tài khoản</string>
+    <string name="mat_khau">Mật khẩu</string>
+    <string name="ghi_nho_dang_nhap">Ghi nhớ đăng nhập</string>
+    <string name="dang_nhap_that_bai">Đăng nhập thất bại</string>
+    <string name="nhap_mat_khau">Nhập mật khẩu</string>
+    <string name="nhap_ten_dang_nhap">Nhập tên đăng nhập</string>
+    <string name="other_people_login">Tài khoản bị đăng nhập từ nơi khác !</string>
 </resources>

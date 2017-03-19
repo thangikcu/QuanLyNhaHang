@@ -12,6 +12,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import thanggun99.quanlynhahang.model.entity.Admin;
 import thanggun99.quanlynhahang.model.entity.Ban;
 import thanggun99.quanlynhahang.model.entity.DatBan;
 import thanggun99.quanlynhahang.model.entity.HoaDon;
@@ -38,6 +39,7 @@ public class Database {
     private ArrayList<DatBan> datBanTinhTienList;
     private ArrayList<DatBan> datBanChuaSetBanList;
     private ArrayList<KhachHang> khachHangList;
+    private Admin admin;
 
     public Database() {
         hoaDonTinhTienList = new ArrayList<>();
@@ -69,7 +71,7 @@ public class Database {
 
                     KhachHang khachHang = new KhachHang();
                     khachHang.setMaKhachHang(object.getInt("maKhachHang"));
-                    khachHang.setTenKhachHang(object.getString("tenKhachHang"));
+                    khachHang.setHoTen(object.getString("tenKhachHang"));
                     khachHang.setSoDienThoai(object.getString("sdt"));
                     khachHang.setDiaChi(object.getString("diaChi"));
                     khachHang.setTenDangNhap(object.getString("tenDangNhap"));
@@ -130,7 +132,7 @@ public class Database {
                             hoaDon.setGiamGia(object.getInt("giamGia"));
                         }
                         if (object.toString().contains("maDatBan")) {
-                            hoaDon.setDatBan(getDatBanChuaTinhTienByMaDatBan(object.getInt("maDatBan")));
+                            hoaDon.setDatBan(getDatBanChuaTinhTienByMa(object.getInt("maDatBan")));
 
                         }
                         hoaDon.setGioDen(object.getString("gioDen"));
@@ -324,7 +326,7 @@ public class Database {
         return null;
     }
 
-    public DatBan getDatBanChuaTinhTienByMaDatBan(int maDatBan) {
+    public DatBan getDatBanChuaTinhTienByMa(int maDatBan) {
         for (DatBan datBan : datBanChuaTinhTienList) {
             if (datBan.getMaDatBan() == maDatBan) {
                 return datBan;
@@ -471,4 +473,13 @@ public class Database {
         }
         return null;
     }
+
+    public void setAdmin(Admin admin) {
+        this.admin = admin;
+    }
+
+    public Admin getAdmin() {
+        return admin;
+    }
+
 }

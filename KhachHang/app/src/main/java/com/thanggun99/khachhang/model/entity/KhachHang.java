@@ -20,6 +20,10 @@ import java.util.Map;
  */
 
 public class KhachHang implements Serializable{
+
+    public static final String USERNAME = "USERNAME";
+    public static final String PASSWORD = "PASSWORD";
+
     private int maKhachHang;
     private String tenKhachHang;
     private String soDienThoai;
@@ -32,8 +36,6 @@ public class KhachHang implements Serializable{
     private ArrayList<DatBan> listHSDatBan;
     private DatBan currentDatBan;
 
-    public static final String USERNAME = "USERNAME";
-    public static final String PASSWORD = "PASSWORD";
 
     public KhachHang(int maKhachHang, String tenKhachHang, String soDienThoai,
                      String diaChi, String tenDangNhap, String matKhau, int maToken, ArrayList<DatBan> listHSDatBan, DatBan currentDatBan) {
@@ -80,7 +82,6 @@ public class KhachHang implements Serializable{
         String s = API.callService(API.LOGIN_URL, null, khachHangMap);
         if (!TextUtils.isEmpty(s)) {
             if (s.contains("fail")) {
-                huyGhiNhoDangNhap();
                 return "fail";
 
             } else if (s.contains("other")) {
@@ -88,10 +89,10 @@ public class KhachHang implements Serializable{
                 return "other";
             } else {
                 try {
-                    JSONObject jsonObject = (JSONObject) new JSONObject(s).getJSONArray("khachHang").get(0);
+                    JSONObject jsonObject = new JSONObject(s);
                     maKhachHang = jsonObject.getInt("maKhachHang");
                     tenKhachHang = jsonObject.getString("tenKhachHang");
-                    soDienThoai = jsonObject.getString("sdt");
+                    soDienThoai = jsonObject.getString("soDienThoai");
                     diaChi = jsonObject.getString("diaChi");
                     maToken = jsonObject.getInt("maToken");
                     if (ghiNho) {

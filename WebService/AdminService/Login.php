@@ -11,9 +11,9 @@ function dispInfo()
 
     $db = new Database();
 
-    $db->prepare('SELECT * FROM khach_hang 
-                    INNER JOIN tai_khoan ON tai_khoan.MaTaiKhoan = khach_hang.MaTaiKhoan
-                    INNER JOIN person ON person.MaPerson = khach_hang.MaPerson
+    $db->prepare('SELECT * FROM admin 
+                    INNER JOIN tai_khoan ON tai_khoan.MaTaiKhoan = admin.MaTaiKhoan
+                    INNER JOIN person ON person.MaPerson = admin.MaPerson
                     WHERE TenDangNhap = :tenDangNhap AND MatKhau = :matKhau');
     $db->bind(':tenDangNhap', $user);
     $db->bind(':matKhau', $pass);
@@ -24,11 +24,12 @@ function dispInfo()
         $row = $db->getRow();
 
         $t = array();
-        $t["maKhachHang"] = $row["MaKhachHang"];
-        $t["tenKhachHang"] = $row["HoTen"];
+        $t["maAdmin"] = $row["MaAdmin"];
+        $t["hoTen"] = $row["HoTen"];
         $t["soDienThoai"] = $row["SoDienThoai"];
         $t["diaChi"] = $row["DiaChi"];
         $t["maToken"] = $row["MaToken"];
+        $t['type'] = $row['Type'];
 
         $maToken = $t["maToken"];
         $maTaiKhoan = $row['MaTaiKhoan'];
@@ -46,7 +47,7 @@ function dispInfo()
 
                     header('Content-Type: application/json');
 
-                    echo json_encode($t);
+                    echo json_encode($t); 
                 }
 
             } else {

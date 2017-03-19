@@ -2,6 +2,7 @@ package thanggun99.quanlynhahang.view.dialog;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -14,6 +15,7 @@ public class NotifiDialog extends BaseDialog {
     public NotifiDialog(@NonNull Context context) {
         super(context);
         setContentView(R.layout.dialog_notifi);
+        getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
         setCancelable(true);
 
         tvNotifi = (TextView) findViewById(R.id.tv_notifi);

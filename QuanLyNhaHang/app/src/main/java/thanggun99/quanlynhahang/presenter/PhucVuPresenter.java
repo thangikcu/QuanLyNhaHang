@@ -66,12 +66,19 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
     public void updateDatBanService(DatBan datBanUpdate) {
         phucVuInteractor.updateDatBanService(datBanUpdate);
 
-        if (datBanView != null) {
-            datBanView.clearFormDatBan();
-            datBanView.showThongTinDatBanChuaSetBan(phucVuInteractor.getCurrentDatBanChuaSetBan(),
-                    getDatabase().getBanList());
-            datBanView.notifyUpdateListDatBanChuaSetBan(phucVuInteractor.getCurrentDatBanChuaSetBan());
+        if (getDatabase().getDatBanChuaSetBanByMa(datBanUpdate.getMaDatBan()) != null) {
+            if (datBanView != null) {
+                datBanView.clearFormDatBan();
+                datBanView.showThongTinDatBanChuaSetBan(phucVuInteractor.getCurrentDatBanChuaSetBan(),
+                        getDatabase().getBanList());
+                datBanView.notifyUpdateListDatBanChuaSetBan(phucVuInteractor.getCurrentDatBanChuaSetBan());
+            }
+        } else {
+            if (phucVuInteractor.getCurrentDatBan().getMaDatBan() == datBanUpdate.getMaDatBan()) {
+                phucVuView.showBanDatBan(phucVuInteractor.getCurrentDatBan());
+            }
         }
+
     }
 
     //on click ban
@@ -403,7 +410,10 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
         this.datBanView = datBanView;
     }
 
-
+    public void logout() {
+        phucVuInteractor.logout();
+        showOnMain.showLogin();
+    }
 
 
     /*this is interface for phucVuView Phuc vu*/

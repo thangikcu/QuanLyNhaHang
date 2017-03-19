@@ -16,7 +16,6 @@ public class MyFirebaseIDService extends FirebaseInstanceIdService {
     @Override
     public void onTokenRefresh() {
         Map<String, String> map = new HashMap<>();
-        map.put("type", "2");
         map.put("token", Utils.getToken());
 
         API.callService(API.REGISTER_TOKEN_URL, null, map);

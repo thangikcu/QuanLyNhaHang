@@ -1,25 +1,25 @@
 <?php
-    require_once '../dbConnect.php';
- 
-    function dispInfo(){
+require_once '../dbConnect.php';
 
-        
-        $maKhachHang = $_POST['maKhachHang'];
-        $matKhauMoi = $_POST['matKhauMoi'];
+function dispInfo()
+{
 
-        $db = new Database();
+    $maKhachHang = $_POST['maKhachHang'];
+    $matKhauMoi = $_POST['matKhauMoi'];
 
-        $db->prepare('UPDATE khach_hang SET MatKhau = :matKhauMoi WHERE MaKhachHang = :maKhachHang');
-        $db->bind('matKhauMoi', $matKhauMoi);
-        $db->bind('maKhachHang', $maKhachHang);
-        $db->execute();
-     
-    
-        if($db->getRowCount() > 0){
-            echo 'success';
-        }
+    $db = new Database();
 
+    $db->prepare('UPDATE tai_khoan SET MatKhau = :matKhauMoi WHERE MaTaiKhoan = (SELECT MaTaiKhoan FROM khach_hang WHERE MaKhachHang = :maKhachHang)');
+    $db->bind('matKhauMoi', $matKhauMoi);
+    $db->bind('maKhachHang', $maKhachHang);
+    $db->execute();
+
+    if ($db->getRowCount() > 0)
+    {
+        echo 'success';
     }
- 
-    dispInfo();
+
+}
+
+dispInfo();
 ?>

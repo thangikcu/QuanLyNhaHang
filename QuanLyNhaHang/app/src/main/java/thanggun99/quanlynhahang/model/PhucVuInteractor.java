@@ -1,6 +1,7 @@
 package thanggun99.quanlynhahang.model;
 
 import android.os.AsyncTask;
+import android.text.TextUtils;
 
 import java.util.Date;
 
@@ -86,14 +87,27 @@ public class PhucVuInteractor {
     }
 
     public void updateDatBanService(DatBan datBanUpdate) {
-        DatBan datBan = getDatabase().getDatBanChuaSetBanByMa(datBanUpdate.getMaDatBan());
+        DatBan datBan;
+        if (database.getDatBanChuaSetBanByMa(datBanUpdate.getMaDatBan()) != null) {
+            datBan = database.getDatBanChuaSetBanByMa(datBanUpdate.getMaDatBan());
+            this.currentDatBanChuaSetBan = datBan;
+        } else {
+            datBan = database.getDatBanChuaTinhTienByMa(datBanUpdate.getMaDatBan());
+            if (currentDatBan.equals(datBan)) {
+                currentDatBan = datBan;
+            }
+        }
         datBan.setYeuCau(datBanUpdate.getYeuCau());
         datBan.setGioDen(datBanUpdate.getGioDen());
-        if (datBanUpdate.getKhachHang() != null) {
+        if (!TextUtils.isEmpty(datBanUpdate.getSoDienThoai())) {
             datBan.setTenKhachHang(datBanUpdate.getTenKhachHang());
             datBan.setSoDienThoai(datBanUpdate.getSoDienThoai());
         }
-        this.currentDatBanChuaSetBan = datBan;
+
+    }
+
+    public void logout() {
+        database.getAdmin().huyGhiNhoDangNhap();
     }
 
 

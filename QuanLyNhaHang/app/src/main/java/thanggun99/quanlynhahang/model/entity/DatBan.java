@@ -52,10 +52,11 @@ public class DatBan implements Serializable {
         getParams.put("maDatBan", String.valueOf(getMaDatBan()));
         postParams.put("tenKhachHang", datBanUpdate.getTenKhachHang());
         postParams.put("soDienThoai", datBanUpdate.getSoDienThoai());
+        postParams.put("maTokenAdmin", String.valueOf(Admin.getMaToken()));
         postParams.put("gioDen", datBanUpdate.getGioDen());
         if (getKhachHang() != null) {
             postParams.put("maKhachHang", String.valueOf(getKhachHang().getMaKhachHang()));
-            postParams.put("maToken", String.valueOf(getKhachHang().getMaToken()));
+            postParams.put("maTokenKH", String.valueOf(getKhachHang().getMaToken()));
         }
         if (!TextUtils.isEmpty(datBanUpdate.getYeuCau())) {
 
@@ -153,7 +154,7 @@ public class DatBan implements Serializable {
 
     public String getTenKhachHang() {
         if (khachHang != null) {
-            return khachHang.getTenKhachHang();
+            return khachHang.getHoTen();
         }
 
         return tenKhachHang;
@@ -161,7 +162,7 @@ public class DatBan implements Serializable {
 
     public void setTenKhachHang(String tenKhachHang) {
         if (khachHang != null) {
-            khachHang.setTenKhachHang(tenKhachHang);
+            khachHang.setHoTen(tenKhachHang);
         } else {
 
             this.tenKhachHang = tenKhachHang;

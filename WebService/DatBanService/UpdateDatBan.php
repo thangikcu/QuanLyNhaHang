@@ -1,77 +1,89 @@
 <?php
-    require_once '../dbConnect.php';
- 
-    function dispInfo(){
+require_once '../dbConnect.php';
 
-        $maDatBan = $_GET['maDatBan'];
-        $tenKhachHang = $_POST['tenKhachHang'];
-        $soDienThoai = $_POST['soDienThoai'];
-        $gioDen = $_POST['gioDen'];
-        $yeuCau = isset($_POST['yeuCau']) ? $_POST['yeuCau'] : null;
-        
-        $db = new Database();
-        include_once '../Firebase.php';
-        $firebase = new Firebase();
-        $push = new Push();
-        
-        $datas = array();
-        $datas['maDatBan'] = $maDatBan;
-        $datas['tenKhachHang'] = $tenKhachHang;
-        $datas['soDienThoai'] = $soDienThoai;
-        $datas['gioDen'] = $gioDen;
-        $datas['yeuCau'] = $yeuCau;
+function dispInfo() {
 
-        
-        $push->setDatas("UPDATE_DAT_BAN_ACTION", $datas);
-        
-        if (isset($_POST['maKhachHang'])){
-            
-            $maKhachHang = $_POST['maKhachHang'];
-            $maToken = $_POST['maToken'];
-            
-            $db->prepare('UPDATE khach_hang SET TenKhachHang = :tenKhachHang, SoDienThoai = :soDienThoai WHERE MaKhachHang = :maKhachHang');
-            $db->bind(':tenKhachHang', $tenKhachHang);
-            $db->bind(':soDienThoai', $soDienThoai);
-            $db->bind(':maKhachHang', $maKhachHang);
-            $db->execute();
+    $maTokenAdmin = $_POST['maTokenAdmin'];
+    $maDatBan = $_GET['maDatBan'];
+    $tenKhachHang = $_POST['tenKhachHang'];
+    $soDienThoai = $_POST['soDienThoai'];
+    $gioDen = $_POST['gioDen'];
+    $yeuCau = isset($_POST['yeuCau']) ? $_POST['yeuCau'] : null;
 
+    $db = new Database();
+    include_once '../Firebase.php';
+    $firebase = new Firebase();
+    $push = new Push();
 
-            if($db->getRowCount() > 0){
+    $datas = array();
+    $datas['maDatBan'] = $maDatBan;
+    $datas['tenKhachHang'] = $tenKhachHang;
+    $datas['soDienThoai'] = $soDienThoai;
+    $datas['gioDen'] = $gioDen;
+    $datas['yeuCau'] = $yeuCau;
 
-                $db->prepare('UPDATE dat_ban SET GioDen = :gioDen, YeuCau = :yeuCau WHERE MaDatBan = :maDatBan');
-                $db->bind(':gioDen', $gioDen);
-                $db->bind(':yeuCau', $yeuCau);
-                $db->bind(':maDatBan', $maDatBan);
-                $db->execute(); 
-                
-                if($db->getRowCount() > 0){
-                    echo 'success';
-                    
-                    $firebase ->send($db->getTokenKhachHangByMa($maToken), null, $push->getDatas());
-                    $firebase ->sendMultiple($db->getAllTokenAdmin(), null, $push->getDatas());
-       
-                } 
-            }
-          
-        }else{
-            
-            $db->prepare('UPDATE dat_ban SET TenKhachHang = :tenKhachHang, SoDienThoai = :soDienThoai, GioDen = :gioDen, YeuCau = :yeuCau WHERE MaDatBan = :maDatBan');
-            $db->bind(':tenKhachHang', $tenKhachHang);
-            $db->bind(':soDienThoai', $soDienThoai);
-            $db->bind(':gioDen', $gioDen);
-            $db->bind(':yeuCau', $yeuCau);
-            $db->bind(':maDatBan', $maDatBan);
-            $db->execute();
-        
-    
-            if($db->getRowCount() > 0){
-                echo 'success';
-                $firebase ->sendMultiple($db->getAllTokenAdmin(), null, $push->getDatas());
-                
-            }
+    $push->setDatas("UPDATE_DAT_BAN_ACTION", $datas);
+
+    if (isset($_POST['maKhachHang'])) {
+        $rowCount;
+        $maKhachHang = $_POST['maKhachHang'];
+        $maTokenKH = $_POST['maTokenKH'];
+
+        $db->prepare("UPDATE person SET HoTen = :hoTen, SoDienThoai = :soDienThoai 
+                            WHERE MaPerson = (SELECT MaPerson FROM khach_hang WHERE MaKhachHang = :maKhachHang)");
+        $db->bind(':hoTen', $tenKhachHang);
+        $db->bind(':soDienThoai', $soDienThoai);
+        $db->bind(':maKhachHang', $maKhachHang);
+        $db->execute();
+
+        $rowCount = $db->getRowCount();
+
+        $db->prepare('UPDATE dat_ban SET GioDen = :gioDen, YeuCau = :yeuCau WHERE MaDatBan = :maDatBan');
+        $db->bind(':gioDen', $gioDen);
+        $db->bind(':yeuCau', $yeuCau);
+        $db->bind(':maDatBan', $maDatBan);
+        $db->execute();
+
+        $rowCount += $db->getRowCount();
+
+        if ($rowCount > 0) {
+            echo 'success';
+
+            $firebase->send($db->getTokenByMa($maTokenKH), null, $push->getDatas());
+            $firebase->sendMultiple($db->getAllTokenAdminExcept($maTokenAdmin), null, $push->
+                getDatas());
+
         }
- 
-     }
 
-    dispInfo();
+    } else {
+        $rowCount;
+        $db->prepare("UPDATE person SET HoTen = :hoTen, SoDienThoai = :soDienThoai 
+                            WHERE MaPerson = (SELECT MaPerson FROM dat_ban WHERE MaDatBan = :maDatBan)");
+        $db->bind(':hoTen', $tenKhachHang);
+        $db->bind(':soDienThoai', $soDienThoai);
+        $db->bind(':maDatBan', $maDatBan);
+        $db->execute();
+
+        $rowCount = $db->getRowCount();
+
+        $db->prepare('UPDATE dat_ban SET GioDen = :gioDen, YeuCau = :yeuCau WHERE MaDatBan = :maDatBan');
+        $db->bind(':gioDen', $gioDen);
+        $db->bind(':yeuCau', $yeuCau);
+        $db->bind(':maDatBan', $maDatBan);
+        $db->execute();
+
+        $rowCount += $db->getRowCount();
+
+        if ($rowCount > 0) {
+            echo 'success';
+            $firebase->sendMultiple($db->getAllTokenAdminExcept($maTokenAdmin), null, $push->
+                getDatas());
+
+        }
+
+    }
+
+}
+
+dispInfo();
 ?>

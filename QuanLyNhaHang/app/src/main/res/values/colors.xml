@@ -20,5 +20,7 @@
     <color name="colorBackgroundDialog">#eaeaea</color>
     <color name="colorTextNotifi">#4e4c50</color>
     <color name="black">#111111</color>
+    <color name="colorTextRegister">#0d7b6e</color>
+    <color name="colorWrong">#be0637</color>
 
 </resources>

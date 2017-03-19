@@ -15,19 +15,12 @@
         $title = isset($_POST['title']) ? $_POST['title'] : 'test';
         $message = isset($_POST['message']) ? $_POST['message'] : 'message test';
         
-        
-        $db->prepare('SELECT * FROM token');
-        $tokens = array();
-        foreach($db->getArray() as $row){
-            $tokens[] = $row['Token'];
-        }
-    
         $push->setNotification($title, $message);
-        $push->setDatas("TEST_ACTION", null);
+        $push->setDatas("NOTIFI_ACTION", null);
 
         
         
-        $respond = $firebase ->sendMultiple($tokens, $push->getNotification(), $push->getDatas());
+        $respond = $firebase ->sendMultiple($db->getAllTokenKhachHang(), $push->getNotification(), $push->getDatas());
         echo $respond;
 
      }

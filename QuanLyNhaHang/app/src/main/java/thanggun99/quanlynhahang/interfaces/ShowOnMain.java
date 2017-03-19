@@ -12,4 +12,6 @@ public interface ShowOnMain {
     void showConnectFailDialog();
 
     void showPhucVu();
+
+    void showLogin();
 }
