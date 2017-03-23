@@ -81,6 +81,14 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
                                 Utils.getStringByRes(R.string.thong_tin_cua_ban_da_duoc_cap_nhat));
                     }
                     break;
+                case MyFirebaseMessagingService.HUY_DAT_BAN_ACTION:
+                    if (khachHangPresenter != null) {
+                        khachHangPresenter.deleteDatBan();
+
+                        Utils.showNotify(Utils.getStringByRes(R.string.thong_bao),
+                                Utils.getStringByRes(R.string.da_huy_dat_ban));
+                    }
+                    break;
                 default:
                     break;
             }
@@ -133,6 +141,7 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
         intentFilter.addAction(MyFirebaseMessagingService.LOGOUT_ACTION);
         intentFilter.addAction(MyFirebaseMessagingService.NOTIFI_ACTION);
         intentFilter.addAction(MyFirebaseMessagingService.UPDATE_DAT_BAN_ACTION);
+        intentFilter.addAction(MyFirebaseMessagingService.HUY_DAT_BAN_ACTION);
         fillFrame(homeFragment, R.id.btn_home);
 
     }

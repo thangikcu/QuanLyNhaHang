@@ -49,6 +49,51 @@ public class MainInteractor {
         }
     }
 
+    public void changePassword(String password, String passwordNew) {
+        class ChangePasswordTask extends AsyncTask<String, Void, Boolean> {
+            @Override
+            protected void onPreExecute() {
+                onMainInteractorFinishListener.onStartTask();
+                super.onPreExecute();
+            }
+
+            @Override
+            protected void onPostExecute(Boolean aBoolean) {
+                if (aBoolean) {
+                    onMainInteractorFinishListener.onChangePasswordSucess();
+                } else {
+                    onMainInteractorFinishListener.onChangePasswordFail();
+                }
+                onMainInteractorFinishListener.onFinishTask();
+                super.onPostExecute(aBoolean);
+            }
+
+            @Override
+            protected Boolean doInBackground(String... params) {
+                delay(500);
+                return database.getAdmin().changePassword(params[0]);
+            }
+        }
+
+
+        if (!database.getAdmin().getMatKhau().equals(password)) {
+
+            onMainInteractorFinishListener.passwordWrong();
+        } else {
+
+            new ChangePasswordTask().execute(passwordNew);
+        }
+    }
+
+    public void logout() {
+        database.getAdmin().huyGhiNhoDangNhap();
+        database.setAdmin(null);
+    }
+
+    public Database getDatabase() {
+        return database;
+    }
+
 
     public interface OnMainInteractorFinishListener {
         void onFinishGetDatas();
@@ -58,6 +103,12 @@ public class MainInteractor {
         void onStartTask();
 
         void onFinishTask();
+
+        void onChangePasswordSucess();
+
+        void onChangePasswordFail();
+
+        void passwordWrong();
     }
 }
 

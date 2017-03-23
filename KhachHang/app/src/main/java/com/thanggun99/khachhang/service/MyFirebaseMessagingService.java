@@ -19,6 +19,7 @@ import org.json.JSONObject;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public static final String UPDATE_DAT_BAN_ACTION = "UPDATE_DAT_BAN_ACTION";
+    public static final String HUY_DAT_BAN_ACTION = "HUY_DAT_BAN_ACTION";
 
     public static final String KHACH_HANG = "KHACH_HANG";
 
@@ -34,6 +35,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
         if (remoteMessage.getData().size() > 0) {
             JSONObject object = new JSONObject(remoteMessage.getData());
+            Utils.showLog(object.toString());
             try {
                 String action = object.getString("action");
                 switch (action) {
@@ -41,27 +43,37 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(LOGOUT_ACTION));
                         break;
                     case UPDATE_DAT_BAN_ACTION:
-                        Intent datBanUpdateIntent = new Intent(UPDATE_DAT_BAN_ACTION);
+                        if (KhachHang.getMaKhachHang() == object.getInt("maKhachHang")) {
 
-                        DatBan datBanUpdate = new DatBan();
-                        datBanUpdate.setMaDatBan(object.getInt("maDatBan"));
-                        datBanUpdate.setGioDen(object.getString("gioDen"));
-                        if (!object.isNull("yeuCau")) {
+                            Utils.showLog("Update Khach hang");
+                            Intent datBanUpdateIntent = new Intent(UPDATE_DAT_BAN_ACTION);
 
-                            datBanUpdate.setYeuCau(object.getString("yeuCau"));
+                            DatBan datBanUpdate = new DatBan();
+                            datBanUpdate.setMaDatBan(object.getInt("maDatBan"));
+                            datBanUpdate.setGioDen(object.getString("gioDen"));
+                            if (!object.isNull("yeuCau")) {
+
+                                datBanUpdate.setYeuCau(object.getString("yeuCau"));
+                            }
+
+
+                            KhachHang khachHangUpdate = new KhachHang();
+                            khachHangUpdate.setTenKhachHang(object.getString("tenKhachHang"));
+                            khachHangUpdate.setSoDienThoai(object.getString("soDienThoai"));
+                            khachHangUpdate.setCurrentDatBan(datBanUpdate);
+
+
+                            datBanUpdateIntent.putExtra(KHACH_HANG, khachHangUpdate);
+
+                            LocalBroadcastManager.getInstance(this).sendBroadcast(datBanUpdateIntent);
                         }
+                        break;
+                    case HUY_DAT_BAN_ACTION:
+                        if (KhachHang.getMaKhachHang() == object.getInt("maKhachHang")) {
 
-
-                        KhachHang khachHangUpdate = new KhachHang();
-                        khachHangUpdate.setTenKhachHang(object.getString("tenKhachHang"));
-                        khachHangUpdate.setSoDienThoai(object.getString("soDienThoai"));
-                        khachHangUpdate.setCurrentDatBan(datBanUpdate);
-
-
-                        datBanUpdateIntent.putExtra(KHACH_HANG, khachHangUpdate);
-
-                        LocalBroadcastManager.getInstance(this).sendBroadcast(datBanUpdateIntent);
-
+                            Utils.showLog("delete dat ban");
+                            LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(HUY_DAT_BAN_ACTION));
+                        }
                         break;
                     case NOTIFI_ACTION:
                         LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(NOTIFI_ACTION));

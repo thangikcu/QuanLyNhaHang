@@ -22,6 +22,11 @@ public class KhachHang extends Person implements Serializable{
 
     }
 
+    public KhachHang(int maKhachHang) {
+
+        this.maKhachHang = maKhachHang;
+    }
+
     public int getMaKhachHang() {
         return maKhachHang;
     }

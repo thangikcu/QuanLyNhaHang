@@ -9,6 +9,7 @@ import com.google.firebase.messaging.RemoteMessage;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import thanggun99.quanlynhahang.model.entity.Ban;
 import thanggun99.quanlynhahang.model.entity.DatBan;
 import thanggun99.quanlynhahang.model.entity.KhachHang;
 import thanggun99.quanlynhahang.util.Utils;
@@ -19,9 +20,11 @@ import thanggun99.quanlynhahang.util.Utils;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
-    public static final String DAT_BAN_CHUA_SET_BAN_ACTION = "DAT_BAN_CHUA_SET_BAN_ACTION";
-    public static final String HUY_DAT_BAN_CHUA_SET_BAN_ACTION = "HUY_DAT_BAN_CHUA_SET_BAN_ACTION";
+    public static final String DAT_BAN_ACTION = "DAT_BAN_ACTION";
+    public static final String HUY_DAT_BAN_ACTION = "HUY_DAT_BAN_ACTION";
     public static final String UPDATE_DAT_BAN_ACTION = "UPDATE_DAT_BAN_ACTION";
+    public static final String KHACH_VAO_BAN_ACTION = "KHACH_VAO_BAN_ACTION";
+    public static final String KHACH_HANG_REGISTER_ACTION = "KHACH_HANG_REGISTER_ACTION";
     public static final String LOGOUT_ACTION = "LOGOUT_ACTION";
 
     public static final String DAT_BAN = "DAT_BAN";
@@ -44,17 +47,28 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 String action = object.getString("action");
 
                 switch (action) {
-                    case DAT_BAN_CHUA_SET_BAN_ACTION:
-                        Intent datBanIntent = new Intent(DAT_BAN_CHUA_SET_BAN_ACTION);
-
-                        KhachHang khachHang = new KhachHang();
-                        khachHang.setMaKhachHang(object.getInt("maKhachHang"));
-
+                    case DAT_BAN_ACTION:
+                        Intent datBanIntent = new Intent(DAT_BAN_ACTION);
                         DatBan datBan = new DatBan();
-                        datBan.setKhachHang(khachHang);
+
+                        if (!object.isNull("maKhachHang")) {
+
+                            datBan.setKhachHang(new KhachHang(object.getInt("maKhachHang")));
+
+                        } else {
+
+                            if (!object.isNull("maBan")) {
+
+                                datBan.setBan(new Ban(object.getInt("maBan")));
+                            }
+                            datBan.setSoDienThoai(object.getString("soDienThoai"));
+                            datBan.setTenKhachHang(object.getString("tenKhachHang"));
+                        }
+
+
+                        datBan.setTrangThai(0);
                         datBan.setMaDatBan(object.getInt("maDatBan"));
                         datBan.setGioDen(object.getString("gioDen"));
-                        datBan.setTrangThai(0);
                         if (!object.isNull("yeuCau")) {
 
                             datBan.setYeuCau(object.getString("yeuCau"));
@@ -66,8 +80,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         LocalBroadcastManager.getInstance(this).sendBroadcast(datBanIntent);
 
                         break;
-                    case HUY_DAT_BAN_CHUA_SET_BAN_ACTION:
-                        Intent maDatBanIntent = new Intent(HUY_DAT_BAN_CHUA_SET_BAN_ACTION);
+                    case HUY_DAT_BAN_ACTION:
+                        Intent maDatBanIntent = new Intent(HUY_DAT_BAN_ACTION);
                         maDatBanIntent.putExtra(MA_DAT_BAN, object.getInt("maDatBan"));
                         maDatBanIntent.putExtra(TEN_KHACH_HANG, object.getString("tenKhachHang"));
 
@@ -96,6 +110,38 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
                         LocalBroadcastManager.getInstance(this).sendBroadcast(datBanUpdateIntent);
 
+                        break;
+                    case KHACH_HANG_REGISTER_ACTION:
+                        Intent khachHangDangKyIntent = new Intent(KHACH_HANG_REGISTER_ACTION);
+
+                        KhachHang khachHangNew = new KhachHang();
+                        khachHangNew.setMaKhachHang(object.getInt("maKhachHang"));
+                        khachHangNew.setHoTen(object.getString("tenKhachHang"));
+                        khachHangNew.setSoDienThoai(object.getString("soDienThoai"));
+                        khachHangNew.setDiaChi(object.getString("diaChi"));
+                        khachHangNew.setTenDangNhap(object.getString("tenDangNhap"));
+                        khachHangNew.setMatKhau(object.getString("matKhau"));
+                        khachHangNew.setMaToken(object.getInt("maToken"));
+
+                        khachHangDangKyIntent.putExtra(KHACH_HANG, khachHangNew);
+
+                        LocalBroadcastManager.getInstance(this).sendBroadcast(khachHangDangKyIntent);
+                        break;
+                    case KHACH_VAO_BAN_ACTION:
+                        Intent khachVaoBanIntent = new Intent(KHACH_VAO_BAN_ACTION);
+
+                        DatBan datBanVaoBan = new DatBan();
+
+                        Ban ban = new Ban();
+                        ban.setMaBan(object.getInt("maBan"));
+                        ban.setTenBan(object.getString("tenBan"));
+
+                        datBanVaoBan.setBan(ban);
+                        datBanVaoBan.setMaDatBan(object.getInt("maDatBan"));
+
+                        khachVaoBanIntent.putExtra(DAT_BAN, datBanVaoBan);
+
+                        LocalBroadcastManager.getInstance(this).sendBroadcast(khachVaoBanIntent);
                         break;
                     case LOGOUT_ACTION:
                         LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(LOGOUT_ACTION));

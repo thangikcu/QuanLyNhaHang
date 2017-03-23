@@ -27,8 +27,7 @@ public class ThucDon {
         this.hinhAnh = hinhAnh;
     }
 
-    public ThucDon(int maMon, String tenMon, int maLoai, int donGia, String donViTinh, Bitmap hinhAnh, int hienThi) {
-        this.hinhAnh = hinhAnh;
+    public ThucDon(int maMon, String tenMon, int maLoai, int donGia, String donViTinh, int hienThi) {
         this.maMon = maMon;
         this.hienThi = hienThi;
         this.tenMon = tenMon;

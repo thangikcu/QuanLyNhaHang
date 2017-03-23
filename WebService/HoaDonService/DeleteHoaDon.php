@@ -1,8 +1,7 @@
 <?php
 require_once '../dbConnect.php';
 
-function dispInfo()
-{
+function dispInfo() {
     if (isset($_GET['maHoaDon'])) {
 
         $maHoaDon = $_GET['maHoaDon'];
@@ -14,10 +13,15 @@ function dispInfo()
 
         if ($db->getRowCount() > 0) {
             if (isset($_GET['maDatBan'])) {
-                $maDatBan = $_GET['maDatBan']; 
+                $maDatBan = $_GET['maDatBan'];
 
-                $db->query('DELETE FROM person WHERE MaPerson = (SELECT MaPerson FROM dat_ban WHERE MaDatBan = '.$maDatBan.')');
+                $db->prepare('SELECT MaPerson FROM dat_ban WHERE MaDatBan = '.$maDatBan.'');
+                $maPerson = $db->getRow()['MaPerson'];
+
                 $db->query('DELETE FROM dat_ban WHERE MaDatBan = '.$maDatBan.'');
+
+                $db->query('DELETE FROM person WHERE MaPerson = '.$maPerson.'');
+
             }
 
             $db->query('UPDATE ban SET TrangThai = 0 WHERE MaBan = '.$maBan.' ');

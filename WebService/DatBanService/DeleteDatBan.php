@@ -3,6 +3,10 @@ require_once '../dbConnect.php';
 
 function dispInfo() {
 
+    $maTokenAdmin = $_GET['maTokenAdmin'];
+    $maTokenKH = isset($_GET['maTokenKH']) ? $_GET['maTokenKH'] : null;
+    $maKhachHang = isset($_GET['maKhachHang']) ? $_GET['maKhachHang'] : null;
+    $tenKhachHang = $_GET['tenKhachHang'];
     $maDatBan = $_GET['maDatBan'];
     $maBan = isset($_GET['maBan']) ? $_GET['maBan'] : null;
 
@@ -28,6 +32,23 @@ function dispInfo() {
         }
 
         echo 'success';
+
+        include_once '../Firebase.php';
+        $firebase = new Firebase();
+        $push = new Push();
+
+        $datas = array();
+        $datas['maDatBan'] = $maDatBan;
+        $datas['maKhachHang'] = $maKhachHang;
+        $datas['tenKhachHang'] = $tenKhachHang;
+
+        $push->setDatas("HUY_DAT_BAN_ACTION", $datas);
+
+        if (!is_null($maTokenKH)) {
+            $firebase->send($db->getTokenByMa($maTokenKH), null, $push->getDatas());
+        }
+
+        $firebase->sendMultiple($db->getAllTokenAdminExcept($maTokenAdmin), null, $push->getDatas());
     }
 
 }

@@ -23,7 +23,7 @@ function dispInfo() {
             $datas['maDatBan'] = $maDatBan;
             $datas['tenKhachHang'] = $tenKhachHang;
 
-            $push->setDatas("HUY_DAT_BAN_CHUA_SET_BAN_ACTION", $datas);
+            $push->setDatas("HUY_DAT_BAN_ACTION", $datas);
 
             $firebase->sendMultiple($db->getAllTokenAdmin(), null, $push->getDatas());
         }

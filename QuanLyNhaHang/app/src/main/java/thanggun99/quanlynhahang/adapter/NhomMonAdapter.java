@@ -51,7 +51,7 @@ public class NhomMonAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_nhom_mon, parent, false);
 
-            viewHolder.tvTenNhom = (TextView) convertView.findViewById(R.id.tv_ten_loai);
+            viewHolder.tvTenNhom = (TextView) convertView.findViewById(R.id.tv_title);
 
             convertView.setTag(viewHolder);
         } else {

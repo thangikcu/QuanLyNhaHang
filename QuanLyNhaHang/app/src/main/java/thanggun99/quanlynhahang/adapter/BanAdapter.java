@@ -54,24 +54,24 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.ViewHolder> {
 
         holder.tvBan.setBackgroundResource(ban.getIdResBgBan());
 
-/*        if (tvSelected.getText().toString().equals(ban.getTenBan())) {
-            holder.tvBan.setSelected(true);
-            tvSelected = holder.tvBan;
-        }*/
     }
 
     public void updateBan(Ban ban) {
-        banSelected.setSelected(0);
-        notifyItemChanged(banList.indexOf(banSelected));
-        ban.setSelected(1);
         notifyItemChanged(banList.indexOf(ban));
-        banSelected = ban;
     }
 
     @Override
     public int getItemCount() {
-        if (banList.isEmpty()) return 0;
+        if (banList == null) return 0;
         return banList.size();
+    }
+
+    public void changeSelectBan(Ban ban) {
+        banSelected.setSelected(0);
+        ban.setSelected(1);
+
+        notifyItemChanged(banList.indexOf(banSelected));
+        notifyItemChanged(banList.indexOf(ban));
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

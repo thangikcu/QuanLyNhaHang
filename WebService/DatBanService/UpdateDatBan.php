@@ -21,6 +21,7 @@ function dispInfo() {
     $datas['soDienThoai'] = $soDienThoai;
     $datas['gioDen'] = $gioDen;
     $datas['yeuCau'] = $yeuCau;
+    $datas['maKhachHang'] = isset($_POST['maKhachHang']) ? $_POST['maKhachHang'] : null;
 
     $push->setDatas("UPDATE_DAT_BAN_ACTION", $datas);
 
@@ -28,6 +29,7 @@ function dispInfo() {
         $rowCount;
         $maKhachHang = $_POST['maKhachHang'];
         $maTokenKH = $_POST['maTokenKH'];
+        
 
         $db->prepare("UPDATE person SET HoTen = :hoTen, SoDienThoai = :soDienThoai 
                             WHERE MaPerson = (SELECT MaPerson FROM khach_hang WHERE MaKhachHang = :maKhachHang)");

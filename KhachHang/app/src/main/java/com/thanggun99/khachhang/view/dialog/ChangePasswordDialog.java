@@ -43,7 +43,8 @@ public class ChangePasswordDialog extends BaseDialog implements KhachHangPresent
         super.onClick(v);
         if (v.getId() == R.id.btn_ok) {
             if (checkForm()) {
-                khachHangPresenter.changePassWord(edtPassword.getText().toString().trim(), edtRePassword.getText().toString().trim());
+                khachHangPresenter.changePassWord(edtPassword.getText().toString().trim(),
+                        edtRePassword.getText().toString().trim());
             }
         }
     }

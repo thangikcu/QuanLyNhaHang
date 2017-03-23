@@ -51,7 +51,12 @@ public class KhachHangPresenter implements KhachHangInteractor.OnKhachHangFinish
         }
     }
 
-
+    public void deleteDatBan() {
+        khachHangInteractor.deleteDatBan();
+        if (datBanView != null) {
+            datBanView.showLayoutDatBan();
+        }
+    }
 
 
     public void loginAuto() {
@@ -155,7 +160,6 @@ public class KhachHangPresenter implements KhachHangInteractor.OnKhachHangFinish
         if (checkConnect()) {
             khachHangInteractor.datBan(datBan);
         }
-
     }
 
     @Override
@@ -235,8 +239,6 @@ public class KhachHangPresenter implements KhachHangInteractor.OnKhachHangFinish
     public void backToThongTinDatBan() {
         datBanView.showLayoutThongTinDatBan(khachHangInteractor.getCurrentDatBan());
     }
-
-
 
 
     public interface ThucDonView {

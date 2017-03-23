@@ -1,10 +1,12 @@
 package thanggun99.quanlynhahang.model.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by Thanggun99 on 19/03/2017.
  */
 
-public abstract class Person {
+public abstract class Person implements Serializable{
     protected String hoTen;
     protected String soDienThoai;
     protected String diaChi;

@@ -22,7 +22,7 @@
         
             if($db->getRowCount() > 0){
                 $db->query('UPDATE ban SET TrangThai = 0 WHERE MaBan = '.$maBan.' ');
-                $db->query('UPDATE dat_ban SET TrangThai = 2 WHERE MaDatBan = '.$maDatBan.' ');
+                $db->query('UPDATE dat_ban SET TrangThai = 1 WHERE MaDatBan = '.$maDatBan.' ');
                 
                 
                 echo 'success';

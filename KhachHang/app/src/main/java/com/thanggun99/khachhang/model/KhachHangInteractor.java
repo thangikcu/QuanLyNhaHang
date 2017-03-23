@@ -247,9 +247,16 @@ public class KhachHangInteractor {
     public void updateThongTinKhachHang(KhachHang khachHangUpdate) {
         khachHang.setTenKhachHang(khachHangUpdate.getTenKhachHang());
         khachHang.setSoDienThoai(khachHangUpdate.getSoDienThoai());
-        DatBan datBan = getCurrentDatBan();
-        datBan.setGioDen(khachHangUpdate.getCurrentDatBan().getGioDen());
-        datBan.setYeuCau(khachHangUpdate.getCurrentDatBan().getYeuCau());
+        if (getCurrentDatBan() != null) {
+            DatBan datBan = getCurrentDatBan();
+            datBan.setGioDen(khachHangUpdate.getCurrentDatBan().getGioDen());
+            datBan.setYeuCau(khachHangUpdate.getCurrentDatBan().getYeuCau());
+        }
+
+    }
+
+    public void deleteDatBan() {
+        khachHang.setCurrentDatBan(null);
     }
 
     private class LoginAsynTask extends AsyncTask<Void, Void, String> {

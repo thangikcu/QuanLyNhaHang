@@ -11,6 +11,7 @@ import thanggun99.quanlynhahang.util.Utils;
 
 public class MainPresenter implements MainInteractor.OnMainInteractorFinishListener {
     private MainView mainview;
+    private ChangepasswordView changepasswordView;
     private MainInteractor mainInteractor;
 
     public MainPresenter(MainView mainview, Database database) {
@@ -55,11 +56,63 @@ public class MainPresenter implements MainInteractor.OnMainInteractorFinishListe
         mainview.hideProgress();
     }
 
+    public void onClickChangePassword() {
+        mainview.showChangePasswordDialog();
+    }
+
+    public void changePassWord(String password, String passwordNew) {
+        if (checkConnect()) {
+            mainInteractor.changePassword(password, passwordNew);
+        }
+    }
+
+    @Override
+    public void onChangePasswordSucess() {
+        changepasswordView.showOnsuccess();
+    }
+
+    @Override
+    public void onChangePasswordFail() {
+        changepasswordView.showOnFail();
+    }
+
+    @Override
+    public void passwordWrong() {
+        changepasswordView.showPasswordWrong();
+    }
+
+    public void setChangepasswordView(ChangepasswordView changepasswordView) {
+        this.changepasswordView = changepasswordView;
+    }
+
+    public void logout() {
+        mainInteractor.logout();
+        mainview.showLogin();
+    }
+
+    public Database getDatabase() {
+        return mainInteractor.getDatabase();
+    }
+
     public interface MainView extends ShowOnMain {
 
         void showGetDatasFailDialog();
 
         void showContent();
+
+        void showChangePasswordDialog();
+
+        void showLogin();
     }
 
+
+    public interface ChangepasswordView {
+
+        void showOnsuccess();
+
+        void showPasswordWrong();
+
+        void showOnFail();
+
+    }
 }

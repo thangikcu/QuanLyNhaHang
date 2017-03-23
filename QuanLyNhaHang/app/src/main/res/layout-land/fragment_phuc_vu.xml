@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical|end"
                 android:orientation="horizontal"
-                android:paddingTop="5dp">
+                android:paddingTop="@dimen/layout_padding">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -125,9 +125,9 @@
                     android:id="@+id/tv_title"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
                     android:isScrollContainer="true"
                     android:lines="2"
-                    android:gravity="center_vertical"
                     android:paddingLeft="@dimen/margin"
                     android:scrollbars="vertical"
                     android:text="Bàn 15"
@@ -160,7 +160,7 @@
                     style="@style/CommonTextView"
                     android:paddingLeft="@dimen/margin"
                     android:text="@string/trong"
-                    android:textColor="@color/colorTextInfo"/>
+                    android:textColor="@color/colorTextInfo" />
             </TableRow>
 
             <include

@@ -289,7 +289,6 @@ public class DatBanFragment extends BaseFragment implements View.OnClickListener
                     datBan.setSoDienThoai(edtSoDienThoai.getText().toString().trim());
                     datBan.setGioDen(edtGioDen.getText().toString().trim());
                     datBan.setYeuCau(edtYeuCau.getText().toString().trim());
-                    datBan.setTrangThai(0);
                     if (btnThemDatBan.getText().equals(Utils.getStringByRes(R.string.them_moi))) {
 
                         phucVuPresenter.onClickDatBanChuaSetBan(datBan);

@@ -36,7 +36,7 @@ function dispInfo()
         $datas['gioDen'] = $gioDen;
         $datas['yeuCau'] = $yeuCau;
 
-        $push->setDatas("DAT_BAN_CHUA_SET_BAN_ACTION", $datas);
+        $push->setDatas("DAT_BAN_ACTION", $datas);
 
         $firebase->sendMultiple($db->getAllTokenAdmin(), null, $push->getDatas());
 

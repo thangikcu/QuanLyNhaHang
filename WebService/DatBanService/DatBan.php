@@ -3,6 +3,7 @@ require_once '../dbConnect.php';
 
 function dispInfo() {
 
+    $maTokenAdmin = $_POST['maTokenAdmin'];
     $maBan = isset($_POST['maBan']) ? $_POST['maBan'] : null;
     $tenKhachHang = $_POST['tenKhachHang'];
     $soDienThoai = $_POST['soDienThoai'];
@@ -29,11 +30,28 @@ function dispInfo() {
 
     if ($db->getRowCount() > 0) {
 
-        echo $db->getLastInsertId();
+        $maDatBan = $db->getLastInsertId();
+        echo $maDatBan;
 
         if (!empty($maBan)) {
             $db->query('UPDATE ban SET TrangThai = 1 WHERE MaBan = '.$maBan.' ');
         }
+
+        include_once '../Firebase.php';
+        $firebase = new Firebase();
+        $push = new Push();
+
+        $datas = array();
+        $datas['maDatBan'] = $maDatBan;
+        $datas['tenKhachHang'] = $tenKhachHang;
+        $datas['soDienThoai'] = $soDienThoai;
+        $datas['gioDen'] = $gioDen;
+        $datas['yeuCau'] = $yeuCau;
+        $datas['maBan'] = $maBan;
+
+        $push->setDatas("DAT_BAN_ACTION", $datas);
+
+        $firebase->sendMultiple($db->getAllTokenAdminExcept($maTokenAdmin), null, $push->getDatas());
 
     }
 

@@ -42,25 +42,78 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
 
 
     //receive broadcast
-    public void khachHangDatBanService(DatBan datBan) {
-        datBan.setKhachHang(getDatabase().getKhachHangByMa(datBan.getKhachHang().getMaKhachHang()));
-        getDatabase().addDatBanChuaSetBan(datBan);
-        if (datBanView != null) {
-            datBanView.clearFormDatBan();
-            phucVuInteractor.setCurrentDatBanChuaSetBan(datBan);
-            datBanView.showThongTinDatBanChuaSetBan(phucVuInteractor.getCurrentDatBanChuaSetBan(),
-                    getDatabase().getBanList());
-            datBanView.notifyAddListDatBanChuaSetBan();
+    public void datBanService(DatBan datBan) {
+        phucVuInteractor.datBanService(datBan);
+        if (datBan.getBan() != null) {
+
+            if (phucVuView != null) {
+                phucVuView.notifyUpdateListBan(datBan.getBan());
+                if (phucVuInteractor.getcurrentBan().getMaBan() == datBan.getBan().getMaBan()) {
+                    phucVuView.showBanDatBan(datBan);
+                }
+            }
+        } else {
+
+            if (datBanView != null) {
+                datBanView.clearFormDatBan();
+                phucVuInteractor.setCurrentDatBanChuaSetBan(datBan);
+                datBanView.showThongTinDatBanChuaSetBan(phucVuInteractor.getCurrentDatBanChuaSetBan(),
+                        getDatabase().getBanList());
+                datBanView.notifyAddListDatBanChuaSetBan();
+            }
+        }
+
+    }
+
+    public void khachVaoBanService(DatBan datBanVaoBan) {
+        DatBan datBan = getDatabase().getDatBanChuaSetBanByMa(datBanVaoBan.getMaDatBan());
+        if (datBan != null) {
+            datBan.setBan(getDatabase().getBanByMaBan(datBanVaoBan.getBan().getMaBan()));
+            datBan.getBan().setTrangThai(1);
+            phucVuView.notifyUpdateListBan(datBan.getBan());
+
+            if (datBanView != null) {
+                datBanView.clearFormDatBan();
+                datBanView.notifyRemoveListDatBanChuaSetBan(datBan);
+            }
+            if (phucVuInteractor.getcurrentBan().getMaBan() == datBan.getBan().getMaBan()) {
+                phucVuView.showBanDatBan(datBan);
+            }
+
+            getDatabase().onKhachDatBanVaoBan(datBan);
         }
     }
 
-    public void khachHangHuyDatBanService(int maDatBan) {
-        DatBan datBan = getDatabase().getDatBanChuaSetBanByMa(maDatBan);
-        getDatabase().removeDatBanChuaSetBan(datBan);
-        if (datBanView != null) {
-            datBanView.notifyRemoveListDatBanChuaSetBan(datBan);
-            datBanView.clearFormDatBan();
+    public void huyDatBanService(int maDatBan) {
+        DatBan datBan;
+        if (getDatabase().getDatBanChuaSetBanByMa(maDatBan) != null) {
+
+            datBan = getDatabase().getDatBanChuaSetBanByMa(maDatBan);
+            if (datBan != null) {
+                if (datBanView != null) {
+                    datBanView.notifyRemoveListDatBanChuaSetBan(datBan);
+                    datBanView.clearFormDatBan();
+                }
+                getDatabase().removeDatBanChuaSetBan(datBan);
+            }
+
+
+        } else {
+            datBan = getDatabase().getDatBanChuaTinhTienByMa(maDatBan);
+            if (datBan != null) {
+                if (phucVuView != null) {
+                    datBan.getBan().setTrangThai(0);
+                    phucVuView.notifyUpdateListBan(datBan.getBan());
+
+                    if (phucVuInteractor.getcurrentBan().getMaBan() == datBan.getBan().getMaBan()) {
+                        phucVuView.showBanTrong(phucVuInteractor.getcurrentBan());
+                    }
+                }
+                getDatabase().removeDatBanChuaTinhTien(datBan);
+            }
+
         }
+
     }
 
     public void updateDatBanService(DatBan datBanUpdate) {
@@ -74,12 +127,16 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
                 datBanView.notifyUpdateListDatBanChuaSetBan(phucVuInteractor.getCurrentDatBanChuaSetBan());
             }
         } else {
-            if (phucVuInteractor.getCurrentDatBan().getMaDatBan() == datBanUpdate.getMaDatBan()) {
+            if (phucVuInteractor.getCurrentDatBan() != null
+                    && phucVuInteractor.getCurrentDatBan().getMaDatBan()
+                    == datBanUpdate.getMaDatBan()) {
+
                 phucVuView.showBanDatBan(phucVuInteractor.getCurrentDatBan());
             }
         }
 
     }
+
 
     //on click ban
     public void onClickBan(Ban ban) {
@@ -120,9 +177,9 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
     //dat ban chua set ban
     public void onClickDatBanChuaSetBan(DatBan datBan) {
         if (checkConnect()) {
-
             phucVuInteractor.datBanChuaSetBan(datBan);
         }
+
     }
 
     @Override
@@ -143,6 +200,7 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
             datBan.setBan(phucVuInteractor.getcurrentBan());
             phucVuInteractor.datBanSetBan(datBan);
         }
+
     }
 
     @Override
@@ -178,6 +236,7 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
         if (checkConnect()) {
             phucVuInteractor.saleHoaDon(sale);
         }
+
     }
 
     @Override
@@ -198,6 +257,7 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
             phucVuInteractor.huyDatBanChuaSetBan();
 
         }
+
     }
 
     @Override
@@ -217,7 +277,6 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
             phucVuInteractor.huyBan();
 
         }
-
     }
 
     @Override
@@ -238,7 +297,6 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
 
             phucVuInteractor.tinhTien();
         }
-
     }
 
     @Override
@@ -267,6 +325,7 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
         datBanView.clearFormDatBan();
         datBanView.notifyRemoveListDatBanChuaSetBan(null);
         showOnMain.showPhucVu();
+        phucVuView.notifyChangeSelectBan(phucVuInteractor.getCurrentDatBan().getBan());
         onFinishDatBanSetBan();
     }
 
@@ -274,7 +333,6 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
     public void onKhachDatBanVaoBanFail() {
         datBanView.showSnackbar(Utils.getStringByRes(R.string.da_xay_ra_loi));
     }
-
 
 
     //sua dat ban chua set ban
@@ -314,7 +372,6 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
 
             phucVuInteractor.updateDatBanSetBan(datBan);
         }
-
     }
 
     @Override
@@ -410,10 +467,6 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
         this.datBanView = datBanView;
     }
 
-    public void logout() {
-        phucVuInteractor.logout();
-        showOnMain.showLogin();
-    }
 
 
     /*this is interface for phucVuView Phuc vu*/
@@ -459,6 +512,7 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
 
         void closeThucDonLayout();
 
+        void notifyChangeSelectBan(Ban ban);
     }
 
     public interface DatBanView {

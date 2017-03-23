@@ -93,23 +93,33 @@ public class PhucVuInteractor {
             this.currentDatBanChuaSetBan = datBan;
         } else {
             datBan = database.getDatBanChuaTinhTienByMa(datBanUpdate.getMaDatBan());
-            if (currentDatBan.equals(datBan)) {
-                currentDatBan = datBan;
+        }
+        if (datBan != null) {
+            datBan.setYeuCau(datBanUpdate.getYeuCau());
+            datBan.setGioDen(datBanUpdate.getGioDen());
+            if (!TextUtils.isEmpty(datBanUpdate.getSoDienThoai())) {
+                datBan.setTenKhachHang(datBanUpdate.getTenKhachHang());
+                datBan.setSoDienThoai(datBanUpdate.getSoDienThoai());
             }
         }
-        datBan.setYeuCau(datBanUpdate.getYeuCau());
-        datBan.setGioDen(datBanUpdate.getGioDen());
-        if (!TextUtils.isEmpty(datBanUpdate.getSoDienThoai())) {
-            datBan.setTenKhachHang(datBanUpdate.getTenKhachHang());
-            datBan.setSoDienThoai(datBanUpdate.getSoDienThoai());
+
+
+    }
+
+    public void datBanService(DatBan datBan) {
+        if (datBan.getBan() != null) {
+            Ban ban = database.getBanByMaBan(datBan.getBan().getMaBan());
+            ban.setTrangThai(1);
+            datBan.setBan(ban);
+            database.addDatBanChuaTinhTien(datBan);
+        } else {
+            if (datBan.getKhachHang() != null) {
+
+                datBan.setKhachHang(database.getKhachHangByMa(datBan.getKhachHang().getMaKhachHang()));
+            }
+            database.addDatBanChuaSetBan(datBan);
         }
-
     }
-
-    public void logout() {
-        database.getAdmin().huyGhiNhoDangNhap();
-    }
-
 
     private class UpdateThucDonOrderTask extends AsyncTask<Void, Void, Boolean> {
         private int soLuong;
@@ -273,7 +283,6 @@ public class PhucVuInteractor {
                 if (aBoolean) {
                     currentBan = datBan.getBan();
                     currentDatBan = datBan;
-                    currentDatBan.setTrangThai(1);
                     currentDatBanChuaSetBan = null;
                     database.onKhachDatBanVaoBan(currentDatBan);
                     onPhucVuInteractorFinishListener.onFinishKhachDatBanVaoBan();

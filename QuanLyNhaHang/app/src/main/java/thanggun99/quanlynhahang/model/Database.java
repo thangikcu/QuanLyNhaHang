@@ -20,6 +20,7 @@ import thanggun99.quanlynhahang.model.entity.KhachHang;
 import thanggun99.quanlynhahang.model.entity.NhomMon;
 import thanggun99.quanlynhahang.model.entity.ThucDon;
 import thanggun99.quanlynhahang.model.entity.ThucDonOrder;
+import thanggun99.quanlynhahang.model.entity.TinTuc;
 import thanggun99.quanlynhahang.util.API;
 import thanggun99.quanlynhahang.util.Utils;
 
@@ -40,6 +41,7 @@ public class Database {
     private ArrayList<DatBan> datBanChuaSetBanList;
     private ArrayList<KhachHang> khachHangList;
     private Admin admin;
+    private ArrayList<TinTuc> tinTucList;
 
     public Database() {
         hoaDonTinhTienList = new ArrayList<>();
@@ -57,8 +59,48 @@ public class Database {
         return taskOk;
     }
 
+
+    public boolean loadListTinTuc() {
+        String s = API.callService(API.GET_TIN_TUC_URL, null);
+
+        if (!TextUtils.isEmpty(s)) {
+            try {
+                JSONObject jsonObject = new JSONObject(s);
+                JSONArray jsonArray = jsonObject.getJSONArray("tinTuc");
+
+                tinTucList = new ArrayList<>();
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject object = (JSONObject) jsonArray.get(i);
+
+                    TinTuc tinTuc = new TinTuc();
+                    tinTuc.setMaTinTuc(object.getInt("maTinTuc"));
+                    tinTuc.setTieuDe(object.getString("tieuDe"));
+                    tinTuc.setNoiDung(object.getString("noiDung"));
+                    tinTuc.setNgayDang(object.getString("ngayDang"));
+                    tinTuc.setHienThi(object.getInt("hienThi"));
+
+                    if (!object.isNull("hinhAnh")) {
+                        byte[] bytes = Base64.decode(object.getString("hinhAnh"), Base64.DEFAULT);
+                        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+
+                        tinTuc.setHinhAnh(bitmap);
+                    }
+
+                    tinTucList.add(tinTuc);
+                }
+                return true;
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+        return false;
+    }
+
+
     private boolean loadListKhachHang() {
-        String s = API.callService(API.GET_KHACH_HANG, null);
+        String s = API.callService(API.GET_KHACH_HANG_URL, null);
 
         if (!TextUtils.isEmpty(s)) {
             try {
@@ -173,8 +215,11 @@ public class Database {
 
                         datBan.setMaDatBan(object.getInt("maDatBan"));
                         datBan.setGioDen(object.getString("gioDen"));
-                        datBan.setYeuCau(object.getString("yeuCau"));
-                        datBan.setTrangThai(object.getInt("trangThai"));
+                        if (!object.isNull("yeuCau")) {
+
+                            datBan.setYeuCau(object.getString("yeuCau"));
+                        }
+                        datBan.setTrangThai(0);
 
                         if (!object.isNull("maKhachHang")) {
                             datBan.setKhachHang(getKhachHangByMa(object.getInt("maKhachHang")));
@@ -249,16 +294,19 @@ public class Database {
 
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject object = (JSONObject) jsonArray.get(i);
-                        Bitmap bitmap = null;
-
-                        if (!object.getString("hinhAnh").equals("")) {
-                            byte[] hinhAnh = Base64.decode(object.getString("hinhAnh"), Base64.DEFAULT);
-                            bitmap = BitmapFactory.decodeByteArray(hinhAnh, 0, hinhAnh.length);
-                        }
 
                         ThucDon thucDon = new ThucDon(object.getInt("maMon"), object.getString("tenMon"),
-                                object.getInt("maLoai"), object.getInt("donGia"), object.getString("donViTinh"),
-                                bitmap, object.getInt("hienThi"));
+                                object.getInt("maLoai"), object.getInt("donGia"),
+                                object.getString("donViTinh"), object.getInt("hienThi"));
+
+                        if (!object.isNull("hinhAnh")) {
+                            byte[] hinhAnh = Base64.decode(object.getString("hinhAnh"), Base64.DEFAULT);
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(hinhAnh, 0, hinhAnh.length);
+
+                            thucDon.setHinhAnh(bitmap);
+                        }
+
+
                         thucDonList.add(thucDon);
                     }
                     return true;
@@ -282,11 +330,20 @@ public class Database {
     public ArrayList<ThucDon> getListThucDonByTenMon(String newText) {
         ArrayList<ThucDon> thucDonTimKiem = new ArrayList<>();
         for (ThucDon thucDon : thucDonList) {
-            if (Utils.removeAccent(thucDon.getTenMon().trim().toLowerCase()).contains(Utils.removeAccent(newText.trim().toLowerCase()))) {
+            if (Utils.removeAccent(thucDon.getTenMon().trim().toLowerCase())
+                    .contains(Utils.removeAccent(newText.trim().toLowerCase()))) {
                 thucDonTimKiem.add(thucDon);
             }
         }
         return thucDonTimKiem;
+    }
+
+    public ArrayList<TinTuc> getTinTucList() {
+        return tinTucList;
+    }
+
+    public void setTinTucList(ArrayList<TinTuc> tinTucList) {
+        this.tinTucList = tinTucList;
     }
 
     public ArrayList<ThucDon> getListThucDonByMaLoai(int maLoai) {
@@ -482,4 +539,7 @@ public class Database {
         return admin;
     }
 
+    public void addKhachHang(KhachHang khachHang) {
+        khachHangList.add(khachHang);
+    }
 }

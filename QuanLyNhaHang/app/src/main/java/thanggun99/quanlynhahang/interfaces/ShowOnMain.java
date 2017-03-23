@@ -13,5 +13,4 @@ public interface ShowOnMain {
 
     void showPhucVu();
 
-    void showLogin();
 }

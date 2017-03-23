@@ -80,6 +80,7 @@ public class DatBan implements Serializable {
         postParams.put("tenKhachHang", getTenKhachHang());
         postParams.put("soDienThoai", getSoDienThoai());
         postParams.put("gioDen", getGioDen());
+        postParams.put("maTokenAdmin", String.valueOf(Admin.getMaToken()));
         if (!TextUtils.isEmpty(getYeuCau()))
             postParams.put("yeuCau", getYeuCau());
         if (getBan() != null) {
@@ -103,6 +104,8 @@ public class DatBan implements Serializable {
     public Boolean KhachVaoBan() {
         Map<String, String> postParams = new HashMap<>();
         postParams.put("maDatBan", String.valueOf(getMaDatBan()));
+        postParams.put("maTokenAdmin", String.valueOf(Admin.getMaToken()));
+        postParams.put("tenBan", getBan().getTenBan());
         postParams.put("maBan", String.valueOf(getBan().getMaBan()));
 
         String s = API.callService(API.KHACH_VAO_BAN_URL, null, postParams);
@@ -119,6 +122,13 @@ public class DatBan implements Serializable {
     public Boolean huyDatBan() {
         Map<String, String> getParams = new HashMap<>();
         getParams.put("maDatBan", String.valueOf(getMaDatBan()));
+        getParams.put("tenKhachHang", getTenKhachHang());
+        getParams.put("maTokenAdmin", String.valueOf(Admin.getMaToken()));
+        if (getKhachHang() != null) {
+
+            getParams.put("maTokenKH", String.valueOf(getKhachHang().getMaToken()));
+            getParams.put("maKhachHang", String.valueOf(getKhachHang().getMaKhachHang()));
+        }
         if (getBan() != null) {
 
             getParams.put("maBan", String.valueOf(getBan().getMaBan()));

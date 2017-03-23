@@ -60,9 +60,6 @@ public class HoaDon {
                 thucDonOrderNew.setMaChitietHD(maChiTietHD);
                 setMaHoaDon(maHoaDon);
 
-                if (getDatBan() != null){
-                    getDatBan().setTrangThai(1);
-                }
                 addThucDonOrder(thucDonOrderNew);
                 getBan().setTrangThai(2);
                 return true;
@@ -110,7 +107,7 @@ public class HoaDon {
             getBan().setTrangThai(0);
             if (getDatBan() != null) {
 
-                getDatBan().setTrangThai(2);
+                getDatBan().setTrangThai(1);
             }
             setTrangThai(1);
             return true;

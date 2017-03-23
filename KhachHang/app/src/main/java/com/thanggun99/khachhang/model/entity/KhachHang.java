@@ -24,7 +24,7 @@ public class KhachHang implements Serializable{
     public static final String USERNAME = "USERNAME";
     public static final String PASSWORD = "PASSWORD";
 
-    private int maKhachHang;
+    private static int maKhachHang;
     private String tenKhachHang;
     private String soDienThoai;
     private String diaChi;
@@ -146,7 +146,7 @@ public class KhachHang implements Serializable{
         return khachHangMap;
     }*/
 
-    public int getMaKhachHang() {
+    public static int getMaKhachHang() {
         return maKhachHang;
     }
 

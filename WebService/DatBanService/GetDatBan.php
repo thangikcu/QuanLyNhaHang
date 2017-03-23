@@ -5,7 +5,7 @@ function dispInfo()
 {
     $db = new Database();
 
-    $db->prepare("SELECT * FROM dat_ban WHERE TrangThai != 2 ORDER BY MaDatBan DESC");
+    $db->prepare("SELECT * FROM dat_ban WHERE TrangThai = 0 ORDER BY MaDatBan DESC");
 
     $response["datBan"] = array();
 

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_list_item_thuc_don_order"
+    android:gravity="center_vertical"
+    android:padding="16dp"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/iv_tin_tuc"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_news" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:maxLines="2"
+        android:isScrollContainer="true"
+        android:scrollbars="vertical"
+        android:text="Chưa bao giờ, việc tiếp cận thực phẩm sạch Nhật Bản lại dễ dàng đến thế"
+        android:textColor="@color/colorTextTenMon"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_ngay_dang"
+        android:layout_width="96dp"
+        android:layout_marginLeft="16dp"
+        android:layout_height="wrap_content"
+        android:text="15/03/2017"
+        android:textColor="@color/colorTextInfo"
+        android:textSize="12sp" />
+
+    <ImageButton
+        android:id="@+id/btn_update_tin_tuc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_edit" />
+
+    <ImageButton
+        android:id="@+id/btn_delete_tin_tuc"
+        android:layout_width="32dp"
+        android:layout_marginLeft="16dp"
+        android:layout_height="32dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_delete" />
+</LinearLayout>

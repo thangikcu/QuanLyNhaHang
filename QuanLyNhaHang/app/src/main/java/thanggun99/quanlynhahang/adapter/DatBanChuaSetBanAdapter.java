@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import thanggun99.quanlynhahang.R;
 import thanggun99.quanlynhahang.model.entity.DatBan;
 import thanggun99.quanlynhahang.presenter.PhucVuPresenter;
-import thanggun99.quanlynhahang.util.Utils;
 
 /**
  * Created by Thanggun99 on 11/03/2017.
@@ -69,6 +68,7 @@ public class DatBanChuaSetBanAdapter extends RecyclerView.Adapter<DatBanChuaSetB
 
     public void notifyItemRemoved(DatBan datBan) {
         if (datBan != null) {
+
             notifyItemRemoved(datBanChuaSetBanList.indexOf(datBan));
         } else {
 

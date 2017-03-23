@@ -147,7 +147,7 @@ public class PhucVuFragment extends BaseFragment implements PhucVuPresenter.Phuc
         listViewNhomMon = (ListView) view.findViewById(R.id.list_nhom_mon);
         tableRow = (TableRow) layoutThucDon.findViewById(R.id.tbr);
         listViewThucDon = (RecyclerView) layoutThucDon.findViewById(R.id.list_thuc_don);
-        tvTenLoai = (TextView) layoutThucDon.findViewById(R.id.tv_ten_loai);
+        tvTenLoai = (TextView) layoutThucDon.findViewById(R.id.tv_title);
         edtTimKiemMon = (android.widget.SearchView) layoutThucDon.findViewById(R.id.edt_tim_kiem_mon);
 
 
@@ -250,7 +250,7 @@ public class PhucVuFragment extends BaseFragment implements PhucVuPresenter.Phuc
 
         tvTenBan.setOnClickListener(this);
         popupMenu = new PopupMenu(getContext(), tvTenBan);
-        popupMenu.getMenuInflater().inflate(R.menu.menu, popupMenu.getMenu());
+        popupMenu.getMenuInflater().inflate(R.menu.ban_menu, popupMenu.getMenu());
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -330,7 +330,6 @@ public class PhucVuFragment extends BaseFragment implements PhucVuPresenter.Phuc
                     datBan.setSoDienThoai(edtSoDienThoai.getText().toString().trim());
                     datBan.setGioDen(edtGioDen.getText().toString().trim());
                     datBan.setYeuCau(edtYeuCau.getText().toString().trim());
-                    datBan.setTrangThai(1);
                     if (btnDatBan.getText().equals(Utils.getStringByRes(R.string.dat_ban)))
                         phucVuPresenter.onClickDatBanSetBan(datBan);
                     else phucVuPresenter.updateDatBanSetBan(datBan);
@@ -474,6 +473,12 @@ public class PhucVuFragment extends BaseFragment implements PhucVuPresenter.Phuc
     @Override
     public void notifyUpdateListBan(Ban ban) {
         banAdapter.updateBan(ban);
+    }
+
+    @Override
+    public void notifyChangeSelectBan(Ban ban) {
+        banAdapter.changeSelectBan(ban);
+
     }
 
     @Override

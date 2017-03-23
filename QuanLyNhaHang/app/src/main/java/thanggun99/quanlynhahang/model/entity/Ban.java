@@ -33,6 +33,15 @@ public class Ban implements Serializable{
         hienThi = NOT_SET;
     }
 
+    public Ban(int maBan) {
+        this.maBan = maBan;
+    }
+
+    public Ban(String tenBan) {
+
+        this.tenBan = tenBan;
+    }
+
     public boolean updateBan(Ban ban) {
         Map<String, String> getParams, postParams;
         getParams = new HashMap<>();

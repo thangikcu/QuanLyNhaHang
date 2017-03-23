@@ -158,4 +158,17 @@ public class Admin extends Person implements Serializable{
     public void setMatKhau(String matKhau) {
         this.matKhau = matKhau;
     }
+
+    public Boolean changePassword(String passwordNew) {
+        Map<String, String> postParams = new HashMap<>();
+        postParams.put("maAdmin", String.valueOf(maAdmin));
+        postParams.put("matKhauMoi", passwordNew);
+        String s = API.callService(API.CHANGE_PASSWORD_URL, null, postParams);
+
+        if (!TextUtils.isEmpty(s) && s.contains("success")) {
+            setMatKhau(passwordNew);
+            return true;
+        }
+        return false;
+    }
 }

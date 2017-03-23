@@ -8,7 +8,7 @@
     <string name="cai_dat">Cài đặt</string>
     <string name="da_dat_truoc">Đã đặt trước</string>
     <string name="dang_phuc_vu">Đang phục vụ</string>
-    <string name="loading">Loading...</string>
+    <string name="loading">Đợi tẹo...</string>
     <string name="trong">Trống</string>
     <string name="so_luong">Số lượng</string>
     <string name="tim_kiem">Tìm kiếm</string>
@@ -93,4 +93,27 @@
     <string name="nhap_mat_khau">Nhập mật khẩu</string>
     <string name="nhap_ten_dang_nhap">Nhập tên đăng nhập</string>
     <string name="other_people_login">Tài khoản bị đăng nhập từ nơi khác !</string>
+    <string name="khach_vao_ban">Khách vào bàn</string>
+    <string name="quan_ly_tin_tuc">Quản lý tin tức</string>
+    <string name="quan_ly_ban">Quản lý bàn</string>
+    <string name="quan_ly_thuc_don">Quản lý thực đơn</string>
+    <string name="quan_ly_nhan_vien">Quản lý nhân viên</string>
+    <string name="quan_ly_loai_mon">Quản lý loại món</string>
+    <string name="thay_doi_mat_khau">Thay đổi mật khẩu</string>
+    <string name="mat_khau_cu">Mật khẩu cũ</string>
+    <string name="mat_khau_moi">Mật khẩu mới</string>
+    <string name="nhap_lai_mat_khau">Nhập lại mật khẩu</string>
+    <string name="nhap_mat_khau_moi">Nhập mật khẩu mới</string>
+    <string name="mat_khau_khong_khop">Mật khẩu không khớp</string>
+    <string name="thay_doi_mat_khau_thanh_cong">Thay đổi mật khẩu thành công !</string>
+    <string name="mat_khau_khong_dung">Mật khẩu không đúng</string>
+    <string name="thay_doi_mat_khau_that_bai">Thay đổi mật khẩu thất bại !</string>
+    <string name="doi_mat_khau">Đổi mật khẩu</string>
+    <string name="dang_xuat">Đăng xuất</string>
+    <string name="danh_sach_tin_tuc">Danh sách tin tức</string>
+    <string name="tai_danh_sach_tin_tuc_that_bai">Tải danh sách tin tức thất bại !</string>
+    <string name="danh_sach_ban">Danh sách bàn</string>
+    <string name="danh_sach_thuc_don">Danh sách thực đơn</string>
+    <string name="danh_sach_loai_mon">Danh sách loại món</string>
+    <string name="danh_sach_nhan_vien">Danh sách nhân viên</string>
 </resources>

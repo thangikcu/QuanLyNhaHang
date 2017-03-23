@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/tv_ten_loai"
+        android:id="@+id/tv_title"
         style="@style/CommonTextView"
         android:layout_width="102dp"
         android:layout_height="36dp"
