@@ -31,7 +31,7 @@
         android:gravity="center_vertical">
 
         <ImageView
-            android:id="@+id/iv_thuc_don"
+            android:id="@+id/iv_mon"
             android:layout_width="72dp"
             android:layout_height="72dp"
             android:src="@drawable/ic_food" />

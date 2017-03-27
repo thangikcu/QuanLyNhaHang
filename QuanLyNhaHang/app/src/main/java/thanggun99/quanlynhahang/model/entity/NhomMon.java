@@ -32,7 +32,7 @@ public class NhomMon {
     public boolean equals(Object obj) {
         if (this == obj) return true;
 
-        if (!(obj instanceof ThucDon)) return false;
+        if (!(obj instanceof NhomMon)) return false;
 
         if (!tenLoai.equals(((NhomMon) obj).tenLoai)) return false;
 

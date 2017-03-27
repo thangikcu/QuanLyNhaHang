@@ -29,9 +29,10 @@ import com.thanggun99.khachhang.service.MyFirebaseMessagingService;
 import com.thanggun99.khachhang.util.Utils;
 import com.thanggun99.khachhang.view.dialog.ChangePasswordDialog;
 import com.thanggun99.khachhang.view.fragment.AboutFragment;
-import com.thanggun99.khachhang.view.fragment.DatBanFragment;
+import com.thanggun99.khachhang.view.fragment.ThongTinPhucVuFragment;
 import com.thanggun99.khachhang.view.fragment.FeedbackFragment;
 import com.thanggun99.khachhang.view.fragment.HomeFragment;
+import com.thanggun99.khachhang.view.fragment.LoginFragment;
 import com.thanggun99.khachhang.view.fragment.MyProfileFragment;
 import com.thanggun99.khachhang.view.fragment.SettingFragment;
 
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
     private ActionBarDrawerToggle toggle;
     private Toolbar toolbar;
     private LinearLayout lnLogin;
-    private TextView tvUsername, tvFullname;
+    private TextView tvUsername, tvFullname, tvDangNhap;
     private IntentFilter intentFilter;
     private NavigationView navigationView;
     private PopupMenu popupMenu;
@@ -51,8 +52,9 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
     private FeedbackFragment feedbackFragment;
     private SettingFragment settingFragment;
     private AboutFragment aboutFragment;
-    private DatBanFragment datBanFragment;
+    private ThongTinPhucVuFragment thongTinPhucVuFragment;
     private MyProfileFragment myProfileFragment;
+    private LoginFragment loginFragment;
     private Fragment fragmentIsShow;
     private ProgressDialog progressDialog;
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
@@ -108,6 +110,8 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
         findViews();
         initComponets();
         setEvents();
+        khachHangPresenter.loginAuto();
+
     }
 
     private void initComponets() {
@@ -120,6 +124,7 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
 
         //initFragment
         fragmentIsShow = new Fragment();
+        loginFragment = new LoginFragment(khachHangPresenter);
         homeFragment = new HomeFragment(khachHangPresenter);
 
         popupMenu = new PopupMenu(this, btnArrowDown);
@@ -137,12 +142,14 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
         popupMenu.setOnMenuItemClickListener(this);
         btnArrowDown.setOnClickListener(this);
         navigationView.setNavigationItemSelectedListener(this);
+        tvDangNhap.setOnClickListener(this);
+
         showNavigationOnUnLogin();
+
         intentFilter.addAction(MyFirebaseMessagingService.LOGOUT_ACTION);
         intentFilter.addAction(MyFirebaseMessagingService.NOTIFI_ACTION);
         intentFilter.addAction(MyFirebaseMessagingService.UPDATE_DAT_BAN_ACTION);
         intentFilter.addAction(MyFirebaseMessagingService.HUY_DAT_BAN_ACTION);
-        fillFrame(homeFragment, R.id.btn_home);
 
     }
 
@@ -151,9 +158,20 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
         lnLogin = (LinearLayout) navigationView.getHeaderView(0).findViewById(R.id.ln_login);
         tvFullname = (TextView) navigationView.getHeaderView(0).findViewById(R.id.tv_full_name);
         tvUsername = (TextView) navigationView.getHeaderView(0).findViewById(R.id.tv_username);
+        tvDangNhap = (TextView) navigationView.getHeaderView(0).findViewById(R.id.tv_login);
         btnArrowDown = (ImageButton) navigationView.getHeaderView(0).findViewById(R.id.btn_arrow_down);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+    }
+
+    @Override
+    public void showLoginFragment() {
+        fillFrame(loginFragment, 0);
+    }
+
+    @Override
+    public void showHomeFragment() {
+        fillFrame(homeFragment, R.id.btn_home);
     }
 
     @Override
@@ -169,10 +187,15 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
     private void fillFrame(Fragment fragment, int id) {
         if (fragment.isVisible()) return;
 
-        MenuItem menuItem = navigationView.getMenu().findItem(id);
-        menuItem.setChecked(true);
-        String title = menuItem.getTitle().toString();
-        toolbar.setTitle(title);
+        if (id != 0) {
+            MenuItem menuItem = navigationView.getMenu().findItem(id);
+            menuItem.setChecked(true);
+            String title = menuItem.getTitle().toString();
+            toolbar.setTitle(title);
+        } else if (id == 0) {
+            toolbar.setTitle(Utils.getStringByRes(R.string.dang_nhap));
+        }
+
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
@@ -188,12 +211,14 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
 
     public void showNavigationOnUnLogin() {
         lnLogin.setVisibility(View.GONE);
+        tvDangNhap.setVisibility(View.VISIBLE);
         navigationView.getMenu().getItem(1).setVisible(false);
         navigationView.getMenu().getItem(2).setVisible(false);
     }
 
     public void showNavigationOnLogin() {
         lnLogin.setVisibility(View.VISIBLE);
+        tvDangNhap.setVisibility(View.GONE);
         navigationView.getMenu().getItem(1).setVisible(true);
         navigationView.getMenu().getItem(2).setVisible(true);
     }
@@ -228,6 +253,10 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
             case R.id.btn_arrow_down:
                 popupMenu.show();
                 break;
+            case R.id.tv_login:
+                drawerLayout.closeDrawer(GravityCompat.START);
+                fillFrame(loginFragment, 0);
+                break;
             default:
                 break;
         }
@@ -250,6 +279,11 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
     @Override
     public void showViewOnlogin(KhachHang khachHang) {
         isLogin = true;
+
+        if (fragmentIsShow instanceof LoginFragment) {
+            fillFrame(homeFragment, R.id.btn_home);
+        }
+
         tvUsername.setText(khachHang.getTenDangNhap());
         tvFullname.setText("(" + khachHang.getTenKhachHang() + ")");
         showNavigationOnLogin();
@@ -258,18 +292,24 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
     @Override
     public void showViewOnUnlogin() {
         isLogin = false;
+
         tvUsername.setText("");
         tvFullname.setText("");
         drawerLayout.closeDrawer(GravityCompat.START);
         popupMenu.dismiss();
-        fillFrame(homeFragment, R.id.btn_home);
+        fillFrame(loginFragment, 0);
         showNavigationOnUnLogin();
     }
 
     @Override
     public void setNullFragments() {
-        datBanFragment = null;
+        thongTinPhucVuFragment = null;
         myProfileFragment = null;
+    }
+
+    @Override
+    public void showOtherLogin() {
+        Utils.notifi(Utils.getStringByRes(R.string.other_people_login));
     }
 
     @Override
@@ -311,15 +351,15 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
                 }
                 fillFrame(aboutFragment, R.id.btn_about);
                 break;
-            case R.id.btn_dat_ban:
-                if (datBanFragment == null) {
-                    datBanFragment = new DatBanFragment(khachHangPresenter);
+            case R.id.btn_thong_tin_phuc_vu:
+                if (thongTinPhucVuFragment == null) {
+                    thongTinPhucVuFragment = new ThongTinPhucVuFragment(khachHangPresenter);
                 }
-                fillFrame(datBanFragment, R.id.btn_dat_ban);
+                fillFrame(thongTinPhucVuFragment, R.id.btn_thong_tin_phuc_vu);
                 break;
             case R.id.btn_my_profile:
                 if (myProfileFragment == null) {
-                    myProfileFragment = new MyProfileFragment();
+                    myProfileFragment = new MyProfileFragment(khachHangPresenter);
                 }
                 fillFrame(myProfileFragment, R.id.btn_my_profile);
                 break;

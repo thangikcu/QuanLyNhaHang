@@ -1,10 +1,17 @@
 package com.thanggun99.khachhang.presenter;
 
 
+import com.thanggun99.khachhang.model.Database;
 import com.thanggun99.khachhang.model.KhachHangInteractor;
 import com.thanggun99.khachhang.model.entity.DatBan;
+import com.thanggun99.khachhang.model.entity.HoaDon;
 import com.thanggun99.khachhang.model.entity.KhachHang;
+import com.thanggun99.khachhang.model.entity.NhomMon;
+import com.thanggun99.khachhang.model.entity.Mon;
+import com.thanggun99.khachhang.model.entity.TinTuc;
 import com.thanggun99.khachhang.util.Utils;
+
+import java.util.ArrayList;
 
 /**
  * Created by Thanggun99 on 28/02/2017.
@@ -12,12 +19,14 @@ import com.thanggun99.khachhang.util.Utils;
 
 public class KhachHangPresenter implements KhachHangInteractor.OnKhachHangFinishedListener {
     private ThucDonView thucDonView;
+    private LoginView loginView;
+    private TinTucView tinTucView;
     private KhachHangInteractor khachHangInteractor;
     private MainView mainView;
     private ChangepasswordView changepasswordView;
     private HomeView homeView;
     private FeedbackView feedbackView;
-    private DatBanView datBanView;
+    private ThongTinPhucVuView thongTinPhucVuView;
 
     public KhachHangPresenter(MainView mainView) {
         khachHangInteractor = new KhachHangInteractor(this);
@@ -46,41 +55,56 @@ public class KhachHangPresenter implements KhachHangInteractor.OnKhachHangFinish
     //on receive broadcast
     public void updateThongTinKhachHang(KhachHang khachHangUpdate) {
         khachHangInteractor.updateThongTinKhachHang(khachHangUpdate);
-        if (datBanView != null) {
-            datBanView.showLayoutThongTinDatBan(khachHangInteractor.getCurrentDatBan());
+        if (thongTinPhucVuView != null) {
+            thongTinPhucVuView.showLayoutThongTinDatBan(khachHangInteractor.getCurrentDatBan());
         }
     }
 
     public void deleteDatBan() {
         khachHangInteractor.deleteDatBan();
-        if (datBanView != null) {
-            datBanView.showLayoutDatBan();
+        if (thongTinPhucVuView != null) {
+            thongTinPhucVuView.showLayoutDatBan();
         }
     }
 
 
     public void loginAuto() {
-        if (checkConnect()) {
-            if (khachHangInteractor.isGhiNhoDangNhap()) {
+        if (khachHangInteractor.isGhiNhoDangNhap()) {
+
+            mainView.showLoginFragment();
+
+            if (checkConnect()) {
+
                 khachHangInteractor.loginAuto();
             }
+        } else {
+            mainView.showHomeFragment();
         }
     }
 
     @Override
     public void onLoginSuccess(KhachHang khachHang) {
-        thucDonView.showThucDon();
         mainView.showViewOnlogin(khachHang);
     }
 
     @Override
+    public void onGetThucDonSuccess() {
+        thucDonView.showThucDon();
+    }
+
+    @Override
+    public void onGetThucDonFail() {
+        thucDonView.showErrorGetThucDonFail();
+    }
+
+    @Override
     public void onOtherLogin() {
-        thucDonView.showOtherLogin();
+        mainView.showOtherLogin();
     }
 
     @Override
     public void onLoginFail() {
-        thucDonView.showloginFail();
+        loginView.showloginFail();
     }
 
     public void login(KhachHang khachHang) {
@@ -95,10 +119,10 @@ public class KhachHangPresenter implements KhachHangInteractor.OnKhachHangFinish
 
     public void logout() {
         khachHangInteractor.logout();
-        thucDonView.showFormLogin();
+        loginView.showFormLogin();
         mainView.showViewOnUnlogin();
         mainView.setNullFragments();
-        homeView.showOnUnLogin();
+        homeView.showTabThucDon();
     }
 
     @Override
@@ -164,36 +188,45 @@ public class KhachHangPresenter implements KhachHangInteractor.OnKhachHangFinish
 
     @Override
     public void onDatBanSuccess() {
-        datBanView.showOnSuccess();
-        datBanView.showLayoutThongTinDatBan(khachHangInteractor.getCurrentDatBan());
+        thongTinPhucVuView.showOnSuccess();
+        thongTinPhucVuView.showLayoutThongTinDatBan(khachHangInteractor.getCurrentDatBan());
     }
 
     @Override
     public void onDatBanFail() {
-        datBanView.showOnFail();
+        thongTinPhucVuView.showDatBanError();
     }
 
 
-    public void setDatBanView(DatBanView datBanView) {
-        this.datBanView = datBanView;
+    public void setThongTinPhucVuView(ThongTinPhucVuView thongTinPhucVuView) {
+        this.thongTinPhucVuView = thongTinPhucVuView;
     }
 
 
-    //get thong tin dat ban
-    public void getInfoDatBan() {
-        if (checkConnect()) {
-            khachHangInteractor.getInfoDatBan();
-        }
-    }
-
-    @Override
-    public void onGetInfoDatBanSuccess() {
-        datBanView.showLayoutThongTinDatBan(khachHangInteractor.getCurrentDatBan());
+    //get thong tin phuc vu
+    public void getThongTinPhucVu() {
+        khachHangInteractor.getThongTinPhucVu();
     }
 
     @Override
-    public void onGetInfoDatBanFail() {
-        datBanView.showLayoutDatBan();
+    public void onGetThongTinPhucVuFail() {
+        thongTinPhucVuView.showGetDatasFailDialog();
+    }
+
+    @Override
+    public void onFinishGetThongTinKhachHangPhucVu() {
+        thongTinPhucVuView.showLayoutPhucVu(khachHangInteractor.getKhachHang().getCurrentHoaDon());
+        thongTinPhucVuView.showTongTien(khachHangInteractor.getKhachHang().getCurrentHoaDon().getTongTien());
+    }
+
+    @Override
+    public void onFinishGetThongTinKhachHangDatBan() {
+        thongTinPhucVuView.showLayoutThongTinDatBan(khachHangInteractor.getKhachHang().getCurrentDatBan());
+    }
+
+    @Override
+    public void onFinishGetThongTinKhachHangNone() {
+        thongTinPhucVuView.showLayoutDatBan();
     }
 
 
@@ -206,17 +239,17 @@ public class KhachHangPresenter implements KhachHangInteractor.OnKhachHangFinish
 
     @Override
     public void onFinishHuyDatBan() {
-        datBanView.showLayoutDatBan();
+        thongTinPhucVuView.showLayoutDatBan();
     }
 
     @Override
     public void onHuyDatBanFail() {
-        datBanView.showError();
+        thongTinPhucVuView.showError();
     }
 
     public void onClickEditDatBan() {
-        datBanView.showLayoutDatBan();
-        datBanView.setContentView(khachHangInteractor.getCurrentDatBan());
+        thongTinPhucVuView.showLayoutDatBan();
+        thongTinPhucVuView.setContentView(khachHangInteractor.getCurrentDatBan());
     }
 
     public void UpdateDatBan(DatBan datBan) {
@@ -227,30 +260,106 @@ public class KhachHangPresenter implements KhachHangInteractor.OnKhachHangFinish
 
     @Override
     public void onUpdateDatBanSuccess() {
-        datBanView.showOnUpdateSuccess();
-        datBanView.showLayoutThongTinDatBan(khachHangInteractor.getCurrentDatBan());
+        thongTinPhucVuView.showOnUpdateSuccess();
+        thongTinPhucVuView.showLayoutThongTinDatBan(khachHangInteractor.getCurrentDatBan());
     }
 
     @Override
     public void onUpdateDatBanFail() {
-        onDatBanFail();
+        thongTinPhucVuView.showUpdateDatBanError();
     }
 
     public void backToThongTinDatBan() {
-        datBanView.showLayoutThongTinDatBan(khachHangInteractor.getCurrentDatBan());
+        thongTinPhucVuView.showLayoutThongTinDatBan(khachHangInteractor.getCurrentDatBan());
     }
 
+    public void loadTinTucList() {
+        if (checkConnect()) {
+            if (getDatabase().getTinTucList() == null) {
+
+                khachHangInteractor.loadTinTucList();
+            }
+        }
+    }
+
+    @Override
+    public void onGetTinTucSuccess() {
+        tinTucView.showTinTucList();
+    }
+
+    @Override
+    public void onGetTinTucFail() {
+        tinTucView.showErrorLoadTinTuc();
+    }
+
+    public void setTinTucView(TinTucView tinTucView) {
+        this.tinTucView = tinTucView;
+    }
+
+    public ArrayList<TinTuc> getTinTucList() {
+        return getDatabase().getTinTucList();
+    }
+
+    public KhachHang getKhachHang() {
+
+        return khachHangInteractor.getKhachHang();
+    }
+
+    public Database getDatabase() {
+        return khachHangInteractor.getDatabase();
+    }
+
+    public void onClickNhomMon(NhomMon nhomMon) {
+        thucDonView.notifyChangeListThucDon(getDatabase().getListThucDonByMaLoai(nhomMon.getMaLoai()));
+    }
+
+    public void loadThucDonList() {
+        if (checkConnect()) {
+            if (getDatabase().getMonList() == null) {
+
+                khachHangInteractor.loadThucDonList();
+            }
+        }
+
+    }
+
+    public void setLoginView(LoginView loginView) {
+        this.loginView = loginView;
+    }
+
+    public void showThucDonLayout() {
+        mainView.showHomeFragment();
+        homeView.showTabThucDon();
+    }
+
+    public void onClickHuyBan() {
+
+    }
+
+    public void onClickThongTinDatBan() {
+        thongTinPhucVuView.showThongTinDatBanDialog(getKhachHang().getCurrentHoaDon().getDatBan());
+    }
 
     public interface ThucDonView {
 
-        void showOtherLogin();
+        void showThucDon();
+
+        void showErrorGetThucDonFail();
+
+        void notifyChangeListThucDon(ArrayList<Mon> listMonByMaLoai);
+    }
+
+    public interface TinTucView {
+        void showTinTucList();
+
+        void showErrorLoadTinTuc();
+    }
+
+    public interface LoginView {
 
         void showloginFail();
 
-        void showThucDon();
-
         void showFormLogin();
-
     }
 
     public interface MainView {
@@ -265,6 +374,13 @@ public class KhachHangPresenter implements KhachHangInteractor.OnKhachHangFinish
         void hideProgress();
 
         void showProgress();
+
+        void showOtherLogin();
+
+        void showLoginFragment();
+
+        void showHomeFragment();
+
     }
 
     public interface ChangepasswordView {
@@ -278,7 +394,7 @@ public class KhachHangPresenter implements KhachHangInteractor.OnKhachHangFinish
     }
 
     public interface HomeView {
-        void showOnUnLogin();
+        void showTabThucDon();
     }
 
     public interface FeedbackView {
@@ -288,11 +404,11 @@ public class KhachHangPresenter implements KhachHangInteractor.OnKhachHangFinish
         void showOnFail();
     }
 
-    public interface DatBanView {
+    public interface ThongTinPhucVuView {
 
         void showOnSuccess();
 
-        void showOnFail();
+        void showGetDatasFailDialog();
 
         void showLayoutThongTinDatBan(DatBan datBan);
 
@@ -304,5 +420,14 @@ public class KhachHangPresenter implements KhachHangInteractor.OnKhachHangFinish
 
         void showOnUpdateSuccess();
 
+        void showLayoutPhucVu(HoaDon currentHoaDon);
+
+        void showUpdateDatBanError();
+
+        void showDatBanError();
+
+        void showTongTien(int tongTien);
+
+        void showThongTinDatBanDialog(DatBan datBan);
     }
 }

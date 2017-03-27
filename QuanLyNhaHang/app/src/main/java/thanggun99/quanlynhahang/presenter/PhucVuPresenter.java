@@ -12,8 +12,8 @@ import thanggun99.quanlynhahang.model.entity.Ban;
 import thanggun99.quanlynhahang.model.entity.DatBan;
 import thanggun99.quanlynhahang.model.entity.HoaDon;
 import thanggun99.quanlynhahang.model.entity.NhomMon;
-import thanggun99.quanlynhahang.model.entity.ThucDon;
-import thanggun99.quanlynhahang.model.entity.ThucDonOrder;
+import thanggun99.quanlynhahang.model.entity.Mon;
+import thanggun99.quanlynhahang.model.entity.MonOrder;
 import thanggun99.quanlynhahang.util.Utils;
 
 public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinishListener {
@@ -214,15 +214,15 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
     public void onClickNhomMon(NhomMon nhomMon) {
         phucVuView.clearTimKiem();
         phucVuView.showNhomMon(nhomMon);
-        phucVuView.notifyChangeListThucDon(getDatabase().getListThucDonByMaLoai(nhomMon.getMaLoai()));
+        phucVuView.notifyChangeListMon(getDatabase().getListMonByMaLoai(nhomMon.getMaLoai()));
 
     }
 
 
     // tim thuc don theo ten
-    public void findThucDon(String keyWord) {
+    public void findMon(String keyWord) {
         if (!TextUtils.isEmpty(keyWord)) {
-            phucVuView.notifyChangeListThucDon(getDatabase().getListThucDonByTenMon(keyWord));
+            phucVuView.notifyChangeListMon(getDatabase().getListMonByTenMon(keyWord));
         }
     }
 
@@ -381,34 +381,34 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
 
 
     //order thuc don
-    public void onClickThucdonOrder(ThucDonOrder thucDonOrder) {
-        phucVuInteractor.setcurrentThucDon(thucDonOrder);
-        phucVuInteractor.setCurrentThucDonOrder(thucDonOrder);
-        phucVuView.showOrderThucDonDialog(phucVuInteractor.getcurrentBan().getTenBan(), thucDonOrder);
+    public void onClickMonOrder(MonOrder monOrder) {
+        phucVuInteractor.setcurrentMon(monOrder);
+        phucVuInteractor.setCurrentMonOrder(monOrder);
+        phucVuView.showOrderMonDialog(phucVuInteractor.getcurrentBan().getTenBan(), monOrder);
     }
 
-    public void onClickThucdon(ThucDon thucDon) {
-        phucVuInteractor.setcurrentThucDon(thucDon);
-        phucVuView.showOrderThucDonDialog(phucVuInteractor.getcurrentBan().getTenBan(), thucDon);
+    public void onClickMon(Mon mon) {
+        phucVuInteractor.setcurrentMon(mon);
+        phucVuView.showOrderMonDialog(phucVuInteractor.getcurrentBan().getTenBan(), mon);
     }
 
-    public void orderThucDon(int soLuong) {
+    public void orderMon(int soLuong) {
         if (checkConnect()) {
             phucVuView.closeThucDonLayout();
-            phucVuInteractor.orderThucDon(soLuong);
+            phucVuInteractor.orderMon(soLuong);
         }
     }
 
     @Override
-    public void onFinishOrderUpdateThucDon(int tongTien) {
+    public void onFinishOrderUpdateMon(int tongTien) {
         phucVuView.showTongTien(tongTien);
-        phucVuView.notifyUpDateListThucDonOrder(phucVuInteractor.getCurrentThucDonOrder());
+        phucVuView.notifyUpDateListMonOrder(phucVuInteractor.getCurrentMonOrder());
     }
 
     @Override
-    public void onFinishOrderAddThucDon(int tongTien) {
+    public void onFinishOrderAddMon(int tongTien) {
         phucVuView.showTongTien(tongTien);
-        phucVuView.notifyAddListThucDonOrder();
+        phucVuView.notifyAddListMonOrder();
     }
 
     @Override
@@ -420,23 +420,23 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
 
 
     //delete thuc don order
-    public void onClickDeleteMonOrder(ThucDonOrder thucDonOrder) {
-        phucVuInteractor.setcurrentThucDon(thucDonOrder);
-        phucVuInteractor.setCurrentThucDonOrder(thucDonOrder);
-        phucVuView.showConfirmDialog(phucVuInteractor.getcurrentBan().getTenBan(), thucDonOrder.getTenMon());
+    public void onClickDeleteMonOrder(MonOrder monOrder) {
+        phucVuInteractor.setcurrentMon(monOrder);
+        phucVuInteractor.setCurrentMonOrder(monOrder);
+        phucVuView.showConfirmDialog(phucVuInteractor.getcurrentBan().getTenBan(), monOrder.getTenMon());
 
     }
 
-    public void deleteThucDonOrder() {
+    public void deleteMonOrder() {
         if (checkConnect()) {
-            phucVuInteractor.deleteThucDonOrder();
+            phucVuInteractor.deleteMonOrder();
         }
     }
 
     @Override
-    public void onFinishDeleteThucDonOrder(int tongTien) {
+    public void onFinishDeleteMonOrder(int tongTien) {
         phucVuView.showTongTien(tongTien);
-        phucVuView.notifyRemoveListThucDonOrder();
+        phucVuView.notifyRemoveListMonOrder();
     }
 
 
@@ -486,21 +486,21 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
 
         void showFormUpdateDatBanSetBan(DatBan datBan);
 
-        void showOrderThucDonDialog(String tenBan, ThucDon thucDon);
+        void showOrderMonDialog(String tenBan, Mon mon);
 
-        void notifyAddListThucDonOrder();
+        void notifyAddListMonOrder();
 
-        void notifyUpDateListThucDonOrder(ThucDonOrder currentThucDonOrder);
+        void notifyUpDateListMonOrder(MonOrder currentMonOrder);
 
         void notifyUpdateListBan(Ban ban);
 
         void showConfirmDialog(String tenBan, String tenMon);
 
-        void notifyRemoveListThucDonOrder();
+        void notifyRemoveListMonOrder();
 
         void showThongTinDatBanDialog(DatBan datBan);
 
-        void notifyChangeListThucDon(ArrayList<ThucDon> thucDons);
+        void notifyChangeListMon(ArrayList<Mon> mons);
 
         void showSaleDialog(HoaDon hoaDon);
 

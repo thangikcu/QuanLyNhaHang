@@ -2,12 +2,73 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackgroundDialog"
+    android:paddingBottom="16dp"
     tools:context="com.thanggun99.khachhang.view.fragment.AboutFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="about" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="97dp"
+        android:gravity="center"
+        android:text="@string/gioi_thieu_ve_nha_hang"
+        android:textAllCaps="true"
+        android:textColor="@color/colorTextRegister"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:typeface="serif" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:padding="16dp"
+        android:lineSpacingExtra="3sp"
+        android:layout_marginTop="160dp"
+        android:typeface="serif"
+        android:text="@string/introduce"
+        android:textColor="#434343"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/app_name"
+            android:textColor="#8b8787"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:text="Phiên bản: 1.0.0"
+            android:textColor="#8b8787"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Design: thanggun99"
+            android:textColor="#8b8787"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email: thanggun99@gmail.com"
+            android:textColor="#8b8787"
+            android:textSize="12sp" />
+
+    </LinearLayout>
 </FrameLayout>

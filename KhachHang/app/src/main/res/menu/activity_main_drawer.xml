@@ -6,13 +6,13 @@
             android:icon="@drawable/ic_home"
             android:title="@string/trang_chu" />
         <item
+            android:id="@+id/btn_thong_tin_phuc_vu"
+            android:icon="@drawable/ic_dat_ban"
+            android:title="@string/thong_tin_phuc_vu" />
+        <item
             android:id="@+id/btn_my_profile"
             android:icon="@drawable/ic_profile"
             android:title="@string/thong_tin_cua_toi" />
-        <item
-            android:id="@+id/btn_dat_ban"
-            android:icon="@drawable/ic_dat_ban"
-            android:title="@string/dat_ban" />
         <item
             android:id="@+id/btn_gop_y"
             android:icon="@drawable/ic_gop_y"

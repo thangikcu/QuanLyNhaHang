@@ -15,6 +15,7 @@
     <color name="colorBackgroundTableServing">#37c937</color>
     <color name="colorBorderSelected">#e4780c</color>
     <color name="colorTextTenMon">#b31ea2</color>
+    <color name="yellow">#c4a010</color>
     <color name="colorTextMoney">#ca3221</color>
     <color name="colorTextTitleDialog">#020202</color>
     <color name="colorBackgroundDialog">#eaeaea</color>

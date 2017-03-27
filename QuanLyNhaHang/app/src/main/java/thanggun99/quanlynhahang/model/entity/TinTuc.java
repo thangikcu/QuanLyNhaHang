@@ -1,10 +1,11 @@
 package thanggun99.quanlynhahang.model.entity;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.text.TextUtils;
 
-import thanggun99.quanlynhahang.App;
-import thanggun99.quanlynhahang.R;
+import java.util.HashMap;
+import java.util.Map;
+
+import thanggun99.quanlynhahang.util.API;
 
 /**
  * Created by Thanggun99 on 23/03/2017.
@@ -15,10 +16,11 @@ public class TinTuc {
     private String tieuDe;
     private String noiDung;
     private String ngayDang;
-    private Bitmap hinhAnh;
+    private byte[] hinhAnh;
     private int hienThi;
+    private String hinhAnhString;
 
-    public TinTuc(int maTinTuc, String tieuDe, String noiDung, String ngayDang, Bitmap hinhAnh, int hienThi) {
+    public TinTuc(int maTinTuc, String tieuDe, String noiDung, String ngayDang, byte[] hinhAnh, int hienThi) {
         this.maTinTuc = maTinTuc;
         this.tieuDe = tieuDe;
         this.noiDung = noiDung;
@@ -62,13 +64,11 @@ public class TinTuc {
         this.ngayDang = ngayDang;
     }
 
-    public Bitmap getHinhAnh() {
-        if (hinhAnh != null)
-            return hinhAnh;
-        return BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.ic_news);
+    public byte[] getHinhAnh() {
+        return hinhAnh;
     }
 
-    public void setHinhAnh(Bitmap hinhAnh) {
+    public void setHinhAnh(byte[] hinhAnh) {
         this.hinhAnh = hinhAnh;
     }
 
@@ -78,5 +78,79 @@ public class TinTuc {
 
     public void setHienThi(int hienThi) {
         this.hienThi = hienThi;
+    }
+
+    public void setHinhAnhString(String hinhAnhString) {
+        this.hinhAnhString = hinhAnhString;
+    }
+
+    public String getHinhAnhString() {
+        return hinhAnhString;
+    }
+
+    public Boolean addNew() {
+        Map<String, String> postParams = new HashMap<>();
+        postParams.put("tieuDe", tieuDe);
+        postParams.put("noiDung", noiDung);
+        postParams.put("ngayDang", ngayDang);
+        postParams.put("hienThi", String.valueOf(hienThi));
+        postParams.put("hinhAnh", hinhAnhString);
+
+        String s = API.callService(API.THEM_TIN_TUC_URL, null, postParams);
+
+        if (!TextUtils.isEmpty(s)) {
+            try {
+
+                setMaTinTuc(Integer.parseInt(s.trim()));
+                return true;
+
+
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+                return false;
+            }
+
+        } else {
+            return false;
+        }
+
+    }
+
+    public Boolean delete() {
+        Map<String, String> getParams = new HashMap<>();
+        getParams.put("maTinTuc", String.valueOf(getMaTinTuc()));
+
+        String s = API.callService(API.DELETE_TIN_TUC_URL, getParams);
+
+        if (!TextUtils.isEmpty(s) && s.trim().contains("success")) {
+            return true;
+        }
+        return false;
+    }
+
+    public Boolean updateTinTuc(TinTuc tinTucUpdate) {
+
+        Map<String, String> postParams;
+        postParams = new HashMap<>();
+
+        postParams.put("maTinTuc", String.valueOf(getMaTinTuc()));
+        postParams.put("tieuDe", tinTucUpdate.getTieuDe());
+        postParams.put("noiDung", tinTucUpdate.getNoiDung());
+        postParams.put("ngayDang", tinTucUpdate.getNgayDang());
+        postParams.put("hienThi", String.valueOf(tinTucUpdate.getHienThi()));
+        postParams.put("hinhAnh", tinTucUpdate.getHinhAnhString());
+
+        String s = API.callService(API.UPDATE_TIN_TUC_URL, null, postParams);
+
+        if (!TextUtils.isEmpty(s) && s.trim().contains("success")) {
+
+            setTieuDe(tinTucUpdate.getTieuDe());
+            setNoiDung(tinTucUpdate.getNoiDung());
+            setNgayDang(tinTucUpdate.getNgayDang());
+            setHienThi(tinTucUpdate.getHienThi());
+            setHinhAnh(tinTucUpdate.getHinhAnh());
+            return true;
+        }
+        return false;
     }
 }

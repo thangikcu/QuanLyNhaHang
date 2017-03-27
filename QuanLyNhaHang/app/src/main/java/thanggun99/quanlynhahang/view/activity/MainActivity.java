@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
                     }
                     break;
                 case MyFirebaseMessagingService.LOGOUT_ACTION:
-                    Utils.notifi(Utils.getStringByRes(R.string.other_people_login));
+                    Utils.notifiOnDialog(Utils.getStringByRes(R.string.other_people_login));
                     mainPresenter.logout();
 
                     break;

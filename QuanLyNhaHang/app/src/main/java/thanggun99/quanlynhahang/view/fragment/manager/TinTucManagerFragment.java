@@ -2,10 +2,15 @@ package thanggun99.quanlynhahang.view.fragment.manager;
 
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SearchView;
 
 import thanggun99.quanlynhahang.R;
 import thanggun99.quanlynhahang.adapter.TinTucAdapter;
@@ -13,17 +18,23 @@ import thanggun99.quanlynhahang.model.Database;
 import thanggun99.quanlynhahang.model.TinTucManager;
 import thanggun99.quanlynhahang.presenter.MainPresenter;
 import thanggun99.quanlynhahang.util.Utils;
+import thanggun99.quanlynhahang.view.dialog.ThemTinTucDialog;
 import thanggun99.quanlynhahang.view.fragment.BaseFragment;
 
-@SuppressLint("ValidFragment")
-public class TinTucManagerFragment extends BaseFragment implements TinTucManager.TinTucView {
-    private Button btnThemMoi;
-    private RecyclerView tinTucrecyclerView;
-    private TinTucAdapter tinTucAdapter;
-    private Database database;
-    private MainPresenter mainPresenter;
-    private TinTucManager tinTucManager;
+import static android.app.Activity.RESULT_OK;
 
+@SuppressLint("ValidFragment")
+public class TinTucManagerFragment extends BaseFragment implements TinTucManager.TinTucView, View.OnClickListener {
+
+    private Database database;
+    private TinTucManager tinTucManager;
+    private MainPresenter mainPresenter;
+
+    private Button btnThemMoi;
+    private RecyclerView tinTucRecyclerView;
+    private TinTucAdapter tinTucAdapter;
+    private SearchView edtTimKiemTinTuc;
+    private ThemTinTucDialog themTinTucDialog;
 
     public TinTucManagerFragment(MainPresenter mainPresenter) {
         super(R.layout.fragment_tin_tuc_manager);
@@ -32,44 +43,133 @@ public class TinTucManagerFragment extends BaseFragment implements TinTucManager
     }
 
     @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            tinTucManager.getDatas();
+        }
+    }
+
+    @Override
     public void findViews(View view) {
-        tinTucrecyclerView = (RecyclerView) view.findViewById(R.id.list_tin_tuc);
+        edtTimKiemTinTuc = (SearchView) view.findViewById(R.id.edt_tim_kiem_tin_tuc);
+        tinTucRecyclerView = (RecyclerView) view.findViewById(R.id.list_tin_tuc);
         btnThemMoi = (Button) view.findViewById(R.id.btn_them_tin_tuc);
     }
 
     @Override
     public void initComponents() {
-        tinTucManager = new TinTucManager(database);
+        tinTucManager = new TinTucManager(mainPresenter);
         tinTucManager.setTinTucView(this);
+        tinTucManager.setFragment(this);
 
-        tinTucAdapter = new TinTucAdapter();
+        tinTucAdapter = new TinTucAdapter(getContext(), database.getTinTucList(), tinTucManager);
+
+        themTinTucDialog = new ThemTinTucDialog(getContext(), tinTucManager);
+
+        tinTucManager.setThemTinTucDialog(themTinTucDialog);
 
     }
 
     @Override
     public void setEvents() {
-        tinTucrecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        tinTucManager.getDatas();
-    }
+        tinTucRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        edtTimKiemTinTuc.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                edtTimKiemTinTuc.onActionViewCollapsed();
+                return false;
+            }
 
-    @Override
-    public void onStartTask() {
-        mainPresenter.onStartTask();
+            @Override
+            public boolean onQueryTextChange(String keyWord) {
+                tinTucAdapter.changeData(tinTucManager.findDatBan(keyWord));
+                return true;
+            }
+        });
+
+        edtTimKiemTinTuc.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    edtTimKiemTinTuc.onActionViewCollapsed();
+                    tinTucAdapter.showAllData();
+                }
+            }
+        });
+
+        btnThemMoi.setOnClickListener(this);
+
+        tinTucManager.getDatas();
     }
 
     @Override
     public void onFinishGetDatas() {
         tinTucAdapter.setDatas(database.getTinTucList());
-        tinTucrecyclerView.setAdapter(tinTucAdapter);
+        tinTucRecyclerView.setAdapter(tinTucAdapter);
     }
 
     @Override
     public void onGetDatasFail() {
-        Utils.notifi(Utils.getStringByRes(R.string.tai_danh_sach_tin_tuc_that_bai));
+        Utils.notifiOnDialog(Utils.getStringByRes(R.string.tai_danh_sach_tin_tuc_that_bai));
     }
 
     @Override
-    public void onFinishTask() {
-        mainPresenter.onFinishTask();
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == ThemTinTucDialog.SELECT_PHOTO && resultCode == RESULT_OK && data != null) {
+            Uri pickedImage = data.getData();
+
+            String[] filePath = {MediaStore.Images.Media.DATA};
+            Cursor cursor = getContext().getContentResolver().query(pickedImage, filePath, null, null, null);
+            cursor.moveToFirst();
+            String imagePath = cursor.getString(cursor.getColumnIndex(filePath[0]));
+
+            themTinTucDialog.showImage(Utils.compressImage(imagePath));
+
+            cursor.close();
+        }
+
+    }
+
+    @Override
+    public void onFinishUpdateTinTuc() {
+        tinTucAdapter.notifyItemChanged(tinTucManager.getCurrentTinTuc());
+    }
+
+    @Override
+    public void onUpdateTinTucFail() {
+        Utils.notifiOnDialog(Utils.getStringByRes(R.string.update_tin_tuc_that_bai));
+    }
+
+    @Override
+    public void onDeleteTinTucFail() {
+        Utils.notifiOnDialog(Utils.getStringByRes(R.string.xoa_tin_tuc_that_bai));
+    }
+
+    @Override
+    public void onFinishDeleteTinTucSuccess() {
+        tinTucAdapter.removeTinTuc();
+    }
+
+    @Override
+    public void onFinishAddTinTucSuccess() {
+        tinTucRecyclerView.scrollToPosition(0);
+        tinTucAdapter.notifyItemInserted(0);
+        Utils.notifiOnDialog(Utils.getStringByRes(R.string.them_tin_tuc_thanh_cong));
+    }
+
+    @Override
+    public void onAddTinTucFail() {
+        Utils.notifiOnDialog(Utils.getStringByRes(R.string.them_tin_tuc_that_bai));
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.btn_them_tin_tuc) {
+            themTinTucDialog.clear();
+            themTinTucDialog.show();
+        }
     }
 }

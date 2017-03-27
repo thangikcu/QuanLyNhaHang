@@ -10,14 +10,14 @@ public class DatBan implements Serializable{
     private int maDatBan;
     private String gioDen;
     private String yeuCau;
-    private Ban ban;
+    private String tenBan;
     private int trangThai;
 
-    public DatBan(int maDatBan, String gioDen, String yeuCau, Ban ban, int trangThai) {
+    public DatBan(int maDatBan, String gioDen, String yeuCau, String tenBan, int trangThai) {
         this.maDatBan = maDatBan;
         this.gioDen = gioDen;
         this.yeuCau = yeuCau;
-        this.ban = ban;
+        this.tenBan = tenBan;
         this.trangThai = trangThai;
     }
 
@@ -48,12 +48,12 @@ public class DatBan implements Serializable{
         this.yeuCau = yeuCau;
     }
 
-    public Ban getBan() {
-        return ban;
+    public String getTenBan() {
+        return tenBan;
     }
 
-    public void setBan(Ban ban) {
-        this.ban = ban;
+    public void setTenBan(String tenBan) {
+        this.tenBan = tenBan;
     }
 
     public int getTrangThai() {

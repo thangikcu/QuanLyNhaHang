@@ -1,73 +1,97 @@
 package com.thanggun99.khachhang.view.fragment;
 
 
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
+import android.annotation.SuppressLint;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.thanggun99.khachhang.R;
-import com.thanggun99.khachhang.util.API;
+import com.thanggun99.khachhang.adapter.TinTucAdapter;
+import com.thanggun99.khachhang.model.entity.TinTuc;
+import com.thanggun99.khachhang.presenter.KhachHangPresenter;
+import com.thanggun99.khachhang.util.Utils;
 
-import java.util.HashMap;
-import java.util.Map;
+@SuppressLint("ValidFragment")
+public class TinTucFragment extends BaseFragment implements KhachHangPresenter.TinTucView, TinTucAdapter.OnClickTinTucListener {
+    private RecyclerView tinTucRecyclerView;
+    private TinTucAdapter tinTucAdapter;
+    private LinearLayout tinTucLayout;
+    private ImageButton btnBack;
+    private TextView tvTieuDe, tvNoiDung;
+    private ImageView ivHinhAnh;
+    private KhachHangPresenter khachHangPresenter;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class TinTucFragment extends Fragment {
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.clear();
-    }
-
-    public TinTucFragment() {
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tin_tuc, container, false);
+    public TinTucFragment(KhachHangPresenter khachHangPresenter) {
+        super(R.layout.fragment_tin_tuc);
+        this.khachHangPresenter = khachHangPresenter;
+        khachHangPresenter.setTinTucView(this);
     }
 
     @Override
-    public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        view.findViewById(R.id.btn_send).setOnClickListener(new View.OnClickListener() {
+    public void findViews(View view) {
+        tinTucLayout = (LinearLayout) view.findViewById(R.id.layout_tin_tuc);
+        btnBack = (ImageButton) tinTucLayout.findViewById(R.id.btn_back);
+        tvTieuDe = (TextView) tinTucLayout.findViewById(R.id.tv_tieu_de);
+        tvNoiDung = (TextView) tinTucLayout.findViewById(R.id.tv_noi_dung);
+        ivHinhAnh = (ImageView) tinTucLayout.findViewById(R.id.iv_hinh_anh);
+
+        tinTucRecyclerView = (RecyclerView) view.findViewById(R.id.list_tin_tuc);
+    }
+
+    @Override
+    public void initComponents() {
+        tinTucAdapter = new TinTucAdapter(getContext());
+        tinTucAdapter.setOnClickTinTucListener(this);
+    }
+
+    @Override
+    public void setEvents() {
+        tinTucRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        tinTucLayout.setVisibility(View.GONE);
+        tinTucRecyclerView.setVisibility(View.VISIBLE);
+
+        tvNoiDung.setMovementMethod(new ScrollingMovementMethod());
+        btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new SendMessageAsynTask().execute(((EditText) view.findViewById(R.id.edt_title)).getText().toString(),
-                        ((EditText) view.findViewById(R.id.edt_message)).getText().toString());
+                tinTucLayout.setVisibility(View.GONE);
+                tinTucRecyclerView.setVisibility(View.VISIBLE);
             }
         });
+
     }
 
-    class SendMessageAsynTask extends AsyncTask<String, Void, Boolean>{
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
+    @Override
+    public void showTinTucList() {
+        tinTucAdapter.setDatas(khachHangPresenter.getTinTucList());
+        tinTucRecyclerView.setAdapter(tinTucAdapter);
+    }
 
-        @Override
-        protected void onPostExecute(Boolean aBoolean) {
-            super.onPostExecute(aBoolean);
-        }
+    @Override
+    public void showErrorLoadTinTuc() {
+        Utils.notifi(Utils.getStringByRes(R.string.tai_danh_sach_tin_tuc_that_bai));
+    }
 
-        @Override
-        protected Boolean doInBackground(String... params) {
-            Map<String, String> push = new HashMap();
-            push.put("title", params[0]);
-            push.put("message", params[1]);
+    @Override
+    public void onClickTinTuc(TinTuc tinTuc) {
+        tvNoiDung.scrollTo(0, 0);
+        tvTieuDe.setText(tinTuc.getTieuDe());
+        tvNoiDung.setText(tinTuc.getNoiDung());
+        Glide.with(getContext())
+                .load(tinTuc.getHinhAnh())
+                .placeholder(R.drawable.ic_news)
+                .error(R.drawable.ic_news)
+                .into(ivHinhAnh);
 
-            String s = API.callService(API.TEST_URL, null, push);
-            return null;
-        }
+        tinTucLayout.setVisibility(View.VISIBLE);
+        tinTucRecyclerView.setVisibility(View.GONE);
+
     }
 }

@@ -52,8 +52,8 @@
     <string name="nhap_so_dien_thoai">Nhập số điện thoại</string>
     <string name="nhap_gio_den">Nhập giờ đến</string>
     <string name="pv_notify_dat_ban">%s: đặt bàn</string>
-    <string name="pv_notify_order_thucdon">%1$s: +%2$d %3$s</string>
-    <string name="pv_notify_delete_thucdon_order">%1$s: hủy order - %2$s</string>
+    <string name="pv_notify_order_mon">%1$s: +%2$d %3$s</string>
+    <string name="pv_notify_delete_mon_order">%1$s: hủy order - %2$s</string>
     <string name="pv_notify_hoa_don_moi">Hóa đơn mới - %1$s: +%2$d %3$s</string>
     <string name="pv_notify_sale">%1$s: giảm giá - %2$d%%</string>
     <string name="pv_notify_huy_ban">%s: hủy bàn</string>
@@ -89,7 +89,7 @@
     <string name="tai_khoan">Tài khoản</string>
     <string name="mat_khau">Mật khẩu</string>
     <string name="ghi_nho_dang_nhap">Ghi nhớ đăng nhập</string>
-    <string name="dang_nhap_that_bai">Đăng nhập thất bại</string>
+    <string name="dang_nhap_that_bai">Đăng nhập thất bại !</string>
     <string name="nhap_mat_khau">Nhập mật khẩu</string>
     <string name="nhap_ten_dang_nhap">Nhập tên đăng nhập</string>
     <string name="other_people_login">Tài khoản bị đăng nhập từ nơi khác !</string>
@@ -116,4 +116,17 @@
     <string name="danh_sach_thuc_don">Danh sách thực đơn</string>
     <string name="danh_sach_loai_mon">Danh sách loại món</string>
     <string name="danh_sach_nhan_vien">Danh sách nhân viên</string>
+    <string name="tieu_de">Tiêu đề</string>
+    <string name="noi_dung">Nội dung</string>
+    <string name="hien_thi">Hiển thị</string>
+    <string name="chon_hinh">Chọn hình</string>
+    <string name="nhap_noi_dung">Nhập nội dung</string>
+    <string name="nhap_tieu_de">Nhập tiêu đề</string>
+    <string name="them_tin_tuc_thanh_cong">Thêm tin tức mới thành công</string>
+    <string name="them_tin_tuc_that_bai">Thêm tin tức thất bại !</string>
+    <string name="xoa_tin_tuc_that_bai">Xoá tin tức thất bại !</string>
+    <string name="xac_nhan_xoa_tin_tuc">Bạn có muốn xoá tin ?</string>
+    <string name="ngay_dang">Ngày đăng</string>
+    <string name="nhap_ngay_dang">Nhập ngày đăng</string>
+    <string name="update_tin_tuc_that_bai">Cập nhật tin tức thất bại !</string>
 </resources>

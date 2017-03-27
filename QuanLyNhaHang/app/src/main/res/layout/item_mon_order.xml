@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_list_item_thuc_don_order"
+    android:background="@drawable/bg_list_item"
     android:gravity="center_vertical"
     android:padding="2dp"
     android:orientation="horizontal">
 
     <ImageView
-        android:id="@+id/iv_thuc_don"
+        android:id="@+id/iv_mon"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:scaleType="centerCrop"

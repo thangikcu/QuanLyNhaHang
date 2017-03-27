@@ -25,28 +25,28 @@ public class HoaDon {
     private Ban ban;
     private String gioDen;
     private int trangThai;
-    private ArrayList<ThucDonOrder> thucDonOrders = new ArrayList<>();
+    private ArrayList<MonOrder> monOrderList = new ArrayList<>();
 
     public HoaDon() {
     }
 
-    public HoaDon(int maHoaDon, int giamGia, String gioDen, ArrayList<ThucDonOrder> thucDonOrders) {
+    public HoaDon(int maHoaDon, int giamGia, String gioDen, ArrayList<MonOrder> monOrderList) {
         this.maHoaDon = maHoaDon;
         this.giamGia = giamGia;
         this.gioDen = gioDen;
-        this.thucDonOrders = thucDonOrders;
+        this.monOrderList = monOrderList;
 
     }
 
-    public boolean taoMoiHoaDon(ThucDonOrder thucDonOrderNew) {
+    public boolean taoMoiHoaDon(MonOrder monOrderNew) {
         Map<String, String> postParams = new HashMap<>();
         if (getDatBan() != null){
             postParams.put("maDatBan", String.valueOf(getDatBan().getMaDatBan()));
         }
         postParams.put("maBan", String.valueOf(getBan().getMaBan()));
         postParams.put("gioDen", getGioDen());
-        postParams.put("maMon", String.valueOf(thucDonOrderNew.getMaMon()));
-        postParams.put("soLuong", String.valueOf(thucDonOrderNew.getSoLuong()));
+        postParams.put("maMon", String.valueOf(monOrderNew.getMaMon()));
+        postParams.put("soLuong", String.valueOf(monOrderNew.getSoLuong()));
 
         String s = API.callService(API.TAO_MOI_HOA_DON_URL, null, postParams);
         if (!TextUtils.isEmpty(s)) {
@@ -57,10 +57,10 @@ public class HoaDon {
                 int maHoaDon = object.getInt("maHoaDon");
                 int maChiTietHD = object.getInt("maChiTietHD");
 
-                thucDonOrderNew.setMaChitietHD(maChiTietHD);
+                monOrderNew.setMaChitietHD(maChiTietHD);
                 setMaHoaDon(maHoaDon);
 
-                addThucDonOrder(thucDonOrderNew);
+                addMonOrder(monOrderNew);
                 getBan().setTrangThai(2);
                 return true;
 
@@ -131,38 +131,38 @@ public class HoaDon {
         return false;
     }
 
-    public boolean deleteThucDonOrder(int maChiTietHD) {
+    public boolean deleteMonOrder(int maChiTietHD) {
         Map<String, String> getParams = new HashMap<>();
         getParams.put("maChiTietHD", String.valueOf(maChiTietHD));
         String s = API.callService(API.DELETE_MON_ORDER_URL, getParams);
         if (!TextUtils.isEmpty(s) && s.trim().contains("success")) {
-            getThucDonOrders().remove(getThucDonOrderByMa(maChiTietHD));
+            getMonOrderList().remove(getMonOrderByMa(maChiTietHD));
             return true;
         }
         return false;
     }
 
-    private ThucDonOrder getThucDonOrderByMa(int maChiTietHD) {
-        for (ThucDonOrder thucDonOrder : getThucDonOrders()) {
-            if (thucDonOrder.getMaChitietHD() == maChiTietHD) {
-                return thucDonOrder;
+    private MonOrder getMonOrderByMa(int maChiTietHD) {
+        for (MonOrder monOrder : getMonOrderList()) {
+            if (monOrder.getMaChitietHD() == maChiTietHD) {
+                return monOrder;
             }
         }
         return null;
     }
 
-    public boolean themThucDonOrder(ThucDonOrder thucDonOrderNew) {
+    public boolean themMonOrder(MonOrder monOrderNew) {
         Map<String, String> postParams = new HashMap<>();
         postParams.put("maHoaDon", String.valueOf(getMaHoaDon()));
-        postParams.put("maMon", String.valueOf(thucDonOrderNew.getMaMon()));
-        postParams.put("soLuong", String.valueOf(thucDonOrderNew.getSoLuong()));
+        postParams.put("maMon", String.valueOf(monOrderNew.getMaMon()));
+        postParams.put("soLuong", String.valueOf(monOrderNew.getSoLuong()));
 
-        String s = API.callService(API.THEM_THUC_DON_ORDER_URL, null, postParams);
+        String s = API.callService(API.THEM_MON_ORDER_URL, null, postParams);
         if (!TextUtils.isEmpty(s)) {
 
-            thucDonOrderNew.setMaChitietHD(Integer.parseInt(s.trim()));
+            monOrderNew.setMaChitietHD(Integer.parseInt(s.trim()));
 
-            addThucDonOrder(thucDonOrderNew);
+            addMonOrder(monOrderNew);
             return true;
         }
         return false;
@@ -176,16 +176,16 @@ public class HoaDon {
         this.ban = ban;
     }
 
-    public ArrayList<ThucDonOrder> getThucDonOrders() {
-        return thucDonOrders;
+    public ArrayList<MonOrder> getMonOrderList() {
+        return monOrderList;
     }
 
-    public void setThucDonOrders(ArrayList<ThucDonOrder> thucDonOrders) {
-        this.thucDonOrders = thucDonOrders;
+    public void setMonOrderList(ArrayList<MonOrder> monOrderList) {
+        this.monOrderList = monOrderList;
     }
 
-    public void addThucDonOrder(ThucDonOrder thucDonOrder) {
-        this.thucDonOrders.add(0, thucDonOrder);
+    public void addMonOrder(MonOrder monOrder) {
+        this.monOrderList.add(0, monOrder);
     }
 
     public int getMaHoaDon() {
@@ -247,16 +247,16 @@ public class HoaDon {
 
     public int getTienMon() {
         int tienMon = 0;
-        for (ThucDonOrder thucDonOrder : getThucDonOrders()) {
-            tienMon += thucDonOrder.getTongTien();
+        for (MonOrder monOrder : getMonOrderList()) {
+            tienMon += monOrder.getTongTien();
         }
         return tienMon;
     }
 
     public int getSoMon() {
         int soMon = 0;
-        for (ThucDonOrder thucDonOrder : getThucDonOrders()) {
-            soMon += thucDonOrder.getSoLuong();
+        for (MonOrder monOrder : getMonOrderList()) {
+            soMon += monOrder.getSoLuong();
         }
         return soMon;
     }

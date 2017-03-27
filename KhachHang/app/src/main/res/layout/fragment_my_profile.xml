@@ -1,13 +1,122 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_thong_tin_dat_ban"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.thanggun99.khachhang.view.fragment.MyProfileFragment">
+    android:animateLayoutChanges="true"
+    android:orientation="vertical"
+    android:padding="16dp">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="myprofile" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="8dp"
+        android:text="@string/thong_tin_tai_khoan"
+        android:textColor="@color/colorPrimary"
+        android:textSize="14sp"
+        android:textStyle="bold" />
 
-</FrameLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorPrimary" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="16dp">
+
+                <TextView
+                    style="@style/CommonTextView"
+                    android:layout_width="wrap_content"
+                    android:text="@string/info_ten_khach_hang"
+                    android:textColor="@color/colorTextField"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_ho_ten"
+                    style="@style/CommonTextView"
+                    android:paddingLeft="16dp"
+                    android:text="Trần Văn Thắng"
+                    android:textColor="@color/colorTextInfo" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp">
+
+                <TextView
+                    style="@style/CommonTextView"
+                    android:text="@string/info_ten_dang_nhap"
+                    android:textColor="@color/colorTextField"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_ten_dang_nhap"
+                    style="@style/CommonTextView"
+                    android:paddingLeft="16dp"
+                    android:text="thanggun99"
+                    android:textColor="@color/colorTextInfo" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp">
+
+                <TextView
+                    style="@style/CommonTextView"
+                    android:text="@string/info_so_dien_thoai"
+                    android:textColor="@color/colorTextField"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_so_dien_thoai"
+                    style="@style/CommonTextView"
+                    android:paddingLeft="16dp"
+                    android:text="0915194096"
+                    android:textColor="@color/colorTextInfo" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp">
+
+                <TextView
+                    style="@style/CommonTextView"
+                    android:text="@string/info_dia_chi"
+                    android:textColor="@color/colorTextField"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_dia_chi"
+                    style="@style/CommonTextView"
+                    android:layout_width="200dp"
+                    android:gravity="center_vertical"
+                    android:isScrollContainer="true"
+                    android:maxLines="4"
+                    android:paddingLeft="16dp"
+                    android:scrollbars="vertical"
+                    android:text="Nam Định"
+                    android:textColor="@color/colorTextInfo" />
+
+            </TableRow>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

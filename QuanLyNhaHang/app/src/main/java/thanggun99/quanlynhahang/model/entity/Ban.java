@@ -116,7 +116,7 @@ public class Ban implements Serializable{
     public boolean equals(Object obj) {
         if (this == obj) return true;
 
-        if (!(obj instanceof ThucDon)) return false;
+        if (!(obj instanceof Mon)) return false;
 
         if (!tenBan.equals(((Ban) obj).tenBan)) return false;
 

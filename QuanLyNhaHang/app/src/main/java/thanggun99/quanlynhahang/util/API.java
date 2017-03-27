@@ -21,7 +21,7 @@ public class API {
     //public static final String HOST = "thanggun99.000webhostapp.com";
     public static final String PATH = "WebService";
     public static final String PATH_BAN = "BanService/";
-    public static final String PATH_THUC_DON = "ThucDonService/";
+    public static final String PATH_MON = "MonService/";
     public static final String PATH_HOA_DON = "HoaDonService/";
     public static final String PATH_DAT_BAN = "DatBanService/";
     public static final String PATH_NHOM_MON = "NhomMonService/";
@@ -35,7 +35,7 @@ public class API {
     public static final String GET_BAN_URL = PATH_BAN + "GetBan.php";
     public static final String UPDATE_BAN_URL = "UpdateBan.php";
 
-    public static final String GET_THUC_DON_URL = PATH_THUC_DON + "GetThucDon.php";
+    public static final String GET_MON_URL = PATH_MON + "GetMon.php";
 
     public static final String GET_HOA_DON_URL = PATH_HOA_DON + "GetHoaDon.php";
     public static final String TAO_MOI_HOA_DON_URL = PATH_HOA_DON + "TaoMoiHoaDon.php";
@@ -50,15 +50,18 @@ public class API {
 
     public static final String GET_NHOM_MON_URL = PATH_NHOM_MON + "GetNhomMon.php";
 
-    public static final String UPDATE_THUC_DON_ORDER_URL = PATH_HOA_DON + "UpdateThucDonOrder.php";
+    public static final String UPDATE_MON_ORDER_URL = PATH_HOA_DON + "UpdateMonOrder.php";
     public static final String UPDATE_GIAM_GIA_URL = PATH_HOA_DON + "UpdateGiamGia.php";
-    public static final String THEM_THUC_DON_ORDER_URL = PATH_HOA_DON + "ThemThucDonOrder.php";
+    public static final String THEM_MON_ORDER_URL = PATH_HOA_DON + "ThemMonOrder.php";
     public static final String DELETE_MON_ORDER_URL = PATH_HOA_DON + "DeleteMonOrder.php";
     public static final String REGISTER_TOKEN_URL = PATH_TOKEN + "RegisterToken.php";
     public static final String GET_KHACH_HANG_URL = PATH_KHACH_HANG + "GetKhachHang.php";
     public static final String LOGIN_URL = PATH_ADMIN + "Login.php";
     public static final String CHANGE_PASSWORD_URL = PATH_ADMIN + "ChangePassword.php";
     public static final String GET_TIN_TUC_URL = PATH_TIN_TUC + "GetTinTuc.php";
+    public static final String THEM_TIN_TUC_URL = PATH_TIN_TUC + "ThemTinTuc.php";
+    public static final String DELETE_TIN_TUC_URL = PATH_TIN_TUC + "DeleteTinTuc.php";
+    public static final String UPDATE_TIN_TUC_URL = PATH_TIN_TUC + "UpdateTinTuc.php";
 
     public static String callService(String path, Map<String, String> getParams) {
         return callService(path, getParams, null);

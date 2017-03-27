@@ -34,7 +34,7 @@
         android:gravity="center_vertical">
 
         <ImageView
-            android:id="@+id/iv_thuc_don"
+            android:id="@+id/iv_mon"
             android:layout_width="72dp"
             android:layout_height="72dp"
             android:src="@drawable/ic_food" />
@@ -63,9 +63,9 @@
             android:id="@+id/tv_don_vi_tinh"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
-            android:text="miếng"
             android:isScrollContainer="true"
             android:scrollbars="horizontal"
+            android:text="miếng"
             android:textColor="@color/colorTextTenMon"
             android:textSize="12sp" />
 
@@ -89,7 +89,7 @@
             android:layout_height="32dp"
             android:layout_weight="1"
             android:background="@drawable/btn_radius"
-            android:text="@string/dong_y"/>
+            android:text="@string/dong_y" />
 
         <Button
             android:id="@+id/btn_cancel"
@@ -99,6 +99,6 @@
             android:layout_marginLeft="16dp"
             android:layout_weight="1"
             android:background="@drawable/btn_radius"
-            android:text="@string/huy"/>
+            android:text="@string/huy" />
     </TableRow>
 </LinearLayout>

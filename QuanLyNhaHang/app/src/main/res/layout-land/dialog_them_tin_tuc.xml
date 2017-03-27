@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="360dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/bg_dialog"
+    android:orientation="vertical"
+    android:padding="@dimen/margin">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary">
+
+                <TextView
+                    android:id="@+id/btn_chon_hinh"
+                    style="@style/CommonTextView"
+                    android:layout_centerInParent="true"
+                    android:text="@string/chon_hinh"
+                    android:textColor="@color/white" />
+
+                <ImageView
+                    android:id="@+id/iv_hinh_anh"
+                    android:layout_width="120dp"
+                    android:layout_height="80dp"
+                    android:scaleType="centerCrop" />
+
+            </RelativeLayout>
+
+            <EditText
+                android:id="@+id/edt_tieu_de"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:drawableLeft="@drawable/ic_news"
+                android:drawablePadding="8dp"
+                android:hint="@string/tieu_de"
+                android:isScrollContainer="true"
+                android:lines="1"
+                android:maxLength="100"
+                android:maxLines="1"
+                android:scrollbars="horizontal"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <EditText
+            android:id="@+id/edt_noi_dung"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_note"
+            android:drawablePadding="8dp"
+            android:hint="@string/noi_dung"
+            android:inputType="textMultiLine"
+            android:isScrollContainer="true"
+            android:lines="5"
+            android:maxLength="500"
+            android:maxLines="5"
+            android:scrollbars="vertical"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/edt_ngay_dang"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:drawableLeft="@drawable/ic_time"
+            android:drawablePadding="8dp"
+            android:hint="@string/ngay_dang"
+            android:lines="1"
+            android:maxLength="20"
+            android:maxLines="1"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <CheckBox
+            android:id="@+id/ckb_hien_thi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/hien_thi" />
+
+    </LinearLayout>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp">
+
+        <Button
+            android:id="@+id/btn_ok"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_radius"
+            android:text="@string/dong_y"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_marginLeft="16dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_radius"
+            android:text="@string/huy"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+    </TableRow>
+</LinearLayout>

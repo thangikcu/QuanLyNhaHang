@@ -1,7 +1,5 @@
 package thanggun99.quanlynhahang.model;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Base64;
@@ -17,14 +15,12 @@ import thanggun99.quanlynhahang.model.entity.Ban;
 import thanggun99.quanlynhahang.model.entity.DatBan;
 import thanggun99.quanlynhahang.model.entity.HoaDon;
 import thanggun99.quanlynhahang.model.entity.KhachHang;
+import thanggun99.quanlynhahang.model.entity.Mon;
+import thanggun99.quanlynhahang.model.entity.MonOrder;
 import thanggun99.quanlynhahang.model.entity.NhomMon;
-import thanggun99.quanlynhahang.model.entity.ThucDon;
-import thanggun99.quanlynhahang.model.entity.ThucDonOrder;
 import thanggun99.quanlynhahang.model.entity.TinTuc;
 import thanggun99.quanlynhahang.util.API;
 import thanggun99.quanlynhahang.util.Utils;
-
-import static thanggun99.quanlynhahang.util.API.callService;
 
 /**
  * Created by Thanggun99 on 07/03/2017.
@@ -34,7 +30,7 @@ public class Database {
     private ArrayList<Ban> banList;
     private ArrayList<HoaDon> hoaDonChuaTinhTienList;
     private ArrayList<HoaDon> hoaDonTinhTienList;
-    private ArrayList<ThucDon> thucDonList;
+    private ArrayList<Mon> monList;
     private ArrayList<NhomMon> nhomMonList;
     private ArrayList<DatBan> datBanChuaTinhTienList;
     private ArrayList<DatBan> datBanTinhTienList;
@@ -51,7 +47,7 @@ public class Database {
     public boolean getDatas() {
         boolean taskOk;
         taskOk = loadListNhomMon();
-        if (taskOk) taskOk = loadListThucDon();
+        if (taskOk) taskOk = loadListMon();
         if (taskOk) taskOk = loadListBan();
         if (taskOk) taskOk = loadListKhachHang();
         if (taskOk) taskOk = loadListDatBan();
@@ -81,9 +77,8 @@ public class Database {
 
                     if (!object.isNull("hinhAnh")) {
                         byte[] bytes = Base64.decode(object.getString("hinhAnh"), Base64.DEFAULT);
-                        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
 
-                        tinTuc.setHinhAnh(bitmap);
+                        tinTuc.setHinhAnh(bytes);
                     }
 
                     tinTucList.add(tinTuc);
@@ -180,15 +175,15 @@ public class Database {
                         hoaDon.setGioDen(object.getString("gioDen"));
 
                         JSONArray array = object.getJSONArray("thucDonOrder");
-                        ArrayList<ThucDonOrder> thucDonOrders = new ArrayList<>();
+                        ArrayList<MonOrder> monOrders = new ArrayList<>();
 
                         for (int j = 0; j < array.length(); j++) {
                             JSONObject object1 = (JSONObject) array.get(j);
 
-                            thucDonOrders.add(new ThucDonOrder(getThucDonByMaMon(object1.getInt("maMon")),
+                            monOrders.add(new MonOrder(getMonByMaMon(object1.getInt("maMon")),
                                     object1.getInt("soLuong"), object1.getInt("maChiTietHD")));
                         }
-                        hoaDon.setThucDonOrders(thucDonOrders);
+                        hoaDon.setMonOrderList(monOrders);
                         hoaDonChuaTinhTienList.add(hoaDon);
                     }
                     return true;
@@ -201,7 +196,7 @@ public class Database {
     }
 
     private boolean loadListDatBan() {
-        String s = callService(API.GET_DAT_BAN_URL, null);
+        String s = API.callService(API.GET_DAT_BAN_URL, null);
         if (!TextUtils.isEmpty(s)) {
             try {
                 JSONObject jsonObj = new JSONObject(s);
@@ -258,7 +253,7 @@ public class Database {
     }
 
     private boolean loadListBan() {
-        String s = callService(API.GET_BAN_URL, null);
+        String s = API.callService(API.GET_BAN_URL, null);
         if (!TextUtils.isEmpty(s)) {
             try {
                 JSONObject jsonObj = new JSONObject(s);
@@ -282,32 +277,31 @@ public class Database {
         return false;
     }
 
-    private boolean loadListThucDon() {
-        String s = callService(API.GET_THUC_DON_URL, null);
+    private boolean loadListMon() {
+        String s = API.callService(API.GET_MON_URL, null);
 
         if (!TextUtils.isEmpty(s)) {
             try {
                 JSONObject jsonObject = new JSONObject(s);
                 if (jsonObject != null) {
                     JSONArray jsonArray = jsonObject.getJSONArray("thucDon");
-                    thucDonList = new ArrayList<>();
+                    monList = new ArrayList<>();
 
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject object = (JSONObject) jsonArray.get(i);
 
-                        ThucDon thucDon = new ThucDon(object.getInt("maMon"), object.getString("tenMon"),
+                        Mon mon = new Mon(object.getInt("maMon"), object.getString("tenMon"),
                                 object.getInt("maLoai"), object.getInt("donGia"),
-                                object.getString("donViTinh"), object.getInt("hienThi"));
+                                object.getString("donViTinh"), object.getInt("hienThi"), (float) object.getDouble("rating"));
 
                         if (!object.isNull("hinhAnh")) {
                             byte[] hinhAnh = Base64.decode(object.getString("hinhAnh"), Base64.DEFAULT);
-                            Bitmap bitmap = BitmapFactory.decodeByteArray(hinhAnh, 0, hinhAnh.length);
 
-                            thucDon.setHinhAnh(bitmap);
+                            mon.setHinhAnh(hinhAnh);
                         }
 
 
-                        thucDonList.add(thucDon);
+                        monList.add(mon);
                     }
                     return true;
                 }
@@ -318,24 +312,24 @@ public class Database {
         return false;
     }
 
-    public ThucDon getThucDonByMaMon(int maMon) {
-        for (ThucDon thucDon : thucDonList) {
-            if (thucDon.getMaMon() == maMon) {
-                return thucDon;
+    public Mon getMonByMaMon(int maMon) {
+        for (Mon mon : monList) {
+            if (mon.getMaMon() == maMon) {
+                return mon;
             }
         }
         return null;
     }
 
-    public ArrayList<ThucDon> getListThucDonByTenMon(String newText) {
-        ArrayList<ThucDon> thucDonTimKiem = new ArrayList<>();
-        for (ThucDon thucDon : thucDonList) {
-            if (Utils.removeAccent(thucDon.getTenMon().trim().toLowerCase())
+    public ArrayList<Mon> getListMonByTenMon(String newText) {
+        ArrayList<Mon> monTimKiem = new ArrayList<>();
+        for (Mon mon : monList) {
+            if (Utils.removeAccent(mon.getTenMon().trim().toLowerCase())
                     .contains(Utils.removeAccent(newText.trim().toLowerCase()))) {
-                thucDonTimKiem.add(thucDon);
+                monTimKiem.add(mon);
             }
         }
-        return thucDonTimKiem;
+        return monTimKiem;
     }
 
     public ArrayList<TinTuc> getTinTucList() {
@@ -346,14 +340,14 @@ public class Database {
         this.tinTucList = tinTucList;
     }
 
-    public ArrayList<ThucDon> getListThucDonByMaLoai(int maLoai) {
-        ArrayList<ThucDon> thucDonTheoLoai = new ArrayList<>();
-        for (ThucDon thucDon : thucDonList) {
-            if (thucDon.getMaLoai() == maLoai) {
-                thucDonTheoLoai.add(thucDon);
+    public ArrayList<Mon> getListMonByMaLoai(int maLoai) {
+        ArrayList<Mon> monTheoLoai = new ArrayList<>();
+        for (Mon mon : monList) {
+            if (mon.getMaLoai() == maLoai) {
+                monTheoLoai.add(mon);
             }
         }
-        return thucDonTheoLoai;
+        return monTheoLoai;
     }
 
     public HoaDon getHoaDonChuaTinhTienByMaBan(int maBan) {
@@ -408,12 +402,12 @@ public class Database {
         this.hoaDonChuaTinhTienList = hoaDonChuaTinhTienList;
     }
 
-    public ArrayList<ThucDon> getThucDonList() {
-        return thucDonList;
+    public ArrayList<Mon> getMonList() {
+        return monList;
     }
 
-    public void setThucDonList(ArrayList<ThucDon> thucDonList) {
-        this.thucDonList = thucDonList;
+    public void setMonList(ArrayList<Mon> monList) {
+        this.monList = monList;
     }
 
     public ArrayList<NhomMon> getNhomMonList() {
@@ -541,5 +535,24 @@ public class Database {
 
     public void addKhachHang(KhachHang khachHang) {
         khachHangList.add(khachHang);
+    }
+
+    public ArrayList<TinTuc> getListTinTucByTieuDe(String keyWord) {
+        ArrayList<TinTuc> tinTucs = new ArrayList<>();
+        for (TinTuc tinTuc : tinTucList) {
+            if (Utils.removeAccent(tinTuc.getTieuDe().trim().toLowerCase())
+                    .contains(Utils.removeAccent(keyWord.trim().toLowerCase()))) {
+                tinTucs.add(tinTuc);
+            }
+        }
+        return tinTucs;
+    }
+
+    public void addTinTuc(TinTuc tinTuc) {
+        tinTucList.add(0, tinTuc);
+    }
+
+    public void deleteTinTuc(TinTuc tinTuc) {
+        tinTucList.remove(tinTuc);
     }
 }

@@ -5,7 +5,7 @@ function dispInfo()
 {
     $db = new Database();
 
-    $db->prepare("SELECT * FROM tin_tuc");
+    $db->prepare("SELECT * FROM tin_tuc ORDER BY MaTinTuc DESC");
 
     $response["tinTuc"] = array();
 

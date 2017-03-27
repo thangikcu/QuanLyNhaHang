@@ -4,10 +4,17 @@
     android:layout_height="match_parent"
     tools:context="com.thanggun99.khachhang.view.fragment.SettingFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="setting" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="97dp"
+        android:gravity="center"
+        android:text="@string/cai_dat"
+        android:textAllCaps="true"
+        android:textColor="@color/colorTextRegister"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:typeface="serif" />
 
 </FrameLayout>

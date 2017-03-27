@@ -29,8 +29,6 @@ public class HomeFragment extends BaseFragment implements KhachHangPresenter.Hom
         // Required empty public constructor
     }
 
-
-
     @Override
     public void setEvents() {
         viewPager.setAdapter(tabsAdapter);
@@ -47,12 +45,32 @@ public class HomeFragment extends BaseFragment implements KhachHangPresenter.Hom
     public void initComponents() {
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(thucDonFragment = new ThucDonFragment(khachHangPresenter));
-        fragments.add(tinTucFragment = new TinTucFragment());
+        fragments.add(tinTucFragment = new TinTucFragment(khachHangPresenter));
         tabsAdapter = new TabsAdapter(getActivity().getSupportFragmentManager(), fragments);
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if (tab.getPosition() == 1) {
+                    khachHangPresenter.loadTinTucList();
+                } else if (tab.getPosition() == 0) {
+                    khachHangPresenter.loadThucDonList();
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     @Override
-    public void showOnUnLogin() {
+    public void showTabThucDon() {
         viewPager.setCurrentItem(0);
     }
 }

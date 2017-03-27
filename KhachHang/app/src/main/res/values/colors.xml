@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#4c9ea6</color>
+    <color name="colorPrimaryDark">#4c9ea6</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorTextField">#7c3c0a</color>
     <color name="colorWrong">#be0637</color>
     <color name="colorBackgroundDialog">#eaeaea</color>
     <color name="colorTextTitleDialog">#020202</color>
@@ -11,6 +12,12 @@
     <color name="colorTextButton">#f2eeee</color>
     <color name="colorTextButtonDatBan">#670f93</color>
     <color name="colorTextThongTinDatBan">#7c3c0a</color>
-    <color name="colorTextInfo">#1b1bba</color>
+    <color name="colorTextInfo">#670f93</color>
+    <color name="white">#FFFFFF</color>
+    <color name="yellow">#c4a010</color>
+    <color name="gray">#666666</color>
+    <color name="colorTextTenMon">#b31ea2</color>
+    <color name="colorTextMoney">#ca3221</color>
+    <color name="colorBorderSelected">#1b730a</color>
 
 </resources>

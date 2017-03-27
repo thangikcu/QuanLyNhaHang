@@ -91,7 +91,14 @@ public class DatBan implements Serializable {
         String s = API.callService(API.DAT_BAN_URL, null, postParams);
 
         if (!TextUtils.isEmpty(s)) {
-            setMaDatBan(Integer.parseInt(s.trim()));
+            try {
+                setMaDatBan(Integer.parseInt(s.trim()));
+
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+                return false;
+            }
+
             if (getBan() != null) {
 
                 getBan().setTrangThai(1);

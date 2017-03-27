@@ -9,8 +9,8 @@ import thanggun99.quanlynhahang.R;
 import thanggun99.quanlynhahang.model.entity.Ban;
 import thanggun99.quanlynhahang.model.entity.DatBan;
 import thanggun99.quanlynhahang.model.entity.HoaDon;
-import thanggun99.quanlynhahang.model.entity.ThucDon;
-import thanggun99.quanlynhahang.model.entity.ThucDonOrder;
+import thanggun99.quanlynhahang.model.entity.Mon;
+import thanggun99.quanlynhahang.model.entity.MonOrder;
 import thanggun99.quanlynhahang.util.Utils;
 
 public class PhucVuInteractor {
@@ -22,8 +22,8 @@ public class PhucVuInteractor {
     private Ban currentBan;
     private HoaDon currentHoaDon;
     private DatBan currentDatBan;
-    private ThucDonOrder currentThucDonOrder;
-    private ThucDon currentThucDon;
+    private MonOrder currentMonOrder;
+    private Mon currentMon;
     private DatBan currentDatBanChuaSetBan;
 
 
@@ -66,23 +66,23 @@ public class PhucVuInteractor {
         }
     }
 
-    public void orderThucDon(int soLuong) {
-        ThucDonOrder thucDonOrder = new ThucDonOrder();
-        thucDonOrder.setMaMon(currentThucDon.getMaMon());
-        thucDonOrder.setSoLuong(soLuong);
-        thucDonOrder.setThucDon(database.getThucDonByMaMon(currentThucDon.getMaMon()));
+    public void orderMon(int soLuong) {
+        MonOrder monOrder = new MonOrder();
+        monOrder.setMaMon(currentMon.getMaMon());
+        monOrder.setSoLuong(soLuong);
+        monOrder.setMon(database.getMonByMaMon(currentMon.getMaMon()));
 
         if (currentBan.getTrangThai() == 2) {
-            for (ThucDonOrder tdOrder : currentHoaDon.getThucDonOrders()) {
-                if (tdOrder.getMaMon() == currentThucDon.getMaMon()) {
-                    currentThucDonOrder = tdOrder;
-                    new UpdateThucDonOrderTask(soLuong).execute();
+            for (MonOrder tdOrder : currentHoaDon.getMonOrderList()) {
+                if (tdOrder.getMaMon() == currentMon.getMaMon()) {
+                    currentMonOrder = tdOrder;
+                    new UpdateMonOrderTask(soLuong).execute();
                     return;
                 }
             }
-            new ThemThucDonOrderTask(thucDonOrder).execute();
+            new ThemMonOrderTask(monOrder).execute();
         } else {
-            new TaoMoiHoaDonTask(thucDonOrder).execute();
+            new TaoMoiHoaDonTask(monOrder).execute();
         }
     }
 
@@ -121,10 +121,10 @@ public class PhucVuInteractor {
         }
     }
 
-    private class UpdateThucDonOrderTask extends AsyncTask<Void, Void, Boolean> {
+    private class UpdateMonOrderTask extends AsyncTask<Void, Void, Boolean> {
         private int soLuong;
 
-        public UpdateThucDonOrderTask(int soLuong) {
+        public UpdateMonOrderTask(int soLuong) {
             this.soLuong = soLuong;
         }
 
@@ -137,16 +137,16 @@ public class PhucVuInteractor {
         @Override
         protected Boolean doInBackground(Void... params) {
             delay(500);
-            return currentThucDonOrder.updateThucDonOrder(soLuong);
+            return currentMonOrder.updateMonOrder(soLuong);
         }
 
         @Override
         protected void onPostExecute(Boolean aBoolean) {
             if (aBoolean) {
-                onPhucVuInteractorFinishListener.onFinishOrderUpdateThucDon(currentHoaDon.getTongTien());
+                onPhucVuInteractorFinishListener.onFinishOrderUpdateMon(currentHoaDon.getTongTien());
             }
-            onPhucVuInteractorFinishListener.onFinishTask(aBoolean, String.format(Utils.getStringByRes(R.string.pv_notify_order_thucdon),
-                    currentBan.getTenBan(), soLuong, currentThucDonOrder.getTenMon()));
+            onPhucVuInteractorFinishListener.onFinishTask(aBoolean, String.format(Utils.getStringByRes(R.string.pv_notify_order_mon),
+                    currentBan.getTenBan(), soLuong, currentMonOrder.getTenMon()));
         }
 
     }
@@ -159,12 +159,12 @@ public class PhucVuInteractor {
         }
     }
 
-    private class ThemThucDonOrderTask extends AsyncTask<Void, Void, Boolean> {
+    private class ThemMonOrderTask extends AsyncTask<Void, Void, Boolean> {
 
-        private ThucDonOrder thucDonOrder;
+        private MonOrder monOrder;
 
-        public ThemThucDonOrderTask(ThucDonOrder thucDonOrder) {
-            this.thucDonOrder = thucDonOrder;
+        public ThemMonOrderTask(MonOrder monOrder) {
+            this.monOrder = monOrder;
         }
 
         @Override
@@ -176,27 +176,27 @@ public class PhucVuInteractor {
         @Override
         protected Boolean doInBackground(Void... params) {
             delay(500);
-            return currentHoaDon.themThucDonOrder(thucDonOrder);
+            return currentHoaDon.themMonOrder(monOrder);
         }
 
         @Override
         protected void onPostExecute(Boolean aBoolean) {
             if (aBoolean) {
-                onPhucVuInteractorFinishListener.onFinishOrderAddThucDon(currentHoaDon.getTongTien());
+                onPhucVuInteractorFinishListener.onFinishOrderAddMon(currentHoaDon.getTongTien());
             }
-            onPhucVuInteractorFinishListener.onFinishTask(aBoolean, String.format(Utils.getStringByRes(R.string.pv_notify_order_thucdon),
-                    currentBan.getTenBan(), thucDonOrder.getSoLuong(), currentThucDon.getTenMon()));
+            onPhucVuInteractorFinishListener.onFinishTask(aBoolean, String.format(Utils.getStringByRes(R.string.pv_notify_order_mon),
+                    currentBan.getTenBan(), monOrder.getSoLuong(), currentMon.getTenMon()));
         }
 
     }
 
     private class TaoMoiHoaDonTask extends AsyncTask<Void, Void, Boolean> {
-        private ThucDonOrder thucDonOrder;
+        private MonOrder monOrder;
 
         private HoaDon hoaDonNew;
 
-        public TaoMoiHoaDonTask(ThucDonOrder thucDonOrder) {
-            this.thucDonOrder = thucDonOrder;
+        public TaoMoiHoaDonTask(MonOrder monOrder) {
+            this.monOrder = monOrder;
 
             hoaDonNew = new HoaDon();
             String date = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
@@ -215,7 +215,7 @@ public class PhucVuInteractor {
         @Override
         protected Boolean doInBackground(Void... params) {
             delay(500);
-            return hoaDonNew.taoMoiHoaDon(thucDonOrder);
+            return hoaDonNew.taoMoiHoaDon(monOrder);
         }
 
         @Override
@@ -226,7 +226,7 @@ public class PhucVuInteractor {
                 onPhucVuInteractorFinishListener.onFinishOrderCreateHoaDon(currentHoaDon);
             }
             onPhucVuInteractorFinishListener.onFinishTask(aBoolean, String.format(Utils.getStringByRes(R.string.pv_notify_hoa_don_moi),
-                    currentBan.getTenBan(), thucDonOrder.getSoLuong(), currentThucDon.getTenMon()));
+                    currentBan.getTenBan(), monOrder.getSoLuong(), currentMon.getTenMon()));
         }
 
     }
@@ -327,13 +327,13 @@ public class PhucVuInteractor {
         new DatBanSetBanTask().execute();
     }
 
-    public void deleteThucDonOrder() {
-        class DeleteThucDonOrderTask extends AsyncTask<Void, Void, Boolean> {
+    public void deleteMonOrder() {
+        class DeleteMonOrderTask extends AsyncTask<Void, Void, Boolean> {
             private String tenMon;
 
             @Override
             protected void onPreExecute() {
-                tenMon = currentThucDonOrder.getTenMon();
+                tenMon = currentMonOrder.getTenMon();
                 onPhucVuInteractorFinishListener.onStartTask();
                 super.onPreExecute();
             }
@@ -341,20 +341,20 @@ public class PhucVuInteractor {
             @Override
             protected Boolean doInBackground(Void... params) {
                 delay(500);
-                return currentHoaDon.deleteThucDonOrder(currentThucDonOrder.getMaChitietHD());
+                return currentHoaDon.deleteMonOrder(currentMonOrder.getMaChitietHD());
             }
 
             @Override
             protected void onPostExecute(Boolean aBoolean) {
                 if (aBoolean) {
-                    currentThucDonOrder = null;
-                    onPhucVuInteractorFinishListener.onFinishDeleteThucDonOrder(currentHoaDon.getTongTien());
+                    currentMonOrder = null;
+                    onPhucVuInteractorFinishListener.onFinishDeleteMonOrder(currentHoaDon.getTongTien());
                 }
-                onPhucVuInteractorFinishListener.onFinishTask(aBoolean, String.format(Utils.getStringByRes(R.string.pv_notify_delete_thucdon_order),
+                onPhucVuInteractorFinishListener.onFinishTask(aBoolean, String.format(Utils.getStringByRes(R.string.pv_notify_delete_mon_order),
                         currentBan.getTenBan(), tenMon));
             }
         }
-        new DeleteThucDonOrderTask().execute();
+        new DeleteMonOrderTask().execute();
     }
 
     public void saleHoaDon(final int presentSale) {
@@ -407,9 +407,9 @@ public class PhucVuInteractor {
                     database.onTinhTienHoaDon(currentHoaDon);
 
                     currentHoaDon = null;
-                    currentThucDon = null;
+                    currentMon = null;
                     currentDatBan = null;
-                    currentThucDonOrder = null;
+                    currentMonOrder = null;
                     onPhucVuInteractorFinishListener.onFinishTinhTien(currentBan);
                 }
                 onPhucVuInteractorFinishListener.onFinishTask(
@@ -509,9 +509,9 @@ public class PhucVuInteractor {
                 database.onHuyBan(currentHoaDon);
 
                 currentHoaDon = null;
-                currentThucDon = null;
+                currentMon = null;
                 currentDatBan = null;
-                currentThucDonOrder = null;
+                currentMonOrder = null;
                 onPhucVuInteractorFinishListener.onFinishHuyBan(currentBan);
             }
             onPhucVuInteractorFinishListener.onFinishTask(
@@ -582,24 +582,24 @@ public class PhucVuInteractor {
         return currentDatBan;
     }
 
-    public void setcurrentThucDon(ThucDon currentThucDon) {
-        this.currentThucDon = currentThucDon;
+    public void setcurrentMon(Mon currentMon) {
+        this.currentMon = currentMon;
     }
 
     public Ban getcurrentBan() {
         return currentBan;
     }
 
-    public ThucDonOrder getCurrentThucDonOrder() {
-        return currentThucDonOrder;
+    public MonOrder getCurrentMonOrder() {
+        return currentMonOrder;
     }
 
     public HoaDon getcurrentHoaDon() {
         return currentHoaDon;
     }
 
-    public void setCurrentThucDonOrder(ThucDonOrder currentThucDonOrder) {
-        this.currentThucDonOrder = currentThucDonOrder;
+    public void setCurrentMonOrder(MonOrder currentMonOrder) {
+        this.currentMonOrder = currentMonOrder;
     }
 
     public Database getDatabase() {
@@ -627,13 +627,13 @@ public class PhucVuInteractor {
 
         void onFinishDatBanSetBan();
 
-        void onFinishOrderUpdateThucDon(int tongTien);
+        void onFinishOrderUpdateMon(int tongTien);
 
-        void onFinishOrderAddThucDon(int tongTien);
+        void onFinishOrderAddMon(int tongTien);
 
         void onFinishOrderCreateHoaDon(HoaDon currentHoaDon);
 
-        void onFinishDeleteThucDonOrder(int tongTien);
+        void onFinishDeleteMonOrder(int tongTien);
 
         void onFinishSale(HoaDon tongTien);
 

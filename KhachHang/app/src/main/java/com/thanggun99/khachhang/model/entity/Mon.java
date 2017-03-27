@@ -1,50 +1,38 @@
-package thanggun99.quanlynhahang.model.entity;
-
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-
-import thanggun99.quanlynhahang.App;
-import thanggun99.quanlynhahang.R;
+package com.thanggun99.khachhang.model.entity;
 
 /**
  * Created by Thanggun99 on 20/11/2016.
  */
 
-public class ThucDon {
-    private int maMon, hienThi;
+public class Mon {
+    private int maMon;
     private String tenMon;
     private int maLoai;
     private int donGia;
     private String donViTinh;
-    private Bitmap hinhAnh;
+    private byte[] hinhAnh;
+    private float rating;
 
-    public ThucDon(int maMon, String tenMon, int maLoai, int donGia, String donViTinh, Bitmap hinhAnh) {
+    public Mon(int maMon, String tenMon, int maLoai, int donGia, String donViTinh, byte[] hinhAnh, float rating) {
         this.maMon = maMon;
         this.tenMon = tenMon;
         this.maLoai = maLoai;
         this.donGia = donGia;
         this.donViTinh = donViTinh;
         this.hinhAnh = hinhAnh;
+        this.rating = rating;
     }
 
-    public ThucDon(int maMon, String tenMon, int maLoai, int donGia, String donViTinh, int hienThi) {
+    public Mon(int maMon, String tenMon, int maLoai, int donGia, String donViTinh, float rating) {
         this.maMon = maMon;
-        this.hienThi = hienThi;
         this.tenMon = tenMon;
         this.maLoai = maLoai;
         this.donGia = donGia;
         this.donViTinh = donViTinh;
+        this.rating = rating;
     }
 
-    public ThucDon() {
-    }
-
-    public int getHienThi() {
-        return hienThi;
-    }
-
-    public void setHienThi(int hienThi) {
-        this.hienThi = hienThi;
+    public Mon() {
     }
 
     public int getMaMon() {
@@ -87,12 +75,11 @@ public class ThucDon {
         this.donViTinh = donViTinh;
     }
 
-    public Bitmap getHinhAnh() {
-        if (hinhAnh != null) return hinhAnh;
-        return BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.ic_food);
+    public byte[] getHinhAnh() {
+        return hinhAnh;
     }
 
-    public void setHinhAnh(Bitmap hinhAnh) {
+    public void setHinhAnh(byte[] hinhAnh) {
         this.hinhAnh = hinhAnh;
     }
 
@@ -100,9 +87,9 @@ public class ThucDon {
     public boolean equals(Object obj) {
         if (this == obj) return true;
 
-        if (!(obj instanceof ThucDon)) return false;
+        if (!(obj instanceof Mon)) return false;
 
-        if (!tenMon.equals(((ThucDon) obj).getTenMon())) return false;
+        if (!tenMon.equals(((Mon) obj).getTenMon())) return false;
 
         return true;
     }
@@ -110,5 +97,13 @@ public class ThucDon {
     @Override
     public int hashCode() {
         return tenMon.hashCode();
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
     }
 }

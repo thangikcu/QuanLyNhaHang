@@ -36,7 +36,7 @@ public class SaleDialog extends BaseDialog {
     }
 
     public void setContent(HoaDon hoaDon) {
-        if (hoaDon.getThucDonOrders().size() > 0){
+        if (hoaDon.getMonOrderList().size() > 0){
             tvTitle.setText(hoaDon.getBan().getTenBan());
             if (hoaDon.getGiamGia() > 0) {
                 edtSale.setText(hoaDon.getGiamGia() + "");

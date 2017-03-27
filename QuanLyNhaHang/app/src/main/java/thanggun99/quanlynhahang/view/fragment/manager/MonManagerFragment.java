@@ -12,11 +12,10 @@ import thanggun99.quanlynhahang.adapter.TinTucAdapter;
 import thanggun99.quanlynhahang.model.Database;
 import thanggun99.quanlynhahang.model.TinTucManager;
 import thanggun99.quanlynhahang.presenter.MainPresenter;
-import thanggun99.quanlynhahang.util.Utils;
 import thanggun99.quanlynhahang.view.fragment.BaseFragment;
 
 @SuppressLint("ValidFragment")
-public class ThucDonManagerFragment extends BaseFragment implements TinTucManager.TinTucView {
+public class MonManagerFragment extends BaseFragment {
     private Button btnThemMoi;
     private RecyclerView tinTucrecyclerView;
     private TinTucAdapter tinTucAdapter;
@@ -25,8 +24,8 @@ public class ThucDonManagerFragment extends BaseFragment implements TinTucManage
     private TinTucManager tinTucManager;
 
 
-    public ThucDonManagerFragment(MainPresenter mainPresenter) {
-        super(R.layout.fragment_thuc_don_manager);
+    public MonManagerFragment(MainPresenter mainPresenter) {
+        super(R.layout.fragment_mon_manager);
         this.database = mainPresenter.getDatabase();
         this.mainPresenter = mainPresenter;
     }
@@ -39,10 +38,8 @@ public class ThucDonManagerFragment extends BaseFragment implements TinTucManage
 
     @Override
     public void initComponents() {
-        tinTucManager = new TinTucManager(database);
-        tinTucManager.setTinTucView(this);
 
-        tinTucAdapter = new TinTucAdapter();
+        tinTucAdapter = new TinTucAdapter(getContext(), database.getTinTucList(), tinTucManager);
 
     }
 
@@ -51,24 +48,4 @@ public class ThucDonManagerFragment extends BaseFragment implements TinTucManage
         tinTucrecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
-    @Override
-    public void onStartTask() {
-        mainPresenter.onStartTask();
-    }
-
-    @Override
-    public void onFinishGetDatas() {
-        tinTucAdapter.setDatas(database.getTinTucList());
-        tinTucrecyclerView.setAdapter(tinTucAdapter);
-    }
-
-    @Override
-    public void onGetDatasFail() {
-        Utils.notifi(Utils.getStringByRes(R.string.tai_danh_sach_tin_tuc_that_bai));
-    }
-
-    @Override
-    public void onFinishTask() {
-        mainPresenter.onFinishTask();
-    }
 }

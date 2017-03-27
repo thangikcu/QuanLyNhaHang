@@ -33,9 +33,9 @@ public class TabsAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return "THỰC ĐƠN";
+                return "Thực đơn";
             case 1:
-                return "TIN TỨC";
+                return "Tin tức";
         }
         return null;
     }

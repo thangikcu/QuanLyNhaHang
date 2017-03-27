@@ -1,0 +1,118 @@
+package thanggun99.quanlynhahang.model.entity;
+
+/**
+ * Created by Thanggun99 on 20/11/2016.
+ */
+
+public class Mon {
+    private int maMon, hienThi;
+    private String tenMon;
+    private int maLoai;
+    private int donGia;
+    private String donViTinh;
+    private byte[] hinhAnh;
+    private float rating;
+
+    public Mon(int maMon, String tenMon, int maLoai, int donGia, String donViTinh, byte[] hinhAnh, float rating) {
+        this.maMon = maMon;
+        this.tenMon = tenMon;
+        this.maLoai = maLoai;
+        this.donGia = donGia;
+        this.donViTinh = donViTinh;
+        this.hinhAnh = hinhAnh;
+        this.rating = rating;
+    }
+
+    public Mon(int maMon, String tenMon, int maLoai, int donGia, String donViTinh, int hienThi, float rating) {
+        this.maMon = maMon;
+        this.hienThi = hienThi;
+        this.tenMon = tenMon;
+        this.maLoai = maLoai;
+        this.donGia = donGia;
+        this.donViTinh = donViTinh;
+        this.rating = rating;
+    }
+
+    public Mon() {
+    }
+
+    public int getHienThi() {
+        return hienThi;
+    }
+
+    public void setHienThi(int hienThi) {
+        this.hienThi = hienThi;
+    }
+
+    public int getMaMon() {
+        return maMon;
+    }
+
+    public void setMaMon(int maMon) {
+        this.maMon = maMon;
+    }
+
+    public String getTenMon() {
+        return tenMon;
+    }
+
+    public void setTenMon(String tenMon) {
+        this.tenMon = tenMon;
+    }
+
+    public int getMaLoai() {
+        return maLoai;
+    }
+
+    public void setMaLoai(int maLoai) {
+        this.maLoai = maLoai;
+    }
+
+    public int getDonGia() {
+        return donGia;
+    }
+
+    public void setDonGia(int donGia) {
+        this.donGia = donGia;
+    }
+
+    public String getDonViTinh() {
+        return donViTinh;
+    }
+
+    public void setDonViTinh(String donViTinh) {
+        this.donViTinh = donViTinh;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+
+        if (!(obj instanceof Mon)) return false;
+
+        if (!tenMon.equals(((Mon) obj).getTenMon())) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return tenMon.hashCode();
+    }
+
+    public byte[] getHinhAnh() {
+        return hinhAnh;
+    }
+
+    public void setHinhAnh(byte[] hinhAnh) {
+        this.hinhAnh = hinhAnh;
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
+    }
+}

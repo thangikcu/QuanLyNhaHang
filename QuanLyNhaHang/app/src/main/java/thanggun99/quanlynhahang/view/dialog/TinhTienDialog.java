@@ -57,11 +57,18 @@ public class TinhTienDialog extends BaseDialog {
             @Override
             public boolean onQueryTextChange(String newText) {
                 if (!TextUtils.isEmpty(newText) && newText.length() < 10) {
-                    int tienKhachDua = Integer.parseInt(newText);
-                    if (tienKhachDua > tongtien) {
-                        tvTienTraLai.setText(Utils.formatMoney(tienKhachDua - tongtien));
-                        return true;
-                    } else tvTienTraLai.setText("");
+                    try {
+                        int tienKhachDua = Integer.parseInt(newText);
+
+                        if (tienKhachDua > tongtien) {
+                            tvTienTraLai.setText(Utils.formatMoney(tienKhachDua - tongtien));
+                            return true;
+                        } else tvTienTraLai.setText("");
+
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                    }
+
                 } else tvTienTraLai.setText("");
                 return false;
             }
@@ -78,7 +85,7 @@ public class TinhTienDialog extends BaseDialog {
     }
 
     public void setContent(HoaDon hoaDon) {
-        if (hoaDon.getThucDonOrders().size() > 0) {
+        if (hoaDon.getMonOrderList().size() > 0) {
             this.tongtien = hoaDon.getTongTien();
             edtTienKhachDua.setQuery("", false);
             tvTitle.setText(hoaDon.getBan().getTenBan());

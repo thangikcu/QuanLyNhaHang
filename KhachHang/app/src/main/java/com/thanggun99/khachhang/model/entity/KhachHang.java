@@ -4,9 +4,11 @@ import android.content.SharedPreferences;
 import android.text.TextUtils;
 
 import com.thanggun99.khachhang.App;
+import com.thanggun99.khachhang.model.Database;
 import com.thanggun99.khachhang.util.API;
 import com.thanggun99.khachhang.util.Utils;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -19,7 +21,14 @@ import java.util.Map;
  * Created by Thanggun99 on 28/02/2017.
  */
 
-public class KhachHang implements Serializable{
+public class KhachHang implements Serializable {
+
+    public static final String KH_PHUC_VU = "KH_PHUC_VU";
+    public static final String KH_DAT_BAN = "KH_DAT_BAN";
+    public static final String KH_NONE = "KH_NONE";
+    public static final String FAIL = "FAIL";
+    public static final String OTHER_LOGIN = "OTHER_LOGIN";
+    public static final String LOGIN_SUCCESS = "LOGIN_SUCCESS";
 
     public static final String USERNAME = "USERNAME";
     public static final String PASSWORD = "PASSWORD";
@@ -35,7 +44,8 @@ public class KhachHang implements Serializable{
     private String kieuDangNhap;
     private ArrayList<DatBan> listHSDatBan;
     private DatBan currentDatBan;
-
+    private HoaDon currentHoaDon;
+    private Database database;
 
     public KhachHang(int maKhachHang, String tenKhachHang, String soDienThoai,
                      String diaChi, String tenDangNhap, String matKhau, int maToken, ArrayList<DatBan> listHSDatBan, DatBan currentDatBan) {
@@ -82,11 +92,11 @@ public class KhachHang implements Serializable{
         String s = API.callService(API.LOGIN_URL, null, khachHangMap);
         if (!TextUtils.isEmpty(s)) {
             if (s.contains("fail")) {
-                return "fail";
+                return FAIL;
 
             } else if (s.contains("other")) {
                 huyGhiNhoDangNhap();
-                return "other";
+                return OTHER_LOGIN;
             } else {
                 try {
                     JSONObject jsonObject = new JSONObject(s);
@@ -98,15 +108,100 @@ public class KhachHang implements Serializable{
                     if (ghiNho) {
                         ghiNhoDangNhap();
                     }
-                    return "success";
+                    return LOGIN_SUCCESS;
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            }
+        }
+        return FAIL;
+    }
+
+    public String getThongTinPhucVu() {
+        Map<String, String> getParams = new HashMap<>();
+        getParams.put("maKhachHang", String.valueOf(maKhachHang));
+
+        String s = API.callService(API.GET_THONG_TIN_PHUC_VU_URL, getParams);
+
+        if (!TextUtils.isEmpty(s)) {
+            try {
+                JSONObject jsonObject = new JSONObject(s);
+                JSONArray jsonArray1 = jsonObject.getJSONArray("hoaDon");
+                JSONArray jsonArray2 = jsonObject.getJSONArray("datBan");
+
+                if (jsonArray2.length() > 0) {
+                    JSONObject object = (JSONObject) jsonArray2.get(0);
+
+                    DatBan datBan = new DatBan();
+                    if (object.toString().contains("tenBan")) {
+                        datBan.setTenBan(object.getString("tenBan"));
+                    }
+                    datBan.setMaDatBan(object.getInt("maDatBan"));
+                    datBan.setGioDen(object.getString("gioDen"));
+                    datBan.setYeuCau(object.getString("yeuCau"));
+                    datBan.setTrangThai(0);
+
+                    currentDatBan = datBan;
+                }
+
+                if (jsonArray1.length() > 0) {
+                    JSONObject object = (JSONObject) jsonArray1.get(0);
+
+                    HoaDon hoaDon = new HoaDon();
+                    hoaDon.setMaHoaDon(object.getInt("maHoaDon"));
+                    hoaDon.setTenBan(object.getString("tenBan"));
+                    if (object.toString().contains("giamGia")) {
+                        hoaDon.setGiamGia(object.getInt("giamGia"));
+                    }
+
+                    hoaDon.setGioDen(object.getString("gioDen"));
+
+                    JSONArray array = object.getJSONArray("thucDonOrder");
+                    ArrayList<MonOrder> monOrders = new ArrayList<>();
+
+                    for (int j = 0; j < array.length(); j++) {
+                        JSONObject object1 = (JSONObject) array.get(j);
+
+                        if (database.getMonList() == null) {
+                            if (database.loadThucDonList()) {
+                                monOrders.add(new MonOrder(database.getMonByMaMon(object1.getInt("maMon")),
+                                        object1.getInt("soLuong"), object1.getInt("maChiTietHD")));
+                            }
+                        } else {
+                            monOrders.add(new MonOrder(database.getMonByMaMon(object1.getInt("maMon")),
+                                    object1.getInt("soLuong"), object1.getInt("maChiTietHD")));
+                        }
+
+                    }
+                    hoaDon.setMonOrderList(monOrders);
+                    hoaDon.setTrangThai(0);
+                    hoaDon.setDatBan(currentDatBan);
+
+                    currentHoaDon = hoaDon;
+
+                }
+
+                if (currentHoaDon != null) {
+                    Utils.showLog("khach hang phuc vu on kh");
+                    return KH_PHUC_VU;
+                } else if (currentDatBan != null) {
+
+                    return KH_DAT_BAN;
+                } else {
+
+                    return KH_NONE;
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return FAIL;
+        } else {
+
+            return FAIL;
         }
     }
-    return "fail";
-}
 
     public String getKieuDangNhap() {
         return kieuDangNhap;
@@ -277,34 +372,6 @@ public class KhachHang implements Serializable{
         return false;
     }
 
-    public Boolean getInfoDatBan() {
-        Map<String, String> getParams = new HashMap<>();
-        getParams.put("maKhachHang", String.valueOf(maKhachHang));
-
-        String s = API.callService(API.GET_INFO_DAT_BAN_URL, getParams);
-
-        if (!TextUtils.isEmpty(s)) {
-            if (s.contains("fail")) {
-                return false;
-            }
-            try {
-                JSONObject object = new JSONObject(s);
-                DatBan datBan = new DatBan();
-                datBan.setMaDatBan(object.getInt("maDatBan"));
-                datBan.setGioDen(object.getString("gioDen"));
-                datBan.setYeuCau(object.getString("yeuCau"));
-                datBan.setTrangThai(0);
-
-                currentDatBan = datBan;
-
-                return true;
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        return false;
-    }
-
     public Boolean updateDatBan(DatBan datBan) {
         Map<String, String> valuesPost = new HashMap<>();
         valuesPost.put("maDatBan", String.valueOf(currentDatBan.getMaDatBan()));
@@ -322,5 +389,17 @@ public class KhachHang implements Serializable{
             return true;
         }
         return false;
+    }
+
+    public HoaDon getCurrentHoaDon() {
+        return currentHoaDon;
+    }
+
+    public void setCurrentHoaDon(HoaDon currentHoaDon) {
+        this.currentHoaDon = currentHoaDon;
+    }
+
+    public void setDatabase(Database database) {
+        this.database = database;
     }
 }

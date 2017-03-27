@@ -13,6 +13,7 @@
         android:text="@string/info_thong_tin_dat_ban"
         android:textColor="@color/colorPrimary"
         android:textSize="@dimen/text_size_normal"
+        android:typeface="serif"
         android:textStyle="bold" />
 
     <View

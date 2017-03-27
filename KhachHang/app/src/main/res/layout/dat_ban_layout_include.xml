@@ -1,26 +1,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/layout_dat_ban"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:paddingTop="8dp">
 
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:text="@string/dat_ban"
-        android:textAllCaps="true"
-        android:textColor="@color/colorTextRegister"
-        android:textSize="24sp"
-        android:textStyle="bold" />
-
-    <ScrollView
+    <LinearLayout
+        android:id="@+id/ln_dat_ban"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbars="vertical">
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_back" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -57,30 +55,94 @@
                 android:textStyle="bold" />
 
         </LinearLayout>
-    </ScrollView>
 
-    <TextView
-        android:id="@+id/tv_error"
-        android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/btn_dat_ban"
+            android:layout_width="136dp"
+            android:layout_height="52dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:drawableLeft="@drawable/ic_dat_truoc"
+            android:text="@string/dat_ban"
+            android:textAllCaps="false"
+            android:textColor="@color/colorTextButtonDatBan"
+            android:textSize="14sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ln_thong_tin_dat_ban"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/gap_loi"
-        android:textColor="@color/colorWrong"
-        android:textSize="14sp"
-        android:textStyle="italic"
-        android:visibility="gone" />
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
 
-    <Button
-        android:id="@+id/btn_dat_ban"
-        android:layout_width="136dp"
-        android:layout_height="52dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="16dp"
-        android:drawableLeft="@drawable/ic_dat_truoc"
-        android:text="@string/dat_ban"
-        android:textAllCaps="false"
-        android:textColor="@color/colorTextButtonDatBan"
-        android:textSize="14sp"
-        android:visibility="visible" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/CommonTextView"
+                    android:text="@string/info_yeu_cau"
+                    android:textColor="@color/colorTextThongTinDatBan"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_yeu_cau"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:isScrollContainer="true"
+                    android:maxLines="4"
+                    android:paddingLeft="16dp"
+                    android:scrollbars="vertical"
+                    android:text="Bàn cạnh cửa sổ"
+                    android:textColor="@color/colorTextInfo"
+                    android:textSize="14sp"
+                    android:textStyle="normal" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="32dp">
+
+                <Button
+                    android:id="@+id/btn_edit_dat_ban"
+                    android:layout_width="110dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginRight="32dp"
+                    android:drawableLeft="@drawable/ic_edit"
+                    android:text="@string/cap_nhat_thong_tin"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorTextButtonDatBan"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/btn_huy_dat_ban"
+                    android:layout_width="110dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_horizontal"
+                    android:drawableLeft="@drawable/ic_cancel"
+                    android:text="@string/huy_dat"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorTextButtonDatBan"
+                    android:textSize="14sp" />
+            </TableRow>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
 </LinearLayout>
 
 

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_list_item"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/iv_tin_tuc"
+        android:layout_width="120dp"
+        android:layout_height="80dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_news" />
+
+    <LinearLayout
+        android:paddingLeft="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="102dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:typeface="serif"
+            android:layout_height="wrap_content"
+            android:isScrollContainer="true"
+            android:maxLines="2"
+            android:scrollbars="vertical"
+            android:text="Chưa bao giờ, việc tiếp cận thực phẩm sạch Nhật Bản lại dễ dàng đến thế"
+            android:textColor="@color/colorTextNotifi"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_ngay_dang"
+            android:layout_width="84dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:text="15/03/2017"
+            android:textColor="@color/gray"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_noi_dung"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
+            android:paddingTop="4dp"
+            android:maxLines="3"
+            android:layout_marginLeft="8dp"
+            android:text="Nhân dịp kỷ niệm 10 năm thành lập, chiều ngày 28.12.2016, tại Hà Nội, Công ty CP DA Việt Nam đã chính thức ra mắt và giới thiệu "
+            android:textColor="@color/colorPrimary"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+
+</LinearLayout>

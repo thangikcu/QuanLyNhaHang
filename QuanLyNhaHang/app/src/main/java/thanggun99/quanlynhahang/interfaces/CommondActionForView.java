@@ -13,4 +13,5 @@ public interface CommondActionForView {
     void initComponents();
 
     void setEvents();
+
 }

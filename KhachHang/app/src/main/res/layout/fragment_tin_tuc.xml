@@ -2,33 +2,69 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     tools:context=".view.fragment.TinTucFragment">
 
-    <LinearLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list_tin_tuc"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:scrollbars="vertical"
+        android:visibility="gone"></android.support.v7.widget.RecyclerView>
 
-        <EditText
-            android:id="@+id/edt_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="title" />
 
-        <EditText
-            android:id="@+id/edt_message"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="mesage" />
+    <LinearLayout
+        android:id="@+id/layout_tin_tuc"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <Button
-            android:id="@+id/btn_send"
+        <ImageButton
+            android:id="@+id/btn_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_back" />
+
+        <LinearLayout
             android:layout_marginTop="16dp"
-            android:text="send" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_tieu_de"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chưa bao giờ, việc tiếp cận thực phẩm sạch Nhật Bản lại dễ dàng đến thế"
+                android:textAllCaps="true"
+                android:textColor="@color/colorTextNotifi"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:typeface="serif" />
+
+            <ImageView
+                android:id="@+id/iv_hinh_anh"
+                android:layout_width="240dp"
+                android:layout_height="160dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/ic_news" />
+
+            <TextView
+                android:id="@+id/tv_noi_dung"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:isScrollContainer="true"
+                android:scrollbars="vertical"
+                android:text="Nhân dịp kỷ niệm 10 năm thành lập, chiều ngày 28.12.2016, tại Hà Nội, Công ty CP DA Việt Nam đã chính thức ra mắt và giới thiệu sản phẩm thịt bò Hitachi. Đây cũng là đơn vị duy nhất nhập khẩu trực tiếp mặt hàng này.
+Trải qua quá trình thương thảo, đàm phán với Hiệp hội bò Hitachi Nhật bản, Công ty DA Việt Nam đã chính thức ký Hợp đồng vào tháng 9/2016 về việc nhập khẩu và phân phối thịt bò Hitachi tại Việt Nam. Cuối tháng 11/2016, DA Việt Nam là đơn vị đầu tiên ở Việt Nam nhập khẩu sản phẩm"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp" />
+
+        </LinearLayout>
     </LinearLayout>
+
 
 </FrameLayout>

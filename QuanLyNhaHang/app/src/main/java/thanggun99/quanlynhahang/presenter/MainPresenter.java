@@ -21,7 +21,7 @@ public class MainPresenter implements MainInteractor.OnMainInteractorFinishListe
     }
 
     //check connection
-    private boolean checkConnect() {
+    public boolean checkConnect() {
         if (Utils.isConnectingToInternet()) {
             return true;
         } else {

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ln_thong_tin_dat_ban"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+
+    android:padding="16dp"
+    android:background="@drawable/bg_dialog"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity=""
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:text="@string/info_thong_tin_dat_ban"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
+            android:typeface="serif"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorPrimary" />
+
+
+        <TableRow
+            android:id="@+id/tbr_gio_den"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingTop="16dp"
+            android:visibility="visible">
+
+            <TextView
+                style="@style/CommonTextView"
+                android:text="@string/info_khoang_gio_den"
+                android:textColor="@color/colorTextField"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_gio_den"
+                style="@style/CommonTextView"
+                android:paddingLeft="16dp"
+                android:text="25/11/2016 06:00 PM"
+                android:textColor="@color/colorTextInfo" />
+        </TableRow>
+
+        <TableRow
+            android:paddingTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/CommonTextView"
+                android:text="@string/info_yeu_cau"
+                android:textColor="@color/colorTextThongTinDatBan"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_yeu_cau"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:isScrollContainer="true"
+                android:maxLines="4"
+                android:paddingLeft="16dp"
+                android:scrollbars="vertical"
+                android:text="Bàn cạnh cửa sổ"
+                android:textColor="@color/colorTextInfo"
+                android:textSize="14sp"
+                android:textStyle="normal" />
+
+        </TableRow>
+
+    </LinearLayout>
+
+</LinearLayout>

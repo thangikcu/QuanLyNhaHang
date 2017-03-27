@@ -7,6 +7,7 @@ import com.thanggun99.khachhang.App;
 import com.thanggun99.khachhang.model.entity.DatBan;
 import com.thanggun99.khachhang.model.entity.KhachHang;
 import com.thanggun99.khachhang.util.API;
+import com.thanggun99.khachhang.util.Utils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,20 +18,21 @@ import java.util.Map;
 
 public class KhachHangInteractor {
     private KhachHang khachHang;
+    private Database database;
     private OnKhachHangFinishedListener onKhachHangFinishedListener;
 
     public KhachHangInteractor(OnKhachHangFinishedListener onKhachHangFinishedListener) {
         this.onKhachHangFinishedListener = onKhachHangFinishedListener;
+        database = new Database();
         khachHang = new KhachHang();
+
     }
 
     public void loginAuto() {
-        if (khachHang.isGhiNhoDangNhap()) {
-            khachHang.setTenDangNhap(App.getPreferences().getString(KhachHang.USERNAME, null));
-            khachHang.setMatKhau(App.getPreferences().getString(KhachHang.PASSWORD, null));
-            khachHang.setKieuDangNhap("auto");
-            new LoginAsynTask().execute();
-        }
+        khachHang.setTenDangNhap(App.getPreferences().getString(KhachHang.USERNAME, null));
+        khachHang.setMatKhau(App.getPreferences().getString(KhachHang.PASSWORD, null));
+        khachHang.setKieuDangNhap("auto");
+        new LoginAsynTask().execute();
     }
 
     public void login(KhachHang khachHang) {
@@ -154,8 +156,8 @@ public class KhachHangInteractor {
     }
 
 
-    public void getInfoDatBan() {
-        class GetInfoDatBanTask extends AsyncTask<String, Void, Boolean> {
+    public void getThongTinPhucVu() {
+        class GetThongTinPhucVuTask extends AsyncTask<String, Void, String> {
             @Override
             protected void onPreExecute() {
                 onKhachHangFinishedListener.onStartTask();
@@ -163,23 +165,36 @@ public class KhachHangInteractor {
             }
 
             @Override
-            protected void onPostExecute(Boolean aBoolean) {
-                if (aBoolean) {
-                    onKhachHangFinishedListener.onGetInfoDatBanSuccess();
-                } else {
-                    onKhachHangFinishedListener.onGetInfoDatBanFail();
+            protected void onPostExecute(String s) {
+                switch (s) {
+                    case KhachHang.KH_PHUC_VU:
+                        Utils.showLog("khach hang phuc vu on kh");
+                        onKhachHangFinishedListener.onFinishGetThongTinKhachHangPhucVu();
+                        break;
+                    case KhachHang.KH_DAT_BAN:
+                        onKhachHangFinishedListener.onFinishGetThongTinKhachHangDatBan();
+                        break;
+                    case KhachHang.KH_NONE:
+                        onKhachHangFinishedListener.onFinishGetThongTinKhachHangNone();
+                        break;
+                    case KhachHang.FAIL:
+                        onKhachHangFinishedListener.onGetThongTinPhucVuFail();
+                        break;
+                    default:
+                        break;
                 }
                 onKhachHangFinishedListener.onFinishTask();
-                super.onPostExecute(aBoolean);
+
+                super.onPostExecute(s);
             }
 
             @Override
-            protected Boolean doInBackground(String... params) {
+            protected String doInBackground(String... params) {
                 delay(500);
-                return khachHang.getInfoDatBan();
+                return khachHang.getThongTinPhucVu();
             }
         }
-        new GetInfoDatBanTask().execute();
+        new GetThongTinPhucVuTask().execute();
     }
 
 
@@ -259,6 +274,70 @@ public class KhachHangInteractor {
         khachHang.setCurrentDatBan(null);
     }
 
+    public void loadTinTucList() {
+        class GetTinTucTask extends AsyncTask<Void, Void, Boolean> {
+            @Override
+            protected void onPreExecute() {
+                onKhachHangFinishedListener.onStartTask();
+                super.onPreExecute();
+            }
+
+            @Override
+            protected void onPostExecute(Boolean aBoolean) {
+                if (aBoolean) {
+                    onKhachHangFinishedListener.onGetTinTucSuccess();
+                } else {
+                    onKhachHangFinishedListener.onGetTinTucFail();
+                }
+                onKhachHangFinishedListener.onFinishTask();
+                super.onPostExecute(aBoolean);
+            }
+
+            @Override
+            protected Boolean doInBackground(Void... params) {
+                return database.loadTinTucList();
+            }
+
+        }
+        new GetTinTucTask().execute();
+    }
+
+    public KhachHang getKhachHang() {
+        return khachHang;
+    }
+
+    public void loadThucDonList() {
+        class GetThucDonTask extends AsyncTask<Void, Void, Boolean> {
+            @Override
+            protected void onPreExecute() {
+                onKhachHangFinishedListener.onStartTask();
+                super.onPreExecute();
+            }
+
+            @Override
+            protected void onPostExecute(Boolean aBoolean) {
+                if (aBoolean) {
+                    onKhachHangFinishedListener.onGetThucDonSuccess();
+                } else {
+                    onKhachHangFinishedListener.onGetThucDonFail();
+                }
+                onKhachHangFinishedListener.onFinishTask();
+                super.onPostExecute(aBoolean);
+            }
+
+            @Override
+            protected Boolean doInBackground(Void... params) {
+                return database.loadThucDonList();
+            }
+
+        }
+        new GetThucDonTask().execute();
+    }
+
+    public Database getDatabase() {
+        return database;
+    }
+
     private class LoginAsynTask extends AsyncTask<Void, Void, String> {
         @Override
         protected void onPreExecute() {
@@ -268,14 +347,21 @@ public class KhachHangInteractor {
 
         @Override
         protected void onPostExecute(String s) {
-            if (s.equals("success")) {
-                onKhachHangFinishedListener.onLoginSuccess(khachHang);
-            } else if (s.equals("other")) {
-                onKhachHangFinishedListener.onOtherLogin();
-                khachHang = null;
-            } else {
-                onKhachHangFinishedListener.onLoginFail();
-                khachHang = null;
+            switch (s) {
+                case KhachHang.LOGIN_SUCCESS:
+                    khachHang.setDatabase(database);
+                    onKhachHangFinishedListener.onLoginSuccess(khachHang);
+                    break;
+                case KhachHang.OTHER_LOGIN:
+                    onKhachHangFinishedListener.onOtherLogin();
+                    khachHang = null;
+                    break;
+                case KhachHang.FAIL:
+                    onKhachHangFinishedListener.onLoginFail();
+                    khachHang = null;
+                    break;
+                default:
+                    break;
             }
             onKhachHangFinishedListener.onFinishTask();
         }
@@ -287,7 +373,7 @@ public class KhachHangInteractor {
         }
     }
 
-    private void delay(int milis){
+    private void delay(int milis) {
         try {
             Thread.sleep(milis);
         } catch (InterruptedException e) {
@@ -318,9 +404,7 @@ public class KhachHangInteractor {
 
         void onDatBanFail();
 
-        void onGetInfoDatBanSuccess();
-
-        void onGetInfoDatBanFail();
+        void onGetThongTinPhucVuFail();
 
         void onFinishHuyDatBan();
 
@@ -333,6 +417,20 @@ public class KhachHangInteractor {
         void onStartTask();
 
         void onFinishTask();
+
+        void onGetTinTucSuccess();
+
+        void onGetTinTucFail();
+
+        void onGetThucDonSuccess();
+
+        void onGetThucDonFail();
+
+        void onFinishGetThongTinKhachHangPhucVu();
+
+        void onFinishGetThongTinKhachHangDatBan();
+
+        void onFinishGetThongTinKhachHangNone();
     }
 
 }

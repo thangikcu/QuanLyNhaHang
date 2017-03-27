@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Khach Hang</string>
+    <string name="app_name">Thang Hoa Coffee</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="cai_dat">Cài đặt</string>
     <string name="section_format">Hello World from section: %1$d</string>
@@ -26,7 +26,7 @@
     </string>
     <string name="dang_nhap">Đăng nhập</string>
     <string name="ghi_nho_dang_nhap">Ghi nhớ đăng nhập</string>
-    <string name="loading">Loading...</string>
+    <string name="loading">Đợi tẹo...</string>
     <string name="dang_nhap_that_bai">Đăng nhập thất bại !</string>
     <string name="nhap_ten_dang_nhap">Nhập tên đăng nhập</string>
     <string name="nhap_mat_khau">Nhập mật khẩu</string>
@@ -72,7 +72,7 @@
     <string name="thay_doi_mat_khau_thanh_cong">Thay đổi mật khẩu thành công</string>
     <string name="thay_doi_mat_khau_that_bai">Thay đổi mật khẩu thất bại</string>
     <string name="trang_chu">Trang chủ</string>
-    <string name="gio_den">Giờ đến</string>
+    <string name="gio_den">Giờ đến:</string>
     <string name="yeu_cau">Yêu cầu</string>
     <string name="nhap_gio_den">Nhập giờ đến</string>
     <string name="dat_ban_thanh_cong">Đặt bàn thành công</string>
@@ -88,4 +88,29 @@
     <string name="cap_nhat_dat_ban_thanh_cong">Cập nhật đặt bàn thành công</string>
     <string name="thong_tin_cua_ban_da_duoc_cap_nhat">Thông tin của bạn đã được cập nhật</string>
     <string name="da_huy_dat_ban">Đã huỷ đặt bàn !</string>
+    <string name="tai_danh_sach_tin_tuc_that_bai">Tải danh sách tin tức thất bại !</string>
+    <string name="gioi_thieu_ve_nha_hang">Giới thiệu về nhà hàng</string>
+    <string name="introduce">Nhà hàng chúng tôi với những đầu bếp chuyên nghiệp thành thạo các món ăn trên toàn thế giới cùng với bề dày lịch sử của nhà hàng, với đội ngũ nhân viên chuyên nghiệp, phong cách phục vụ quý tộc sẽ mang đến cho quý khách sự thoải mái và ngon miệng.</string>
+    <string name="thong_tin_khach_hang">Thông tin tài khoản</string>
+    <string name="info_ten_khach_hang">Họ tên:</string>
+    <string name="info_so_dien_thoai">Số điện thoại:</string>
+    <string name="info_ten_dang_nhap">Tên đăng nhập:</string>
+    <string name="info_dia_chi">Địa chỉ:</string>
+    <string name="tai_danh_sach_thuc_don_that_bai">Tải danh sách thực đơn thất bại !</string>
+    <string name="thong_tin_phuc_vu">Thông tin phục vụ</string>
+    <string name="tong_tien">Tổng tiền:</string>
+    <string name="sale">Sale</string>
+    <string name="tinh_tien">Tính tiền</string>
+    <string name="trang_thai">Trạng thái:</string>
+    <string name="tai_thong_tin_phuc_vu_that_bai">Tải thông tin phục vụ thất bại !</string>
+    <string name="cap_nhat_dat_ban_that_bai">Cập nhật thông tin đặt bàn thất bại !</string>
+    <string name="dat_ban_that_bai">Đặt bàn thất bại</string>
+    <string name="dang_phuc_vu">Đang phục vụ</string>
+    <string name="trong">Trống</string>
+    <string name="dat_truoc">Đặt trước</string>
+    <string name="huy_ban">Huỷ bàn</string>
+    <string name="info_thong_tin_dat_ban">Thông tin đặt bàn</string>
+    <string name="info_khoang_gio_den">Khoảng giờ đến:</string>
+    <string name="error">Đã xảy ra lỗi</string>
+    <string name="tai_lai">Tải lại</string>
 </resources>

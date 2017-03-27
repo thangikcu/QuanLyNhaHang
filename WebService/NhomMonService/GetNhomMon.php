@@ -16,6 +16,7 @@
             $t["maLoai"] = $row["MaLoai"];
             $t["tenLoai"] = $row["TenLoai"];
             $t["mauSac"] = $row["MauSac"];
+            $t["hienThi"] = $row["HienThi"];
          
             
             array_push($response["nhomMon"], $t);

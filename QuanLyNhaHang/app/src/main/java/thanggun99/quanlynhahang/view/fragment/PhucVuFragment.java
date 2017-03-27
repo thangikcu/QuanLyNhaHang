@@ -32,20 +32,20 @@ import java.util.ArrayList;
 import thanggun99.quanlynhahang.App;
 import thanggun99.quanlynhahang.R;
 import thanggun99.quanlynhahang.adapter.BanAdapter;
+import thanggun99.quanlynhahang.adapter.MonAdapter;
+import thanggun99.quanlynhahang.adapter.MonOrderAdapter;
 import thanggun99.quanlynhahang.adapter.NhomMonAdapter;
-import thanggun99.quanlynhahang.adapter.ThucDonAdapter;
-import thanggun99.quanlynhahang.adapter.ThucDonOrderAdapter;
 import thanggun99.quanlynhahang.model.entity.Ban;
 import thanggun99.quanlynhahang.model.entity.DatBan;
 import thanggun99.quanlynhahang.model.entity.HoaDon;
+import thanggun99.quanlynhahang.model.entity.Mon;
+import thanggun99.quanlynhahang.model.entity.MonOrder;
 import thanggun99.quanlynhahang.model.entity.NhomMon;
-import thanggun99.quanlynhahang.model.entity.ThucDon;
-import thanggun99.quanlynhahang.model.entity.ThucDonOrder;
 import thanggun99.quanlynhahang.presenter.PhucVuPresenter;
 import thanggun99.quanlynhahang.util.TimePicker;
 import thanggun99.quanlynhahang.util.Utils;
 import thanggun99.quanlynhahang.view.dialog.ConfirmDialog;
-import thanggun99.quanlynhahang.view.dialog.OrderThucDonDialog;
+import thanggun99.quanlynhahang.view.dialog.OrderMonDialog;
 import thanggun99.quanlynhahang.view.dialog.SaleDialog;
 import thanggun99.quanlynhahang.view.dialog.ThongTinDatBanDialog;
 import thanggun99.quanlynhahang.view.dialog.TinhTienDialog;
@@ -57,11 +57,11 @@ import static thanggun99.quanlynhahang.R.string.error;
 @SuppressLint("ValidFragment")
 public class PhucVuFragment extends BaseFragment implements PhucVuPresenter.PhucVuView, View.OnClickListener, TimePicker.OnFinishPickTimeListener {
 
-    private RecyclerView listViewBan, listViewThucDonOrder;
+    private RecyclerView listViewBan, listViewMonOrder;
     private ImageButton btnThucDon;
     private Button btnSale, btnDatBan, btnCancel, btnTinhTien;
-    private ListView listViewNhomMon;
-    private RecyclerView listViewThucDon;
+    private ListView nhomMonListView;
+    private RecyclerView MonRecyclerView;
     private TableRow tableRow;
     private android.widget.SearchView edtTimKiemMon;
     private TextView tvTenBan, tvTrangThai, tvTongTien, tvGioDen, tvTenLoai, tvTenKhachHang,
@@ -78,14 +78,14 @@ public class PhucVuFragment extends BaseFragment implements PhucVuPresenter.Phuc
 
     //adapter
     private BanAdapter banAdapter;
-    private ThucDonOrderAdapter thucDonOrderAdapter;
-    private ThucDonAdapter thucDonAdapter;
+    private MonOrderAdapter monOrderAdapter;
+    private MonAdapter monAdapter;
     private NhomMonAdapter nhomMonAdapter;
 
     //dialog
     private ConfirmDialog confirmDialog;
     private ThongTinDatBanDialog thongTinDatBanDialog;
-    private OrderThucDonDialog orderThucDonDialog;
+    private OrderMonDialog orderMonDialog;
     private TinhTienDialog tinhTienDialog;
     private SaleDialog saleDialog;
 
@@ -111,7 +111,7 @@ public class PhucVuFragment extends BaseFragment implements PhucVuPresenter.Phuc
     public void onDestroy() {
 
         if (confirmDialog != null) confirmDialog.cancel();
-        if (orderThucDonDialog != null) orderThucDonDialog.cancel();
+        if (orderMonDialog != null) orderMonDialog.cancel();
         if (saleDialog != null) saleDialog.cancel();
         if (tinhTienDialog != null) tinhTienDialog.cancel();
         if (thongTinDatBanDialog != null) thongTinDatBanDialog.cancel();
@@ -132,7 +132,7 @@ public class PhucVuFragment extends BaseFragment implements PhucVuPresenter.Phuc
         btnTinhTien = (Button) layoutThongTinBan.findViewById(R.id.btn_tinh_tien);
         tvGioDen = (TextView) layoutThongTinBan.findViewById(R.id.tv_gio_den);
         tvTongTien = (TextView) layoutThongTinBan.findViewById(R.id.tv_tong_tien);
-        listViewThucDonOrder = (RecyclerView) layoutThongTinBan.findViewById(R.id.list_thuc_don_order);
+        listViewMonOrder = (RecyclerView) layoutThongTinBan.findViewById(R.id.list_thuc_don_order);
 
         btnThucDon = (ImageButton) view.findViewById(R.id.btn_thuc_don);
         listViewBan = (RecyclerView) view.findViewById(R.id.list_ban);
@@ -144,9 +144,9 @@ public class PhucVuFragment extends BaseFragment implements PhucVuPresenter.Phuc
         DrawerLayout.LayoutParams params = (DrawerLayout.LayoutParams) layoutThucDon.getLayoutParams();
         params.width = getResources().getDisplayMetrics().widthPixels / 2;
         layoutThucDon.setLayoutParams(params);
-        listViewNhomMon = (ListView) view.findViewById(R.id.list_nhom_mon);
+        nhomMonListView = (ListView) view.findViewById(R.id.list_nhom_mon);
         tableRow = (TableRow) layoutThucDon.findViewById(R.id.tbr);
-        listViewThucDon = (RecyclerView) layoutThucDon.findViewById(R.id.list_thuc_don);
+        MonRecyclerView = (RecyclerView) layoutThucDon.findViewById(R.id.list_thuc_don);
         tvTenLoai = (TextView) layoutThucDon.findViewById(R.id.tv_title);
         edtTimKiemMon = (android.widget.SearchView) layoutThucDon.findViewById(R.id.edt_tim_kiem_mon);
 
@@ -169,14 +169,14 @@ public class PhucVuFragment extends BaseFragment implements PhucVuPresenter.Phuc
         tinhTienDialog = new TinhTienDialog(getContext(), phucVuPresenter);
         thongTinDatBanDialog = new ThongTinDatBanDialog(getContext());
         confirmDialog = new ConfirmDialog(getContext());
-        orderThucDonDialog = new OrderThucDonDialog(getContext(), phucVuPresenter);
+        orderMonDialog = new OrderMonDialog(getContext(), phucVuPresenter);
         saleDialog = new SaleDialog(getContext(), phucVuPresenter);
 
         //initAdapter
         banAdapter = new BanAdapter(phucVuPresenter);
         nhomMonAdapter = new NhomMonAdapter(phucVuPresenter);
-        thucDonAdapter = new ThucDonAdapter(phucVuPresenter);
-        thucDonOrderAdapter = new ThucDonOrderAdapter(phucVuPresenter);
+        monAdapter = new MonAdapter(getContext(), phucVuPresenter);
+        monOrderAdapter = new MonOrderAdapter(getContext(), phucVuPresenter);
 
         //initAnimation
         animationAlpha = AnimationUtils.loadAnimation(getContext(), R.anim.alpha);
@@ -189,13 +189,13 @@ public class PhucVuFragment extends BaseFragment implements PhucVuPresenter.Phuc
         listViewBan.setAdapter(banAdapter);
         listViewBan.setLayoutManager(new GridLayoutManager(getContext(), 4));
 
-        listViewNhomMon.setAdapter(nhomMonAdapter);
+        nhomMonListView.setAdapter(nhomMonAdapter);
 
-        listViewThucDon.setAdapter(thucDonAdapter);
-        listViewThucDon.setLayoutManager(new LinearLayoutManager(getContext()));
+        MonRecyclerView.setAdapter(monAdapter);
+        MonRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        listViewThucDonOrder.setAdapter(thucDonOrderAdapter);
-        listViewThucDonOrder.setLayoutManager(new LinearLayoutManager(getContext()));
+        listViewMonOrder.setAdapter(monOrderAdapter);
+        listViewMonOrder.setLayoutManager(new LinearLayoutManager(getContext()));
 
         tvYeuCau.setMovementMethod(new ScrollingMovementMethod());
         tvTenLoai.setMovementMethod(new ScrollingMovementMethod());
@@ -228,7 +228,7 @@ public class PhucVuFragment extends BaseFragment implements PhucVuPresenter.Phuc
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                phucVuPresenter.findThucDon(newText);
+                phucVuPresenter.findMon(newText);
                 return true;
             }
         });
@@ -255,7 +255,7 @@ public class PhucVuFragment extends BaseFragment implements PhucVuPresenter.Phuc
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.btn_cancel:
+                    case R.id.btn_huy_ban:
                         phucVuPresenter.onClickHuyBan();
                         return true;
                     case R.id.btn_info_dat_ban:
@@ -447,27 +447,27 @@ public class PhucVuFragment extends BaseFragment implements PhucVuPresenter.Phuc
         confirmDialog.setOnClickOkListener(new ConfirmDialog.OnClickOkListener() {
             @Override
             public void onClickOk() {
-                phucVuPresenter.deleteThucDonOrder();
+                phucVuPresenter.deleteMonOrder();
                 confirmDialog.dismiss();
             }
         });
     }
 
     @Override
-    public void showOrderThucDonDialog(String tenBan, ThucDon thucDon) {
-        orderThucDonDialog.setContent(tenBan, thucDon);
+    public void showOrderMonDialog(String tenBan, Mon mon) {
+        orderMonDialog.setContent(tenBan, mon);
     }
 
     @Override
-    public void notifyAddListThucDonOrder() {
-        listViewThucDonOrder.scrollToPosition(0);
-        thucDonOrderAdapter.notifyItemInserted(0);
+    public void notifyAddListMonOrder() {
+        listViewMonOrder.scrollToPosition(0);
+        monOrderAdapter.notifyItemInserted(0);
 
     }
 
     @Override
-    public void notifyRemoveListThucDonOrder() {
-        thucDonOrderAdapter.deleteThucDonOrder();
+    public void notifyRemoveListMonOrder() {
+        monOrderAdapter.deleteMonOrder();
     }
 
     @Override
@@ -482,9 +482,9 @@ public class PhucVuFragment extends BaseFragment implements PhucVuPresenter.Phuc
     }
 
     @Override
-    public void notifyUpDateListThucDonOrder(ThucDonOrder currentThucDonOrder) {
-        listViewThucDonOrder.scrollToPosition(thucDonOrderAdapter.getPositionOf(currentThucDonOrder));
-        thucDonOrderAdapter.updateThucDonOrder(currentThucDonOrder);
+    public void notifyUpDateListMonOrder(MonOrder currentMonOrder) {
+        listViewMonOrder.scrollToPosition(monOrderAdapter.getPositionOf(currentMonOrder));
+        monOrderAdapter.updateMonOrder(currentMonOrder);
 
     }
 
@@ -497,8 +497,8 @@ public class PhucVuFragment extends BaseFragment implements PhucVuPresenter.Phuc
     }
 
     @Override
-    public void notifyChangeListThucDon(ArrayList<ThucDon> thucDons) {
-        thucDonAdapter.changeData(thucDons);
+    public void notifyChangeListMon(ArrayList<Mon> mons) {
+        monAdapter.changeData(mons);
     }
 
     public void showBan(Ban ban) {
@@ -566,8 +566,8 @@ public class PhucVuFragment extends BaseFragment implements PhucVuPresenter.Phuc
         showTongTien(hoaDon.getTongTien());
         showGiamGia(hoaDon.getGiamGia());
 
-        clearItemThucDonOrderAnimation(thucDonOrderAdapter.getItemCount());
-        thucDonOrderAdapter.changeData(hoaDon.getThucDonOrders());
+        clearItemMonOrderAnimation(monOrderAdapter.getItemCount());
+        monOrderAdapter.changeData(hoaDon.getMonOrderList());
 
         tvGioDen.setText(hoaDon.getGioDen());
         tvGioDen.startAnimation(animationAlpha);
@@ -590,10 +590,10 @@ public class PhucVuFragment extends BaseFragment implements PhucVuPresenter.Phuc
         layoutThongTinDatBan.setVisibility(GONE);
     }
 
-    private void clearItemThucDonOrderAnimation(int itemCount) {
+    private void clearItemMonOrderAnimation(int itemCount) {
         View view;
         for (int i = 0; i < itemCount; i++) {
-            view = listViewThucDonOrder.getChildAt(i);
+            view = listViewMonOrder.getChildAt(i);
             if (view != null) {
                 view.clearAnimation();
             }

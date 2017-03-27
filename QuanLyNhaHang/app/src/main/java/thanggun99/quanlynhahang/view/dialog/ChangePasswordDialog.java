@@ -85,7 +85,7 @@ public class ChangePasswordDialog extends BaseDialog implements MainPresenter.Ch
 
     @Override
     public void showOnsuccess() {
-        Utils.notifi(Utils.getStringByRes(R.string.thay_doi_mat_khau_thanh_cong));
+        Utils.notifiOnDialog(Utils.getStringByRes(R.string.thay_doi_mat_khau_thanh_cong));
         dismiss();
     }
 
@@ -99,7 +99,7 @@ public class ChangePasswordDialog extends BaseDialog implements MainPresenter.Ch
 
     @Override
     public void showOnFail() {
-        Utils.notifi(Utils.getStringByRes(R.string.thay_doi_mat_khau_that_bai));
+        Utils.notifiOnDialog(Utils.getStringByRes(R.string.thay_doi_mat_khau_that_bai));
         edtPassword.setText("");
         edtNewPassword.setText("");
         edtRePassword.setText("");

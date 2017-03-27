@@ -9,6 +9,6 @@
         android:title="@string/sua_thong_tin" />
 
     <item
-        android:id="@+id/btn_cancel"
+        android:id="@+id/btn_huy_ban"
         android:title="@string/huy_ban" />
 </menu>
