@@ -22,7 +22,7 @@ public class ConfirmDialog extends BaseDialog {
         setCancelable(true);
 
         tvNotifi = (TextView) findViewById(R.id.tv_notifi);
-        btnCancle = (Button) findViewById(R.id.btn_cancle);
+        btnCancle = (Button) findViewById(R.id.btn_cancel);
         btnCancle.setOnClickListener(this);
 
         btnOk = (Button) findViewById(R.id.btn_ok);

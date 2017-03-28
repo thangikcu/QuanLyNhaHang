@@ -36,7 +36,7 @@
             android:text="@string/quan_ly" />
 
         <Button
-            android:id="@+id/btn_statistic"
+            android:id="@+id/btn_thong_ke"
             style="@style/CommonButton"
             android:background="@drawable/menu_main_button_background"
             android:drawableLeft="@drawable/ic_btn_statistic"
@@ -60,9 +60,10 @@
             <ImageView android:src="@drawable/ic_account" />
 
             <LinearLayout
-                android:orientation="vertical"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content">
+                android:orientation="vertical">
+
                 <TextView
                     android:id="@+id/tv_ten_admin"
                     style="@style/CommonTextView"
@@ -74,12 +75,11 @@
                 <TextView
                     android:id="@+id/tv_ho_ten"
                     style="@style/CommonTextView"
-                    android:textSize="10sp"
-                    android:textStyle="italic"
                     android:text="(Trần Văn Thắng)"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    android:textStyle="italic" />
             </LinearLayout>
-
 
 
             <ImageButton

@@ -30,6 +30,6 @@ public abstract class BaseDialog extends Dialog implements View.OnClickListener{
     }
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.btn_cancle) dismiss();
+        if (v.getId() == R.id.btn_cancel) dismiss();
     }
 }

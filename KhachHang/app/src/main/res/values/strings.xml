@@ -113,4 +113,7 @@
     <string name="info_khoang_gio_den">Khoảng giờ đến:</string>
     <string name="error">Đã xảy ra lỗi</string>
     <string name="tai_lai">Tải lại</string>
+    <string name="huy">Huỷ</string>
+    <string name="goi_mon">Gọi món</string>
+    <string name="ban_can_dang_nhap_de_goi_mon">Bạn cần phải đăng nhập để gọi món !</string>
 </resources>

@@ -1,4 +1,4 @@
-package thanggun99.quanlynhahang.view.dialog;
+package com.thanggun99.khachhang.view.dialog;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -12,34 +12,29 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-
-import thanggun99.quanlynhahang.R;
-import thanggun99.quanlynhahang.model.entity.Mon;
-import thanggun99.quanlynhahang.presenter.PhucVuPresenter;
-
-/**
- * Created by Thanggun99 on 22/11/2016.
- */
+import com.thanggun99.khachhang.R;
+import com.thanggun99.khachhang.model.entity.Mon;
+import com.thanggun99.khachhang.presenter.KhachHangPresenter;
 
 public class OrderMonDialog extends BaseDialog {
+    private final Context context;
+    private final KhachHangPresenter khachHangPresenter;
     private TextView tvTenMon;
     private TextView tvDVT;
     private EditText edtSoLuong;
     private ImageButton btnCong, btnTru;
     private ImageView ivMon;
-    private PhucVuPresenter phucVuPresenter;
     private RatingBar ratingBar;
     private TextView tvRatingPoint;
 
-    public OrderMonDialog(Context context, PhucVuPresenter phucVuPresenter) {
+    public OrderMonDialog(Context context, KhachHangPresenter khachHangPresenter) {
         super(context);
+        this.context = context;
+        this.khachHangPresenter = khachHangPresenter;
         setContentView(R.layout.dialog_order_mon);
-
-        this.phucVuPresenter = phucVuPresenter;
 
         tvRatingPoint = (TextView) findViewById(R.id.tv_point_rating);
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-        tvTitle = (TextView) findViewById(R.id.tv_title);
         tvDVT = (TextView) findViewById(R.id.tv_don_vi_tinh);
         tvDVT.setMovementMethod(new ScrollingMovementMethod());
         edtSoLuong = (EditText) findViewById(R.id.edt_so_luong);
@@ -57,11 +52,10 @@ public class OrderMonDialog extends BaseDialog {
         btnCancle.setOnClickListener(this);
     }
 
-    public void setContent(String tenBan, Mon mon) {
+    public void setContent(Mon mon) {
         ratingBar.setRating(mon.getRating() / mon.getPersonRating());
         tvRatingPoint.setText(mon.getRatingPoint());
         edtSoLuong.setText("1");
-        tvTitle.setText(tenBan);
         tvTenMon.setText(mon.getTenMon());
         tvDVT.setText(mon.getDonViTinh());
         Glide.with(getContext())
@@ -79,7 +73,7 @@ public class OrderMonDialog extends BaseDialog {
             case R.id.btn_ok:
                 if (!TextUtils.isEmpty(edtSoLuong.getText())) {
                     try {
-                        phucVuPresenter.orderMon(Integer.parseInt(edtSoLuong.getText().toString()));
+                        khachHangPresenter.orderMon(Integer.parseInt(edtSoLuong.getText().toString()));
 
                     } catch (NumberFormatException e) {
                         e.printStackTrace();

@@ -50,7 +50,8 @@ public class MonOrderAdapter extends RecyclerView.Adapter<MonOrderAdapter.ViewHo
         holder.tvTenMon.setText(monOrder.getTenMon());
         holder.tvSoLuong.setText(monOrder.getSoLuong() + monOrder.getDonViTinh());
         holder.tvThanhTien.setText(Utils.formatMoney(monOrder.getTongTien()));
-        holder.ratingBar.setRating(monOrder.getRating());
+        holder.ratingBar.setRating(monOrder.getRating() / monOrder.getPersonRating());
+        holder.tvRatingPoint.setText(monOrder.getRatingPoint());
         Glide.with(context)
                 .load(monOrder.getHinhAnh())
                 .placeholder(R.drawable.ic_food)
@@ -95,9 +96,11 @@ public class MonOrderAdapter extends RecyclerView.Adapter<MonOrderAdapter.ViewHo
         ImageView ivMon;
         ImageButton btnDelete;
         RatingBar ratingBar;
+        TextView tvRatingPoint;
 
         public ViewHolder(final View itemView) {
             super(itemView);
+            tvRatingPoint = (TextView) itemView.findViewById(R.id.tv_point_rating);
             ratingBar = (RatingBar) itemView.findViewById(R.id.ratingBar);
             tvThanhTien = (TextView) itemView.findViewById(R.id.tv_don_gia);
             tvSoLuong = (TextView) itemView.findViewById(R.id.tv_so_luong);
@@ -121,6 +124,7 @@ public class MonOrderAdapter extends RecyclerView.Adapter<MonOrderAdapter.ViewHo
                 case R.id.btn_delete_mon_order:
                     break;
                 default:
+                    khachHangPresenter.onClickMonOrder(monOrderList.get(currentPosition));
                     break;
             }
         }

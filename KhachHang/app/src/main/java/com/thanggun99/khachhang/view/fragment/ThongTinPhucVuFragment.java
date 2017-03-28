@@ -28,10 +28,12 @@ import com.thanggun99.khachhang.R;
 import com.thanggun99.khachhang.adapter.MonOrderAdapter;
 import com.thanggun99.khachhang.model.entity.DatBan;
 import com.thanggun99.khachhang.model.entity.HoaDon;
+import com.thanggun99.khachhang.model.entity.MonOrder;
 import com.thanggun99.khachhang.presenter.KhachHangPresenter;
 import com.thanggun99.khachhang.util.Utils;
 import com.thanggun99.khachhang.view.dialog.ConfirmDialog;
 import com.thanggun99.khachhang.view.dialog.ErrorDialog;
+import com.thanggun99.khachhang.view.dialog.OrderMonDialog;
 import com.thanggun99.khachhang.view.dialog.ThongTinDatBanDialog;
 
 import java.util.Calendar;
@@ -56,6 +58,7 @@ public class ThongTinPhucVuFragment extends BaseFragment implements View.OnClick
     private PopupMenu popupMenu;
     private ThongTinDatBanDialog thongTinDatBanDialog;
     private ErrorDialog errorDialog;
+    private OrderMonDialog orderMonDialog;
 
 
     public ThongTinPhucVuFragment(KhachHangPresenter khachHangPresenter) {
@@ -104,6 +107,8 @@ public class ThongTinPhucVuFragment extends BaseFragment implements View.OnClick
         timePicker = new TimePicker();
         thongTinDatBanDialog = new ThongTinDatBanDialog(getContext());
         errorDialog = new ErrorDialog(getContext(), khachHangPresenter);
+        orderMonDialog = new OrderMonDialog(getContext(), khachHangPresenter);
+
         animationAlpha = AnimationUtils.loadAnimation(getContext(), R.anim.alpha);
 
     }
@@ -159,6 +164,11 @@ public class ThongTinPhucVuFragment extends BaseFragment implements View.OnClick
             }
         });
 
+    }
+
+    @Override
+    public void showOrderMonDialog(MonOrder monOrder) {
+        orderMonDialog.setContent(monOrder);
     }
 
     @Override

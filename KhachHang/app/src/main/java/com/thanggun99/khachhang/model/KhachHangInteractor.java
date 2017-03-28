@@ -6,6 +6,8 @@ import android.text.TextUtils;
 import com.thanggun99.khachhang.App;
 import com.thanggun99.khachhang.model.entity.DatBan;
 import com.thanggun99.khachhang.model.entity.KhachHang;
+import com.thanggun99.khachhang.model.entity.Mon;
+import com.thanggun99.khachhang.model.entity.MonOrder;
 import com.thanggun99.khachhang.util.API;
 import com.thanggun99.khachhang.util.Utils;
 
@@ -20,15 +22,20 @@ public class KhachHangInteractor {
     private KhachHang khachHang;
     private Database database;
     private OnKhachHangFinishedListener onKhachHangFinishedListener;
+    private Mon currentMon;
+    private boolean isLogin;
+    private MonOrder currentMonOrder;
+
 
     public KhachHangInteractor(OnKhachHangFinishedListener onKhachHangFinishedListener) {
         this.onKhachHangFinishedListener = onKhachHangFinishedListener;
+        isLogin = false;
         database = new Database();
-        khachHang = new KhachHang();
 
     }
 
     public void loginAuto() {
+        khachHang = new KhachHang();
         khachHang.setTenDangNhap(App.getPreferences().getString(KhachHang.USERNAME, null));
         khachHang.setMatKhau(App.getPreferences().getString(KhachHang.PASSWORD, null));
         khachHang.setKieuDangNhap("auto");
@@ -41,6 +48,7 @@ public class KhachHangInteractor {
     }
 
     public void logout() {
+        isLogin = false;
         khachHang.huyGhiNhoDangNhap();
         khachHang = null;
     }
@@ -83,10 +91,12 @@ public class KhachHangInteractor {
     }
 
     public boolean isGhiNhoDangNhap() {
-        if (khachHang.isGhiNhoDangNhap()) {
-            return true;
+
+        if (TextUtils.isEmpty(App.getPreferences().getString(KhachHang.USERNAME, null))) {
+            return false;
         }
-        return false;
+        return true;
+
     }
 
     public void sentFeedback(String title, String content) {
@@ -338,6 +348,18 @@ public class KhachHangInteractor {
         return database;
     }
 
+    public void setcurrentMon(Mon currentMon) {
+        this.currentMon = currentMon;
+    }
+
+    public boolean isLogin() {
+        return isLogin;
+    }
+
+    public void setCurrentMonOrder(MonOrder monOrder) {
+        this.currentMonOrder = monOrder;
+    }
+
     private class LoginAsynTask extends AsyncTask<Void, Void, String> {
         @Override
         protected void onPreExecute() {
@@ -349,6 +371,8 @@ public class KhachHangInteractor {
         protected void onPostExecute(String s) {
             switch (s) {
                 case KhachHang.LOGIN_SUCCESS:
+                    isLogin = true;
+
                     khachHang.setDatabase(database);
                     onKhachHangFinishedListener.onLoginSuccess(khachHang);
                     break;

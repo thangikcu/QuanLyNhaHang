@@ -5,16 +5,21 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import thanggun99.quanlynhahang.R;
@@ -30,11 +35,13 @@ import thanggun99.quanlynhahang.service.MyFirebaseMessagingService;
 import thanggun99.quanlynhahang.util.Utils;
 import thanggun99.quanlynhahang.view.dialog.ChangePasswordDialog;
 import thanggun99.quanlynhahang.view.dialog.ErrorDialog;
+import thanggun99.quanlynhahang.view.dialog.KhachHangOrderDialog;
 import thanggun99.quanlynhahang.view.dialog.NotifiDialog;
 import thanggun99.quanlynhahang.view.fragment.DatBanFragment;
 import thanggun99.quanlynhahang.view.fragment.ManagerFragment;
 import thanggun99.quanlynhahang.view.fragment.PhucVuFragment;
 import thanggun99.quanlynhahang.view.fragment.SettingFragment;
+import thanggun99.quanlynhahang.view.fragment.ThongKeFragment;
 
 public class MainActivity extends AppCompatActivity implements CommondActionForView, View.OnClickListener, MainPresenter.MainView {
     private Database database;
@@ -47,15 +54,20 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
     private MainPresenter mainPresenter;
     private PhucVuPresenter phucVuPresenter;
 
-    private Button btnPhucVu, btnManage, btnStatistic, btnDatBan, btnSetting, btnSelected;
+    private Button btnPhucVu, btnManage, btnThongKe, btnDatBan, btnSetting, btnSelected;
+
     private PhucVuFragment phucVuFragment;
     private SettingFragment settingFragment;
     private DatBanFragment datBanFragment;
     private ManagerFragment managerFragment;
+    private ThongKeFragment thongKeFragment;
     private Fragment fragmentIsShow;
+
     private ProgressDialog progressDialog;
     private ErrorDialog errorDialog;
     private NotifiDialog notifiDialog;
+    private KhachHangOrderDialog khachHangOrderDialog;
+
     private IntentFilter intentFilter;
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
@@ -145,12 +157,62 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
         initComponents();
         setEvents();
         mainPresenter.getDatas();
+
+        createFloatView();
     }
 
-    @Override
-    protected void onResume() {
-        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, intentFilter);
-        super.onResume();
+    private void createFloatView() {
+        final LinearLayout layoutFloat = (LinearLayout) LayoutInflater.from(this)
+                .inflate(R.layout.btn_float, null);
+        final ImageButton btnFloat = (ImageButton) layoutFloat.findViewById(R.id.btn_float);
+        ;
+
+        final WindowManager wm = (WindowManager) getApplicationContext().getSystemService(
+                Context.WINDOW_SERVICE);
+
+        final WindowManager.LayoutParams params = new WindowManager.LayoutParams();
+        params.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
+        params.format = PixelFormat.TRANSLUCENT;
+        params.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+                | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+        params.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        params.height = WindowManager.LayoutParams.WRAP_CONTENT;
+
+        btnFloat.setOnTouchListener(new View.OnTouchListener() {
+            int lastX, lastY;
+            int paramX, paramY;
+
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        lastX = (int) event.getRawX();
+                        lastY = (int) event.getRawY();
+                        paramX = params.x;
+                        paramY = params.y;
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        int dx = (int) event.getRawX() - lastX;
+                        int dy = (int) event.getRawY() - lastY;
+                        params.x = paramX + dx;
+                        params.y = paramY + dy;
+
+                        wm.updateViewLayout(layoutFloat, params);
+                        break;
+                    default:
+                        break;
+                }
+                return false;
+            }
+        });
+        btnFloat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                khachHangOrderDialog.show();
+            }
+        });
+
+        wm.addView(layoutFloat, params);
     }
 
     @Override
@@ -177,7 +239,7 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
         tvHoTen = (TextView) findViewById(R.id.tv_ho_ten);
         btnPhucVu = (Button) findViewById(R.id.btn_sell);
         btnManage = (Button) findViewById(R.id.btn_manager);
-        btnStatistic = (Button) findViewById(R.id.btn_statistic);
+        btnThongKe = (Button) findViewById(R.id.btn_thong_ke);
         btnDatBan = (Button) findViewById(R.id.btn_dat_ban);
         btnSetting = (Button) findViewById(R.id.btn_setting);
         //btnSelected = btnHome;
@@ -202,6 +264,7 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
         popupMenu.getMenuInflater().inflate(R.menu.account_menu, popupMenu.getMenu());
 
         errorDialog = new ErrorDialog(this, mainPresenter);
+        khachHangOrderDialog = new KhachHangOrderDialog(this);
 
         phucVuFragment = new PhucVuFragment(phucVuPresenter);
         fragmentIsShow = new Fragment();
@@ -215,7 +278,7 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
         tvHoTen.setText("(" + admin.getHoTen() + ")");
         if (admin.getType() == 2) {
             btnManage.setEnabled(false);
-            btnStatistic.setEnabled(false);
+            btnThongKe.setEnabled(false);
         }
         btnDropDown.setOnClickListener(this);
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -239,7 +302,7 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
         btnPhucVu.setSelected(true);
         btnPhucVu.setOnClickListener(this);
         btnManage.setOnClickListener(this);
-        btnStatistic.setOnClickListener(this);
+        btnThongKe.setOnClickListener(this);
         btnDatBan.setOnClickListener(this);
         btnSetting.setOnClickListener(this);
 
@@ -249,6 +312,8 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
         intentFilter.addAction(MyFirebaseMessagingService.LOGOUT_ACTION);
         intentFilter.addAction(MyFirebaseMessagingService.KHACH_VAO_BAN_ACTION);
         intentFilter.addAction(MyFirebaseMessagingService.KHACH_HANG_REGISTER_ACTION);
+        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, intentFilter);
+
     }
 
     @Override
@@ -262,7 +327,9 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
                 if (managerFragment == null) managerFragment = new ManagerFragment(mainPresenter);
                 fillFrame(managerFragment, btnManage);
                 break;
-            case R.id.btn_statistic:
+            case R.id.btn_thong_ke:
+                if (thongKeFragment == null) thongKeFragment = new ThongKeFragment();
+                fillFrame(thongKeFragment, btnThongKe);
                 break;
             case R.id.btn_dat_ban:
                 if (datBanFragment == null) datBanFragment = new DatBanFragment(phucVuPresenter);
@@ -353,6 +420,4 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
     public void showConnectFailDialog() {
         notifiDialog.notifi(Utils.getStringByRes(R.string.kiem_tra_ket_noi_mang));
     }
-
-
 }

@@ -5,7 +5,7 @@ public class MonOrder extends Mon {
     private int maChitietHD;
 
     public MonOrder(Mon mon, int soLuong, int maChitietHD) {
-        super(mon.getMaMon(), mon.getTenMon(), mon.getMaLoai(), mon.getDonGia(), mon.getDonViTinh(),mon.getHinhAnh(), mon.getRating());
+        super(mon.getMaMon(), mon.getTenMon(), mon.getMaLoai(), mon.getDonGia(), mon.getDonViTinh(),mon.getHinhAnh(), mon.getRating(), mon.getPersonRating());
         this.soLuong = soLuong;
         this.maChitietHD = maChitietHD;
     }

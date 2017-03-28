@@ -34,9 +34,25 @@
             android:textSize="12sp"
             android:textStyle="bold" />
 
-        <RatingBar
-            android:id="@+id/ratingBar"
-            style="@style/RatingBar" />
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="center_vertical">
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                style="@style/RatingBar" />
+
+            <TextView
+                android:id="@+id/tv_point_rating"
+                style="@style/CommonTextView"
+                android:paddingLeft="4dp"
+                android:text="(15,3/6)"
+                android:textColor="@color/colorTextInfo"
+                android:textSize="9sp"
+                android:typeface="serif" />
+        </TableRow>
     </LinearLayout>
 
     <TextView
@@ -49,9 +65,9 @@
 
     <TextView
         android:id="@+id/tv_don_gia"
-        android:layout_width="36dp"
+        android:layout_width="28dp"
         android:layout_height="wrap_content"
-        android:text="1k"
+        android:text="335k"
         android:textColor="@color/colorTextMoney"
         android:textSize="12sp"
         android:textStyle="italic" />

@@ -292,7 +292,7 @@ public class Database {
 
                         Mon mon = new Mon(object.getInt("maMon"), object.getString("tenMon"),
                                 object.getInt("maLoai"), object.getInt("donGia"),
-                                object.getString("donViTinh"), object.getInt("hienThi"), (float) object.getDouble("rating"));
+                                object.getString("donViTinh"), object.getInt("hienThi"), (float) object.getDouble("rating"), object.getInt("personRating"));
 
                         if (!object.isNull("hinhAnh")) {
                             byte[] hinhAnh = Base64.decode(object.getString("hinhAnh"), Base64.DEFAULT);

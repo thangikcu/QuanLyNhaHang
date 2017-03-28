@@ -96,7 +96,6 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
         tvLoginError.setVisibility(View.VISIBLE);
     }
 
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

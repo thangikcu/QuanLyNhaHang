@@ -68,7 +68,6 @@ public class PhucVuInteractor {
 
     public void orderMon(int soLuong) {
         MonOrder monOrder = new MonOrder();
-        monOrder.setMaMon(currentMon.getMaMon());
         monOrder.setSoLuong(soLuong);
         monOrder.setMon(database.getMonByMaMon(currentMon.getMaMon()));
 

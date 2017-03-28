@@ -47,7 +47,8 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.ViewHolder> {
         holder.tvTenMon.setText(mon.getTenMon());
         holder.tvTenMon.scrollTo(0, 0);
         holder.tvDonGia.setText(Utils.formatMoney(mon.getDonGia()) + "/" + mon.getDonViTinh());
-        holder.ratingBar.setRating(mon.getRating());
+        holder.ratingBar.setRating(mon.getRating() / mon.getPersonRating());
+        holder.tvRatingPoint.setText(mon.getRatingPoint());
         Glide.with(context)
                 .load(mon.getHinhAnh())
                 .placeholder(R.drawable.ic_food)
@@ -75,9 +76,11 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.ViewHolder> {
         TextView tvDonGia;
         ImageView ivMon;
         RatingBar ratingBar;
+        TextView tvRatingPoint;
 
         public ViewHolder(final View itemView) {
             super(itemView);
+            tvRatingPoint = (TextView) itemView.findViewById(R.id.tv_point_rating);
             ratingBar = (RatingBar) itemView.findViewById(R.id.ratingBar);
             tvDonGia = (TextView) itemView.findViewById(R.id.tv_don_gia);
             ivMon = (ImageView) itemView.findViewById(R.id.iv_mon);
@@ -91,7 +94,7 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.ViewHolder> {
 
         @Override
         public void onClick(View v) {
-
+            khachHangPresenter.onClickMon(getItem(getAdapterPosition()));
         }
     }
 }

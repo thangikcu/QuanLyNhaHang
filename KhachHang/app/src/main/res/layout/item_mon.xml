@@ -50,9 +50,25 @@
                 android:textSize="12sp"
                 android:textStyle="italic" />
 
-            <RatingBar
-                android:id="@+id/ratingBar"
-                style="@style/RatingBar"/>
+            <TableRow
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <RatingBar
+                    android:id="@+id/ratingBar"
+                    style="@style/RatingBar" />
+
+                <TextView
+                    android:id="@+id/tv_point_rating"
+                    android:paddingLeft="4dp"
+                    style="@style/CommonTextView"
+                    android:typeface="serif"
+                    android:textColor="@color/colorTextInfo"
+                    android:textSize="9sp"
+                    android:text="(15,3/6)" />
+            </TableRow>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

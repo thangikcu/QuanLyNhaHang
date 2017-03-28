@@ -6,8 +6,6 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -17,7 +15,6 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
-import thanggun99.quanlynhahang.App;
 import thanggun99.quanlynhahang.R;
 import thanggun99.quanlynhahang.model.entity.MonOrder;
 import thanggun99.quanlynhahang.presenter.PhucVuPresenter;
@@ -32,13 +29,12 @@ public class MonOrderAdapter extends RecyclerView.Adapter<MonOrderAdapter.ViewHo
     private ArrayList<MonOrder> monOrderList;
     private PhucVuPresenter phucVuPresenter;
     private int currentPosition;
-    private Animation animationBounce;
     private Context context;
 
     public MonOrderAdapter(Context context, PhucVuPresenter phucVuPresenter) {
         this.context = context;
         this.phucVuPresenter = phucVuPresenter;
-        animationBounce = AnimationUtils.loadAnimation(App.getContext(), R.anim.bounce);
+
     }
 
     @Override
@@ -54,15 +50,13 @@ public class MonOrderAdapter extends RecyclerView.Adapter<MonOrderAdapter.ViewHo
         holder.tvTenMon.setText(monOrder.getTenMon());
         holder.tvSoLuong.setText(monOrder.getSoLuong() + monOrder.getDonViTinh());
         holder.tvThanhTien.setText(Utils.formatMoney(monOrder.getTongTien()));
-        holder.ratingBar.setRating(monOrder.getRating());
+        holder.ratingBar.setRating(monOrder.getRating() / monOrder.getPersonRating());
+        holder.tvRatingPoint.setText(monOrder.getRatingPoint());
         Glide.with(context)
                 .load(monOrder.getHinhAnh())
                 .placeholder(R.drawable.ic_food)
                 .error(R.drawable.ic_food)
                 .into(holder.ivMon);
-
-        holder.itemView.startAnimation(animationBounce);
-
     }
 
     @Override
@@ -108,9 +102,11 @@ public class MonOrderAdapter extends RecyclerView.Adapter<MonOrderAdapter.ViewHo
         ImageView ivMon;
         ImageButton btnDelete;
         RatingBar ratingBar;
+        TextView tvRatingPoint;
 
         public ViewHolder(final View itemView) {
             super(itemView);
+            tvRatingPoint = (TextView) itemView.findViewById(R.id.tv_point_rating);
             ratingBar = (RatingBar) itemView.findViewById(R.id.ratingBar);
             tvThanhTien = (TextView) itemView.findViewById(R.id.tv_don_gia);
             tvSoLuong = (TextView) itemView.findViewById(R.id.tv_so_luong);

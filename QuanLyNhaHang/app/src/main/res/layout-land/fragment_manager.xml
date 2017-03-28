@@ -26,17 +26,6 @@
             android:text="@string/quan_ly_tin_tuc"/>
 
         <Button
-            android:id="@+id/btn_ql_ban"
-            style="@style/CommonButton"
-            android:drawableLeft="@drawable/ic_table"
-            android:background="@drawable/menu_manager_button_background"
-            android:layout_marginTop="4dp"
-            android:paddingLeft="4dp"
-            android:layout_height="36dp"
-            android:layout_width="match_parent"
-            android:text="@string/quan_ly_ban"/>
-
-        <Button
             android:id="@+id/btn_ql_thuc_don"
             style="@style/CommonButton"
             android:drawableLeft="@drawable/ic_food_and_drink"
@@ -57,6 +46,17 @@
             android:layout_height="36dp"
             android:layout_width="match_parent"
             android:text="@string/quan_ly_loai_mon"/>
+
+        <Button
+            android:id="@+id/btn_ql_ban"
+            style="@style/CommonButton"
+            android:drawableLeft="@drawable/ic_table"
+            android:background="@drawable/menu_manager_button_background"
+            android:layout_marginTop="4dp"
+            android:paddingLeft="4dp"
+            android:layout_height="36dp"
+            android:layout_width="match_parent"
+            android:text="@string/quan_ly_ban"/>
 
         <Button
             android:id="@+id/btn_ql_nhan_vien"

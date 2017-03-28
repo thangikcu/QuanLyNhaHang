@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
     private PopupMenu popupMenu;
     private ImageButton btnArrowDown;
     private KhachHangPresenter khachHangPresenter;
-    private boolean isLogin = false;
     private HomeFragment homeFragment;
     private FeedbackFragment feedbackFragment;
     private SettingFragment settingFragment;
@@ -66,7 +65,8 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
                     break;
                 case MyFirebaseMessagingService.LOGOUT_ACTION:
 
-                    if (isLogin) {
+                    if (khachHangPresenter.checkLogin()) {
+
                         khachHangPresenter.onOtherLogin();
                         khachHangPresenter.logout();
                     }
@@ -150,6 +150,8 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
         intentFilter.addAction(MyFirebaseMessagingService.NOTIFI_ACTION);
         intentFilter.addAction(MyFirebaseMessagingService.UPDATE_DAT_BAN_ACTION);
         intentFilter.addAction(MyFirebaseMessagingService.HUY_DAT_BAN_ACTION);
+        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver,
+                intentFilter);
 
     }
 
@@ -225,15 +227,8 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
 
 
     @Override
-    public void showDialogConnectFail() {
+    public void showConnectFailDialog() {
         Utils.notifi(Utils.getStringByRes(R.string.kiem_tra_ket_noi_mang));
-    }
-
-    @Override
-    protected void onResume() {
-        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver,
-                intentFilter);
-        super.onResume();
     }
 
     @Override
@@ -278,7 +273,6 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
 
     @Override
     public void showViewOnlogin(KhachHang khachHang) {
-        isLogin = true;
 
         if (fragmentIsShow instanceof LoginFragment) {
             fillFrame(homeFragment, R.id.btn_home);
@@ -291,8 +285,6 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
 
     @Override
     public void showViewOnUnlogin() {
-        isLogin = false;
-
         tvUsername.setText("");
         tvFullname.setText("");
         drawerLayout.closeDrawer(GravityCompat.START);

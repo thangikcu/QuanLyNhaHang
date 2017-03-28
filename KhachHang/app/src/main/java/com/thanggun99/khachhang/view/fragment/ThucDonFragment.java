@@ -9,11 +9,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.thanggun99.khachhang.R;
-import com.thanggun99.khachhang.adapter.NhomMonAdapter;
 import com.thanggun99.khachhang.adapter.MonAdapter;
+import com.thanggun99.khachhang.adapter.NhomMonAdapter;
 import com.thanggun99.khachhang.model.entity.Mon;
 import com.thanggun99.khachhang.presenter.KhachHangPresenter;
 import com.thanggun99.khachhang.util.Utils;
+import com.thanggun99.khachhang.view.dialog.OrderMonDialog;
 
 import java.util.ArrayList;
 
@@ -29,6 +30,7 @@ public class ThucDonFragment extends BaseFragment implements KhachHangPresenter.
 
     private NhomMonAdapter nhomMonAdapter;
     private MonAdapter monAdapter;
+    private OrderMonDialog orderMonDialog;
 
     public ThucDonFragment(KhachHangPresenter khachHangPresenter) {
         super(R.layout.fragment_thuc_don);
@@ -50,7 +52,7 @@ public class ThucDonFragment extends BaseFragment implements KhachHangPresenter.
 
     @Override
     public void initComponents() {
-
+        orderMonDialog = new OrderMonDialog(getContext(), khachHangPresenter);
     }
 
     @Override
@@ -67,6 +69,17 @@ public class ThucDonFragment extends BaseFragment implements KhachHangPresenter.
             default:
                 break;
         }
+    }
+
+
+    @Override
+    public void showRequireLoginNotify() {
+        Utils.notifi(Utils.getStringByRes(R.string.ban_can_dang_nhap_de_goi_mon));
+    }
+
+    @Override
+    public void showOrderMonDialog(Mon mon) {
+        orderMonDialog.setContent(mon);
     }
 
     @Override

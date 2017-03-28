@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="300dp"
     android:layout_height="wrap_content"
+    android:layout_gravity="center"
     android:background="@drawable/bg_dialog"
     android:orientation="vertical"
     android:padding="16dp">
@@ -9,35 +10,31 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/thong_bao"
-        android:textColor="@color/colorTextTitleDialog"
+        android:paddingBottom="16dp"
+        android:text="@string/yeu_cau"
+        android:textColor="@color/colorPrimary"
         android:textSize="18sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/tv_notifi"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list_yeu_cau"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/other_people_login"
-        android:gravity="center"
-        android:paddingTop="16dp"
-        android:textColor="@color/colorTextNotifi"
-        android:textSize="14sp"
-        android:textStyle="bold" />
+        android:layout_height="match_parent"
+        android:scrollbars="vertical" />
 
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="16dp">
+        android:paddingTop="@dimen/margin">
 
         <Button
-            android:id="@+id/btn_cancel"
+            android:id="@+id/btn_ok"
+            style="@style/CommonButton"
             android:layout_width="0dp"
             android:layout_height="32dp"
             android:layout_weight="1"
             android:background="@drawable/btn_radius"
-            android:text="@string/dong"
-            android:textAllCaps="false"
-            android:textColor="@color/colorTextButton" />
+            android:text="@string/dong" />
+
     </TableRow>
 </LinearLayout>

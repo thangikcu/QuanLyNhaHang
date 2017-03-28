@@ -64,13 +64,6 @@ public class KhachHang implements Serializable {
 
     }
 
-    public boolean isGhiNhoDangNhap() {
-        if (TextUtils.isEmpty(App.getPreferences().getString(USERNAME, null))) {
-            return false;
-        }
-        return true;
-    }
-
     public void ghiNhoDangNhap() {
         SharedPreferences.Editor editor = App.getPreferences().edit();
         editor.putString(USERNAME, tenDangNhap);

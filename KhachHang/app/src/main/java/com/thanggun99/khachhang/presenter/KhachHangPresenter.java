@@ -6,6 +6,7 @@ import com.thanggun99.khachhang.model.KhachHangInteractor;
 import com.thanggun99.khachhang.model.entity.DatBan;
 import com.thanggun99.khachhang.model.entity.HoaDon;
 import com.thanggun99.khachhang.model.entity.KhachHang;
+import com.thanggun99.khachhang.model.entity.MonOrder;
 import com.thanggun99.khachhang.model.entity.NhomMon;
 import com.thanggun99.khachhang.model.entity.Mon;
 import com.thanggun99.khachhang.model.entity.TinTuc;
@@ -47,7 +48,7 @@ public class KhachHangPresenter implements KhachHangInteractor.OnKhachHangFinish
         if (Utils.isConnectingToInternet()) {
             return true;
         } else {
-            mainView.showDialogConnectFail();
+            mainView.showConnectFailDialog();
             return false;
         }
     }
@@ -340,6 +341,33 @@ public class KhachHangPresenter implements KhachHangInteractor.OnKhachHangFinish
         thongTinPhucVuView.showThongTinDatBanDialog(getKhachHang().getCurrentHoaDon().getDatBan());
     }
 
+
+    // goi mon
+    public void onClickMon(Mon mon) {
+        if (checkLogin()) {
+            khachHangInteractor.setcurrentMon(mon);
+            thucDonView.showOrderMonDialog(mon);
+        } else {
+            thucDonView.showRequireLoginNotify();
+        }
+
+    }
+
+    public void onClickMonOrder(MonOrder monOrder) {
+        khachHangInteractor.setcurrentMon(monOrder);
+        khachHangInteractor.setCurrentMonOrder(monOrder);
+        thongTinPhucVuView.showOrderMonDialog(monOrder);
+    }
+
+    public void orderMon(int soLuong) {
+
+    }
+
+
+    public boolean checkLogin() {
+        return khachHangInteractor.isLogin();
+    }
+
     public interface ThucDonView {
 
         void showThucDon();
@@ -347,6 +375,10 @@ public class KhachHangPresenter implements KhachHangInteractor.OnKhachHangFinish
         void showErrorGetThucDonFail();
 
         void notifyChangeListThucDon(ArrayList<Mon> listMonByMaLoai);
+
+        void showOrderMonDialog(Mon mon);
+
+        void showRequireLoginNotify();
     }
 
     public interface TinTucView {
@@ -360,6 +392,7 @@ public class KhachHangPresenter implements KhachHangInteractor.OnKhachHangFinish
         void showloginFail();
 
         void showFormLogin();
+
     }
 
     public interface MainView {
@@ -367,7 +400,7 @@ public class KhachHangPresenter implements KhachHangInteractor.OnKhachHangFinish
 
         void showViewOnlogin(KhachHang khachHang);
 
-        void showDialogConnectFail();
+        void showConnectFailDialog();
 
         void setNullFragments();
 
@@ -429,5 +462,7 @@ public class KhachHangPresenter implements KhachHangInteractor.OnKhachHangFinish
         void showTongTien(int tongTien);
 
         void showThongTinDatBanDialog(DatBan datBan);
+
+        void showOrderMonDialog(MonOrder monOrder);
     }
 }

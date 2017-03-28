@@ -30,7 +30,7 @@ public class ChangePasswordDialog extends BaseDialog implements KhachHangPresent
         edtRePassword = (EditText) findViewById(R.id.edt_re_password);
 
 
-        btnCancle = (Button) findViewById(R.id.btn_cancle);
+        btnCancle = (Button) findViewById(R.id.btn_cancel);
         btnOk = (Button) findViewById(R.id.btn_ok);
 
         btnOk.setOnClickListener(this);

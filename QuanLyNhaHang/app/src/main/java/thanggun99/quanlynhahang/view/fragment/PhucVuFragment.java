@@ -92,6 +92,8 @@ public class PhucVuFragment extends BaseFragment implements PhucVuPresenter.Phuc
     //animationAlpha
     private Animation animationAlpha;
     private Animation animationZoom;
+    private Animation animationBounce;
+
 
     private TimePicker timePicker;
 
@@ -181,6 +183,7 @@ public class PhucVuFragment extends BaseFragment implements PhucVuPresenter.Phuc
         //initAnimation
         animationAlpha = AnimationUtils.loadAnimation(getContext(), R.anim.alpha);
         animationZoom = AnimationUtils.loadAnimation(getContext(), R.anim.zoom);
+        animationBounce = AnimationUtils.loadAnimation(App.getContext(), R.anim.bounce);
 
     }
 
@@ -568,6 +571,7 @@ public class PhucVuFragment extends BaseFragment implements PhucVuPresenter.Phuc
 
         clearItemMonOrderAnimation(monOrderAdapter.getItemCount());
         monOrderAdapter.changeData(hoaDon.getMonOrderList());
+        startAnimationItemMonOrder(monOrderAdapter.getItemCount());
 
         tvGioDen.setText(hoaDon.getGioDen());
         tvGioDen.startAnimation(animationAlpha);
@@ -579,6 +583,16 @@ public class PhucVuFragment extends BaseFragment implements PhucVuPresenter.Phuc
 
 
         showLayoutThongTinBanPV();
+    }
+
+    private void startAnimationItemMonOrder(int itemCount) {
+        View view;
+        for (int i = 0; i < itemCount; i++) {
+            view = listViewMonOrder.getChildAt(i);
+            if (view != null) {
+                view.startAnimation(animationBounce);
+            }
+        }
     }
 
     private void showLayoutThongTinBanPV() {

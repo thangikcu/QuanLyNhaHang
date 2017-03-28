@@ -12,8 +12,9 @@ public class Mon {
     private String donViTinh;
     private byte[] hinhAnh;
     private float rating;
+    private int personRating;
 
-    public Mon(int maMon, String tenMon, int maLoai, int donGia, String donViTinh, byte[] hinhAnh, float rating) {
+    public Mon(int maMon, String tenMon, int maLoai, int donGia, String donViTinh, byte[] hinhAnh, float rating, int personRating) {
         this.maMon = maMon;
         this.tenMon = tenMon;
         this.maLoai = maLoai;
@@ -21,15 +22,17 @@ public class Mon {
         this.donViTinh = donViTinh;
         this.hinhAnh = hinhAnh;
         this.rating = rating;
+        this.personRating = personRating;
     }
 
-    public Mon(int maMon, String tenMon, int maLoai, int donGia, String donViTinh, float rating) {
+    public Mon(int maMon, String tenMon, int maLoai, int donGia, String donViTinh, float rating, int personRating) {
         this.maMon = maMon;
         this.tenMon = tenMon;
         this.maLoai = maLoai;
         this.donGia = donGia;
         this.donViTinh = donViTinh;
         this.rating = rating;
+        this.personRating = personRating;
     }
 
     public Mon() {
@@ -105,5 +108,17 @@ public class Mon {
 
     public void setRating(float rating) {
         this.rating = rating;
+    }
+
+    public int getPersonRating() {
+        return personRating;
+    }
+
+    public void setPersonRating(int personRating) {
+        this.personRating = personRating;
+    }
+
+    public String getRatingPoint() {
+        return "(" + rating + "/" + personRating + ")";
     }
 }
