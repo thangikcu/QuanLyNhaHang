@@ -151,9 +151,14 @@ public class ThemTinTucDialog extends BaseDialog {
         ivHinhAnh.setImageBitmap(null);
         hinhAnhByte = null;
         action = "";
-        edtNoiDung.setText("");
-        edtTieuDe.setText("");
+        edtNoiDung.setText(null);
+        edtTieuDe.setText(null);
         edtNgayDang.setText(date);
+
+        edtNoiDung.setError(null);
+        edtTieuDe.setError(null);
+        edtNgayDang.setError(null);
+        btnChonHinh.setError(null);
 
     }
 
@@ -171,6 +176,8 @@ public class ThemTinTucDialog extends BaseDialog {
 
         if (tinTuc.getHienThi() == 0) {
             ckbHienThi.setChecked(false);
+        } else {
+            ckbHienThi.setChecked(true);
         }
     }
 }

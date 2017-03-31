@@ -13,6 +13,7 @@
         android:layout_height="200dp" />
 
     <LinearLayout
+        android:id="@+id/container_thuc_don"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorBackgroudMain"
@@ -27,13 +28,14 @@
 
             <TextView
                 android:id="@+id/tv_title"
+                style="@style/CommonTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
+                android:gravity="start"
                 android:paddingLeft="16dp"
                 android:text="@string/thuc_don"
                 android:textColor="@color/white"
-                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <SearchView

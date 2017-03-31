@@ -31,7 +31,6 @@ public class TinTucFragment extends BaseFragment implements KhachHangPresenter.T
     public TinTucFragment(KhachHangPresenter khachHangPresenter) {
         super(R.layout.fragment_tin_tuc);
         this.khachHangPresenter = khachHangPresenter;
-        khachHangPresenter.setTinTucView(this);
     }
 
     @Override
@@ -65,6 +64,7 @@ public class TinTucFragment extends BaseFragment implements KhachHangPresenter.T
                 tinTucRecyclerView.setVisibility(View.VISIBLE);
             }
         });
+        khachHangPresenter.setTinTucView(this);
 
     }
 

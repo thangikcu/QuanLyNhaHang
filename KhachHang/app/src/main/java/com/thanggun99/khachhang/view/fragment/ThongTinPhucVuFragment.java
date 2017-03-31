@@ -6,7 +6,6 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -35,6 +34,7 @@ import com.thanggun99.khachhang.view.dialog.ConfirmDialog;
 import com.thanggun99.khachhang.view.dialog.ErrorDialog;
 import com.thanggun99.khachhang.view.dialog.OrderMonDialog;
 import com.thanggun99.khachhang.view.dialog.ThongTinDatBanDialog;
+import com.thanggun99.khachhang.view.dialog.TinhTienDialog;
 
 import java.util.Calendar;
 
@@ -57,21 +57,27 @@ public class ThongTinPhucVuFragment extends BaseFragment implements View.OnClick
     private Animation animationAlpha;
     private PopupMenu popupMenu;
     private ThongTinDatBanDialog thongTinDatBanDialog;
-    private ErrorDialog errorDialog;
     private OrderMonDialog orderMonDialog;
+    private ErrorDialog errorDialog;
+    private TinhTienDialog tinhTienDialog;
 
 
     public ThongTinPhucVuFragment(KhachHangPresenter khachHangPresenter) {
         super(R.layout.fragment_thong_tin_phuc_vu);
         this.khachHangPresenter = khachHangPresenter;
-        khachHangPresenter.setThongTinPhucVuView(this);
 
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        khachHangPresenter.getThongTinPhucVu();
+    public void onHiddenChanged(boolean hidden) {
+        if (!hidden) {
+            if (edtYeuCau != null) {
+
+                edtGioDen.clearFocus();
+                edtYeuCau.requestFocus();
+            }
+        }
+        super.onHiddenChanged(hidden);
     }
 
     @Override
@@ -106,8 +112,10 @@ public class ThongTinPhucVuFragment extends BaseFragment implements View.OnClick
     public void initComponents() {
         timePicker = new TimePicker();
         thongTinDatBanDialog = new ThongTinDatBanDialog(getContext());
-        errorDialog = new ErrorDialog(getContext(), khachHangPresenter);
         orderMonDialog = new OrderMonDialog(getContext(), khachHangPresenter);
+
+        errorDialog = new ErrorDialog(getContext(), khachHangPresenter);
+        tinhTienDialog = new TinhTienDialog(getContext(), khachHangPresenter);
 
         animationAlpha = AnimationUtils.loadAnimation(getContext(), R.anim.alpha);
 
@@ -138,10 +146,13 @@ public class ThongTinPhucVuFragment extends BaseFragment implements View.OnClick
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus)
-                    timePicker.show(getActivity().getSupportFragmentManager(), "timePicker");
+                    if (!timePicker.isAdded()) {
+
+                        timePicker.show(getActivity().getSupportFragmentManager(), "timePicker");
+                    }
             }
         });
-
+        edtGioDen.clearFocus();
         edtYeuCau.requestFocus();
 
         tvTenBan.setOnClickListener(this);
@@ -164,17 +175,20 @@ public class ThongTinPhucVuFragment extends BaseFragment implements View.OnClick
             }
         });
 
-    }
+        khachHangPresenter.setThongTinPhucVuView(this);
+        khachHangPresenter.getThongTinPhucVu();
 
-    @Override
-    public void showOrderMonDialog(MonOrder monOrder) {
-        orderMonDialog.setContent(monOrder);
     }
 
     @Override
     public void showGetDatasFailDialog() {
         errorDialog.cancel();
         errorDialog.show();
+    }
+
+    @Override
+    public void showOrderMonDialog(MonOrder monOrder) {
+        orderMonDialog.setContent(monOrder);
     }
 
     @Override
@@ -208,7 +222,6 @@ public class ThongTinPhucVuFragment extends BaseFragment implements View.OnClick
         btnDatBan.setText(Utils.getStringByRes(R.string.dat_ban));
         edtGioDen.setText("");
         edtYeuCau.setText("");
-        edtYeuCau.requestFocus();
 
         tvTrangThai.setText(Utils.getStringByRes(R.string.trong));
 
@@ -250,16 +263,34 @@ public class ThongTinPhucVuFragment extends BaseFragment implements View.OnClick
     }
 
     @Override
+    public void showGiamGia(int giamGia) {
+        if (giamGia > 0) {
+            btnSale.setVisibility(View.VISIBLE);
+            btnSale.setText(giamGia + "%");
+        } else {
+            btnSale.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
     public void showTongTien(int tongTien) {
         tvTongTien.setText(Utils.formatMoney(tongTien));
         tvTongTien.startAnimation(animationAlpha);
     }
 
     @Override
+    public void notifyListMonOrderChange() {
+        monOrderAdapter.notifyDataSetChanged();
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.edt_gio_den:
-                timePicker.show(getActivity().getSupportFragmentManager(), "timePicker");
+                if (!timePicker.isAdded()) {
+
+                    timePicker.show(getActivity().getSupportFragmentManager(), "timePicker");
+                }
                 break;
             case R.id.btn_dat_ban:
                 if (chekForm()) {
@@ -300,6 +331,9 @@ public class ThongTinPhucVuFragment extends BaseFragment implements View.OnClick
                 if (tvTrangThai.getText().equals(Utils.getStringByRes(R.string.dang_phuc_vu)))
                     popupMenu.show();
                 break;
+            case R.id.btn_tinh_tien:
+                khachHangPresenter.onClickTinhTien();
+                break;
             default:
                 break;
         }
@@ -311,6 +345,11 @@ public class ThongTinPhucVuFragment extends BaseFragment implements View.OnClick
         btnDatBan.setText(Utils.getStringByRes(R.string.cap_nhat));
         edtYeuCau.setText(datBan.getYeuCau());
         edtGioDen.setText(datBan.getGioDen());
+    }
+
+    @Override
+    public void showTinhTienDialog(HoaDon hoaDon) {
+        tinhTienDialog.setContent(hoaDon);
     }
 
     @Override

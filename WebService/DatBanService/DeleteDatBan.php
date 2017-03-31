@@ -4,7 +4,6 @@ require_once '../dbConnect.php';
 function dispInfo() {
 
     $maTokenAdmin = $_GET['maTokenAdmin'];
-    $maTokenKH = isset($_GET['maTokenKH']) ? $_GET['maTokenKH'] : null;
     $maKhachHang = isset($_GET['maKhachHang']) ? $_GET['maKhachHang'] : null;
     $tenKhachHang = $_GET['tenKhachHang'];
     $maDatBan = $_GET['maDatBan'];
@@ -44,8 +43,8 @@ function dispInfo() {
 
         $push->setDatas("HUY_DAT_BAN_ACTION", $datas);
 
-        if (!is_null($maTokenKH)) {
-            $firebase->send($db->getTokenByMa($maTokenKH), null, $push->getDatas());
+        if (!is_null($maKhachHang)) {
+            $firebase->send($db->getTokenKhachHangByMaKhachHang($maKhachHang), null, $push->getDatas());
         }
 
         $firebase->sendMultiple($db->getAllTokenAdminExcept($maTokenAdmin), null, $push->getDatas());

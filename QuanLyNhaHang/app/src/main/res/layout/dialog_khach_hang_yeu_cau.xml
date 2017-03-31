@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="390dp"
+    android:layout_height="300dp"
+    android:layout_gravity="center"
+    android:background="@drawable/bg_dialog"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp"
+        android:text="@string/yeu_cau"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/layout_yeu_cau"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/list_yeu_cau"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scrollbars="vertical" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+
+            <Button
+                android:id="@+id/btn_close"
+                style="@style/CommonButton"
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_radius"
+                android:text="@string/dong" />
+
+        </TableRow>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_chi_tiet_yeu_cau"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/CommonTextView"
+                    android:text="@string/info_chon_ban"
+                    android:textColor="@color/colorTextField"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/spn_ban"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:scrollbars="vertical" />
+
+                <TextView
+                    android:id="@+id/tv_ten_ban"
+                    style="@style/CommonTextView"
+                    android:paddingLeft="@dimen/margin"
+                    android:text="Bàn 15"
+                    android:textColor="@color/colorTextInfo"
+                    android:visibility="visible" />
+
+            </TableRow>
+
+
+            <TableRow
+                android:paddingTop="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/CommonTextView"
+                    android:text="@string/info_ten_khach_hang"
+                    android:textColor="@color/colorTextField"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_ten_khach_hang"
+                    style="@style/CommonTextView"
+                    android:paddingLeft="@dimen/margin"
+                    android:text="Nguyễn Văn Nam"
+                    android:textColor="@color/colorTextInfo" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="4dp">
+
+                <TextView
+                    style="@style/CommonTextView"
+                    android:text="@string/info_so_dien_thoai"
+                    android:textColor="@color/colorTextField"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_so_dien_thoai"
+                    style="@style/CommonTextView"
+                    android:paddingLeft="@dimen/margin"
+                    android:text="09878765654"
+                    android:textColor="@color/colorTextInfo" />
+
+            </TableRow>
+
+            <TextView
+                style="@style/CommonTextView"
+                android:paddingTop="4dp"
+                android:text="@string/info_mon_yeu_cau"
+                android:textColor="@color/colorTextField"
+                android:textStyle="bold" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/list_mon_order"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@drawable/bg_list"
+                android:scrollbars="vertical" />
+
+        </LinearLayout>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+
+            <Button
+                android:id="@+id/btn_ok"
+                style="@style/CommonButton"
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_radius"
+                android:text="@string/xac_nhan" />
+
+            <Button
+                android:id="@+id/btn_cancel"
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="16dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_radius"
+                android:text="@string/huy"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+
+        </TableRow>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_weight="1.2"
+        android:layout_weight="1.3"
         android:orientation="vertical"
         android:background="@color/colorBackgroudFrame"
         android:layout_marginRight="@dimen/layout_padding"
@@ -57,6 +57,17 @@
             android:layout_height="36dp"
             android:layout_width="match_parent"
             android:text="@string/quan_ly_ban"/>
+
+        <Button
+            android:id="@+id/btn_ql_khach_hang"
+            style="@style/CommonButton"
+            android:drawableLeft="@drawable/ic_customer"
+            android:background="@drawable/menu_manager_button_background"
+            android:layout_marginTop="4dp"
+            android:paddingLeft="4dp"
+            android:layout_height="36dp"
+            android:layout_width="match_parent"
+            android:text="@string/quan_ly_khach_hang"/>
 
         <Button
             android:id="@+id/btn_ql_nhan_vien"

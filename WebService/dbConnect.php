@@ -39,14 +39,18 @@ class Database {
 
     }
 
-    public function getTokenByMa($maToken) {
-        $this->query('SELECT Token FROM token WHERE MaToken = "'.$maToken.'"');
+    public function getTokenKhachHangByMaKhachHang($maKhachHang) {
+        $this->prepare('SELECT Token FROM token 
+                                    INNER JOIN tai_khoan ON token.MaToken = tai_khoan.MaToken
+                                    WHERE tai_khoan.MaTaiKhoan 
+                                    = (SELECT MaTaiKhoan FROM khach_hang WHERE khach_hang.MaKhachHang = :maKhachHang)');
+        $this->bind(':maKhachHang', $maKhachHang);
 
         return $this->getRow()['Token'];
     }
 
     public function getAllTokenKhachHang() {
-        $this->prepare('SELECT Token FROM token
+        $this->prepare('SELECT DISTINCT Token FROM token
                             INNER JOIN tai_khoan ON tai_khoan.MaToken = token.MaToken
                             WHERE Type = 1');
 
@@ -59,7 +63,7 @@ class Database {
 
     public function getAllTokenAdmin() {
 
-        $this->prepare('SELECT Token FROM token
+        $this->prepare('SELECT DISTINCT Token FROM token
                             INNER JOIN tai_khoan ON tai_khoan.MaToken = token.MaToken
                             WHERE Type != 1');
 
@@ -72,7 +76,7 @@ class Database {
 
     public function getAllTokenAdminExcept($maToken) {
 
-        $this->prepare('SELECT Token FROM token
+        $this->prepare('SELECT DISTINCT Token FROM token
                             INNER JOIN tai_khoan ON tai_khoan.MaToken = token.MaToken
                             WHERE Type != 1 AND tai_khoan.MaToken != :maToken');
         $this->bind(':maToken', $maToken);

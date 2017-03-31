@@ -25,7 +25,7 @@ public class ErrorDialog extends BaseDialog{
 
     @Override
     public void onClick(View v) {
-        khachHangPresenter.getThongTinPhucVu();
+        khachHangPresenter.reLoadThongTinPhucVu();
         dismiss();
     }
 }

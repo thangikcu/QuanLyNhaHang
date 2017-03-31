@@ -20,7 +20,9 @@ function dispInfo() {
 
                 $db->query('DELETE FROM dat_ban WHERE MaDatBan = '.$maDatBan.'');
 
-                $db->query('DELETE FROM person WHERE MaPerson = '.$maPerson.'');
+                if (!is_null($maPerson)) {
+                    $db->query('DELETE FROM person WHERE MaPerson = '.$maPerson.'');
+                }
 
             }
 

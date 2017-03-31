@@ -9,7 +9,7 @@ import android.graphics.Color;
 public class NhomMon {
     private int maLoai;
     private String tenLoai, mauSac;
-    private int selected;
+    private boolean selected;
 
     public NhomMon(int maLoai, String tenLoai, String mauSac) {
         this.maLoai = maLoai;
@@ -45,11 +45,11 @@ public class NhomMon {
         return tenLoai.hashCode();
     }
 
-    public int getSelected() {
+    public boolean getSelected() {
         return selected;
     }
 
-    public void setSelected(int selected) {
+    public void setSelected(boolean selected) {
         this.selected = selected;
     }
 }

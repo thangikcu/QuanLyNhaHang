@@ -23,7 +23,6 @@ public class ChangePasswordDialog extends BaseDialog implements KhachHangPresent
         setContentView(R.layout.dialog_change_password);
         setCancelable(true);
         this.khachHangPresenter = khachHangPresenter;
-        khachHangPresenter.setChangepasswordView(this);
 
         edtPassword = (EditText) findViewById(R.id.edt_password);
         edtNewPassword = (EditText) findViewById(R.id.edt_new_password);
@@ -35,6 +34,8 @@ public class ChangePasswordDialog extends BaseDialog implements KhachHangPresent
 
         btnOk.setOnClickListener(this);
         btnCancle.setOnClickListener(this);
+
+        khachHangPresenter.setChangepasswordView(this);
 
     }
 

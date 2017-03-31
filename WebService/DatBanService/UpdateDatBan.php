@@ -28,7 +28,6 @@ function dispInfo() {
     if (isset($_POST['maKhachHang'])) {
         $rowCount;
         $maKhachHang = $_POST['maKhachHang'];
-        $maTokenKH = $_POST['maTokenKH'];
         
 
         $db->prepare("UPDATE person SET HoTen = :hoTen, SoDienThoai = :soDienThoai 
@@ -51,7 +50,7 @@ function dispInfo() {
         if ($rowCount > 0) {
             echo 'success';
 
-            $firebase->send($db->getTokenByMa($maTokenKH), null, $push->getDatas());
+            $firebase->send($db->getTokenKhachHangByMaKhachHang($maKhachHang), null, $push->getDatas());
             $firebase->sendMultiple($db->getAllTokenAdminExcept($maTokenAdmin), null, $push->
                 getDatas());
 

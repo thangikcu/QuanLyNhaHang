@@ -29,7 +29,7 @@
     </TableRow>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/list_thuc_don_order"
+        android:id="@+id/list_mon_order"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:background="@drawable/bg_list"

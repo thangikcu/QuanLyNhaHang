@@ -43,9 +43,11 @@ public class DatBanFragment extends BaseFragment implements View.OnClickListener
     private Button btnThemDatBan, btnVaoBan, btnCancel;
     private DatBanChuaSetBanAdapter datBanChuaSetBanAdapter;
     private EditText edtTenKhachHang, edtSoDienThoai, edtYeuCau, edtGioDen;
+
     private Spinner spnBan;
     private ArrayList<Ban> banList;
     private ArrayAdapter<String> banAdapter;
+
     private TimePicker timePicker;
     private LinearLayout layoutDatBan, layoutThongTinDatBan;
     private TextView tvTenKhachHang, tvSoDienThoai, tvKhoangGioDen, tvYeuCau;
@@ -130,7 +132,10 @@ public class DatBanFragment extends BaseFragment implements View.OnClickListener
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus)
-                    timePicker.show(getActivity().getSupportFragmentManager(), "timePicker");
+                    if (!timePicker.isAdded()) {
+
+                        timePicker.show(getActivity().getSupportFragmentManager(), "timePicker");
+                    }
             }
         });
     }
@@ -304,7 +309,10 @@ public class DatBanFragment extends BaseFragment implements View.OnClickListener
                 clearFormDatBan();
                 break;
             case R.id.edt_gio_den:
-                timePicker.show(getActivity().getSupportFragmentManager(), "timePicker");
+                if (!timePicker.isAdded()) {
+
+                    timePicker.show(getActivity().getSupportFragmentManager(), "timePicker");
+                }
                 break;
             default:
                 break;

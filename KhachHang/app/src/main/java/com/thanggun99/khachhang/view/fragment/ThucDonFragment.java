@@ -1,8 +1,6 @@
 package com.thanggun99.khachhang.view.fragment;
 
 import android.annotation.SuppressLint;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -35,12 +33,6 @@ public class ThucDonFragment extends BaseFragment implements KhachHangPresenter.
     public ThucDonFragment(KhachHangPresenter khachHangPresenter) {
         super(R.layout.fragment_thuc_don);
         this.khachHangPresenter = khachHangPresenter;
-        khachHangPresenter.setThucDonView(this);
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
     }
 
     @Override
@@ -53,6 +45,7 @@ public class ThucDonFragment extends BaseFragment implements KhachHangPresenter.
     @Override
     public void initComponents() {
         orderMonDialog = new OrderMonDialog(getContext(), khachHangPresenter);
+
     }
 
     @Override
@@ -60,6 +53,8 @@ public class ThucDonFragment extends BaseFragment implements KhachHangPresenter.
         nhomMonListView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         monListView.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
+        khachHangPresenter.setThucDonView(this);
+        khachHangPresenter.loadThucDonList();
     }
 
     @Override
@@ -84,11 +79,14 @@ public class ThucDonFragment extends BaseFragment implements KhachHangPresenter.
 
     @Override
     public void showThucDon() {
-        nhomMonAdapter = new NhomMonAdapter(getContext(), khachHangPresenter);
-        nhomMonListView.setAdapter(nhomMonAdapter);
+        if (nhomMonAdapter == null) {
+            nhomMonAdapter = new NhomMonAdapter(getContext(), khachHangPresenter);
+            monAdapter = new MonAdapter(getContext(), khachHangPresenter);
 
-        monAdapter = new MonAdapter(getContext(), khachHangPresenter);
-        monListView.setAdapter(monAdapter);
+            nhomMonListView.setAdapter(nhomMonAdapter);
+            monListView.setAdapter(monAdapter);
+        }
+
     }
 
     @Override

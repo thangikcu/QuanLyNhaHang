@@ -43,7 +43,7 @@ public class MonOrderAdapter extends RecyclerView.Adapter<MonOrderAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
 
         MonOrder monOrder = monOrderList.get(position);
 
@@ -57,6 +57,7 @@ public class MonOrderAdapter extends RecyclerView.Adapter<MonOrderAdapter.ViewHo
                 .placeholder(R.drawable.ic_food)
                 .error(R.drawable.ic_food)
                 .into(holder.ivMon);
+
     }
 
     @Override
@@ -86,14 +87,11 @@ public class MonOrderAdapter extends RecyclerView.Adapter<MonOrderAdapter.ViewHo
         return currentPosition;
     }
 
-    public int getSize() {
-        if (monOrderList == null) return 0;
-        return monOrderList.size();
-    }
-
     public int getPositionOf(MonOrder monOrder) {
         return monOrderList.indexOf(monOrder);
     }
+
+
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView tvTenMon;

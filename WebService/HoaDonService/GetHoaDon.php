@@ -25,6 +25,7 @@ function dispInfo()
         $t["trangThai"] = $row["TrangThai"];
         $t["gioDen"] = $row["GioDen"];
         $t["maBan"] = $row["MaBan"];
+        $t["maKhachHang"] = $row["MaKhachHang"];
 
         $t['thucDonOrder'] = array();
 

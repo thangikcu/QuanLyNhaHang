@@ -14,11 +14,14 @@ public class MonOrder extends Mon {
     }
 
     public void setMon(Mon mon) {
+        setMaMon(mon.getMaMon());
         setTenMon(mon.getTenMon());
         setMaLoai(mon.getMaLoai());
         setDonGia(mon.getDonGia());
         setDonViTinh(mon.getDonViTinh());
         setHinhAnh(mon.getHinhAnh());
+        setRating(mon.getRating());
+        setPersonRating(mon.getPersonRating());
     }
 
     public int getMaChitietHD() {

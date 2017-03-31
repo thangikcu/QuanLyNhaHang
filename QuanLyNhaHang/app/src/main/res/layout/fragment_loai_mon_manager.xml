@@ -24,7 +24,7 @@
                 android:id="@+id/tv_title"
                 style="@style/CommonTextView"
                 android:paddingLeft="@dimen/margin"
-                android:text="@string/danh_sach_tin_tuc"
+                android:text="@string/danh_sach_loai_mon"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 

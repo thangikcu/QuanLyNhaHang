@@ -11,7 +11,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Bàn 12"
-        android:textColor="@color/colorTextNameBan"
+        android:paddingBottom="16dp"
+        android:textColor="@color/colorPrimary"
         android:textSize="18sp"
         android:textStyle="bold" />
 
@@ -20,7 +21,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/tinh_tien"
-        android:textColor="@color/colorTextTenMon"
+        android:textColor="@color/colorTextInfo"
         android:textSize="22sp"
         android:textStyle="bold" />
 
@@ -34,8 +35,8 @@
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:text="@string/tien_mon"
-            android:textColor="@color/colorTextInfo"
-            android:textSize="16sp"
+            android:textColor="@color/colorTextField"
+            android:textSize="@dimen/text_size_normal"
             android:textStyle="bold" />
 
         <TextView
@@ -62,15 +63,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:paddingTop="16dp">
+        android:paddingTop="8dp">
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:text="@string/tien_giam_gia"
-            android:textColor="@color/colorTextInfo"
-            android:textSize="16sp"
+            android:textColor="@color/colorTextField"
+            android:textSize="14sp"
             android:textStyle="bold" />
 
         <TextView
@@ -97,14 +98,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:paddingTop="16dp"
+        android:paddingTop="8dp"
         android:weightSum="2">
 
         <View
             android:layout_width="0dp"
             android:layout_height="2dp"
             android:layout_weight="1.8"
-            android:background="#910e91" />
+            android:background="@color/colorPrimary" />
     </TableRow>
 
     <TableRow
@@ -117,7 +118,7 @@
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:text="@string/tong_tien"
-            android:textColor="@color/colorTextInfo"
+            android:textColor="@color/colorTextField"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -133,6 +134,7 @@
     </TableRow>
 
     <TableRow
+        android:paddingTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical">
@@ -152,7 +154,7 @@
             android:layout_height="wrap_content"
             android:paddingRight="16dp"
             android:text="@string/tien_tra_lai"
-            android:textColor="@color/colorTextInfo"
+            android:textColor="@color/colorTextField"
             android:textSize="16sp"
             android:textStyle="italic" />
 
@@ -174,23 +176,21 @@
 
         <Button
             android:id="@+id/btn_ok"
+            style="@style/CommonButton"
             android:layout_width="0dp"
             android:layout_height="32dp"
             android:layout_weight="1"
             android:background="@drawable/btn_radius"
-            android:text="Đồng ý"
-            android:textAllCaps="false"
-            android:textColor="@color/white" />
+            android:text="@string/dong_y"/>
 
         <Button
             android:id="@+id/btn_cancel"
+            style="@style/CommonButton"
             android:layout_width="0dp"
             android:layout_height="32dp"
             android:layout_marginLeft="16dp"
             android:layout_weight="1"
             android:background="@drawable/btn_radius"
-            android:text="Hủy"
-            android:textAllCaps="false"
-            android:textColor="@color/white" />
+            android:text="@string/huy" />
     </TableRow>
 </LinearLayout>

@@ -13,6 +13,9 @@ import thanggun99.quanlynhahang.util.API;
  */
 
 public class DatBan implements Serializable {
+    public static final int CHUA_TINH_TIEN = 0;
+    public static final int DA_TINH_TIEN = 1;
+
     private int maDatBan;
     private Ban ban;
     private String tenKhachHang;
@@ -56,7 +59,6 @@ public class DatBan implements Serializable {
         postParams.put("gioDen", datBanUpdate.getGioDen());
         if (getKhachHang() != null) {
             postParams.put("maKhachHang", String.valueOf(getKhachHang().getMaKhachHang()));
-            postParams.put("maTokenKH", String.valueOf(getKhachHang().getMaToken()));
         }
         if (!TextUtils.isEmpty(datBanUpdate.getYeuCau())) {
 
@@ -101,7 +103,7 @@ public class DatBan implements Serializable {
 
             if (getBan() != null) {
 
-                getBan().setTrangThai(1);
+                getBan().setTrangThai(Ban.DA_DAT_TRUOC);
             }
             return true;
         }
@@ -119,7 +121,7 @@ public class DatBan implements Serializable {
 
         if (!TextUtils.isEmpty(s) && s.contains("success")) {
 
-            getBan().setTrangThai(1);
+            getBan().setTrangThai(Ban.DA_DAT_TRUOC);
             return true;
         }
         return false;
@@ -133,7 +135,6 @@ public class DatBan implements Serializable {
         getParams.put("maTokenAdmin", String.valueOf(Admin.getMaToken()));
         if (getKhachHang() != null) {
 
-            getParams.put("maTokenKH", String.valueOf(getKhachHang().getMaToken()));
             getParams.put("maKhachHang", String.valueOf(getKhachHang().getMaKhachHang()));
         }
         if (getBan() != null) {
@@ -146,7 +147,11 @@ public class DatBan implements Serializable {
         if (!TextUtils.isEmpty(s) && s.trim().contains("success")) {
             if (getBan() != null) {
 
-                getBan().setTrangThai(0);
+                getBan().setTrangThai(Ban.TRONG);
+                if (getKhachHang() != null) {
+
+                    getKhachHang().setDatBan(null);
+                }
             }
             return true;
         }
@@ -232,6 +237,7 @@ public class DatBan implements Serializable {
     }
 
     public void setKhachHang(KhachHang khachHang) {
+        khachHang.setDatBan(this);
         this.khachHang = khachHang;
     }
 }

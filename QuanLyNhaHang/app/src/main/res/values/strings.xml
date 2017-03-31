@@ -53,8 +53,10 @@
     <string name="nhap_gio_den">Nhập giờ đến</string>
     <string name="pv_notify_dat_ban">%s: đặt bàn</string>
     <string name="pv_notify_order_mon">%1$s: +%2$d %3$s</string>
+    <string name="pv_notify_order_mon_kh">%1$s: thêm món</string>
     <string name="pv_notify_delete_mon_order">%1$s: hủy order - %2$s</string>
     <string name="pv_notify_hoa_don_moi">Hóa đơn mới - %1$s: +%2$d %3$s</string>
+    <string name="pv_notify_hoa_don_moi_kh">Hóa đơn mới - %1$s</string>
     <string name="pv_notify_sale">%1$s: giảm giá - %2$d%%</string>
     <string name="pv_notify_huy_ban">%s: hủy bàn</string>
     <string name="pv_notify_tinh_tien">Tính tiền - %1$s: %2$s</string>
@@ -129,4 +131,23 @@
     <string name="ngay_dang">Ngày đăng</string>
     <string name="nhap_ngay_dang">Nhập ngày đăng</string>
     <string name="update_tin_tuc_that_bai">Cập nhật tin tức thất bại !</string>
+    <string name="quan_ly_khach_hang">Quản lý khách hàng</string>
+    <string name="danh_sach_khach_hang">Danh sách khách hàng</string>
+    <string name="khach_hang_yeu_cau">Khách hàng yêu cầu</string>
+    <string name="hoa_don_moi">Hoá đơn mới</string>
+    <string name="info_mon_yeu_cau">Món yêu cầu:</string>
+    <string name="chon_ban_khac">Chọn bàn khác !</string>
+    <string name="yeu_cau_them_mon">Yêu cầu thêm món</string>
+    <string name="yeu_cau_tinh_tien">Yêu cầu tính tiền</string>
+    <string name="ten_mon">Tên món</string>
+    <string name="don_gia">Đơn giá</string>
+    <string name="don_vi_tinh">Đơn vị tính</string>
+    <string name="nhap_so_luong">Nhập số lượng</string>
+    <string name="nhap_don_vi_tinh">Nhập đơn vị tính</string>
+    <string name="nhap_ten_mon">Nhập tên món</string>
+    <string name="info_chon_nhom_mon">Chọn nhóm món:</string>
+    <string name="xac_nhan_xoa_mon">Bạn có muốn xoá món</string>
+    <string name="them_mon_that_bai">Thêm món thất bại !</string>
+    <string name="xoa_mon_that_bai">Xoá món thất bại !</string>
+    <string name="update_mon_that_bai">Cập nhật món thất bại !</string>
 </resources>

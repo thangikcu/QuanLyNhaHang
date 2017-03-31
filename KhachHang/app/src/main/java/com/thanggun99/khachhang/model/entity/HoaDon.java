@@ -141,4 +141,5 @@ public class HoaDon {
     public void setTrangThai(int trangThai) {
         this.trangThai = trangThai;
     }
+
 }

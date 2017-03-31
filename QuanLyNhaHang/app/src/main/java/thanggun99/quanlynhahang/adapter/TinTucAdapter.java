@@ -15,7 +15,6 @@ import java.util.ArrayList;
 
 import thanggun99.quanlynhahang.R;
 import thanggun99.quanlynhahang.model.TinTucManager;
-import thanggun99.quanlynhahang.model.entity.DatBan;
 import thanggun99.quanlynhahang.model.entity.TinTuc;
 import thanggun99.quanlynhahang.util.Utils;
 import thanggun99.quanlynhahang.view.dialog.ConfirmDialog;
@@ -30,15 +29,13 @@ public class TinTucAdapter extends RecyclerView.Adapter<TinTucAdapter.ViewHolder
 
     private ArrayList<TinTuc> tinTucList;
     private int currentPosition;
-    private ArrayList<TinTuc> tinTucAllList;
     private TinTucManager tinTucManager;
     private Context context;
 
-    public TinTucAdapter(Context context, ArrayList<TinTuc> tinTucAllList, TinTucManager tinTucManager) {
+    public TinTucAdapter(Context context, TinTucManager tinTucManager) {
         this.context = context;
-
-        this.tinTucAllList = tinTucAllList;
         this.tinTucManager = tinTucManager;
+
     }
 
     @Override
@@ -73,16 +70,6 @@ public class TinTucAdapter extends RecyclerView.Adapter<TinTucAdapter.ViewHolder
         return 0;
     }
 
-    public void notifyItemRemoved(DatBan datBan) {
-        if (datBan != null) {
-
-            notifyItemRemoved(tinTucList.indexOf(datBan));
-        } else {
-
-            notifyItemRemoved(currentPosition);
-        }
-    }
-
     public void notifyItemChanged(TinTuc tinTuc) {
         if (tinTuc != null) {
             notifyItemChanged(tinTucList.indexOf(tinTuc));
@@ -92,16 +79,12 @@ public class TinTucAdapter extends RecyclerView.Adapter<TinTucAdapter.ViewHolder
         }
     }
 
-    public int getPositonOf(DatBan datBan) {
-        return tinTucList.indexOf(datBan);
-    }
-
     public void setDatas(ArrayList<TinTuc> datas) {
         this.tinTucList = datas;
     }
 
     public void showAllData() {
-        this.tinTucList = tinTucAllList;
+        this.tinTucList = tinTucManager.getTinTucList();
         notifyDataSetChanged();
     }
 
@@ -128,15 +111,15 @@ public class TinTucAdapter extends RecyclerView.Adapter<TinTucAdapter.ViewHolder
             tvTitle.setMovementMethod(new ScrollingMovementMethod());
             tvNgayDang = (TextView) itemView.findViewById(R.id.tv_ngay_dang);
 
-            itemView.findViewById(R.id.btn_update_tin_tuc).setOnClickListener(this);
-            itemView.findViewById(R.id.btn_delete_tin_tuc).setOnClickListener(this);
+            itemView.findViewById(R.id.btn_update).setOnClickListener(this);
+            itemView.findViewById(R.id.btn_delete).setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
             currentPosition = getAdapterPosition();
             switch (v.getId()) {
-                case R.id.btn_delete_tin_tuc:
+                case R.id.btn_delete:
                     final ConfirmDialog confirmDialog = new ConfirmDialog(tinTucManager.getFragment().getContext());
                     confirmDialog.setContent(Utils.getStringByRes(R.string.xac_nhan),
                             Utils.getStringByRes(R.string.xac_nhan_xoa_tin_tuc));
@@ -151,7 +134,7 @@ public class TinTucAdapter extends RecyclerView.Adapter<TinTucAdapter.ViewHolder
                     });
 
                     break;
-                case R.id.btn_update_tin_tuc:
+                case R.id.btn_update:
                     ThemTinTucDialog themTinTucDialog = tinTucManager.getThemTinTucDialog();
                     tinTucManager.setCurrentTinTuc(tinTucList.get(currentPosition));
                     themTinTucDialog.fillContent(tinTucList.get(currentPosition));

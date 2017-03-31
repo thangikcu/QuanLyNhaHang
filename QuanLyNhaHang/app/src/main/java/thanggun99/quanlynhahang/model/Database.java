@@ -19,6 +19,7 @@ import thanggun99.quanlynhahang.model.entity.Mon;
 import thanggun99.quanlynhahang.model.entity.MonOrder;
 import thanggun99.quanlynhahang.model.entity.NhomMon;
 import thanggun99.quanlynhahang.model.entity.TinTuc;
+import thanggun99.quanlynhahang.model.entity.YeuCau;
 import thanggun99.quanlynhahang.util.API;
 import thanggun99.quanlynhahang.util.Utils;
 
@@ -36,6 +37,7 @@ public class Database {
     private ArrayList<DatBan> datBanTinhTienList;
     private ArrayList<DatBan> datBanChuaSetBanList;
     private ArrayList<KhachHang> khachHangList;
+    private ArrayList<YeuCau> yeuCauList;
     private Admin admin;
     private ArrayList<TinTuc> tinTucList;
 
@@ -50,9 +52,47 @@ public class Database {
         if (taskOk) taskOk = loadListMon();
         if (taskOk) taskOk = loadListBan();
         if (taskOk) taskOk = loadListKhachHang();
+        if (taskOk) taskOk = loadListYeuCau();
         if (taskOk) taskOk = loadListDatBan();
         if (taskOk) taskOk = loadListHoaDon();
         return taskOk;
+    }
+
+    private boolean loadListYeuCau() {
+        String s = API.callService(API.GET_YEU_CAU_URL, null);
+
+        if (!TextUtils.isEmpty(s)) {
+            try {
+                JSONObject jsonObject = new JSONObject(s);
+
+                if (jsonObject != null) {
+                    JSONArray jsonArray = jsonObject.getJSONArray("yeuCau");
+
+                    yeuCauList = new ArrayList<>();
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject object = (JSONObject) jsonArray.get(i);
+
+                        YeuCau yeuCau = new YeuCau();
+                        yeuCau.setMaYeuCau(object.getInt("maYeuCau"));
+                        yeuCau.setKhachHang(getKhachHangByMa(object.getInt("maKhachHang")));
+                        yeuCau.setThoiGian(object.getString("thoiGian"));
+                        yeuCau.setYeuCauJson(object.getString("yeuCau"));
+
+                        Utils.showLog("hoho" + yeuCau.getYeuCauJson());
+                        setDataForYeuCau(yeuCau);
+
+                        yeuCauList.add(yeuCau);
+                    }
+                    return true;
+                }
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+        return false;
     }
 
 
@@ -172,6 +212,9 @@ public class Database {
                             hoaDon.setDatBan(getDatBanChuaTinhTienByMa(object.getInt("maDatBan")));
 
                         }
+                        if (!object.isNull("maKhachHang")) {
+                            hoaDon.setKhachHang(getKhachHangByMa(object.getInt("maKhachHang")));
+                        }
                         hoaDon.setGioDen(object.getString("gioDen"));
 
                         JSONArray array = object.getJSONArray("thucDonOrder");
@@ -214,10 +257,15 @@ public class Database {
 
                             datBan.setYeuCau(object.getString("yeuCau"));
                         }
-                        datBan.setTrangThai(0);
+                        datBan.setTrangThai(DatBan.CHUA_TINH_TIEN);
 
                         if (!object.isNull("maKhachHang")) {
-                            datBan.setKhachHang(getKhachHangByMa(object.getInt("maKhachHang")));
+                            KhachHang khachHang = getKhachHangByMa(object.getInt("maKhachHang"));
+
+                            if (khachHang != null) {
+                                datBan.setKhachHang(khachHang);
+                            }
+
                         } else {
                             datBan.setTenKhachHang(object.getString("tenKhachHang"));
                             datBan.setSoDienThoai(object.getString("soDienThoai"));
@@ -330,6 +378,14 @@ public class Database {
             }
         }
         return monTimKiem;
+    }
+
+    public ArrayList<YeuCau> getYeuCauList() {
+        return yeuCauList;
+    }
+
+    public void setYeuCauList(ArrayList<YeuCau> yeuCauList) {
+        this.yeuCauList = yeuCauList;
     }
 
     public ArrayList<TinTuc> getTinTucList() {
@@ -554,5 +610,98 @@ public class Database {
 
     public void deleteTinTuc(TinTuc tinTuc) {
         tinTucList.remove(tinTuc);
+    }
+
+    public void setDataForYeuCau(YeuCau yeuCau) {
+
+        if (TextUtils.isEmpty(yeuCau.getYeuCauJson())) {
+            return;
+        }
+
+        try {
+
+            JSONObject yeuCauObject = new JSONObject(yeuCau.getYeuCauJson());
+
+            yeuCau.setType(yeuCauObject.getInt("type"));
+            yeuCau.setMaHoaDon(yeuCauObject.getInt("maHoaDon"));
+
+            JSONArray monOderHuyJsonArray = yeuCauObject.getJSONArray("monYeuCauHuyList");
+            ArrayList<MonOrder> monYeuCauHuyList = new ArrayList<>();
+
+            for (int j = 0; j < monOderHuyJsonArray.length(); j++) {
+                JSONObject monOrderObject = (JSONObject) monOderHuyJsonArray.get(j);
+
+                MonOrder monOrder = new MonOrder();
+                monOrder.setMon(getMonByMaMon(monOrderObject.getInt("maMon")));
+                monOrder.setSoLuong(monOrderObject.getInt("soLuong"));
+
+                monYeuCauHuyList.add(monOrder);
+            }
+            yeuCau.setMonYeuCauHuyList(monYeuCauHuyList);
+
+            JSONArray monOderJsonArray = yeuCauObject.getJSONArray("monYeuCauList");
+            ArrayList<MonOrder> monYeuCauList = new ArrayList<>();
+
+            for (int j = 0; j < monOderJsonArray.length(); j++) {
+                JSONObject monOrderObject = (JSONObject) monOderJsonArray.get(j);
+
+                MonOrder monOrder = new MonOrder();
+                monOrder.setMon(getMonByMaMon(monOrderObject.getInt("maMon")));
+                monOrder.setSoLuong(monOrderObject.getInt("soLuong"));
+
+                monYeuCauList.add(monOrder);
+            }
+            yeuCau.setMonYeuCauList(monYeuCauList);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public YeuCau getYeuCauByMaKhachHang(int maKhachHang) {
+        for (YeuCau yeuCau : yeuCauList) {
+            if (yeuCau.getKhachHang().getMaKhachHang() == maKhachHang) {
+                return yeuCau;
+            }
+        }
+        return null;
+    }
+
+    public void addYeuCau(YeuCau yeuCauNew) {
+        yeuCauList.add(0, yeuCauNew);
+    }
+
+    public void onTaoMoiHoaDonKhachHang(YeuCau currentYeuCau) {
+        DatBan datBan = currentYeuCau.getKhachHang().getDatBan();
+        if (datBan != null) {
+            if (datBan.getBan() == null) {
+
+                onKhachDatBanVaoBan(datBan);
+            }
+        }
+
+        yeuCauList.remove(currentYeuCau);
+
+    }
+
+    public HoaDon getHoaDonChuaTinhTienByMa(int maHoaDon) {
+        for (HoaDon hoaDon : hoaDonChuaTinhTienList) {
+            if (hoaDon.getMaHoaDon() == maHoaDon) {
+                return hoaDon;
+            }
+        }
+        return null;
+    }
+
+    public void removeYeuCau(YeuCau yeuCau) {
+        yeuCauList.remove(yeuCau);
+    }
+
+    public void deleteMon(Mon mon) {
+        monList.remove(mon);
+    }
+
+    public void addMon(Mon mon) {
+        monList.add(0, mon);
     }
 }

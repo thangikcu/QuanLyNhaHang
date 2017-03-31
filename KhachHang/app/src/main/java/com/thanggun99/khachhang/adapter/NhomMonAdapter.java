@@ -41,7 +41,7 @@ public class NhomMonAdapter extends RecyclerView.Adapter<NhomMonAdapter.ViewHold
 
 
         NhomMon nhomMon = nhomMonList.get(0);
-        nhomMon.setSelected(1);
+        nhomMon.setSelected(true);
         nhomMonSelected = nhomMon;
     }
 
@@ -51,18 +51,9 @@ public class NhomMonAdapter extends RecyclerView.Adapter<NhomMonAdapter.ViewHold
     }
 
     @Override
-    public int getItemViewType(int position) {
-        return nhomMonList.get(position).getSelected();
-    }
-
-    @Override
     @SuppressLint("NewApi")
     public void onBindViewHolder(ViewHolder holder, int position) {
         NhomMon nhomMon = nhomMonList.get(position);
-
-        if (getItemViewType(position) == 1) {
-            holder.tvTenNhom.setSelected(true);
-        }
 
         holder.tvTenNhom.setText(nhomMon.getTenLoai());
         holder.tvTenNhom.setBackgroundColor(nhomMon.getMauSac());
@@ -70,6 +61,12 @@ public class NhomMonAdapter extends RecyclerView.Adapter<NhomMonAdapter.ViewHold
         Drawable drawable = App.getContext().getDrawable(R.drawable.bg_nhom_mon_item);
         drawable.setColorFilter(nhomMon.getMauSac(), PorterDuff.Mode.MULTIPLY);
         holder.tvTenNhom.setBackground(drawable);
+
+        if (nhomMon.getSelected()) {
+            holder.tvTenNhom.setSelected(true);
+        } else {
+            holder.tvTenNhom.setSelected(false);
+        }
     }
 
     @Override
@@ -94,15 +91,15 @@ public class NhomMonAdapter extends RecyclerView.Adapter<NhomMonAdapter.ViewHold
                 @Override
                 public void onClick(View v) {
                     final NhomMon nhomMon = nhomMonList.get(getAdapterPosition());
-                    if (nhomMon.getSelected() == 1) {
+                    if (nhomMon.getSelected()) {
 
                         return;
                     }
 
-                    nhomMonSelected.setSelected(0);
+                    nhomMonSelected.setSelected(false);
                     notifyItemChanged(nhomMonList.indexOf(nhomMonSelected));
 
-                    nhomMon.setSelected(1);
+                    nhomMon.setSelected(true);
                     notifyItemChanged(getAdapterPosition());
 
                     nhomMonSelected = nhomMon;

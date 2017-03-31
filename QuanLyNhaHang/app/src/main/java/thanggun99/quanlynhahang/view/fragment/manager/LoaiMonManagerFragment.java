@@ -39,7 +39,6 @@ public class LoaiMonManagerFragment extends BaseFragment {
     @Override
     public void initComponents() {
 
-        tinTucAdapter = new TinTucAdapter(getContext(), database.getTinTucList(), tinTucManager);
 
     }
 

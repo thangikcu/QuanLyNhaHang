@@ -1,25 +1,24 @@
 package thanggun99.quanlynhahang.model.entity;
 
-import android.text.TextUtils;
-
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
 import thanggun99.quanlynhahang.R;
-import thanggun99.quanlynhahang.util.API;
 import thanggun99.quanlynhahang.util.Utils;
 
 /**
  * Created by Thanggun99 on 17/11/2016.
  */
 
-public class Ban implements Serializable{
+public class Ban implements Serializable {
+    public static final int TRONG = 0;
+    public static final int DA_DAT_TRUOC = 1;
+    public static final int DANG_PHUC_VU = 2;
+
     private int maBan, hienThi;
     private String tenBan;
     private int trangThai;
-    public static final int NOT_SET = -1;
-    private int selected;
+
+    private boolean selected;
 
     public Ban(int maBan, String tenBan, int trangThai, int hienThi) {
         this.maBan = maBan;
@@ -29,8 +28,6 @@ public class Ban implements Serializable{
     }
 
     public Ban() {
-        trangThai = NOT_SET;
-        hienThi = NOT_SET;
     }
 
     public Ban(int maBan) {
@@ -40,28 +37,6 @@ public class Ban implements Serializable{
     public Ban(String tenBan) {
 
         this.tenBan = tenBan;
-    }
-
-    public boolean updateBan(Ban ban) {
-        Map<String, String> getParams, postParams;
-        getParams = new HashMap<>();
-        postParams = new HashMap();
-        getParams.put("maBan", String.valueOf(ban.getMaBan()));
-
-        if (ban.getTrangThai() != Ban.NOT_SET) {
-            postParams.put("trangThai", String.valueOf(ban.getTrangThai()));
-        }
-        if (!TextUtils.isEmpty(ban.getTenBan())) {
-            postParams.put("tenBan", ban.getTenBan());
-        }
-        if (ban.getHienThi() != Ban.NOT_SET) {
-            postParams.put("hienThi", String.valueOf(ban.getHienThi()));
-        }
-
-        String s = API.callService(API.UPDATE_BAN_URL, getParams, postParams);
-
-        if (!TextUtils.isEmpty(s) && s.trim().contains("success")) return true;
-        return false;
     }
 
     public int getHienThi() {
@@ -93,8 +68,8 @@ public class Ban implements Serializable{
     }
 
     public String getStringTrangThai() {
-        if (trangThai == 0) return Utils.getStringByRes(R.string.trong);
-        else if (trangThai == 1)return Utils.getStringByRes(R.string.da_dat_truoc);
+        if (trangThai == TRONG) return Utils.getStringByRes(R.string.trong);
+        else if (trangThai == DA_DAT_TRUOC) return Utils.getStringByRes(R.string.da_dat_truoc);
         else return Utils.getStringByRes(R.string.dang_phuc_vu);
     }
 
@@ -104,9 +79,9 @@ public class Ban implements Serializable{
 
 
     public int getIdResBgBan() {
-        if (trangThai == 1) {
+        if (trangThai == DA_DAT_TRUOC) {
             return R.drawable.table_button_background_reserved;
-        } else if (trangThai == 2) {
+        } else if (trangThai == DANG_PHUC_VU) {
             return R.drawable.table_button_background_serving;
         }
         return R.drawable.table_button_background_free;
@@ -133,11 +108,11 @@ public class Ban implements Serializable{
         return tenBan;
     }
 
-    public int getSelected() {
+    public boolean getSelected() {
         return selected;
     }
 
-    public void setSelected(int selected) {
+    public void setSelected(boolean selected) {
         this.selected = selected;
     }
 }

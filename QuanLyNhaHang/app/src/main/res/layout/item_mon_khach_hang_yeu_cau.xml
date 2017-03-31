@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_list_item"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="2dp">
+
+    <ImageView
+        android:id="@+id/iv_mon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:padding="2dp"
+        android:src="@drawable/ic_food" />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="8dp">
+
+        <TextView
+            android:id="@+id/tv_ten_mon"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:isScrollContainer="true"
+            android:maxLines="2"
+            android:paddingLeft="8dp"
+            android:scrollbars="vertical"
+            android:text="Tranh muối không Đường"
+            android:textColor="@color/colorTextTenMon"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_so_luong"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        android:text="5 ly"
+        android:textColor="@color/colorTextInfo"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tv_don_gia"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        android:text="335k"
+        android:textColor="@color/colorTextMoney"
+        android:textSize="12sp"
+        android:textStyle="italic" />
+
+    <ImageButton
+        android:id="@+id/btn_delete_mon_order"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_delete" />
+</LinearLayout>

@@ -3,53 +3,48 @@
     android:id="@+id/ln_thong_tin_ban"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:paddingTop="5dp">
+    android:paddingTop="@dimen/layout_padding">
 
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:paddingBottom="5dp">
+        android:paddingBottom="@dimen/layout_padding">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/CommonTextView"
             android:text="@string/gio_den"
-            android:textColor="@color/colorTextInfo"
-            android:textSize="12sp"
+            android:textColor="@color/colorTextField"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_gio_den"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="16dp"
+            style="@style/CommonTextView"
+            android:paddingLeft="@dimen/margin"
             android:text="25/11/2016 06:00 PM"
-            android:textColor="@color/colorTextInfo"
-            android:textSize="11sp"
-            android:textStyle="normal" />
+            android:textColor="@color/colorTextInfo" />
     </TableRow>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/list_thuc_don_order"
+        android:id="@+id/list_mon_order"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:background="@drawable/bg_list"
         android:scrollbars="vertical" />
 
     <TableRow
+        android:id="@+id/container_money_and_sale"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/CommonTextView"
             android:text="@string/tong_tien"
             android:textColor="@color/colorTextField"
-            android:textSize="12sp"
             android:textStyle="bold" />
 
         <TextView
@@ -64,28 +59,24 @@
 
         <Button
             android:id="@+id/btn_sale"
+            style="@style/CommonButton"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:background="@drawable/ic_sale"
-            android:gravity="center"
             android:text="@string/sale"
-            android:textColor="@color/white"
-            android:textSize="11sp"
             android:textStyle="bold" />
     </TableRow>
 
     <Button
         android:id="@+id/btn_tinh_tien"
+        style="@style/CommonButton"
         android:layout_width="136dp"
         android:layout_height="52dp"
-        android:layout_marginTop="16dp"
-        android:background="#e4dde1"
+        android:layout_marginTop="@dimen/margin"
         android:drawableLeft="@drawable/ic_pay"
         android:gravity="start|center_vertical"
         android:paddingLeft="0dp"
         android:text="@string/tinh_tien"
-        android:textAllCaps="false"
-        android:textColor="@color/colorTextInfo"
-        android:textSize="14sp" />
+        android:textColor="@color/colorTextInfo" />
 </LinearLayout>
 

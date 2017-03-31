@@ -6,15 +6,12 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.thanggun99.khachhang.App;
 import com.thanggun99.khachhang.R;
 import com.thanggun99.khachhang.model.entity.MonOrder;
 import com.thanggun99.khachhang.presenter.KhachHangPresenter;
@@ -26,7 +23,6 @@ import java.util.ArrayList;
 public class MonOrderAdapter extends RecyclerView.Adapter<MonOrderAdapter.ViewHolder> {
     private ArrayList<MonOrder> monOrderList;
     private int currentPosition;
-    private Animation animationBounce;
     private Context context;
     private KhachHangPresenter khachHangPresenter;
 
@@ -34,7 +30,6 @@ public class MonOrderAdapter extends RecyclerView.Adapter<MonOrderAdapter.ViewHo
         this.context = context;
         this.khachHangPresenter = khachHangPresenter;
         this.monOrderList = khachHangPresenter.getKhachHang().getCurrentHoaDon().getMonOrderList();
-        animationBounce = AnimationUtils.loadAnimation(App.getContext(), R.anim.bounce);
     }
 
     @Override
@@ -57,8 +52,6 @@ public class MonOrderAdapter extends RecyclerView.Adapter<MonOrderAdapter.ViewHo
                 .placeholder(R.drawable.ic_food)
                 .error(R.drawable.ic_food)
                 .into(holder.ivMon);
-
-        holder.itemView.startAnimation(animationBounce);
 
     }
 

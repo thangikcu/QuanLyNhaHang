@@ -11,8 +11,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Bàn 12"
-        android:textColor="@color/colorTextNameBan"
+        android:textColor="@color/colorPrimary"
         android:textSize="18sp"
+        android:paddingBottom="16dp"
         android:textStyle="bold" />
 
     <TextView
@@ -20,7 +21,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Caffe"
+        android:isScrollContainer="true"
+        android:maxLines="2"
+        android:scrollbars="vertical"
+        android:text="Coffee"
         android:textColor="@color/colorTextTenMon"
         android:textSize="16sp"
         android:textStyle="bold" />
@@ -51,15 +55,17 @@
             android:gravity="center_horizontal"
             android:inputType="number"
             android:lines="1"
-            android:text="15"
             android:maxLength="3"
-            android:textColor="@color/white"
+            android:text="15"
+            android:textColor="@color/colorTextTitleDialog"
             android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tv_don_vi_tinh"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
+            android:isScrollContainer="true"
+            android:scrollbars="horizontal"
             android:text="miếng"
             android:textColor="@color/colorTextTenMon"
             android:textSize="12sp" />
@@ -73,29 +79,47 @@
     </TableRow>
 
     <TableRow
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            style="@style/RatingBar" />
+
+        <TextView
+            android:id="@+id/tv_point_rating"
+            android:paddingLeft="4dp"
+            style="@style/CommonTextView"
+            android:typeface="serif"
+            android:textColor="@color/colorTextInfo"
+            android:textSize="9sp"
+            android:text="(15,3/6)" />
+    </TableRow>
+
+    <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="16dp">
+        android:paddingTop="@dimen/margin">
 
         <Button
             android:id="@+id/btn_ok"
+            style="@style/CommonButton"
             android:layout_width="0dp"
             android:layout_height="32dp"
             android:layout_weight="1"
             android:background="@drawable/btn_radius"
-            android:text="Đồng ý"
-            android:textAllCaps="false"
-            android:textColor="@color/white" />
+            android:text="@string/dong_y" />
 
         <Button
             android:id="@+id/btn_cancel"
+            style="@style/CommonButton"
             android:layout_width="0dp"
             android:layout_height="32dp"
             android:layout_marginLeft="16dp"
             android:layout_weight="1"
             android:background="@drawable/btn_radius"
-            android:text="Hủy"
-            android:textAllCaps="false"
-            android:textColor="@color/white" />
+            android:text="@string/huy" />
     </TableRow>
 </LinearLayout>

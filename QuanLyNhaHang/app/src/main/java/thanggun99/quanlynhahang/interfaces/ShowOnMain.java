@@ -13,4 +13,11 @@ public interface ShowOnMain {
 
     void showPhucVu();
 
+    void showFloatButton();
+
+    void removeFloatButton();
+
+    void updateFloatButton(int size);
+
+    void hideKhachHangYeuCauDialog();
 }

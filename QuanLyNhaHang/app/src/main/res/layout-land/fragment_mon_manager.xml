@@ -1,5 +1,4 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -28,8 +27,15 @@
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
+            <Spinner
+                android:id="@+id/spn_nhom_mon"
+                android:layout_marginLeft="16dp"
+                android:scrollbars="vertical"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"/>
+
             <SearchView
-                android:id="@+id/edt_tim_kiem_thuc_don"
+                android:id="@+id/edt_tim_kiem_mon"
                 android:layout_width="match_parent"
                 android:layout_height="38dp"
                 android:isScrollContainer="true"

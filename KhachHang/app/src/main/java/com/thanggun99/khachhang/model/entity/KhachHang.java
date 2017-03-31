@@ -3,6 +3,7 @@ package com.thanggun99.khachhang.model.entity;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
+import com.google.gson.Gson;
 import com.thanggun99.khachhang.App;
 import com.thanggun99.khachhang.model.Database;
 import com.thanggun99.khachhang.util.API;
@@ -14,6 +15,7 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,6 +47,7 @@ public class KhachHang implements Serializable {
     private ArrayList<DatBan> listHSDatBan;
     private DatBan currentDatBan;
     private HoaDon currentHoaDon;
+    private YeuCau yeuCau;
     private Database database;
 
     public KhachHang(int maKhachHang, String tenKhachHang, String soDienThoai,
@@ -61,7 +64,6 @@ public class KhachHang implements Serializable {
     }
 
     public KhachHang() {
-
     }
 
     public void ghiNhoDangNhap() {
@@ -101,7 +103,12 @@ public class KhachHang implements Serializable {
                     if (ghiNho) {
                         ghiNhoDangNhap();
                     }
-                    return LOGIN_SUCCESS;
+                    if (getThongTinPhucVu() != FAIL) {
+                        if (loadYeuCau()) {
+
+                            return LOGIN_SUCCESS;
+                        }
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -176,7 +183,7 @@ public class KhachHang implements Serializable {
                 }
 
                 if (currentHoaDon != null) {
-                    Utils.showLog("khach hang phuc vu on kh");
+
                     return KH_PHUC_VU;
                 } else if (currentDatBan != null) {
 
@@ -194,6 +201,69 @@ public class KhachHang implements Serializable {
 
             return FAIL;
         }
+    }
+
+    private boolean loadYeuCau() {
+        HashMap<String, String> getParams = new HashMap<>();
+        getParams.put("maKhachHang", String.valueOf(maKhachHang));
+
+        String s = API.callService(API.GET_YEU_CAU_URL, getParams);
+
+        if (!TextUtils.isEmpty(s)) {
+            try {
+                JSONObject jsonObject = new JSONObject(s);
+
+                if (jsonObject != null) {
+                    yeuCau = new YeuCau();
+
+                    JSONArray jsonArray = jsonObject.getJSONArray("yeuCau");
+
+                    if (jsonArray.length() > 0) {
+
+                        JSONObject object = (JSONObject) jsonArray.get(0);
+
+                        yeuCau.setMaYeuCau(object.getInt("maYeuCau"));
+
+                        JSONArray monOderHuyJsonArray = new JSONObject(object.getString("yeuCau"))
+                                .getJSONArray("monYeuCauHuyList");
+                        ArrayList<MonYeuCau> monYeuCauHuyList = new ArrayList<>();
+
+                        for (int j = 0; j < monOderHuyJsonArray.length(); j++) {
+                            JSONObject monOrderObject = (JSONObject) monOderHuyJsonArray.get(j);
+
+                            MonYeuCau monYeuCau = new MonYeuCau();
+                            monYeuCau.setMaMon(monOrderObject.getInt("maMon"));
+                            monYeuCau.setSoLuong(monOrderObject.getInt("soLuong"));
+
+                            monYeuCauHuyList.add(monYeuCau);
+                        }
+                        yeuCau.setMonYeuCauHuyList(monYeuCauHuyList);
+
+                        JSONArray monOderJsonArray = new JSONObject(object.getString("yeuCau")).getJSONArray("monYeuCauList");
+                        ArrayList<MonYeuCau> monYeuCauList = new ArrayList<>();
+
+                        for (int j = 0; j < monOderJsonArray.length(); j++) {
+                            JSONObject monOrderObject = (JSONObject) monOderJsonArray.get(j);
+
+                            MonYeuCau monYeuCau = new MonYeuCau();
+                            monYeuCau.setMaMon(monOrderObject.getInt("maMon"));
+                            monYeuCau.setSoLuong(monOrderObject.getInt("soLuong"));
+
+                            monYeuCauList.add(monYeuCau);
+                        }
+                        yeuCau.setMonYeuCauList(monYeuCauList);
+                    }
+
+                    return true;
+                }
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+        return false;
     }
 
     public String getKieuDangNhap() {
@@ -395,4 +465,41 @@ public class KhachHang implements Serializable {
     public void setDatabase(Database database) {
         this.database = database;
     }
+
+    public YeuCau getYeuCau() {
+        return yeuCau;
+    }
+
+    public void setYeuCau(YeuCau yeuCau) {
+        this.yeuCau = yeuCau;
+    }
+
+    public boolean sendYeuCau(MonYeuCau monYeuCau) {
+
+        if (monYeuCau != null) {
+            yeuCau.addMon(monYeuCau);
+        }
+        if (currentHoaDon != null) {
+            yeuCau.setMaHoaDon(currentHoaDon.getMaHoaDon());
+        }
+
+        Map<String, String> valuesPost = new HashMap<>();
+        valuesPost.put("maKhachHang", String.valueOf(maKhachHang));
+        valuesPost.put("tenKhachHang", tenKhachHang);
+
+        String date = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+        valuesPost.put("thoiGian", Utils.formatDate(date));
+        Gson gson = new Gson();
+        String yeuCau = gson.toJson(getYeuCau());
+        valuesPost.put("yeuCau", yeuCau);
+
+        String s = API.callService(API.SEND_YEU_CAU_URL, null, valuesPost);
+
+        if (!TextUtils.isEmpty(s) && s.contains("success")) {
+            return true;
+        }
+        return false;
+
+    }
+
 }

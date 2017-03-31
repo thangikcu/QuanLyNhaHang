@@ -32,7 +32,6 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
     public LoginFragment(KhachHangPresenter khachHangPresenter) {
         super(R.layout.fragment_login);
         this.khachHangPresenter = khachHangPresenter;
-        khachHangPresenter.setLoginView(this);
     }
 
     @Override
@@ -59,6 +58,8 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
     public void setEvents() {
         btnLogin.setOnClickListener(this);
         tvRegister.setOnClickListener(this);
+        khachHangPresenter.setLoginView(this);
+
     }
 
 

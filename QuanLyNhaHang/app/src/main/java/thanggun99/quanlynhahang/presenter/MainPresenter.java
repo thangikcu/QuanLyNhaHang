@@ -38,6 +38,11 @@ public class MainPresenter implements MainInteractor.OnMainInteractorFinishListe
 
     @Override
     public void onFinishGetDatas() {
+        if (getDatabase().getYeuCauList().size() > 0) {
+            mainview.setYeuCauList();
+            mainview.showFloatButton();
+            mainview.updateFloatButton(getDatabase().getYeuCauList().size());
+        }
         mainview.showContent();
     }
 
@@ -87,6 +92,7 @@ public class MainPresenter implements MainInteractor.OnMainInteractorFinishListe
 
     public void logout() {
         mainInteractor.logout();
+        mainview.removeFloatButton();
         mainview.showLogin();
     }
 
@@ -103,6 +109,8 @@ public class MainPresenter implements MainInteractor.OnMainInteractorFinishListe
         void showChangePasswordDialog();
 
         void showLogin();
+
+        void setYeuCauList();
     }
 
 

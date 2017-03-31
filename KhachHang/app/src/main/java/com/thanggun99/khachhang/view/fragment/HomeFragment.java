@@ -14,7 +14,7 @@ import com.thanggun99.khachhang.presenter.KhachHangPresenter;
 import java.util.ArrayList;
 
 @SuppressLint("ValidFragment")
-public class HomeFragment extends BaseFragment implements KhachHangPresenter.HomeView{
+public class HomeFragment extends BaseFragment implements KhachHangPresenter.HomeView {
     private KhachHangPresenter khachHangPresenter;
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -25,28 +25,15 @@ public class HomeFragment extends BaseFragment implements KhachHangPresenter.Hom
     public HomeFragment(KhachHangPresenter khachHangPresenter) {
         super(R.layout.fragment_home);
         this.khachHangPresenter = khachHangPresenter;
-        khachHangPresenter.setHomeView(this);
         // Required empty public constructor
     }
 
     @Override
     public void setEvents() {
+        khachHangPresenter.setHomeView(this);
         viewPager.setAdapter(tabsAdapter);
         tabLayout.setupWithViewPager(viewPager);
-    }
 
-    @Override
-    public void findViews(View view) {
-        tabLayout = (TabLayout) view.findViewById(R.id.tabs);
-        viewPager = (ViewPager) view.findViewById(R.id.view_pg);
-    }
-
-    @Override
-    public void initComponents() {
-        ArrayList<Fragment> fragments = new ArrayList<>();
-        fragments.add(thucDonFragment = new ThucDonFragment(khachHangPresenter));
-        fragments.add(tinTucFragment = new TinTucFragment(khachHangPresenter));
-        tabsAdapter = new TabsAdapter(getActivity().getSupportFragmentManager(), fragments);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -67,6 +54,22 @@ public class HomeFragment extends BaseFragment implements KhachHangPresenter.Hom
 
             }
         });
+
+    }
+
+    @Override
+    public void findViews(View view) {
+        tabLayout = (TabLayout) view.findViewById(R.id.tabs);
+        viewPager = (ViewPager) view.findViewById(R.id.view_pg);
+    }
+
+    @Override
+    public void initComponents() {
+        ArrayList<Fragment> fragments = new ArrayList<>();
+        fragments.add(thucDonFragment = new ThucDonFragment(khachHangPresenter));
+        fragments.add(tinTucFragment = new TinTucFragment(khachHangPresenter));
+        tabsAdapter = new TabsAdapter(getActivity().getSupportFragmentManager(), fragments);
+
     }
 
     @Override

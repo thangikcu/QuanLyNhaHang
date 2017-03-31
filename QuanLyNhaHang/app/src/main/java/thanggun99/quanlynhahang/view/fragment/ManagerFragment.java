@@ -12,14 +12,15 @@ import thanggun99.quanlynhahang.R;
 import thanggun99.quanlynhahang.model.Database;
 import thanggun99.quanlynhahang.presenter.MainPresenter;
 import thanggun99.quanlynhahang.view.fragment.manager.BanManagerFragment;
+import thanggun99.quanlynhahang.view.fragment.manager.KhachHangManagerFragment;
 import thanggun99.quanlynhahang.view.fragment.manager.LoaiMonManagerFragment;
-import thanggun99.quanlynhahang.view.fragment.manager.NhanVienManagerFragment;
 import thanggun99.quanlynhahang.view.fragment.manager.MonManagerFragment;
+import thanggun99.quanlynhahang.view.fragment.manager.NhanVienManagerFragment;
 import thanggun99.quanlynhahang.view.fragment.manager.TinTucManagerFragment;
 
 @SuppressLint("ValidFragment")
 public class ManagerFragment extends BaseFragment implements View.OnClickListener {
-    private Button btnSelected, btnQlTinTuc, btnQlBan, btnQlMon, btnQlLoaiMon, btnQlNhanVien;
+    private Button btnSelected, btnQlTinTuc, btnQlBan, btnQlMon, btnQlLoaiMon, btnQlNhanVien, btnQlKhachHang;
     private FrameLayout frameLayout;
 
     private Fragment fragmentIsShow;
@@ -28,6 +29,7 @@ public class ManagerFragment extends BaseFragment implements View.OnClickListene
     private BanManagerFragment banManagerFragment;
     private NhanVienManagerFragment nhanVienManagerFragment;
     private LoaiMonManagerFragment loaiMonManagerFragment;
+    private KhachHangManagerFragment khachHangManagerFragment;
 
     private MainPresenter mainPresenter;
     private Database database;
@@ -48,12 +50,14 @@ public class ManagerFragment extends BaseFragment implements View.OnClickListene
         btnQlNhanVien = (Button) view.findViewById(R.id.btn_ql_nhan_vien);
         btnQlMon = (Button) view.findViewById(R.id.btn_ql_thuc_don);
         btnQlTinTuc = (Button) view.findViewById(R.id.btn_ql_tin_tuc);
+        btnQlKhachHang = (Button) view.findViewById(R.id.btn_ql_khach_hang);
     }
 
     @Override
     public void initComponents() {
-        tinTucManagerFragment = new TinTucManagerFragment(mainPresenter);
-        fillFrame(tinTucManagerFragment, btnQlTinTuc);
+        //tinTucManagerFragment = new TinTucManagerFragment(mainPresenter);
+        monManagerFragment = new MonManagerFragment(mainPresenter);
+
 
     }
 
@@ -64,6 +68,10 @@ public class ManagerFragment extends BaseFragment implements View.OnClickListene
         btnQlNhanVien.setOnClickListener(this);
         btnQlLoaiMon.setOnClickListener(this);
         btnQlBan.setOnClickListener(this);
+        btnQlKhachHang.setOnClickListener(this);
+
+//        fillFrame(tinTucManagerFragment, btnQlTinTuc);
+        fillFrame(monManagerFragment, btnQlMon);
     }
 
     @Override
@@ -99,13 +107,19 @@ public class ManagerFragment extends BaseFragment implements View.OnClickListene
 
                 fillFrame(tinTucManagerFragment, btnQlTinTuc);
                 break;
+            case R.id.btn_ql_khach_hang:
+                if (khachHangManagerFragment == null)
+                    khachHangManagerFragment = new KhachHangManagerFragment(mainPresenter);
+
+                fillFrame(khachHangManagerFragment, btnQlKhachHang);
+                break;
             default:
                 break;
         }
     }
 
-    private void fillFrame(Fragment fragment, Button button) {
-        if (fragment.isVisible()) return;
+    private void fillFrame(final Fragment fragment, Button button) {
+        if (button.isSelected()) return;
 
         btnSelected.setSelected(false);
         button.setSelected(true);
@@ -123,8 +137,8 @@ public class ManagerFragment extends BaseFragment implements View.OnClickListene
         } else {
             transaction.add(R.id.manager_frame, fragment);
         }
-        transaction.commit();
+        transaction.commitAllowingStateLoss();
         fragmentIsShow = fragment;
-
     }
+
 }

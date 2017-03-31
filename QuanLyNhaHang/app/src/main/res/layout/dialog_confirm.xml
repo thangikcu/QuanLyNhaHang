@@ -2,30 +2,37 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="300dp"
     android:layout_height="wrap_content"
-    android:layout_gravity="center"
     android:background="@drawable/bg_dialog"
     android:orientation="vertical"
     android:padding="16dp">
 
     <TextView
+        android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="16dp"
-        android:text="@string/yeu_cau"
+        android:text="Bàn 12"
         android:textColor="@color/colorPrimary"
         android:textSize="18sp"
         android:textStyle="bold" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/list_yeu_cau"
+    <TextView
+        android:id="@+id/tv_message"
+        style="@style/CommonTextView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical" />
+        android:isScrollContainer="true"
+        android:maxLines="2"
+        android:paddingTop="16dp"
+        android:scrollbars="vertical"
+        android:text="Hủy món: Chanh muối không đường ?"
+        android:textColor="@color/colorTextTenMon"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
 
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/margin">
+        android:paddingTop="16dp">
 
         <Button
             android:id="@+id/btn_ok"
@@ -34,7 +41,16 @@
             android:layout_height="32dp"
             android:layout_weight="1"
             android:background="@drawable/btn_radius"
-            android:text="@string/dong" />
+            android:text="@string/dong_y" />
 
+        <Button
+            android:id="@+id/btn_cancel"
+            style="@style/CommonButton"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_marginLeft="16dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_radius"
+            android:text="@string/huy" />
     </TableRow>
 </LinearLayout>

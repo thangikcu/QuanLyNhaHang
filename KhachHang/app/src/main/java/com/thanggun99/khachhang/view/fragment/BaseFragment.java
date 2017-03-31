@@ -6,7 +6,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
+import com.thanggun99.khachhang.App;
+import com.thanggun99.khachhang.R;
 import com.thanggun99.khachhang.interfaces.CommondActionForView;
 
 /**
@@ -15,15 +19,21 @@ import com.thanggun99.khachhang.interfaces.CommondActionForView;
 public abstract class BaseFragment extends Fragment implements CommondActionForView {
     protected View view;
     private int layoutResource;
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.clear();
-    }
+    private Animation zoomAnimation;
 
     public BaseFragment(int layoutResource) {
         this.layoutResource = layoutResource;
+        zoomAnimation = AnimationUtils.loadAnimation(App.getContext(), R.anim.zoom);
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        if (!hidden) {
+            view.startAnimation(zoomAnimation);
+        } else {
+            view.clearAnimation();
+        }
+        super.onHiddenChanged(hidden);
     }
 
     @Override
@@ -36,6 +46,7 @@ public abstract class BaseFragment extends Fragment implements CommondActionForV
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        view.startAnimation(zoomAnimation);
         super.onViewCreated(view, savedInstanceState);
         initComponents();
         setEvents();

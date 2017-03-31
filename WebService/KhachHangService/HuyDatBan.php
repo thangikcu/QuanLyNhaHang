@@ -7,10 +7,20 @@ function dispInfo() {
     $tenKhachHang = $_GET['tenKhachHang'];
 
     $db = new Database();
+    
+    $db->prepare('SELECT MaBan FROM dat_ban WHERE MaDatBan = :maDatBan');
+    $db->bind(':maDatBan', $maDatBan);
+    $maBan = $db->getRow()['MaBan'];
 
     $db->query('DELETE FROM dat_ban WHERE MaDatBan = '.$maDatBan.'');
 
     if ($db->getRowCount() > 0) {
+        
+        if(!is_null($maBan)){
+            $db->prepare('UPDATE ban SET TrangThai = 0 WHERE MaBan = :maBan');
+            $db->bind(':maBan', $maBan);
+            $db->execute();
+        }
 
         echo 'success';
 

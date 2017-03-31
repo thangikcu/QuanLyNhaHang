@@ -9,8 +9,10 @@ import thanggun99.quanlynhahang.R;
 import thanggun99.quanlynhahang.model.entity.Ban;
 import thanggun99.quanlynhahang.model.entity.DatBan;
 import thanggun99.quanlynhahang.model.entity.HoaDon;
+import thanggun99.quanlynhahang.model.entity.KhachHang;
 import thanggun99.quanlynhahang.model.entity.Mon;
 import thanggun99.quanlynhahang.model.entity.MonOrder;
+import thanggun99.quanlynhahang.model.entity.YeuCau;
 import thanggun99.quanlynhahang.util.Utils;
 
 public class PhucVuInteractor {
@@ -25,6 +27,7 @@ public class PhucVuInteractor {
     private MonOrder currentMonOrder;
     private Mon currentMon;
     private DatBan currentDatBanChuaSetBan;
+    private YeuCau currentYeuCau;
 
 
     //constructor
@@ -81,7 +84,15 @@ public class PhucVuInteractor {
             }
             new ThemMonOrderTask(monOrder).execute();
         } else {
-            new TaoMoiHoaDonTask(monOrder).execute();
+
+            HoaDon hoaDonNew = new HoaDon();
+            String date = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+            if (currentDatBan != null)
+                hoaDonNew.setDatBan(currentDatBan);
+            hoaDonNew.setGioDen(Utils.formatDate(date));
+            hoaDonNew.setBan(currentBan);
+
+            new TaoMoiHoaDonTask(hoaDonNew, monOrder).execute();
         }
     }
 
@@ -108,16 +119,27 @@ public class PhucVuInteractor {
     public void datBanService(DatBan datBan) {
         if (datBan.getBan() != null) {
             Ban ban = database.getBanByMaBan(datBan.getBan().getMaBan());
-            ban.setTrangThai(1);
+            ban.setTrangThai(Ban.DA_DAT_TRUOC);
             datBan.setBan(ban);
             database.addDatBanChuaTinhTien(datBan);
         } else {
             if (datBan.getKhachHang() != null) {
+                KhachHang khachHang = database.getKhachHangByMa(datBan.getKhachHang().getMaKhachHang());
+                if (khachHang != null) {
 
-                datBan.setKhachHang(database.getKhachHangByMa(datBan.getKhachHang().getMaKhachHang()));
+                    datBan.setKhachHang(khachHang);
+                }
             }
             database.addDatBanChuaSetBan(datBan);
         }
+    }
+
+    public void setCurrentYeuCau(YeuCau currentYeuCau) {
+        this.currentYeuCau = currentYeuCau;
+    }
+
+    public YeuCau getCurrentYeuCau() {
+        return currentYeuCau;
     }
 
     private class UpdateMonOrderTask extends AsyncTask<Void, Void, Boolean> {
@@ -189,20 +211,34 @@ public class PhucVuInteractor {
 
     }
 
+
+    public void taoHoaDonMoiKhachHangYeuCau() {
+
+        HoaDon hoaDonNew = new HoaDon();
+        String date = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+
+        DatBan datBan = currentYeuCau.getKhachHang().getDatBan();
+        if (datBan != null) {
+
+            hoaDonNew.setDatBan(datBan);
+        }
+        hoaDonNew.setMonOrderList(currentYeuCau.getMonYeuCauList());
+        hoaDonNew.setGioDen(Utils.formatDate(date));
+        hoaDonNew.setBan(currentBan);
+        hoaDonNew.setKhachHang(currentYeuCau.getKhachHang());
+        hoaDonNew.setYeuCauJson(currentYeuCau.getYeuCauJson());
+
+        new TaoMoiHoaDonTask(hoaDonNew, null).execute();
+    }
+
     private class TaoMoiHoaDonTask extends AsyncTask<Void, Void, Boolean> {
         private MonOrder monOrder;
 
         private HoaDon hoaDonNew;
 
-        public TaoMoiHoaDonTask(MonOrder monOrder) {
+        public TaoMoiHoaDonTask(HoaDon hoaDon, MonOrder monOrder) {
             this.monOrder = monOrder;
-
-            hoaDonNew = new HoaDon();
-            String date = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-            if (currentDatBan != null)
-                hoaDonNew.setDatBan(currentDatBan);
-            hoaDonNew.setGioDen(Utils.formatDate(date));
-            hoaDonNew.setBan(currentBan);
+            this.hoaDonNew = hoaDon;
         }
 
         @Override
@@ -224,10 +260,53 @@ public class PhucVuInteractor {
                 database.addhoaDonChuaTinhTien(currentHoaDon);
                 onPhucVuInteractorFinishListener.onFinishOrderCreateHoaDon(currentHoaDon);
             }
-            onPhucVuInteractorFinishListener.onFinishTask(aBoolean, String.format(Utils.getStringByRes(R.string.pv_notify_hoa_don_moi),
-                    currentBan.getTenBan(), monOrder.getSoLuong(), currentMon.getTenMon()));
+            if (monOrder == null) {
+                if (aBoolean) {
+                    database.onTaoMoiHoaDonKhachHang(currentYeuCau);
+                    onPhucVuInteractorFinishListener.onFinishTaoMoiHoaDonKhachHangYeuCau();
+                    currentYeuCau = null;
+                }
+                onPhucVuInteractorFinishListener.onFinishTask(aBoolean, String.format(Utils.getStringByRes(R.string.pv_notify_hoa_don_moi_kh),
+                        currentBan.getTenBan()));
+            } else {
+
+                onPhucVuInteractorFinishListener.onFinishTask(aBoolean, String.format(Utils.getStringByRes(R.string.pv_notify_hoa_don_moi),
+                        currentBan.getTenBan(), monOrder.getSoLuong(), currentMon.getTenMon()));
+            }
         }
 
+    }
+
+    public void orderMonKhachHangYeuCau() {
+        class OrderMonKhachHangYeuCauTask extends AsyncTask<Void, Void, Boolean> {
+
+            @Override
+            protected void onPreExecute() {
+                onPhucVuInteractorFinishListener.onStartTask();
+                super.onPreExecute();
+            }
+
+            @Override
+            protected Boolean doInBackground(Void... params) {
+                delay(500);
+                return currentHoaDon.orderMonKhachHangYeuCau(currentYeuCau);
+            }
+
+            @Override
+            protected void onPostExecute(Boolean aBoolean) {
+                if (aBoolean) {
+                    database.removeYeuCau(currentYeuCau);
+                    onPhucVuInteractorFinishListener.onFinishOrderMonKhachHangYeuCau();
+                    currentYeuCau = null;
+                }
+                onPhucVuInteractorFinishListener.onFinishTask(aBoolean,
+                        String.format(Utils.getStringByRes(R.string.pv_notify_order_mon_kh),
+                                currentBan.getTenBan()));
+            }
+
+        }
+
+        new OrderMonKhachHangYeuCauTask().execute();
     }
 
     public void datBanChuaSetBan(final DatBan datBan) {
@@ -405,10 +484,17 @@ public class PhucVuInteractor {
                 if (aBoolean) {
                     database.onTinhTienHoaDon(currentHoaDon);
 
+                    for (YeuCau yeuCau : database.getYeuCauList()) {
+                        if (yeuCau.getMaHoaDon() == currentHoaDon.getMaHoaDon()) {
+                            database.removeYeuCau(yeuCau);
+                        }
+                    }
+
                     currentHoaDon = null;
                     currentMon = null;
                     currentDatBan = null;
                     currentMonOrder = null;
+
                     onPhucVuInteractorFinishListener.onFinishTinhTien(currentBan);
                 }
                 onPhucVuInteractorFinishListener.onFinishTask(
@@ -589,11 +675,35 @@ public class PhucVuInteractor {
         return currentBan;
     }
 
+    public Ban getCurrentBan() {
+        return currentBan;
+    }
+
+    public void setCurrentBan(Ban currentBan) {
+        this.currentBan = currentBan;
+    }
+
+    public void setCurrentHoaDon(HoaDon currentHoaDon) {
+        this.currentHoaDon = currentHoaDon;
+    }
+
+    public void setCurrentDatBan(DatBan currentDatBan) {
+        this.currentDatBan = currentDatBan;
+    }
+
+    public Mon getCurrentMon() {
+        return currentMon;
+    }
+
+    public void setCurrentMon(Mon currentMon) {
+        this.currentMon = currentMon;
+    }
+
     public MonOrder getCurrentMonOrder() {
         return currentMonOrder;
     }
 
-    public HoaDon getcurrentHoaDon() {
+    public HoaDon getCurrentHoaDon() {
         return currentHoaDon;
     }
 
@@ -659,5 +769,9 @@ public class PhucVuInteractor {
         void onFinishKhachDatBanVaoBan();
 
         void onKhachDatBanVaoBanFail();
+
+        void onFinishTaoMoiHoaDonKhachHangYeuCau();
+
+        void onFinishOrderMonKhachHangYeuCau();
     }
 }

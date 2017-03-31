@@ -5,12 +5,16 @@ import android.text.TextUtils;
 
 import com.thanggun99.khachhang.App;
 import com.thanggun99.khachhang.model.entity.DatBan;
+import com.thanggun99.khachhang.model.entity.HoaDon;
 import com.thanggun99.khachhang.model.entity.KhachHang;
 import com.thanggun99.khachhang.model.entity.Mon;
 import com.thanggun99.khachhang.model.entity.MonOrder;
+import com.thanggun99.khachhang.model.entity.MonYeuCau;
+import com.thanggun99.khachhang.model.entity.YeuCau;
 import com.thanggun99.khachhang.util.API;
 import com.thanggun99.khachhang.util.Utils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,11 +43,15 @@ public class KhachHangInteractor {
         khachHang.setTenDangNhap(App.getPreferences().getString(KhachHang.USERNAME, null));
         khachHang.setMatKhau(App.getPreferences().getString(KhachHang.PASSWORD, null));
         khachHang.setKieuDangNhap("auto");
+        khachHang.setDatabase(database);
+
         new LoginAsynTask().execute();
     }
 
     public void login(KhachHang khachHang) {
         this.khachHang = khachHang;
+        khachHang.setDatabase(database);
+
         new LoginAsynTask().execute();
     }
 
@@ -164,49 +172,6 @@ public class KhachHangInteractor {
         }
         new DatBanTask().execute();
     }
-
-
-    public void getThongTinPhucVu() {
-        class GetThongTinPhucVuTask extends AsyncTask<String, Void, String> {
-            @Override
-            protected void onPreExecute() {
-                onKhachHangFinishedListener.onStartTask();
-                super.onPreExecute();
-            }
-
-            @Override
-            protected void onPostExecute(String s) {
-                switch (s) {
-                    case KhachHang.KH_PHUC_VU:
-                        Utils.showLog("khach hang phuc vu on kh");
-                        onKhachHangFinishedListener.onFinishGetThongTinKhachHangPhucVu();
-                        break;
-                    case KhachHang.KH_DAT_BAN:
-                        onKhachHangFinishedListener.onFinishGetThongTinKhachHangDatBan();
-                        break;
-                    case KhachHang.KH_NONE:
-                        onKhachHangFinishedListener.onFinishGetThongTinKhachHangNone();
-                        break;
-                    case KhachHang.FAIL:
-                        onKhachHangFinishedListener.onGetThongTinPhucVuFail();
-                        break;
-                    default:
-                        break;
-                }
-                onKhachHangFinishedListener.onFinishTask();
-
-                super.onPostExecute(s);
-            }
-
-            @Override
-            protected String doInBackground(String... params) {
-                delay(500);
-                return khachHang.getThongTinPhucVu();
-            }
-        }
-        new GetThongTinPhucVuTask().execute();
-    }
-
 
     public void huyDatBan() {
         class HuyDatBanTask extends AsyncTask<Void, Void, Boolean> {
@@ -360,6 +325,111 @@ public class KhachHangInteractor {
         this.currentMonOrder = monOrder;
     }
 
+    public void orderMon(int soLuong) {
+        MonYeuCau monYeuCau = new MonYeuCau();
+        monYeuCau.setMaMon(currentMon.getMaMon());
+        monYeuCau.setSoLuong(soLuong);
+
+        YeuCau yeuCau = khachHang.getYeuCau();
+        if (khachHang.getCurrentHoaDon() == null) {
+            yeuCau.setType(YeuCau.HOA_DON_MOI);
+        } else {
+            yeuCau.setType(YeuCau.THEM_MON);
+        }
+
+        new SendYeuCauTask(monYeuCau).execute();
+
+    }
+
+
+    public void tinhTien() {
+        YeuCau yeuCau = khachHang.getYeuCau();
+
+        yeuCau.setType(YeuCau.TINH_TIEN_HOA_DON);
+
+        new SendYeuCauTask(null).execute();
+    }
+
+    public void onTinhTienHoaDon() {
+        khachHang.setCurrentHoaDon(null);
+
+    }
+
+    private class SendYeuCauTask extends AsyncTask<Void, Void, Boolean> {
+        private MonYeuCau monYeuCau;
+
+        public SendYeuCauTask(MonYeuCau monYeuCau) {
+            this.monYeuCau = monYeuCau;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            onKhachHangFinishedListener.onStartTask();
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            if (aBoolean) {
+                Utils.showLog("gui yeu cau thanh cong");
+            } else {
+                Utils.showLog("gui yeu cau that bai");
+            }
+            onKhachHangFinishedListener.onFinishTask();
+            super.onPostExecute(aBoolean);
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            delay(500);
+
+            return khachHang.sendYeuCau(monYeuCau);
+        }
+
+    }
+
+    public void giamGiaHoaDon(int giamGia) {
+        khachHang.getCurrentHoaDon().setGiamGia(giamGia);
+    }
+
+    public HoaDon getCurrentHoaDon() {
+        return khachHang.getCurrentHoaDon();
+    }
+
+    public void deleteYeuCau() {
+        khachHang.setYeuCau(new YeuCau());
+    }
+
+    public void onOrderSuccess() {
+        YeuCau yeuCau = khachHang.getYeuCau();
+
+        ArrayList<MonYeuCau> monYeuCauNewList = new ArrayList<>();
+        monYeuCauNewList.addAll(yeuCau.getMonYeuCauList());
+
+        for (MonOrder monOrder : getCurrentHoaDon().getMonOrderList()) {
+            for (MonYeuCau monYeuCau : yeuCau.getMonYeuCauList()) {
+                if (monOrder.getMaMon() == monYeuCau.getMaMon()) {
+
+                    monOrder.setSoLuong(monOrder.getSoLuong() + monYeuCau.getSoLuong());
+                    monYeuCauNewList.remove(monYeuCau);
+                }
+            }
+        }
+
+        ArrayList<MonOrder> monOrderNewList = new ArrayList<>();
+
+        for (MonYeuCau monYeuCau : monYeuCauNewList) {
+            MonOrder monOrder = new MonOrder();
+            monOrder.setMon(database.getMonByMaMon(monYeuCau.getMaMon()));
+            monOrder.setSoLuong(monYeuCau.getSoLuong());
+
+            monOrderNewList.add(monOrder);
+        }
+
+        getCurrentHoaDon().getMonOrderList().addAll(0, monOrderNewList);
+
+    }
+
     private class LoginAsynTask extends AsyncTask<Void, Void, String> {
         @Override
         protected void onPreExecute() {
@@ -373,7 +443,6 @@ public class KhachHangInteractor {
                 case KhachHang.LOGIN_SUCCESS:
                     isLogin = true;
 
-                    khachHang.setDatabase(database);
                     onKhachHangFinishedListener.onLoginSuccess(khachHang);
                     break;
                 case KhachHang.OTHER_LOGIN:
@@ -396,6 +465,47 @@ public class KhachHangInteractor {
             return khachHang.login();
         }
     }
+
+    public void getThongTinPhucVu() {
+        class GetThongTinPhucVuTask extends AsyncTask<String, Void, String> {
+            @Override
+            protected void onPreExecute() {
+                onKhachHangFinishedListener.onStartTask();
+                super.onPreExecute();
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                switch (s) {
+                    case KhachHang.KH_PHUC_VU:
+                        onKhachHangFinishedListener.onFinishGetThongTinKhachHangPhucVu();
+                        break;
+                    case KhachHang.KH_DAT_BAN:
+                        onKhachHangFinishedListener.onFinishGetThongTinKhachHangDatBan();
+                        break;
+                    case KhachHang.KH_NONE:
+                        onKhachHangFinishedListener.onFinishGetThongTinKhachHangNone();
+                        break;
+                    case KhachHang.FAIL:
+                        onKhachHangFinishedListener.onGetThongTinPhucVuFail();
+                        break;
+                    default:
+                        break;
+                }
+                onKhachHangFinishedListener.onFinishTask();
+
+                super.onPostExecute(s);
+            }
+
+            @Override
+            protected String doInBackground(String... params) {
+                delay(500);
+                return khachHang.getThongTinPhucVu();
+            }
+        }
+        new GetThongTinPhucVuTask().execute();
+    }
+
 
     private void delay(int milis) {
         try {
@@ -428,8 +538,6 @@ public class KhachHangInteractor {
 
         void onDatBanFail();
 
-        void onGetThongTinPhucVuFail();
-
         void onFinishHuyDatBan();
 
         void onHuyDatBanFail();
@@ -450,11 +558,13 @@ public class KhachHangInteractor {
 
         void onGetThucDonFail();
 
+        void onGetThongTinPhucVuFail();
+
+        void onFinishGetThongTinKhachHangNone();
+
         void onFinishGetThongTinKhachHangPhucVu();
 
         void onFinishGetThongTinKhachHangDatBan();
-
-        void onFinishGetThongTinKhachHangNone();
     }
 
 }

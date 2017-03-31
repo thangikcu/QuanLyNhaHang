@@ -1,5 +1,12 @@
 package thanggun99.quanlynhahang.model.entity;
 
+import android.text.TextUtils;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import thanggun99.quanlynhahang.util.API;
+
 /**
  * Created by Thanggun99 on 20/11/2016.
  */
@@ -13,6 +20,7 @@ public class Mon {
     private byte[] hinhAnh;
     private float rating;
     private int personRating;
+    private String hinhAnhString;
 
     public Mon(int maMon, String tenMon, int maLoai, int donGia, String donViTinh, byte[] hinhAnh, float rating, int personRating) {
         this.maMon = maMon;
@@ -129,5 +137,79 @@ public class Mon {
 
     public String getRatingPoint() {
         return "(" + rating + "/" + personRating + ")";
+    }
+
+    public Boolean updateMon(Mon mon) {
+        Map<String, String> postParams = new HashMap<>();
+
+        postParams.put("maMon", String.valueOf(maMon));
+        postParams.put("tenMon", mon.getTenMon());
+        postParams.put("donViTinh", mon.getDonViTinh());
+        postParams.put("donGia", String.valueOf(mon.getDonGia()));
+        postParams.put("maLoai", String.valueOf(mon.getMaLoai()));
+        postParams.put("hienThi", String.valueOf(mon.getHienThi()));
+        postParams.put("hinhAnh", mon.getHinhAnhString());
+
+        String s = API.callService(API.UPDATE_MON_URL, null, postParams);
+
+        if (!TextUtils.isEmpty(s) && s.trim().contains("success")) {
+
+            setDonViTinh(mon.getDonViTinh());
+            setTenMon(mon.getTenMon());
+            setDonGia(mon.getDonGia());
+            setMaLoai(mon.getMaLoai());
+            setHienThi(mon.getHienThi());
+            setHinhAnh(mon.getHinhAnh());
+            return true;
+        }
+        return false;
+    }
+
+    public Boolean delete() {
+        Map<String, String> getParams = new HashMap<>();
+        getParams.put("maMon", String.valueOf(maMon));
+
+        String s = API.callService(API.DELETE_MON_URL, getParams);
+
+        if (!TextUtils.isEmpty(s) && s.trim().contains("success")) {
+            return true;
+        }
+        return false;
+    }
+
+    public Boolean addNew() {
+        Map<String, String> postParams = new HashMap<>();
+        postParams.put("tenMon", tenMon);
+        postParams.put("donViTinh", donViTinh);
+        postParams.put("donGia", String.valueOf(donGia));
+        postParams.put("maLoai", String.valueOf(maLoai));
+        postParams.put("hienThi", String.valueOf(hienThi));
+        postParams.put("hinhAnh", hinhAnhString);
+
+        String s = API.callService(API.THEM_MON_URL, null, postParams);
+
+        if (!TextUtils.isEmpty(s)) {
+            try {
+
+                setMaMon(Integer.parseInt(s.trim()));
+                return true;
+
+
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+                return false;
+            }
+
+        } else {
+            return false;
+        }
+    }
+
+    public void setHinhAnhString(String hinhAnhString) {
+        this.hinhAnhString = hinhAnhString;
+    }
+
+    public String getHinhAnhString() {
+        return hinhAnhString;
     }
 }

@@ -116,4 +116,10 @@
     <string name="huy">Huỷ</string>
     <string name="goi_mon">Gọi món</string>
     <string name="ban_can_dang_nhap_de_goi_mon">Bạn cần phải đăng nhập để gọi món !</string>
+    <string name="da_tao_hoa_don_moi">Đã tạo hoá đơn mới</string>
+    <string name="ban_duoc_giam_gia">Bạn được giảm giá</string>
+    <string name="da_them_mon">Đã thêm món</string>
+    <string name="tien_mon">Tiền món:</string>
+    <string name="tien_giam_gia">Tiền giảm giá:</string>
+    <string name="da_tinh_tien">Cảm ơn bạn đã đến với nhà hàng</string>
 </resources>

@@ -4,38 +4,71 @@
     android:layout_height="wrap_content"
     android:background="@drawable/bg_list_item_mon"
     android:gravity="center_vertical"
-    android:orientation="horizontal">
-
-    <ImageView
-        android:id="@+id/iv_mon"
-        android:src="@drawable/ic_food"
-        android:scaleType="centerCrop"
-        android:layout_width="58dp"
-        android:layout_height="58dp" />
+    android:padding="4dp"
+    android:orientation="vertical">
 
     <LinearLayout
-        android:padding="16dp"
-        android:layout_width="wrap_content"
+        android:orientation="horizontal"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_width="wrap_content">
 
-        <TextView
-            android:id="@+id/tv_message"
+        <ImageView
+            android:id="@+id/iv_mon"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:src="@drawable/ic_food" />
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cà phê sữa"
-            android:textColor="@color/colorTextTenMon"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:orientation="vertical"
+            android:paddingLeft="8dp"
+            android:paddingTop="16dp">
 
-        <TextView
-            android:id="@+id/tv_don_gia"
-            android:paddingLeft="16dp"
-            android:textStyle="italic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="15.000/ly"
-            android:textColor="#ffffff"
-            android:textSize="11sp" />
+            <TextView
+                android:id="@+id/tv_ten_mon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:isScrollContainer="true"
+                android:maxLines="2"
+                android:scrollbars="horizontal"
+                android:text="Cà phê sữa"
+                android:textColor="@color/colorTextTenMon"
+                android:textSize="@dimen/text_size_normal"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_don_gia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="16dp"
+                android:paddingTop="4dp"
+                android:text="15.000/ly"
+                android:textColor="@color/colorTextMoney"
+                android:textSize="@dimen/text_size_small"
+                android:textStyle="italic" />
+
+        </LinearLayout>
     </LinearLayout>
+
+    <TableRow
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:layout_gravity="bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            style="@style/RatingBar" />
+
+        <TextView
+            android:id="@+id/tv_point_rating"
+            android:paddingLeft="4dp"
+            style="@style/CommonTextView"
+            android:typeface="serif"
+            android:textColor="@color/colorTextInfo"
+            android:textSize="9sp"
+            android:text="(15,3/6)" />
+    </TableRow>
 </LinearLayout>

@@ -39,7 +39,7 @@ public class Utils {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return new java.text.SimpleDateFormat("hh:mm a - dd/MM/yyyy").format(date);
+        return new java.text.SimpleDateFormat("HH:mm a - dd/MM/yyyy").format(date);
     }
 
     public static String getStringByRes(int id) {

@@ -3,6 +3,7 @@ package thanggun99.quanlynhahang.view.fragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
@@ -60,8 +61,8 @@ public class PhucVuFragment extends BaseFragment implements PhucVuPresenter.Phuc
     private RecyclerView listViewBan, listViewMonOrder;
     private ImageButton btnThucDon;
     private Button btnSale, btnDatBan, btnCancel, btnTinhTien;
-    private ListView nhomMonListView;
-    private RecyclerView MonRecyclerView;
+    private ListView nhomMonRecyclerView;
+    private RecyclerView monRecyclerView;
     private TableRow tableRow;
     private android.widget.SearchView edtTimKiemMon;
     private TextView tvTenBan, tvTrangThai, tvTongTien, tvGioDen, tvTenLoai, tvTenKhachHang,
@@ -93,6 +94,9 @@ public class PhucVuFragment extends BaseFragment implements PhucVuPresenter.Phuc
     private Animation animationAlpha;
     private Animation animationZoom;
     private Animation animationBounce;
+
+    private Handler handler;
+    private Runnable runnable;
 
 
     private TimePicker timePicker;
@@ -134,7 +138,7 @@ public class PhucVuFragment extends BaseFragment implements PhucVuPresenter.Phuc
         btnTinhTien = (Button) layoutThongTinBan.findViewById(R.id.btn_tinh_tien);
         tvGioDen = (TextView) layoutThongTinBan.findViewById(R.id.tv_gio_den);
         tvTongTien = (TextView) layoutThongTinBan.findViewById(R.id.tv_tong_tien);
-        listViewMonOrder = (RecyclerView) layoutThongTinBan.findViewById(R.id.list_thuc_don_order);
+        listViewMonOrder = (RecyclerView) layoutThongTinBan.findViewById(R.id.list_mon_order);
 
         btnThucDon = (ImageButton) view.findViewById(R.id.btn_thuc_don);
         listViewBan = (RecyclerView) view.findViewById(R.id.list_ban);
@@ -146,9 +150,9 @@ public class PhucVuFragment extends BaseFragment implements PhucVuPresenter.Phuc
         DrawerLayout.LayoutParams params = (DrawerLayout.LayoutParams) layoutThucDon.getLayoutParams();
         params.width = getResources().getDisplayMetrics().widthPixels / 2;
         layoutThucDon.setLayoutParams(params);
-        nhomMonListView = (ListView) view.findViewById(R.id.list_nhom_mon);
+        nhomMonRecyclerView = (ListView) view.findViewById(R.id.list_nhom_mon);
         tableRow = (TableRow) layoutThucDon.findViewById(R.id.tbr);
-        MonRecyclerView = (RecyclerView) layoutThucDon.findViewById(R.id.list_thuc_don);
+        monRecyclerView = (RecyclerView) layoutThucDon.findViewById(R.id.list_thuc_don);
         tvTenLoai = (TextView) layoutThucDon.findViewById(R.id.tv_title);
         edtTimKiemMon = (android.widget.SearchView) layoutThucDon.findViewById(R.id.edt_tim_kiem_mon);
 
@@ -165,6 +169,7 @@ public class PhucVuFragment extends BaseFragment implements PhucVuPresenter.Phuc
 
     @Override
     public void initComponents() {
+        handler = new Handler();
         timePicker = new TimePicker();
         timePicker.setOnFinishPickTimeListener(this);
         //initDialogs
@@ -192,10 +197,10 @@ public class PhucVuFragment extends BaseFragment implements PhucVuPresenter.Phuc
         listViewBan.setAdapter(banAdapter);
         listViewBan.setLayoutManager(new GridLayoutManager(getContext(), 4));
 
-        nhomMonListView.setAdapter(nhomMonAdapter);
+        nhomMonRecyclerView.setAdapter(nhomMonAdapter);
 
-        MonRecyclerView.setAdapter(monAdapter);
-        MonRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        monRecyclerView.setAdapter(monAdapter);
+        monRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         listViewMonOrder.setAdapter(monOrderAdapter);
         listViewMonOrder.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -217,8 +222,11 @@ public class PhucVuFragment extends BaseFragment implements PhucVuPresenter.Phuc
         edtGioDen.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus)
-                    timePicker.show(getActivity().getSupportFragmentManager(), "timePicker");
+                if (hasFocus) {
+                    if (!timePicker.isAdded()) {
+                        timePicker.show(getActivity().getSupportFragmentManager(), "timePicker");
+                    }
+                }
             }
         });
 
@@ -230,8 +238,18 @@ public class PhucVuFragment extends BaseFragment implements PhucVuPresenter.Phuc
             }
 
             @Override
-            public boolean onQueryTextChange(String newText) {
-                phucVuPresenter.findMon(newText);
+            public boolean onQueryTextChange(final String newText) {
+                handler.removeCallbacks(runnable);
+
+                runnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        phucVuPresenter.findMon(newText);
+
+                    }
+                };
+                handler.postDelayed(runnable, 200);
+
                 return true;
             }
         });
@@ -281,6 +299,11 @@ public class PhucVuFragment extends BaseFragment implements PhucVuPresenter.Phuc
     }
 
     @Override
+    public void showError(String message) {
+        Utils.notifiOnDialog(message);
+    }
+
+    @Override
     public void showThongTinDatBanDialog(DatBan datBan) {
         thongTinDatBanDialog.setContent(datBan);
     }
@@ -311,7 +334,10 @@ public class PhucVuFragment extends BaseFragment implements PhucVuPresenter.Phuc
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.edt_gio_den:
-                timePicker.show(getActivity().getSupportFragmentManager(), "timePicker");
+                if (!timePicker.isAdded()) {
+
+                    timePicker.show(getActivity().getSupportFragmentManager(), "timePicker");
+                }
                 break;
             case R.id.btn_tinh_tien:
                 phucVuPresenter.onClickTinhTien();
@@ -469,6 +495,11 @@ public class PhucVuFragment extends BaseFragment implements PhucVuPresenter.Phuc
     }
 
     @Override
+    public void notifyChangeListMonOrder() {
+        monOrderAdapter.notifyDataSetChanged();
+    }
+
+    @Override
     public void notifyRemoveListMonOrder() {
         monOrderAdapter.deleteMonOrder();
     }
@@ -501,6 +532,7 @@ public class PhucVuFragment extends BaseFragment implements PhucVuPresenter.Phuc
 
     @Override
     public void notifyChangeListMon(ArrayList<Mon> mons) {
+        monRecyclerView.startAnimation(animationAlpha);
         monAdapter.changeData(mons);
     }
 
@@ -532,6 +564,7 @@ public class PhucVuFragment extends BaseFragment implements PhucVuPresenter.Phuc
 
     private void showLayoutThongTinDatBan() {
         layoutDatBan.clearAnimation();
+        layoutThongTinBan.clearAnimation();
 
         layoutThongTinBan.setVisibility(GONE);
         layoutDatBan.setVisibility(GONE);
@@ -553,7 +586,7 @@ public class PhucVuFragment extends BaseFragment implements PhucVuPresenter.Phuc
 
     private void showLayoutDatBan() {
         layoutThongTinDatBan.clearAnimation();
-        layoutDatBan.clearAnimation();
+        layoutThongTinBan.clearAnimation();
 
         layoutThongTinBan.setVisibility(GONE);
         layoutThongTinDatBan.setVisibility(GONE);
@@ -569,9 +602,7 @@ public class PhucVuFragment extends BaseFragment implements PhucVuPresenter.Phuc
         showTongTien(hoaDon.getTongTien());
         showGiamGia(hoaDon.getGiamGia());
 
-        clearItemMonOrderAnimation(monOrderAdapter.getItemCount());
         monOrderAdapter.changeData(hoaDon.getMonOrderList());
-        startAnimationItemMonOrder(monOrderAdapter.getItemCount());
 
         tvGioDen.setText(hoaDon.getGioDen());
         tvGioDen.startAnimation(animationAlpha);
@@ -585,33 +616,15 @@ public class PhucVuFragment extends BaseFragment implements PhucVuPresenter.Phuc
         showLayoutThongTinBanPV();
     }
 
-    private void startAnimationItemMonOrder(int itemCount) {
-        View view;
-        for (int i = 0; i < itemCount; i++) {
-            view = listViewMonOrder.getChildAt(i);
-            if (view != null) {
-                view.startAnimation(animationBounce);
-            }
-        }
-    }
-
     private void showLayoutThongTinBanPV() {
         layoutDatBan.clearAnimation();
         layoutThongTinDatBan.clearAnimation();
 
-        layoutThongTinBan.setVisibility(VISIBLE);
         layoutDatBan.setVisibility(GONE);
         layoutThongTinDatBan.setVisibility(GONE);
-    }
 
-    private void clearItemMonOrderAnimation(int itemCount) {
-        View view;
-        for (int i = 0; i < itemCount; i++) {
-            view = listViewMonOrder.getChildAt(i);
-            if (view != null) {
-                view.clearAnimation();
-            }
-        }
+        layoutThongTinBan.setVisibility(VISIBLE);
+        layoutThongTinBan.startAnimation(animationZoom);
     }
 
     @Override

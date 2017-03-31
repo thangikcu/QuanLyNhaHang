@@ -29,6 +29,11 @@ public class NhomMon {
     }
 
     @Override
+    public String toString() {
+        return tenLoai;
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
 

@@ -8,6 +8,7 @@ public class KhachHang extends Person implements Serializable{
     private String tenDangNhap;
     private String matKhau;
     private int maToken;
+    private DatBan datBan;
 
     public KhachHang(int maKhachHang, String tenKhachHang, String soDienThoai,
                      String diaChi, String tenDangNhap, String matKhau, int maToken) {
@@ -59,4 +60,11 @@ public class KhachHang extends Person implements Serializable{
         this.maToken = maToken;
     }
 
+    public void setDatBan(DatBan datBan) {
+        this.datBan = datBan;
+    }
+
+    public DatBan getDatBan() {
+        return datBan;
+    }
 }

@@ -29,7 +29,7 @@ public class API {
     private static final String PATH_KHACH_HANG = "KhachHangService/";
     private static final String PATH_ADMIN = "AdminService/";
     private static final String PATH_TIN_TUC = "TinTucService/";
-
+    private static final String PATH_YEU_CAU = "YeuCauService/";
 
 
     public static final String GET_BAN_URL = PATH_BAN + "GetBan.php";
@@ -62,6 +62,11 @@ public class API {
     public static final String THEM_TIN_TUC_URL = PATH_TIN_TUC + "ThemTinTuc.php";
     public static final String DELETE_TIN_TUC_URL = PATH_TIN_TUC + "DeleteTinTuc.php";
     public static final String UPDATE_TIN_TUC_URL = PATH_TIN_TUC + "UpdateTinTuc.php";
+    public static final String GET_YEU_CAU_URL = PATH_YEU_CAU + "GetYeuCau.php";
+    public static final String ORDER_MON_KHACH_HANG_YEU_CAU = PATH_HOA_DON + "OrderMonKhachHangYeuCau.php";
+    public static final String THEM_MON_URL = PATH_MON + "ThemMon.php";
+    public static final String UPDATE_MON_URL = PATH_MON + "UpdateMon.php";
+    public static final String DELETE_MON_URL = PATH_MON + "DeleteMon.php";
 
     public static String callService(String path, Map<String, String> getParams) {
         return callService(path, getParams, null);

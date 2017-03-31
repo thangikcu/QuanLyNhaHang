@@ -12,25 +12,25 @@ import com.thanggun99.khachhang.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SettingFragment extends Fragment {
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.clear();
-    }
-
+public class SettingFragment extends BaseFragment {
 
     public SettingFragment() {
-        // Required empty public constructor
+        super(R.layout.fragment_setting);
     }
 
+    @Override
+    public void findViews(View view) {
+
+    }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_setting, container, false);
+    public void initComponents() {
+
+    }
+
+    @Override
+    public void setEvents() {
+
     }
 
 }

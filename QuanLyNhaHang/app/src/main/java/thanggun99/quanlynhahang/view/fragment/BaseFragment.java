@@ -21,12 +21,6 @@ public abstract class BaseFragment extends Fragment implements CommondActionForV
     private int layoutResource;
     private Animation zoomAnimation;
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.clear();
-    }
-
     public BaseFragment(int layoutResource) {
         this.layoutResource = layoutResource;
         zoomAnimation = AnimationUtils.loadAnimation(App.getContext(), R.anim.zoom);

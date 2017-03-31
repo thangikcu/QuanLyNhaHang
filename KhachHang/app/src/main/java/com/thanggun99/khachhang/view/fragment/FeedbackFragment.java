@@ -3,12 +3,8 @@ package com.thanggun99.khachhang.view.fragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -17,38 +13,18 @@ import com.thanggun99.khachhang.presenter.KhachHangPresenter;
 import com.thanggun99.khachhang.util.Utils;
 
 @SuppressLint("ValidFragment")
-public class FeedbackFragment extends Fragment implements View.OnClickListener, KhachHangPresenter.FeedbackView {
+public class FeedbackFragment extends BaseFragment implements View.OnClickListener, KhachHangPresenter.FeedbackView {
     private KhachHangPresenter khachHangPresenter;
     private EditText edtTitle, edtContent;
     private TextView tvError;
 
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.clear();
-    }
-
-    public FeedbackFragment() {
-    }
-
     public FeedbackFragment(KhachHangPresenter khachHangPresenter) {
+        super(R.layout.fragment_feedback);
         this.khachHangPresenter = khachHangPresenter;
-        khachHangPresenter.setFeedbackView(this);
-        // Required empty public constructor
     }
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_feedback, container, false);
-    }
-
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void findViews(View view) {
 
         edtContent = (EditText) view.findViewById(R.id.edt_content);
         edtTitle = (EditText) view.findViewById(R.id.edt_title);
@@ -56,7 +32,18 @@ public class FeedbackFragment extends Fragment implements View.OnClickListener, 
         tvError = (TextView) view.findViewById(R.id.tv_error);
 
         view.findViewById(R.id.btn_gop_y).setOnClickListener(this);
-        super.onViewCreated(view, savedInstanceState);
+
+    }
+
+    @Override
+    public void initComponents() {
+
+    }
+
+    @Override
+    public void setEvents() {
+
+        khachHangPresenter.setFeedbackView(this);
     }
 
     @Override

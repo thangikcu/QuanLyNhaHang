@@ -20,6 +20,7 @@ function dispInfo()
         $t["hinhAnh"] = base64_encode($row["HinhAnh"]);
         $t["hienThi"] = $row["HienThi"];
         $t["rating"] = $row["Rating"];
+        $t["personRating"] = $row["PersonRating"];
 
         array_push($response["thucDon"], $t);
     }

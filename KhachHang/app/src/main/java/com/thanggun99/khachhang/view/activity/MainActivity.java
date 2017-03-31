@@ -29,12 +29,12 @@ import com.thanggun99.khachhang.service.MyFirebaseMessagingService;
 import com.thanggun99.khachhang.util.Utils;
 import com.thanggun99.khachhang.view.dialog.ChangePasswordDialog;
 import com.thanggun99.khachhang.view.fragment.AboutFragment;
-import com.thanggun99.khachhang.view.fragment.ThongTinPhucVuFragment;
 import com.thanggun99.khachhang.view.fragment.FeedbackFragment;
 import com.thanggun99.khachhang.view.fragment.HomeFragment;
 import com.thanggun99.khachhang.view.fragment.LoginFragment;
 import com.thanggun99.khachhang.view.fragment.MyProfileFragment;
 import com.thanggun99.khachhang.view.fragment.SettingFragment;
+import com.thanggun99.khachhang.view.fragment.ThongTinPhucVuFragment;
 
 public class MainActivity extends AppCompatActivity implements KhachHangPresenter.MainView, PopupMenu.OnMenuItemClickListener, NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
     private DrawerLayout drawerLayout;
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
                     if (khachHangPresenter != null) {
                         KhachHang khachHangUpdate = (KhachHang) intent.getSerializableExtra(MyFirebaseMessagingService.KHACH_HANG);
 
-                        khachHangPresenter.updateThongTinKhachHang(khachHangUpdate);
+                        khachHangPresenter.updateThongTinKhachHangService(khachHangUpdate);
 
                         tvFullname.setText("(" + khachHangUpdate.getTenKhachHang() + ")");
 
@@ -85,10 +85,47 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
                     break;
                 case MyFirebaseMessagingService.HUY_DAT_BAN_ACTION:
                     if (khachHangPresenter != null) {
-                        khachHangPresenter.deleteDatBan();
+                        khachHangPresenter.deleteDatBanService();
 
                         Utils.showNotify(Utils.getStringByRes(R.string.thong_bao),
                                 Utils.getStringByRes(R.string.da_huy_dat_ban));
+                    }
+                    break;
+                case MyFirebaseMessagingService.TAO_HOA_DON_MOI_ACTION:
+                    Utils.showLog("taomoi hoa don broadcast");
+                    if (khachHangPresenter != null) {
+                        khachHangPresenter.taoHoaDonMoiService();
+
+                        Utils.showNotify(Utils.getStringByRes(R.string.thong_bao),
+                                Utils.getStringByRes(R.string.da_tao_hoa_don_moi));
+                    }
+                    break;
+                case MyFirebaseMessagingService.GIAM_GIA_HOA_DON_ACTION:
+                    if (khachHangPresenter != null) {
+                        int giamGia = intent.getIntExtra(MyFirebaseMessagingService.GIAM_GIA, 0);
+
+                        khachHangPresenter.giamGiaHoaDonMoiService(giamGia);
+
+                        Utils.showNotify(Utils.getStringByRes(R.string.thong_bao),
+                                Utils.getStringByRes(R.string.ban_duoc_giam_gia) + " " + giamGia + "%");
+                    }
+                    break;
+                case MyFirebaseMessagingService.ORDER_MON_ACTION:
+                    if (khachHangPresenter != null) {
+
+                        khachHangPresenter.orderMonService();
+
+                        Utils.showNotify(Utils.getStringByRes(R.string.thong_bao),
+                                Utils.getStringByRes(R.string.da_them_mon));
+                    }
+                    break;
+                case MyFirebaseMessagingService.TINH_TIEN_HOA_DON_ACTION:
+                    if (khachHangPresenter != null) {
+
+                        khachHangPresenter.tinhTienHoaDonService();
+
+                        Utils.showNotify(Utils.getStringByRes(R.string.thong_bao),
+                                Utils.getStringByRes(R.string.da_tinh_tien));
                     }
                     break;
                 default:
@@ -96,12 +133,6 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
             }
         }
     };
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.clear();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,6 +181,10 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
         intentFilter.addAction(MyFirebaseMessagingService.NOTIFI_ACTION);
         intentFilter.addAction(MyFirebaseMessagingService.UPDATE_DAT_BAN_ACTION);
         intentFilter.addAction(MyFirebaseMessagingService.HUY_DAT_BAN_ACTION);
+        intentFilter.addAction(MyFirebaseMessagingService.TAO_HOA_DON_MOI_ACTION);
+        intentFilter.addAction(MyFirebaseMessagingService.GIAM_GIA_HOA_DON_ACTION);
+        intentFilter.addAction(MyFirebaseMessagingService.ORDER_MON_ACTION);
+        intentFilter.addAction(MyFirebaseMessagingService.TINH_TIEN_HOA_DON_ACTION);
         LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver,
                 intentFilter);
 
@@ -177,6 +212,14 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
     }
 
     @Override
+    public void showThongTinPhucVuFragment() {
+        if (thongTinPhucVuFragment == null)
+            thongTinPhucVuFragment = new ThongTinPhucVuFragment(khachHangPresenter);
+
+        fillFrame(thongTinPhucVuFragment, R.id.btn_thong_tin_phuc_vu);
+    }
+
+    @Override
     public void showProgress() {
         progressDialog.show();
     }
@@ -186,7 +229,7 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
         progressDialog.dismiss();
     }
 
-    private void fillFrame(Fragment fragment, int id) {
+    private void fillFrame(final Fragment fragment, int id) {
         if (fragment.isVisible()) return;
 
         if (id != 0) {
@@ -207,8 +250,9 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
         } else {
             transaction.add(R.id.frame, fragment);
         }
-        transaction.commit();
+        transaction.commitAllowingStateLoss();
         fragmentIsShow = fragment;
+
     }
 
     public void showNavigationOnUnLogin() {

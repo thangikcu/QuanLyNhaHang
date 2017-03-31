@@ -12,87 +12,87 @@
         android:gravity="center_vertical">
 
         <Button
-            android:id="@+id/btn_home"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/menu_main_button_background"
-            android:drawableLeft="@drawable/ic_btn_home"
-            android:gravity="center_vertical"
-            android:padding="5dp"
-            android:text="@string/home"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
-
-        <Button
             android:id="@+id/btn_sell"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/CommonButton"
             android:background="@drawable/menu_main_button_background"
-            android:drawableLeft="@drawable/ic_btn_sell"
-            android:gravity="center_vertical"
-            android:padding="5dp"
-            android:text="@string/ban_hang"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
-
-        <Button
-            android:id="@+id/btn_manager"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/menu_main_button_background"
-            android:drawableLeft="@drawable/ic_btn_manager"
-            android:gravity="center_vertical"
-            android:padding="5dp"
-            android:text="@string/quan_ly"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
-
-        <Button
-            android:id="@+id/btn_thong_ke"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/menu_main_button_background"
-            android:drawableLeft="@drawable/ic_btn_statistic"
-            android:gravity="center_vertical"
-            android:padding="5dp"
-            android:text="@string/thong_ke"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
+            android:drawableLeft="@drawable/ic_phuc_vu"
+            android:padding="@dimen/layout_padding"
+            android:text="@string/ban_hang" />
 
         <Button
             android:id="@+id/btn_dat_ban"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/CommonButton"
             android:background="@drawable/menu_main_button_background"
-            android:drawableLeft="@drawable/ic_btn_repository"
-            android:gravity="center_vertical"
-            android:padding="5dp"
-            android:text="@string/kho_nvl"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
+            android:drawableLeft="@drawable/ic_dat_truoc"
+            android:padding="@dimen/layout_padding"
+            android:text="@string/dat_ban" />
+
+        <Button
+            android:id="@+id/btn_manager"
+            style="@style/CommonButton"
+            android:background="@drawable/menu_main_button_background"
+            android:drawableLeft="@drawable/ic_btn_manager"
+            android:padding="@dimen/layout_padding"
+            android:text="@string/quan_ly" />
+
+        <Button
+            android:id="@+id/btn_thong_ke"
+            style="@style/CommonButton"
+            android:background="@drawable/menu_main_button_background"
+            android:drawableLeft="@drawable/ic_btn_statistic"
+            android:padding="@dimen/layout_padding"
+            android:text="@string/thong_ke" />
 
         <Button
             android:id="@+id/btn_setting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/CommonButton"
             android:background="@drawable/menu_main_button_background"
             android:drawableLeft="@drawable/ic_btn_setting"
-            android:gravity="center_vertical"
-            android:padding="5dp"
-            android:text="@string/cai_dat"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
+            android:padding="@dimen/layout_padding"
+            android:text="@string/cai_dat" />
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:gravity="center_vertical">
+
+            <ImageView android:src="@drawable/ic_account" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_ten_admin"
+                    style="@style/CommonTextView"
+                    android:paddingLeft="4dp"
+                    android:text="thanggun99"
+                    android:textColor="@color/colorTextInfo"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_ho_ten"
+                    style="@style/CommonTextView"
+                    android:text="(Trần Văn Thắng)"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    android:textStyle="italic" />
+            </LinearLayout>
+
+
+            <ImageButton
+                android:id="@+id/btn_drop_down"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_arrow_drop_down" />
+        </TableRow>
+
 
     </TableRow>
 
     <FrameLayout
         android:id="@+id/frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></FrameLayout>
+        android:layout_height="match_parent" />
 </LinearLayout>

@@ -1,10 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center_horizontal"
-    tools:context="thanggun99.quanlynhahang.view.fragment.DatBanFragment">
+    android:gravity="center_horizontal">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,12 +23,12 @@
                 android:id="@+id/tv_title"
                 style="@style/CommonTextView"
                 android:paddingLeft="@dimen/margin"
-                android:text="@string/danh_sach_tin_tuc"
+                android:text="@string/danh_sach_nhan_vien"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
             <SearchView
-                android:id="@+id/edt_tim_kiem_tin_tuc"
+                android:id="@+id/edt_tim_kiem_nhan_vien"
                 android:layout_width="match_parent"
                 android:layout_height="38dp"
                 android:isScrollContainer="true"
@@ -47,7 +45,7 @@
             android:padding="@dimen/layout_padding">
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/list_tin_tuc"
+                android:id="@+id/list_nhan_vien"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/bg_list"
@@ -57,7 +55,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btn_them_tin_tuc"
+        android:id="@+id/btn_them_nhan_vien"
         style="@style/CommonButton"
         android:layout_width="136dp"
         android:layout_height="52dp"

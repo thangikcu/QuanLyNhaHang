@@ -20,8 +20,13 @@ import org.json.JSONObject;
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public static final String UPDATE_DAT_BAN_ACTION = "UPDATE_DAT_BAN_ACTION";
     public static final String HUY_DAT_BAN_ACTION = "HUY_DAT_BAN_ACTION";
+    public static final String TAO_HOA_DON_MOI_ACTION = "TAO_HOA_DON_MOI_ACTION";
+    public static final String GIAM_GIA_HOA_DON_ACTION = "GIAM_GIA_HOA_DON_ACTION";
+    public static final String ORDER_MON_ACTION = "ORDER_MON_ACTION";
+    public static final String TINH_TIEN_HOA_DON_ACTION = "TINH_TIEN_HOA_DON_ACTION";
 
     public static final String KHACH_HANG = "KHACH_HANG";
+    public static final String GIAM_GIA = "GIAM_GIA";
 
     public static final String NOTIFI_ACTION = "NOTIFI_ACTION";
     public static final String LOGOUT_ACTION = "LOGOUT_ACTION";
@@ -73,6 +78,35 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
                             Utils.showLog("delete dat ban");
                             LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(HUY_DAT_BAN_ACTION));
+                        }
+                        break;
+                    case TAO_HOA_DON_MOI_ACTION:
+                        Utils.showLog("taomoi hoa don");
+                        if (KhachHang.getMaKhachHang() == object.getInt("maKhachHang")) {
+                            Utils.showLog("tao moi hoa don dung khach hang");
+                            LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(TAO_HOA_DON_MOI_ACTION));
+                        }
+                        break;
+                    case GIAM_GIA_HOA_DON_ACTION:
+                        if (KhachHang.getMaKhachHang() == object.getInt("maKhachHang")) {
+                            Intent intent = new Intent(GIAM_GIA_HOA_DON_ACTION);
+                            intent.putExtra(GIAM_GIA, object.getInt("giamGia"));
+
+                            LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+                        }
+                        break;
+                    case ORDER_MON_ACTION:
+                        if (KhachHang.getMaKhachHang() == object.getInt("maKhachHang")) {
+                            Intent intent = new Intent(ORDER_MON_ACTION);
+
+                            LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+                        }
+                        break;
+                    case TINH_TIEN_HOA_DON_ACTION:
+                        if (KhachHang.getMaKhachHang() == object.getInt("maKhachHang")) {
+                            Intent intent = new Intent(TINH_TIEN_HOA_DON_ACTION);
+
+                            LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
                         }
                         break;
                     case NOTIFI_ACTION:

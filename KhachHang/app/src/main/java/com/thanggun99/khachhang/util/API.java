@@ -38,6 +38,8 @@ public class API {
     public static final String GET_TIN_TUC_URL = PATH_KHACH_HANG + "GetTinTuc.php";
     public static final String GET_NHOM_MON_URL = PATH_KHACH_HANG + "GetNhomMon.php";
     public static final String GET_MON_URL = PATH_KHACH_HANG + "GetMon.php";
+    public static final String SEND_YEU_CAU_URL = PATH_KHACH_HANG + "SendYeuCau.php";
+    public static final String GET_YEU_CAU_URL = PATH_KHACH_HANG + "GetYeuCau.php";
 
     public static String callService(String url, Map<String, String> getParams) {
         return callService(url, getParams, null);

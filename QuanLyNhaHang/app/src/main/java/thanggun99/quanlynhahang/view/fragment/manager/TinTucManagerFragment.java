@@ -24,7 +24,7 @@ import thanggun99.quanlynhahang.view.fragment.BaseFragment;
 import static android.app.Activity.RESULT_OK;
 
 @SuppressLint("ValidFragment")
-public class TinTucManagerFragment extends BaseFragment implements TinTucManager.TinTucView, View.OnClickListener {
+public class TinTucManagerFragment extends BaseFragment implements TinTucManager.TinTucManagerView, View.OnClickListener {
 
     private Database database;
     private TinTucManager tinTucManager;
@@ -60,14 +60,10 @@ public class TinTucManagerFragment extends BaseFragment implements TinTucManager
     @Override
     public void initComponents() {
         tinTucManager = new TinTucManager(mainPresenter);
-        tinTucManager.setTinTucView(this);
-        tinTucManager.setFragment(this);
 
-        tinTucAdapter = new TinTucAdapter(getContext(), database.getTinTucList(), tinTucManager);
+        tinTucAdapter = new TinTucAdapter(getContext(), tinTucManager);
 
         themTinTucDialog = new ThemTinTucDialog(getContext(), tinTucManager);
-
-        tinTucManager.setThemTinTucDialog(themTinTucDialog);
 
     }
 
@@ -99,6 +95,10 @@ public class TinTucManagerFragment extends BaseFragment implements TinTucManager
         });
 
         btnThemMoi.setOnClickListener(this);
+
+        tinTucManager.setThemTinTucDialog(themTinTucDialog);
+        tinTucManager.setTinTucManagerView(this);
+        tinTucManager.setFragment(this);
 
         tinTucManager.getDatas();
     }
@@ -157,7 +157,6 @@ public class TinTucManagerFragment extends BaseFragment implements TinTucManager
     public void onFinishAddTinTucSuccess() {
         tinTucRecyclerView.scrollToPosition(0);
         tinTucAdapter.notifyItemInserted(0);
-        Utils.notifiOnDialog(Utils.getStringByRes(R.string.them_tin_tuc_thanh_cong));
     }
 
     @Override

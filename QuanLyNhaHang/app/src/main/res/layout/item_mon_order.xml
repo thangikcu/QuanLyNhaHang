@@ -4,25 +4,56 @@
     android:layout_height="wrap_content"
     android:background="@drawable/bg_list_item"
     android:gravity="center_vertical"
-    android:padding="2dp"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:padding="2dp">
 
     <ImageView
         android:id="@+id/iv_mon"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:scaleType="centerCrop"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:padding="2dp"
         android:src="@drawable/ic_food" />
 
-    <TextView
-        android:id="@+id/tv_message"
-        android:layout_width="130dp"
+
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="16dp"
-        android:text="Tranh muối không đường"
-        android:textColor="@color/colorTextTenMon"
-        android:textSize="12sp"
-        android:textStyle="bold" />
+        android:orientation="vertical"
+        android:paddingLeft="8dp">
+
+        <TextView
+            android:id="@+id/tv_ten_mon"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:isScrollContainer="true"
+            android:maxLines="2"
+            android:paddingLeft="8dp"
+            android:scrollbars="vertical"
+            android:text="Tranh muối không Đường"
+            android:textColor="@color/colorTextTenMon"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="center_vertical">
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                style="@style/RatingBar" />
+
+            <TextView
+                android:id="@+id/tv_point_rating"
+                style="@style/CommonTextView"
+                android:paddingLeft="4dp"
+                android:text="(15,3/6)"
+                android:textColor="@color/colorTextInfo"
+                android:textSize="9sp"
+                android:typeface="serif" />
+        </TableRow>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tv_so_luong"
@@ -30,21 +61,21 @@
         android:layout_height="wrap_content"
         android:text="5 ly"
         android:textColor="@color/colorTextInfo"
-        android:textSize="11sp" />
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/tv_don_gia"
-        android:layout_width="52dp"
+        android:layout_width="28dp"
         android:layout_height="wrap_content"
-        android:text="1k"
+        android:text="335k"
         android:textColor="@color/colorTextMoney"
-        android:textSize="11sp"
+        android:textSize="12sp"
         android:textStyle="italic" />
 
     <ImageButton
         android:id="@+id/btn_delete_mon_order"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:background="#00990800"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:background="@android:color/transparent"
         android:src="@drawable/ic_delete" />
 </LinearLayout>

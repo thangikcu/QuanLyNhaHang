@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Bàn 12"
+        android:paddingBottom="16dp"
         android:textColor="@color/colorPrimary"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -62,7 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:paddingTop="16dp">
+        android:paddingTop="8dp">
 
         <TextView
             android:id="@+id/textView"
@@ -97,7 +98,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:paddingTop="16dp"
+        android:paddingTop="8dp"
         android:weightSum="2">
 
         <View
@@ -133,6 +134,7 @@
     </TableRow>
 
     <TableRow
+        android:paddingTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical">

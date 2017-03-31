@@ -22,12 +22,13 @@ public class KhachHangPresenter implements KhachHangInteractor.OnKhachHangFinish
     private ThucDonView thucDonView;
     private LoginView loginView;
     private TinTucView tinTucView;
-    private KhachHangInteractor khachHangInteractor;
     private MainView mainView;
-    private ChangepasswordView changepasswordView;
     private HomeView homeView;
-    private FeedbackView feedbackView;
     private ThongTinPhucVuView thongTinPhucVuView;
+    private ChangepasswordView changepasswordView;
+    private FeedbackView feedbackView;
+
+    private KhachHangInteractor khachHangInteractor;
 
     public KhachHangPresenter(MainView mainView) {
         khachHangInteractor = new KhachHangInteractor(this);
@@ -54,19 +55,64 @@ public class KhachHangPresenter implements KhachHangInteractor.OnKhachHangFinish
     }
 
     //on receive broadcast
-    public void updateThongTinKhachHang(KhachHang khachHangUpdate) {
+    public void updateThongTinKhachHangService(KhachHang khachHangUpdate) {
         khachHangInteractor.updateThongTinKhachHang(khachHangUpdate);
         if (thongTinPhucVuView != null) {
             thongTinPhucVuView.showLayoutThongTinDatBan(khachHangInteractor.getCurrentDatBan());
         }
     }
 
-    public void deleteDatBan() {
+    public void deleteDatBanService() {
         khachHangInteractor.deleteDatBan();
         if (thongTinPhucVuView != null) {
             thongTinPhucVuView.showLayoutDatBan();
         }
     }
+
+    public void taoHoaDonMoiService() {
+        mainView.showThongTinPhucVuFragment();
+
+        khachHangInteractor.deleteYeuCau();
+        reLoadThongTinPhucVu();
+    }
+
+    public void giamGiaHoaDonMoiService(int giamGia) {
+        mainView.showThongTinPhucVuFragment();
+
+        khachHangInteractor.giamGiaHoaDon(giamGia);
+
+        if (thongTinPhucVuView != null) {
+            thongTinPhucVuView.showGiamGia(giamGia);
+            thongTinPhucVuView.showTongTien(khachHangInteractor.getCurrentHoaDon().getTongTien());
+        }
+
+    }
+
+    public void orderMonService() {
+        mainView.showThongTinPhucVuFragment();
+
+        khachHangInteractor.onOrderSuccess();
+
+        if (thongTinPhucVuView != null) {
+            thongTinPhucVuView.notifyListMonOrderChange();
+            thongTinPhucVuView.showTongTien(khachHangInteractor.getCurrentHoaDon().getTongTien());
+
+        }
+
+        khachHangInteractor.deleteYeuCau();
+    }
+
+    public void tinhTienHoaDonService() {
+
+        khachHangInteractor.onTinhTienHoaDon();
+        khachHangInteractor.deleteYeuCau();
+
+        if (thongTinPhucVuView != null) {
+            thongTinPhucVuView.showLayoutDatBan();
+
+        }
+    }
+
 
 
     public void loginAuto() {
@@ -120,10 +166,16 @@ public class KhachHangPresenter implements KhachHangInteractor.OnKhachHangFinish
 
     public void logout() {
         khachHangInteractor.logout();
-        loginView.showFormLogin();
         mainView.showViewOnUnlogin();
         mainView.setNullFragments();
-        homeView.showTabThucDon();
+        if (loginView != null) {
+
+            loginView.showFormLogin();
+        }
+        if (homeView != null) {
+
+            homeView.showTabThucDon();
+        }
     }
 
     @Override
@@ -206,6 +258,19 @@ public class KhachHangPresenter implements KhachHangInteractor.OnKhachHangFinish
 
     //get thong tin phuc vu
     public void getThongTinPhucVu() {
+        if (getKhachHang().getCurrentHoaDon() != null) {
+            thongTinPhucVuView.showLayoutPhucVu(khachHangInteractor.getKhachHang().getCurrentHoaDon());
+            thongTinPhucVuView.showTongTien(khachHangInteractor.getKhachHang().getCurrentHoaDon().getTongTien());
+        } else if (getKhachHang().getCurrentDatBan() != null) {
+            thongTinPhucVuView.showLayoutThongTinDatBan(khachHangInteractor.getKhachHang().getCurrentDatBan());
+
+        } else {
+            thongTinPhucVuView.showLayoutDatBan();
+
+        }
+    }
+
+    public void reLoadThongTinPhucVu() {
         khachHangInteractor.getThongTinPhucVu();
     }
 
@@ -315,11 +380,12 @@ public class KhachHangPresenter implements KhachHangInteractor.OnKhachHangFinish
     }
 
     public void loadThucDonList() {
-        if (checkConnect()) {
-            if (getDatabase().getMonList() == null) {
-
+        if (getDatabase().getMonList() == null) {
+            if (checkConnect()) {
                 khachHangInteractor.loadThucDonList();
             }
+        } else {
+            thucDonView.showThucDon();
         }
 
     }
@@ -360,13 +426,28 @@ public class KhachHangPresenter implements KhachHangInteractor.OnKhachHangFinish
     }
 
     public void orderMon(int soLuong) {
+        if (checkConnect()) {
 
+            khachHangInteractor.orderMon(soLuong);
+        }
     }
 
 
     public boolean checkLogin() {
         return khachHangInteractor.isLogin();
     }
+
+    public void onClickTinhTien() {
+        thongTinPhucVuView.showTinhTienDialog(khachHangInteractor.getCurrentHoaDon());
+    }
+
+    public void tinhTien() {
+        if (checkConnect()) {
+
+            khachHangInteractor.tinhTien();
+        }
+    }
+
 
     public interface ThucDonView {
 
@@ -414,6 +495,7 @@ public class KhachHangPresenter implements KhachHangInteractor.OnKhachHangFinish
 
         void showHomeFragment();
 
+        void showThongTinPhucVuFragment();
     }
 
     public interface ChangepasswordView {
@@ -441,8 +523,6 @@ public class KhachHangPresenter implements KhachHangInteractor.OnKhachHangFinish
 
         void showOnSuccess();
 
-        void showGetDatasFailDialog();
-
         void showLayoutThongTinDatBan(DatBan datBan);
 
         void showLayoutDatBan();
@@ -464,5 +544,13 @@ public class KhachHangPresenter implements KhachHangInteractor.OnKhachHangFinish
         void showThongTinDatBanDialog(DatBan datBan);
 
         void showOrderMonDialog(MonOrder monOrder);
+
+        void showGetDatasFailDialog();
+
+        void showGiamGia(int giamGia);
+
+        void notifyListMonOrderChange();
+
+        void showTinhTienDialog(HoaDon currentHoaDon);
     }
 }

@@ -32,11 +32,6 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.ViewHolder> {
     }
 
     @Override
-    public int getItemViewType(int position) {
-        return banList.get(position).getSelected();
-    }
-
-    @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_ban, parent, false));
@@ -46,13 +41,15 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         Ban ban = banList.get(position);
 
-        if (getItemViewType(position) == 1) {
-            holder.tvBan.setSelected(true);
-        }
-
         holder.tvBan.setText(ban.getTenBan());
 
         holder.tvBan.setBackgroundResource(ban.getIdResBgBan());
+
+        if (ban.getSelected()) {
+            holder.tvBan.setSelected(true);
+        } else {
+            holder.tvBan.setSelected(false);
+        }
 
     }
 
@@ -67,11 +64,14 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.ViewHolder> {
     }
 
     public void changeSelectBan(Ban ban) {
-        banSelected.setSelected(0);
-        ban.setSelected(1);
-
+        banSelected.setSelected(false);
         notifyItemChanged(banList.indexOf(banSelected));
+
+        ban.setSelected(true);
         notifyItemChanged(banList.indexOf(ban));
+
+        banSelected = ban;
+
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -85,15 +85,15 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.ViewHolder> {
                 @Override
                 public void onClick(View v) {
                     Ban ban = banList.get(getAdapterPosition());
-                    if (ban.getSelected() == 1) {
+                    if (ban.getSelected()) {
 
                         return;
                     }
 
-                    banSelected.setSelected(0);
+                    banSelected.setSelected(false);
                     notifyItemChanged(banList.indexOf(banSelected));
 
-                    ban.setSelected(1);
+                    ban.setSelected(true);
                     notifyItemChanged(getAdapterPosition());
 
                     banSelected = ban;

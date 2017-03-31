@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_list_item"
+    android:orientation="horizontal"
+    android:paddingLeft="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingTop="16dp">
+
+        <TextView
+            android:id="@+id/tv_ten_khach_hang"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:isScrollContainer="true"
+            android:maxLines="2"
+            android:scrollbars="horizontal"
+            android:text="Trần Văn Thắng"
+            android:textColor="@color/colorTextTenMon"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="8dp"
+            android:paddingLeft="32dp"
+            android:paddingTop="8dp">
+
+            <TextView
+                android:id="@+id/tv_gio_den"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:text="04:13 AM - 05/03/2017"
+                android:textColor="@color/colorTextInfo"
+                android:textSize="11sp" />
+
+            <ImageButton
+                android:id="@+id/btn_update_dat_ban"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_edit" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <ImageButton
+        android:id="@+id/btn_delete_dat_ban"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignParentRight="true"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_delete" />
+</RelativeLayout>

@@ -17,7 +17,7 @@ public class TinTucManager {
 
     private Database database;
     private MainPresenter mainPresenter;
-    private TinTucView tinTucView;
+    private TinTucManagerView tinTucManagerView;
     private TinTucManagerFragment fragment;
     private TinTuc currentTinTuc;
     private ThemTinTucDialog themTinTucDialog;
@@ -44,9 +44,9 @@ public class TinTucManager {
             @Override
             protected void onPostExecute(Boolean aBoolean) {
                 if (aBoolean) {
-                    tinTucView.onFinishGetDatas();
+                    tinTucManagerView.onFinishGetDatas();
                 } else {
-                    tinTucView.onGetDatasFail();
+                    tinTucManagerView.onGetDatasFail();
                 }
                 mainPresenter.onFinishTask();
             }
@@ -68,8 +68,8 @@ public class TinTucManager {
         }
     }
 
-    public void setTinTucView(TinTucView tinTucView) {
-        this.tinTucView = tinTucView;
+    public void setTinTucManagerView(TinTucManagerView tinTucManagerView) {
+        this.tinTucManagerView = tinTucManagerView;
     }
 
     public ArrayList<TinTuc> findDatBan(String keyWord) {
@@ -107,9 +107,9 @@ public class TinTucManager {
             protected void onPostExecute(Boolean aBoolean) {
                 if (aBoolean) {
                     database.addTinTuc(tinTuc);
-                    tinTucView.onFinishAddTinTucSuccess();
+                    tinTucManagerView.onFinishAddTinTucSuccess();
                 } else {
-                    tinTucView.onAddTinTucFail();
+                    tinTucManagerView.onAddTinTucFail();
                 }
                 mainPresenter.onFinishTask();
             }
@@ -140,9 +140,9 @@ public class TinTucManager {
             protected void onPostExecute(Boolean aBoolean) {
                 if (aBoolean) {
                     database.deleteTinTuc(tinTuc);
-                    tinTucView.onFinishDeleteTinTucSuccess();
+                    tinTucManagerView.onFinishDeleteTinTucSuccess();
                 } else {
-                    tinTucView.onDeleteTinTucFail();
+                    tinTucManagerView.onDeleteTinTucFail();
                 }
                 mainPresenter.onFinishTask();
             }
@@ -173,9 +173,9 @@ public class TinTucManager {
             @Override
             protected void onPostExecute(Boolean aBoolean) {
                 if (aBoolean) {
-                    tinTucView.onFinishUpdateTinTuc();
+                    tinTucManagerView.onFinishUpdateTinTuc();
                 } else {
-                    tinTucView.onUpdateTinTucFail();
+                    tinTucManagerView.onUpdateTinTucFail();
                 }
                 mainPresenter.onFinishTask();
             }
@@ -203,7 +203,11 @@ public class TinTucManager {
         this.themTinTucDialog = themTinTucDialog;
     }
 
-    public interface TinTucView {
+    public ArrayList<TinTuc> getTinTucList() {
+        return database.getTinTucList();
+    }
+
+    public interface TinTucManagerView {
 
         void onFinishGetDatas();
 

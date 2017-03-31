@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import thanggun99.quanlynhahang.model.entity.Ban;
 import thanggun99.quanlynhahang.model.entity.DatBan;
 import thanggun99.quanlynhahang.model.entity.KhachHang;
+import thanggun99.quanlynhahang.model.entity.YeuCau;
 import thanggun99.quanlynhahang.util.Utils;
 
 /**
@@ -25,10 +26,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public static final String UPDATE_DAT_BAN_ACTION = "UPDATE_DAT_BAN_ACTION";
     public static final String KHACH_VAO_BAN_ACTION = "KHACH_VAO_BAN_ACTION";
     public static final String KHACH_HANG_REGISTER_ACTION = "KHACH_HANG_REGISTER_ACTION";
+    public static final String KHACH_HANG_YEU_CAU_ACTION = "KHACH_HANG_YEU_CAU_ACTION";
     public static final String LOGOUT_ACTION = "LOGOUT_ACTION";
 
     public static final String DAT_BAN = "DAT_BAN";
     public static final String KHACH_HANG = "KHACH_HANG";
+    public static final String YEU_CAU = "YEU_CAU";
     public static final String MA_DAT_BAN = "MA_DAT_BAN";
     public static final String TEN_KHACH_HANG = "TEN_KHACH_HANG";
 
@@ -66,7 +69,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         }
 
 
-                        datBan.setTrangThai(0);
+                        datBan.setTrangThai(DatBan.CHUA_TINH_TIEN);
                         datBan.setMaDatBan(object.getInt("maDatBan"));
                         datBan.setGioDen(object.getString("gioDen"));
                         if (!object.isNull("yeuCau")) {
@@ -142,6 +145,18 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         khachVaoBanIntent.putExtra(DAT_BAN, datBanVaoBan);
 
                         LocalBroadcastManager.getInstance(this).sendBroadcast(khachVaoBanIntent);
+                        break;
+                    case KHACH_HANG_YEU_CAU_ACTION:
+                        Intent khachHangYeuCauIntent = new Intent(KHACH_HANG_YEU_CAU_ACTION);
+                        YeuCau yeuCau = new YeuCau();
+                        yeuCau.setThoiGian(object.getString("thoiGian"));
+                        yeuCau.setKhachHang(new KhachHang(object.getInt("maKhachHang")));
+                        yeuCau.setYeuCauJson(object.getString("yeuCau"));
+
+                        khachHangYeuCauIntent.putExtra(TEN_KHACH_HANG, object.getString("tenKhachHang"));
+                        khachHangYeuCauIntent.putExtra(YEU_CAU, yeuCau);
+
+                        LocalBroadcastManager.getInstance(this).sendBroadcast(khachHangYeuCauIntent);
                         break;
                     case LOGOUT_ACTION:
                         LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(LOGOUT_ACTION));
