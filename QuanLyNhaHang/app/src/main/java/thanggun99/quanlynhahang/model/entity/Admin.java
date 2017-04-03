@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import thanggun99.quanlynhahang.App;
+import thanggun99.quanlynhahang.model.LoginTask;
 import thanggun99.quanlynhahang.util.API;
 import thanggun99.quanlynhahang.util.Utils;
 
@@ -20,10 +21,11 @@ import thanggun99.quanlynhahang.util.Utils;
 
 public class Admin extends Person implements Serializable{
 
+    public static final String ADMIN = "ADMIN";
     public static final String USERNAME = "USERNAME";
     public static final String PASSWORD = "PASSWORD";
 
-    private int maAdmin;
+    private static int maAdmin;
     private static int maToken;
     private int type;
     private boolean ghiNho;
@@ -75,11 +77,11 @@ public class Admin extends Person implements Serializable{
         String s = API.callService(API.LOGIN_URL, null, postParams);
         if (!TextUtils.isEmpty(s)) {
             if (s.contains("fail")) {
-                return "fail";
+                return LoginTask.FAIL;
 
             } else if (s.contains("other")) {
                 huyGhiNhoDangNhap();
-                return "other";
+                return LoginTask.OTHER;
             } else {
                 try {
                     JSONObject jsonObject = new JSONObject(s);
@@ -93,17 +95,17 @@ public class Admin extends Person implements Serializable{
                     if (ghiNho) {
                         ghiNhoDangNhap();
                     }
-                    return "success";
+                    return LoginTask.SUCCESS;
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         }
-        return "fail";
+        return LoginTask.FAIL;
     }
 
-    public int getMaAdmin() {
+    public static int getMaAdmin() {
         return maAdmin;
     }
 

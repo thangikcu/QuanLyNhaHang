@@ -6,10 +6,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
 
 import thanggun99.quanlynhahang.R;
-import thanggun99.quanlynhahang.model.Database;
 import thanggun99.quanlynhahang.presenter.MainPresenter;
 import thanggun99.quanlynhahang.view.fragment.manager.BanManagerFragment;
 import thanggun99.quanlynhahang.view.fragment.manager.KhachHangManagerFragment;
@@ -21,7 +19,6 @@ import thanggun99.quanlynhahang.view.fragment.manager.TinTucManagerFragment;
 @SuppressLint("ValidFragment")
 public class ManagerFragment extends BaseFragment implements View.OnClickListener {
     private Button btnSelected, btnQlTinTuc, btnQlBan, btnQlMon, btnQlLoaiMon, btnQlNhanVien, btnQlKhachHang;
-    private FrameLayout frameLayout;
 
     private Fragment fragmentIsShow;
     private TinTucManagerFragment tinTucManagerFragment;
@@ -32,32 +29,28 @@ public class ManagerFragment extends BaseFragment implements View.OnClickListene
     private KhachHangManagerFragment khachHangManagerFragment;
 
     private MainPresenter mainPresenter;
-    private Database database;
 
     public ManagerFragment(MainPresenter mainPresenter) {
         super(R.layout.fragment_manager);
         this.mainPresenter = mainPresenter;
-        this.database = mainPresenter.getDatabase();
     }
 
     @Override
     public void findViews(View view) {
-        frameLayout = (FrameLayout) view.findViewById(R.id.frame);
 
-        btnSelected = new Button(getContext());
         btnQlBan = (Button) view.findViewById(R.id.btn_ql_ban);
         btnQlLoaiMon = (Button) view.findViewById(R.id.btn_ql_loai_mon);
         btnQlNhanVien = (Button) view.findViewById(R.id.btn_ql_nhan_vien);
         btnQlMon = (Button) view.findViewById(R.id.btn_ql_thuc_don);
         btnQlTinTuc = (Button) view.findViewById(R.id.btn_ql_tin_tuc);
         btnQlKhachHang = (Button) view.findViewById(R.id.btn_ql_khach_hang);
+
+        btnSelected = btnQlTinTuc;
     }
 
     @Override
     public void initComponents() {
-        //tinTucManagerFragment = new TinTucManagerFragment(mainPresenter);
-        monManagerFragment = new MonManagerFragment(mainPresenter);
-
+        tinTucManagerFragment = new TinTucManagerFragment(mainPresenter);
 
     }
 
@@ -70,8 +63,7 @@ public class ManagerFragment extends BaseFragment implements View.OnClickListene
         btnQlBan.setOnClickListener(this);
         btnQlKhachHang.setOnClickListener(this);
 
-//        fillFrame(tinTucManagerFragment, btnQlTinTuc);
-        fillFrame(monManagerFragment, btnQlMon);
+        fillFrame(tinTucManagerFragment, btnQlTinTuc);
     }
 
     @Override
@@ -102,8 +94,12 @@ public class ManagerFragment extends BaseFragment implements View.OnClickListene
                 fillFrame(monManagerFragment, btnQlMon);
                 break;
             case R.id.btn_ql_tin_tuc:
-                if (tinTucManagerFragment == null)
+                if (tinTucManagerFragment == null) {
+
                     tinTucManagerFragment = new TinTucManagerFragment(mainPresenter);
+                } else {
+                    tinTucManagerFragment.getData();
+                }
 
                 fillFrame(tinTucManagerFragment, btnQlTinTuc);
                 break;

@@ -1,6 +1,7 @@
 package com.thanggun99.khachhang.presenter;
 
 
+import com.thanggun99.khachhang.R;
 import com.thanggun99.khachhang.model.Database;
 import com.thanggun99.khachhang.model.KhachHangInteractor;
 import com.thanggun99.khachhang.model.entity.DatBan;
@@ -432,6 +433,15 @@ public class KhachHangPresenter implements KhachHangInteractor.OnKhachHangFinish
         }
     }
 
+    @Override
+    public void onFinishSendYeuCau() {
+        mainView.showNotify(Utils.getStringByRes(R.string.da_gui_yeu_cau));
+    }
+
+    @Override
+    public void onSendYeuCauFail() {
+        mainView.showNotify(Utils.getStringByRes(R.string.gui_yeu_cau_that_bai));
+    }
 
     public boolean checkLogin() {
         return khachHangInteractor.isLogin();
@@ -496,6 +506,8 @@ public class KhachHangPresenter implements KhachHangInteractor.OnKhachHangFinish
         void showHomeFragment();
 
         void showThongTinPhucVuFragment();
+
+        void showNotify(String message);
     }
 
     public interface ChangepasswordView {

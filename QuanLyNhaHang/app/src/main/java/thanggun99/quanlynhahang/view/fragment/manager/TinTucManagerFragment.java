@@ -42,12 +42,8 @@ public class TinTucManagerFragment extends BaseFragment implements TinTucManager
         this.mainPresenter = mainPresenter;
     }
 
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        if (!hidden) {
-            tinTucManager.getDatas();
-        }
+    public void getData() {
+        tinTucManager.getDatas();
     }
 
     @Override

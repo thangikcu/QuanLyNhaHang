@@ -1,8 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:id="@+id/layout_thong_tin_dat_ban"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:orientation="vertical"
+    android:padding="16dp">
+
     <TextView
-        android:text="@string/thong_ke"
-       style="@style/CommonTextView"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="8dp"
+        android:text="@string/thong_tin"
+        android:textColor="@color/colorPrimary"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorPrimary" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/CommonTextView"
+                    android:text="@string/info_so_luong_hoa_don_chua_thanh_toan"
+                    android:textColor="@color/colorTextField"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_so_luong_hoa_don_chua_tinh_tien"
+                    style="@style/CommonTextView"
+                    android:paddingLeft="16dp"
+                    android:text="20"
+                    android:textColor="@color/colorTextInfo" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp">
+
+                <TextView
+                    style="@style/CommonTextView"
+                    android:text="@string/info_so_luong_hoa_don_thanh_toan"
+                    android:textColor="@color/colorTextField"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_so_luong_hoa_don_tinh_tien"
+                    style="@style/CommonTextView"
+                    android:paddingLeft="16dp"
+                    android:text="20"
+                    android:textColor="@color/colorTextInfo" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp">
+
+                <TextView
+                    style="@style/CommonTextView"
+                    android:text="@string/info_tong_tien_thu_ve"
+                    android:textColor="@color/colorTextField"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_tong_tien"
+                    style="@style/CommonTextView"
+                    android:paddingLeft="16dp"
+                    android:text="20"
+                    android:textColor="@color/colorTextInfo" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="8dp">
+
+                <TextView
+                    style="@style/CommonTextView"
+                    android:layout_width="wrap_content"
+                    android:text="@string/info_so_luong_dat_ban"
+                    android:textColor="@color/colorTextField"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_so_luong_ban_dat_truoc"
+                    style="@style/CommonTextView"
+                    android:paddingLeft="16dp"
+                    android:text="9"
+                    android:textColor="@color/colorTextInfo" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="8dp">
+
+                <TextView
+                    style="@style/CommonTextView"
+                    android:layout_width="wrap_content"
+                    android:text="@string/info_so_luong_khach_hang"
+                    android:textColor="@color/colorTextField"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_so_luong_khach_hang"
+                    style="@style/CommonTextView"
+                    android:paddingLeft="16dp"
+                    android:text="9"
+                    android:textColor="@color/colorTextInfo" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp">
+
+                <TextView
+                    style="@style/CommonTextView"
+                    android:text="@string/info_so_luong_nhom_mon"
+                    android:textColor="@color/colorTextField"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_so_luong_nhom_mon"
+                    style="@style/CommonTextView"
+                    android:layout_width="200dp"
+                    android:gravity="center_vertical"
+                    android:isScrollContainer="true"
+                    android:maxLines="4"
+                    android:paddingLeft="16dp"
+                    android:scrollbars="vertical"
+                    android:text="9"
+                    android:textColor="@color/colorTextInfo" />
+
+            </TableRow>
+
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp">
+
+                <TextView
+                    style="@style/CommonTextView"
+                    android:text="@string/info_so_luong_mon"
+                    android:textColor="@color/colorTextField"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_so_luong_mon"
+                    style="@style/CommonTextView"
+                    android:paddingLeft="16dp"
+                    android:text="50"
+                    android:textColor="@color/colorTextInfo" />
+
+            </TableRow>
+
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

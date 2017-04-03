@@ -24,7 +24,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button btnLogin;
     private LoginTask loginTask;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +72,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Admin admin = new Admin();
                 admin.setTenDangNhap(edtUsername.getText().toString().trim());
                 admin.setMatKhau(edtPassword.getText().toString().trim());
-                admin.setKieuDangNhap("notAuto");
+                admin.setKieuDangNhap(LoginTask.NOT_AUTO);
                 admin.setGhiNho(ckbGhiNho.isChecked());
 
                 loginTask.login(admin);
@@ -86,7 +85,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onLoginSuccess() {
         finish();
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra(LoginTask.ADMIN, loginTask.getAdmin());
+        intent.putExtra(Admin.ADMIN, loginTask.getAdmin());
         startActivity(intent);
     }
 

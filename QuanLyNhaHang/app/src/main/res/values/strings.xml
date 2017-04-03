@@ -150,4 +150,13 @@
     <string name="them_mon_that_bai">Thêm món thất bại !</string>
     <string name="xoa_mon_that_bai">Xoá món thất bại !</string>
     <string name="update_mon_that_bai">Cập nhật món thất bại !</string>
+    <string name="thong_tin">Thông tin</string>
+    <string name="info_so_luong_khach_hang">Số khách hàng đăng ký:</string>
+    <string name="info_so_luong_hoa_don_thanh_toan">Số hoá đơn tính tiền:</string>
+    <string name="info_so_luong_mon">Số lượng món:</string>
+    <string name="info_so_luong_nhom_mon">Số lượng nhóm món:</string>
+    <string name="info_tong_tien_thu_ve">Tổng tiền thu về:</string>
+    <string name="info_so_luong_hoa_don_chua_thanh_toan">Số hoá đơn chưa tính tiền:</string>
+    <string name="info_so_luong_dat_ban">Số lượng đặt trước:</string>
+    <string name="info_so_luong_tin_tuc">Số tin tức:</string>
 </resources>

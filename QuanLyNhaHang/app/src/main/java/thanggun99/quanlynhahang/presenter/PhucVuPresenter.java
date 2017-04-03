@@ -155,10 +155,12 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
 
         YeuCau yeuCau = getDatabase().getYeuCauByMaKhachHang(yeuCauNew.getKhachHang().getMaKhachHang());
         if (yeuCau != null) {
+
             yeuCau.update(yeuCauNew);
             yeuCauView.notifyYeuCauChange(yeuCau);
 
         } else {
+
             getDatabase().addYeuCau(yeuCauNew);
             yeuCauView.notifyAddYeuCau();
             showOnMain.showFloatButton();
@@ -381,6 +383,7 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
     //sua dat ban chua set ban
     public void onClickUpdateDatBanChuaSetBan(DatBan datBan) {
         phucVuInteractor.setCurrentDatBanChuaSetBan(datBan);
+        datBanView.clearFormDatBan();
         datBanView.fillFormUpdateDatBanChuaSetBan(datBan);
     }
 

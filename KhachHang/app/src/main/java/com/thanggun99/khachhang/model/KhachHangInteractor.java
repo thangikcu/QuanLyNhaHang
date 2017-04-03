@@ -12,7 +12,6 @@ import com.thanggun99.khachhang.model.entity.MonOrder;
 import com.thanggun99.khachhang.model.entity.MonYeuCau;
 import com.thanggun99.khachhang.model.entity.YeuCau;
 import com.thanggun99.khachhang.util.API;
-import com.thanggun99.khachhang.util.Utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -371,9 +370,9 @@ public class KhachHangInteractor {
         @Override
         protected void onPostExecute(Boolean aBoolean) {
             if (aBoolean) {
-                Utils.showLog("gui yeu cau thanh cong");
+                onKhachHangFinishedListener.onFinishSendYeuCau();
             } else {
-                Utils.showLog("gui yeu cau that bai");
+                onKhachHangFinishedListener.onSendYeuCauFail();
             }
             onKhachHangFinishedListener.onFinishTask();
             super.onPostExecute(aBoolean);
@@ -565,6 +564,10 @@ public class KhachHangInteractor {
         void onFinishGetThongTinKhachHangPhucVu();
 
         void onFinishGetThongTinKhachHangDatBan();
+
+        void onFinishSendYeuCau();
+
+        void onSendYeuCauFail();
     }
 
 }

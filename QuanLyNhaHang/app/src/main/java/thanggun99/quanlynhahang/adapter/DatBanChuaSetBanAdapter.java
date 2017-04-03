@@ -18,7 +18,6 @@ import thanggun99.quanlynhahang.presenter.PhucVuPresenter;
 
 public class DatBanChuaSetBanAdapter extends RecyclerView.Adapter<DatBanChuaSetBanAdapter.ViewHolder> {
 
-
     private ArrayList<DatBan> datBanChuaSetBanList;
     private PhucVuPresenter phucVuPresenter;
     private int currentPosition;

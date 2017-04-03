@@ -25,7 +25,6 @@ import android.widget.TextView;
 import thanggun99.quanlynhahang.R;
 import thanggun99.quanlynhahang.interfaces.CommondActionForView;
 import thanggun99.quanlynhahang.model.Database;
-import thanggun99.quanlynhahang.model.LoginTask;
 import thanggun99.quanlynhahang.model.entity.Admin;
 import thanggun99.quanlynhahang.model.entity.DatBan;
 import thanggun99.quanlynhahang.model.entity.KhachHang;
@@ -82,7 +81,6 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
         public void onReceive(Context context, Intent intent) {
             switch (intent.getAction()) {
                 case MyFirebaseMessagingService.DAT_BAN_ACTION:
-                    Utils.showLog("dat ban new");
                     if (phucVuPresenter != null) {
                         DatBan datBan = (DatBan) intent.getSerializableExtra(MyFirebaseMessagingService.DAT_BAN);
 
@@ -101,7 +99,6 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
                     }
                     break;
                 case MyFirebaseMessagingService.UPDATE_DAT_BAN_ACTION:
-                    Utils.showLog("Update Dat ban service");
                     if (phucVuPresenter != null) {
                         DatBan datBanUpdate = (DatBan) intent.getSerializableExtra(MyFirebaseMessagingService.DAT_BAN);
 
@@ -112,7 +109,6 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
                     }
                     break;
                 case MyFirebaseMessagingService.KHACH_VAO_BAN_ACTION:
-                    Utils.showLog("Khach vao ban");
                     if (phucVuPresenter != null) {
                         DatBan datBanVaoBan = (DatBan) intent.getSerializableExtra(MyFirebaseMessagingService.DAT_BAN);
 
@@ -122,8 +118,6 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
                     }
                     break;
                 case MyFirebaseMessagingService.KHACH_HANG_REGISTER_ACTION:
-                    Utils.showLog("khach hang dang ky tai khoan");
-
                     if (database != null) {
                         KhachHang khachHang = (KhachHang) intent.getSerializableExtra(MyFirebaseMessagingService.KHACH_HANG);
                         Utils.showLog(khachHang.getMaKhachHang() + khachHang.getHoTen() + khachHang.getDiaChi()
@@ -160,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        admin = (Admin) getIntent().getSerializableExtra(LoginTask.ADMIN);
+        admin = (Admin) getIntent().getSerializableExtra(Admin.ADMIN);
 
         findViews(null);
         initComponents();
@@ -172,7 +166,6 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
     @Override
     protected void onDestroy() {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
-        Utils.showLog("onDestroy");
 
         if (notifiDialog != null) {
             notifiDialog.cancel();
@@ -182,6 +175,9 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
         }
         if (errorDialog != null) {
             errorDialog.cancel();
+        }
+        if (khachHangYeuCauDialog != null) {
+            khachHangYeuCauDialog.cancel();
         }
         super.onDestroy();
     }
@@ -196,8 +192,8 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
         btnThongKe = (Button) findViewById(R.id.btn_thong_ke);
         btnDatBan = (Button) findViewById(R.id.btn_dat_ban);
         btnSetting = (Button) findViewById(R.id.btn_setting);
-        //btnSelected = btnHome;
-        btnSelected = new Button(this);
+
+        btnSelected = btnPhucVu;
     }
 
     @Override
@@ -258,7 +254,6 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
             }
         });
 
-        //btnHome.setSelected(true);
         btnPhucVu.setOnClickListener(this);
         btnManage.setOnClickListener(this);
         btnThongKe.setOnClickListener(this);
@@ -288,7 +283,12 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
                 fillFrame(managerFragment, btnManage);
                 break;
             case R.id.btn_thong_ke:
-                if (thongKeFragment == null) thongKeFragment = new ThongKeFragment();
+                if (thongKeFragment == null) {
+
+                    thongKeFragment = new ThongKeFragment(database);
+                } else {
+                    thongKeFragment.showInfo();
+                }
                 fillFrame(thongKeFragment, btnThongKe);
                 break;
             case R.id.btn_dat_ban:
@@ -377,7 +377,6 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
                 wm.updateViewLayout(layoutFloat, params);
             }
         }
-
     }
 
     @Override
@@ -386,7 +385,6 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
             isShowFloatButton = false;
             wm.removeView(layoutFloat);
         }
-
     }
 
     @Override
@@ -417,25 +415,6 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
         fillFrame(phucVuFragment, btnPhucVu);
     }
 
-    @Override
-    protected void onPause() {
-        if (isShowFloatButton) {
-
-            wm.removeView(layoutFloat);
-        }
-        fragmentIsShow.onPause();
-        super.onPause();
-    }
-
-    @Override
-    protected void onResume() {
-        if (isShowFloatButton) {
-
-            wm.addView(layoutFloat, params);
-        }
-        super.onResume();
-    }
-
     private void fillFrame(final Fragment fragment, Button button) {
         if (button.isSelected()) return;
 
@@ -457,6 +436,7 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
         }
         transaction.commitAllowingStateLoss();
         fragmentIsShow = fragment;
+        fragmentIsShow.onResume();
 
     }
 
