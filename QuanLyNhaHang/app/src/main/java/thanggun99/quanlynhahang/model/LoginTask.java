@@ -15,7 +15,12 @@ import thanggun99.quanlynhahang.view.dialog.NotifiDialog;
  */
 
 public class LoginTask {
-    public static final String ADMIN = "ADMIN";
+    private static final String AUTO = "AUTO";
+    public static final String NOT_AUTO = "NOT_AUTO";
+
+    public static final String FAIL = "FAIL";
+    public static final String OTHER = "OTHER";
+    public static final String SUCCESS = "SUCCESS";
 
     private OnFinishLoginListener onFinishLoginListener;
 
@@ -39,7 +44,7 @@ public class LoginTask {
             if (admin.isGhiNhoDangNhap()) {
                 admin.setTenDangNhap(App.getPreferences().getString(Admin.USERNAME, null));
                 admin.setMatKhau(App.getPreferences().getString(Admin.PASSWORD, null));
-                admin.setKieuDangNhap("auto");
+                admin.setKieuDangNhap(AUTO);
 
                 new LoginAsyncTask().execute();
             }
@@ -47,7 +52,6 @@ public class LoginTask {
         } else {
             notifiDialog.notifi(Utils.getStringByRes(R.string.kiem_tra_ket_noi_mang));
         }
-
     }
 
     public void login(Admin admin) {
@@ -73,9 +77,9 @@ public class LoginTask {
 
         @Override
         protected void onPostExecute(String s) {
-            if (s.equals("success")) {
+            if (s.equals(SUCCESS)) {
                 onFinishLoginListener.onLoginSuccess();
-            } else if (s.equals("other")) {
+            } else if (s.equals(OTHER)) {
                 onFinishLoginListener.onOtherLogin();
             } else {
                 onFinishLoginListener.onLoginFail();

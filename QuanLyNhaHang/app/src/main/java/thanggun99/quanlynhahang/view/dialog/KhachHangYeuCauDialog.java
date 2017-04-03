@@ -44,7 +44,6 @@ public class KhachHangYeuCauDialog extends BaseDialog implements PhucVuPresenter
         super(context);
         this.context = context;
         this.phucVuPresenter = phucVuPresenter;
-        phucVuPresenter.setYeuCauView(this);
         setContentView(R.layout.dialog_khach_hang_yeu_cau);
         getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
         setCancelable(true);
@@ -84,6 +83,8 @@ public class KhachHangYeuCauDialog extends BaseDialog implements PhucVuPresenter
 
         yeuCauRecyclerView = (RecyclerView) yeuCauLayout.findViewById(R.id.list_yeu_cau);
         yeuCauRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+
+        phucVuPresenter.setYeuCauView(this);
 
     }
 
@@ -152,23 +153,31 @@ public class KhachHangYeuCauDialog extends BaseDialog implements PhucVuPresenter
 
     @Override
     public void notifyDatachange() {
-        yeuCauAdapter.notifyDataSetChanged();
+        if (yeuCauAdapter != null) {
+
+            yeuCauAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
     public void notifyYeuCauChange(YeuCau yeuCau) {
-        yeuCauAdapter.notifyItemChanged(yeuCau);
+        if (yeuCauAdapter != null) {
 
-        chiTietYeuCauLayout.setVisibility(View.GONE);
-        yeuCauLayout.setVisibility(View.VISIBLE);
+            yeuCauAdapter.notifyItemChanged(yeuCau);
+            chiTietYeuCauLayout.setVisibility(View.GONE);
+            yeuCauLayout.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
     public void notifyRemoveYeuCau(YeuCau yeuCau) {
-        yeuCauAdapter.notifyItemRemoved(yeuCau);
+        if (yeuCauAdapter != null) {
 
-        chiTietYeuCauLayout.setVisibility(View.GONE);
-        yeuCauLayout.setVisibility(View.VISIBLE);
+            yeuCauAdapter.notifyItemRemoved(yeuCau);
+            chiTietYeuCauLayout.setVisibility(View.GONE);
+            yeuCauLayout.setVisibility(View.VISIBLE);
+        }
+
     }
 
     @Override

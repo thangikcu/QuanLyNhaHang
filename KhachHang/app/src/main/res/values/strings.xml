@@ -122,4 +122,6 @@
     <string name="tien_mon">Tiền món:</string>
     <string name="tien_giam_gia">Tiền giảm giá:</string>
     <string name="da_tinh_tien">Cảm ơn bạn đã đến với nhà hàng</string>
+    <string name="da_gui_yeu_cau">Đã gửi yêu cầu, vui lòng đợi xác nhận !</string>
+    <string name="gui_yeu_cau_that_bai">Gửi yêu cầu thất bại !</string>
 </resources>

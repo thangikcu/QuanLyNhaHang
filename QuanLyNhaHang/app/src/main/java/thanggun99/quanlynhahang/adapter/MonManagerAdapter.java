@@ -26,7 +26,6 @@ import thanggun99.quanlynhahang.view.dialog.ThemMonDialog;
 
 public class MonManagerAdapter extends RecyclerView.Adapter<MonManagerAdapter.ViewHolder> {
 
-
     private ArrayList<Mon> monList;
     private int currentPosition;
     private MonManager monManager;
@@ -155,6 +154,7 @@ public class MonManagerAdapter extends RecyclerView.Adapter<MonManagerAdapter.Vi
                 case R.id.btn_update:
                     ThemMonDialog themMonDialog = monManager.getThemMonDialog();
                     monManager.setCurrentMon(monList.get(currentPosition));
+                    themMonDialog.clear();
                     themMonDialog.fillContent(monList.get(currentPosition));
                     themMonDialog.show();
                     break;

@@ -45,7 +45,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 String action = object.getString("action");
                 switch (action) {
                     case LOGOUT_ACTION:
-                        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(LOGOUT_ACTION));
+                        if (KhachHang.getMaKhachHang() == object.getInt("maKhachHang")) {
+
+                            LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(LOGOUT_ACTION));
+                        }
                         break;
                     case UPDATE_DAT_BAN_ACTION:
                         if (KhachHang.getMaKhachHang() == object.getInt("maKhachHang")) {

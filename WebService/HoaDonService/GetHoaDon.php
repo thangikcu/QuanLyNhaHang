@@ -8,7 +8,7 @@ function dispInfo()
 
     $response["hoaDon"] = array();
 
-    $db->prepare('Select * From hoa_don Where TrangThai = 0 ORDER BY MaHoaDon DESC');
+    $db->prepare('Select * From hoa_don ORDER BY MaHoaDon DESC');
 
     foreach ($db->getArray() as $row) {
         $t = array();

@@ -1,8 +1,7 @@
 <?php
 require_once '../dbConnect.php';
 
-function dispInfo()
-{
+function dispInfo() {
 
     $user = $_POST['tenDangNhap'];
     $pass = $_POST['matKhau'];
@@ -22,9 +21,11 @@ function dispInfo()
     if ($db->getRowCount() > 0) {
 
         $row = $db->getRow();
+        
+        $maKhachHang = $row["MaKhachHang"];
 
         $t = array();
-        $t["maKhachHang"] = $row["MaKhachHang"];
+        $t["maKhachHang"] = $maKhachHang;
         $t["tenKhachHang"] = $row["HoTen"];
         $t["soDienThoai"] = $row["SoDienThoai"];
         $t["diaChi"] = $row["DiaChi"];
@@ -59,12 +60,16 @@ function dispInfo()
                         $maTaiKhoan.'"');
 
                     if ($db->getRowCount() > 0) {
+                        $t["maToken"] = $maToken;
 
                         include_once '../Firebase.php';
                         $firebase = new Firebase();
                         $push = new Push();
+                        
+                        $datas = array();
+                        $datas['maKhachHang'] = $maKhachHang;
 
-                        $push->setDatas("LOGOUT_ACTION", null);
+                        $push->setDatas("LOGOUT_ACTION", $datas);
 
                         $firebase->send($lastToken, null, $push->getDatas());
                     }

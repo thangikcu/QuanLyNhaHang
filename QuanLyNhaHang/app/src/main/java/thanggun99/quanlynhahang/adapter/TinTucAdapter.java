@@ -132,11 +132,11 @@ public class TinTucAdapter extends RecyclerView.Adapter<TinTucAdapter.ViewHolder
 
                         }
                     });
-
                     break;
                 case R.id.btn_update:
                     ThemTinTucDialog themTinTucDialog = tinTucManager.getThemTinTucDialog();
                     tinTucManager.setCurrentTinTuc(tinTucList.get(currentPosition));
+                    themTinTucDialog.clear();
                     themTinTucDialog.fillContent(tinTucList.get(currentPosition));
                     themTinTucDialog.show();
                     break;

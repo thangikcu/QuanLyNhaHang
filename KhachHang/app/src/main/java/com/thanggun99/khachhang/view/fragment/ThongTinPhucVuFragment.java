@@ -69,18 +69,6 @@ public class ThongTinPhucVuFragment extends BaseFragment implements View.OnClick
     }
 
     @Override
-    public void onHiddenChanged(boolean hidden) {
-        if (!hidden) {
-            if (edtYeuCau != null) {
-
-                edtGioDen.clearFocus();
-                edtYeuCau.requestFocus();
-            }
-        }
-        super.onHiddenChanged(hidden);
-    }
-
-    @Override
     public void findViews(View view) {
         tbrGioDen = (TableRow) view.findViewById(R.id.tbr_gio_den);
 
@@ -152,8 +140,6 @@ public class ThongTinPhucVuFragment extends BaseFragment implements View.OnClick
                     }
             }
         });
-        edtGioDen.clearFocus();
-        edtYeuCau.requestFocus();
 
         tvTenBan.setOnClickListener(this);
         popupMenu = new PopupMenu(getContext(), tvTenBan);

@@ -19,8 +19,8 @@ import thanggun99.quanlynhahang.util.Utils;
  */
 
 public class HoaDon {
-    private static int DA_TINH_TIEN = 1;
-    private static int CHUA_TINH_TIEN = 0;
+    public static int DA_TINH_TIEN = 1;
+    public static int CHUA_TINH_TIEN = 0;
 
     private int maHoaDon;
     private DatBan datBan;

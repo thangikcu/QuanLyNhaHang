@@ -42,7 +42,7 @@ public class PhucVuInteractor {
         currentBan = ban;
 
         if (currentBan != null) {
-            if (currentBan.getTrangThai() == 2) {
+            if (currentBan.getTrangThai() == Ban.DANG_PHUC_VU) {
 
                 currentHoaDon = database.getHoaDonChuaTinhTienByMaBan(currentBan.getMaBan());
 
@@ -55,7 +55,7 @@ public class PhucVuInteractor {
                 }
 
                 onPhucVuInteractorFinishListener.onFinishGetThongTinBanPV(currentHoaDon);
-            } else if (currentBan.getTrangThai() == 1) {
+            } else if (currentBan.getTrangThai() == Ban.DA_DAT_TRUOC) {
 
                 currentDatBan = database.getDatBanChuaTinhTienByMaBan(currentBan.getMaBan());
                 currentHoaDon = null;
@@ -289,7 +289,12 @@ public class PhucVuInteractor {
             @Override
             protected Boolean doInBackground(Void... params) {
                 delay(500);
-                return currentHoaDon.orderMonKhachHangYeuCau(currentYeuCau);
+                if (currentHoaDon != null) {
+
+                    return currentHoaDon.orderMonKhachHangYeuCau(currentYeuCau);
+                } else {
+                    return false;
+                }
             }
 
             @Override
@@ -486,6 +491,7 @@ public class PhucVuInteractor {
 
                     for (YeuCau yeuCau : database.getYeuCauList()) {
                         if (yeuCau.getMaHoaDon() == currentHoaDon.getMaHoaDon()) {
+
                             database.removeYeuCau(yeuCau);
                         }
                     }

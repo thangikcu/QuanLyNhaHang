@@ -42,7 +42,6 @@ public class Database {
     private ArrayList<TinTuc> tinTucList;
 
     public Database() {
-        hoaDonTinhTienList = new ArrayList<>();
         datBanTinhTienList = new ArrayList<>();
     }
 
@@ -198,7 +197,10 @@ public class Database {
                 JSONObject jsonObject = new JSONObject(s);
                 if (jsonObject != null) {
                     JSONArray jsonArray = jsonObject.getJSONArray("hoaDon");
+
                     hoaDonChuaTinhTienList = new ArrayList<>();
+                    hoaDonTinhTienList = new ArrayList<>();
+
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject object = (JSONObject) jsonArray.get(i);
                         HoaDon hoaDon = new HoaDon();
@@ -227,7 +229,13 @@ public class Database {
                                     object1.getInt("soLuong"), object1.getInt("maChiTietHD")));
                         }
                         hoaDon.setMonOrderList(monOrders);
-                        hoaDonChuaTinhTienList.add(hoaDon);
+                        if (hoaDon.getTrangThai() == HoaDon.DA_TINH_TIEN) {
+
+                            hoaDonTinhTienList.add(hoaDon);
+                        } else {
+
+                            hoaDonChuaTinhTienList.add(hoaDon);
+                        }
                     }
                     return true;
                 }
@@ -417,7 +425,7 @@ public class Database {
 
     public DatBan getDatBanChuaTinhTienByMaBan(int maBan) {
         for (DatBan datBan : datBanChuaTinhTienList) {
-            if (datBan.getBan().getMaBan() == maBan) {
+            if (datBan.getBan() != null && datBan.getBan().getMaBan() == maBan) {
                 return datBan;
             }
         }
@@ -682,6 +690,18 @@ public class Database {
 
         yeuCauList.remove(currentYeuCau);
 
+    }
+
+    public void setDatBanChuaSetBanList(ArrayList<DatBan> datBanChuaSetBanList) {
+        this.datBanChuaSetBanList = datBanChuaSetBanList;
+    }
+
+    public ArrayList<KhachHang> getKhachHangList() {
+        return khachHangList;
+    }
+
+    public void setKhachHangList(ArrayList<KhachHang> khachHangList) {
+        this.khachHangList = khachHangList;
     }
 
     public HoaDon getHoaDonChuaTinhTienByMa(int maHoaDon) {

@@ -18,7 +18,7 @@ import java.util.Map;
 public class API {
     public static final String SCHEME = "http";
     public static final String HOST = "192.168.56.1";
-    //public static final String HOST = "thanggun99.000webhostapp.com";
+//    public static final String HOST = "thanggun99.000webhostapp.com";
     public static final String PATH = "WebService";
     public static final String PATH_BAN = "BanService/";
     public static final String PATH_MON = "MonService/";

@@ -213,8 +213,10 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
 
     @Override
     public void showThongTinPhucVuFragment() {
-        if (thongTinPhucVuFragment == null)
+        if (thongTinPhucVuFragment == null) {
+
             thongTinPhucVuFragment = new ThongTinPhucVuFragment(khachHangPresenter);
+        }
 
         fillFrame(thongTinPhucVuFragment, R.id.btn_thong_tin_phuc_vu);
     }
@@ -269,6 +271,10 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
         navigationView.getMenu().getItem(2).setVisible(true);
     }
 
+    @Override
+    public void showNotify(String message) {
+        Utils.notifi(message);
+    }
 
     @Override
     public void showConnectFailDialog() {

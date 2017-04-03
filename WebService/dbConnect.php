@@ -1,5 +1,5 @@
 <?php
-require_once '../Config.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/WebService/Config.php';
 
 class Database {
 

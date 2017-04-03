@@ -9,6 +9,7 @@ import com.google.firebase.messaging.RemoteMessage;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import thanggun99.quanlynhahang.model.entity.Admin;
 import thanggun99.quanlynhahang.model.entity.Ban;
 import thanggun99.quanlynhahang.model.entity.DatBan;
 import thanggun99.quanlynhahang.model.entity.KhachHang;
@@ -159,7 +160,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         LocalBroadcastManager.getInstance(this).sendBroadcast(khachHangYeuCauIntent);
                         break;
                     case LOGOUT_ACTION:
-                        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(LOGOUT_ACTION));
+                        if (Admin.getMaAdmin() == object.getInt("maAdmin")) {
+
+                            LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(LOGOUT_ACTION));
+                        }
                         break;
                     default:
                         break;
