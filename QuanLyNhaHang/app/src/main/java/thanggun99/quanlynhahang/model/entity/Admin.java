@@ -36,8 +36,8 @@ public class Admin extends Person implements Serializable{
     public Admin(int maAdmin, String hoTen, String soDienThoai, String diaChi,
                  int maToken, int type, boolean ghiNho, String kieuDangNhap, String tenDangNhap, String matKhau) {
         super(hoTen, soDienThoai, diaChi);
-        this.maAdmin = maAdmin;
-        this.maToken = maToken;
+        Admin.maAdmin = maAdmin;
+        Admin.maToken = maToken;
         this.type = type;
         this.ghiNho = ghiNho;
         this.kieuDangNhap = kieuDangNhap;
@@ -50,10 +50,7 @@ public class Admin extends Person implements Serializable{
 
 
     public boolean isGhiNhoDangNhap() {
-        if (TextUtils.isEmpty(App.getPreferences().getString(USERNAME, null))) {
-            return false;
-        }
-        return true;
+        return !TextUtils.isEmpty(App.getPreferences().getString(USERNAME, null));
     }
 
     public void ghiNhoDangNhap() {
@@ -110,7 +107,7 @@ public class Admin extends Person implements Serializable{
     }
 
     public void setMaAdmin(int maAdmin) {
-        this.maAdmin = maAdmin;
+        Admin.maAdmin = maAdmin;
     }
 
     public static int getMaToken() {
@@ -118,7 +115,7 @@ public class Admin extends Person implements Serializable{
     }
 
     public void setMaToken(int maToken) {
-        this.maToken = maToken;
+        Admin.maToken = maToken;
     }
 
     public int getType() {

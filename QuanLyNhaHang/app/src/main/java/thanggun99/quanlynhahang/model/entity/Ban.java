@@ -93,9 +93,8 @@ public class Ban implements Serializable {
 
         if (!(obj instanceof Mon)) return false;
 
-        if (!tenBan.equals(((Ban) obj).tenBan)) return false;
+        return tenBan.equals(((Ban) obj).tenBan);
 
-        return true;
     }
 
     @Override

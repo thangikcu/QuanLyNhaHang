@@ -72,6 +72,8 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
     public void khachVaoBanService(DatBan datBanVaoBan) {
         DatBan datBan = getDatabase().getDatBanChuaSetBanByMa(datBanVaoBan.getMaDatBan());
         if (datBan != null) {
+            getDatabase().onKhachDatBanVaoBan(datBan);
+
             datBan.setBan(getDatabase().getBanByMaBan(datBanVaoBan.getBan().getMaBan()));
             datBan.getBan().setTrangThai(Ban.DA_DAT_TRUOC);
             phucVuView.notifyUpdateListBan(datBan.getBan());
@@ -81,10 +83,9 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
                 datBanView.notifyRemoveListDatBanChuaSetBan(datBan);
             }
             if (phucVuInteractor.getcurrentBan().getMaBan() == datBan.getBan().getMaBan()) {
-                phucVuView.showBanDatBan(datBan);
-            }
 
-            getDatabase().onKhachDatBanVaoBan(datBan);
+                phucVuInteractor.getThongTinBan(datBan.getBan());
+            }
         }
     }
 

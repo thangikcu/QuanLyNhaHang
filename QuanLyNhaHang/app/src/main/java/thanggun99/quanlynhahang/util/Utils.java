@@ -96,10 +96,7 @@ public class Utils {
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo info = connectivityManager.getActiveNetworkInfo();
-        if (info != null && info.isConnected()) {
-            return true;
-        }
-        return false;
+        return info != null && info.isConnected();
     }
 
     public static String convertColorToHex(Drawable drawable) {

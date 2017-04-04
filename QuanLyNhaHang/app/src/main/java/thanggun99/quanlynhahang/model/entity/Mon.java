@@ -101,9 +101,8 @@ public class Mon {
 
         if (!(obj instanceof Mon)) return false;
 
-        if (!tenMon.equals(((Mon) obj).getTenMon())) return false;
+        return tenMon.equals(((Mon) obj).getTenMon());
 
-        return true;
     }
 
     @Override
@@ -171,10 +170,7 @@ public class Mon {
 
         String s = API.callService(API.DELETE_MON_URL, getParams);
 
-        if (!TextUtils.isEmpty(s) && s.trim().contains("success")) {
-            return true;
-        }
-        return false;
+        return !TextUtils.isEmpty(s) && s.trim().contains("success");
     }
 
     public Boolean addNew() {

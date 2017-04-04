@@ -122,10 +122,7 @@ public class TinTuc {
 
         String s = API.callService(API.DELETE_TIN_TUC_URL, getParams);
 
-        if (!TextUtils.isEmpty(s) && s.trim().contains("success")) {
-            return true;
-        }
-        return false;
+        return !TextUtils.isEmpty(s) && s.trim().contains("success");
     }
 
     public Boolean updateTinTuc(TinTuc tinTucUpdate) {

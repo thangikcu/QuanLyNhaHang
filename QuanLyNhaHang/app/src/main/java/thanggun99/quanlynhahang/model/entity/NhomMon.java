@@ -39,9 +39,8 @@ public class NhomMon {
 
         if (!(obj instanceof NhomMon)) return false;
 
-        if (!tenLoai.equals(((NhomMon) obj).tenLoai)) return false;
+        return tenLoai.equals(((NhomMon) obj).tenLoai);
 
-        return true;
     }
 
     @Override

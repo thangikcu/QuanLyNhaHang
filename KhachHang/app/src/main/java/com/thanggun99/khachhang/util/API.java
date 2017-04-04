@@ -46,7 +46,7 @@ public class API {
     }
 
     public static String callService(String url, Map<String, String> getParams, Map<String, String> postParams) {
-        String response = null;
+        String response = "";
         HttpURLConnection connect;
         InputStream is;
 
@@ -84,7 +84,7 @@ public class API {
             is = connect.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"), 8);
             StringBuilder sb = new StringBuilder();
-            String line = null;
+            String line;
             while ((line = reader.readLine()) != null) {
                 sb.append(line + "\n");
             }
