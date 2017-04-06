@@ -9,7 +9,7 @@ public interface ShowOnMain {
 
     void hideProgress();
 
-    void showConnectFailDialog();
+    void showNotifyDialog(String message);
 
     void showPhucVu();
 

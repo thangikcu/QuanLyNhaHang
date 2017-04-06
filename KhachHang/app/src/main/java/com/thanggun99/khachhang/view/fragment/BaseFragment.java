@@ -13,6 +13,9 @@ import com.thanggun99.khachhang.App;
 import com.thanggun99.khachhang.R;
 import com.thanggun99.khachhang.interfaces.CommondActionForView;
 
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 /**
  * Created by Thanggun99 on 16/03/2017.
  */
@@ -20,6 +23,7 @@ public abstract class BaseFragment extends Fragment implements CommondActionForV
     protected View view;
     private int layoutResource;
     private Animation zoomAnimation;
+    private Unbinder unbinder;
 
     public BaseFragment(int layoutResource) {
         this.layoutResource = layoutResource;
@@ -40,8 +44,15 @@ public abstract class BaseFragment extends Fragment implements CommondActionForV
     public View onCreateView(LayoutInflater inflater, ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         this.view = inflater.inflate(layoutResource, container, false);
-        findViews(view);
+        unbinder = ButterKnife.bind(this, view);
+
         return view;
+    }
+
+    @Override
+    public void onDestroy() {
+        unbinder.unbind();
+        super.onDestroy();
     }
 
     @Override
@@ -51,9 +62,6 @@ public abstract class BaseFragment extends Fragment implements CommondActionForV
         initComponents();
         setEvents();
     }
-
-    @Override
-    public abstract void findViews(View view);
 
     @Override
     public abstract void initComponents();

@@ -18,30 +18,29 @@ import com.thanggun99.khachhang.model.entity.TinTuc;
 import com.thanggun99.khachhang.presenter.KhachHangPresenter;
 import com.thanggun99.khachhang.util.Utils;
 
+import butterknife.BindView;
+
 @SuppressLint("ValidFragment")
 public class TinTucFragment extends BaseFragment implements KhachHangPresenter.TinTucView, TinTucAdapter.OnClickTinTucListener {
-    private RecyclerView tinTucRecyclerView;
+    @BindView(R.id.list_tin_tuc)
+    RecyclerView listTinTuc;
+    @BindView(R.id.btn_back)
+    ImageButton btnBack;
+    @BindView(R.id.tv_tieu_de)
+    TextView tvTieuDe;
+    @BindView(R.id.iv_hinh_anh)
+    ImageView ivHinhAnh;
+    @BindView(R.id.tv_noi_dung)
+    TextView tvNoiDung;
+    @BindView(R.id.layout_tin_tuc)
+    LinearLayout tinTucLayout;
+
     private TinTucAdapter tinTucAdapter;
-    private LinearLayout tinTucLayout;
-    private ImageButton btnBack;
-    private TextView tvTieuDe, tvNoiDung;
-    private ImageView ivHinhAnh;
     private KhachHangPresenter khachHangPresenter;
 
     public TinTucFragment(KhachHangPresenter khachHangPresenter) {
         super(R.layout.fragment_tin_tuc);
         this.khachHangPresenter = khachHangPresenter;
-    }
-
-    @Override
-    public void findViews(View view) {
-        tinTucLayout = (LinearLayout) view.findViewById(R.id.layout_tin_tuc);
-        btnBack = (ImageButton) tinTucLayout.findViewById(R.id.btn_back);
-        tvTieuDe = (TextView) tinTucLayout.findViewById(R.id.tv_tieu_de);
-        tvNoiDung = (TextView) tinTucLayout.findViewById(R.id.tv_noi_dung);
-        ivHinhAnh = (ImageView) tinTucLayout.findViewById(R.id.iv_hinh_anh);
-
-        tinTucRecyclerView = (RecyclerView) view.findViewById(R.id.list_tin_tuc);
     }
 
     @Override
@@ -52,16 +51,16 @@ public class TinTucFragment extends BaseFragment implements KhachHangPresenter.T
 
     @Override
     public void setEvents() {
-        tinTucRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        listTinTuc.setLayoutManager(new LinearLayoutManager(getContext()));
         tinTucLayout.setVisibility(View.GONE);
-        tinTucRecyclerView.setVisibility(View.VISIBLE);
+        listTinTuc.setVisibility(View.VISIBLE);
 
         tvNoiDung.setMovementMethod(new ScrollingMovementMethod());
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 tinTucLayout.setVisibility(View.GONE);
-                tinTucRecyclerView.setVisibility(View.VISIBLE);
+                listTinTuc.setVisibility(View.VISIBLE);
             }
         });
         khachHangPresenter.setTinTucView(this);
@@ -71,7 +70,7 @@ public class TinTucFragment extends BaseFragment implements KhachHangPresenter.T
     @Override
     public void showTinTucList() {
         tinTucAdapter.setDatas(khachHangPresenter.getTinTucList());
-        tinTucRecyclerView.setAdapter(tinTucAdapter);
+        listTinTuc.setAdapter(tinTucAdapter);
     }
 
     @Override
@@ -91,7 +90,7 @@ public class TinTucFragment extends BaseFragment implements KhachHangPresenter.T
                 .into(ivHinhAnh);
 
         tinTucLayout.setVisibility(View.VISIBLE);
-        tinTucRecyclerView.setVisibility(View.GONE);
+        listTinTuc.setVisibility(View.GONE);
 
     }
 }

@@ -18,12 +18,16 @@ import com.thanggun99.khachhang.util.Utils;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 
 /**
  * Created by Thanggun99 on 19/11/2016.
  */
 
 public class MonAdapter extends RecyclerView.Adapter<MonAdapter.ViewHolder> {
+
     private ArrayList<Mon> monList;
     private KhachHangPresenter khachHangPresenter;
     private Context context;
@@ -48,7 +52,7 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.ViewHolder> {
         holder.tvTenMon.scrollTo(0, 0);
         holder.tvDonGia.setText(Utils.formatMoney(mon.getDonGia()) + "/" + mon.getDonViTinh());
         holder.ratingBar.setRating(mon.getRating() / mon.getPersonRating());
-        holder.tvRatingPoint.setText(mon.getRatingPoint());
+        holder.tvPointRating.setText(mon.getRatingPoint());
         Glide.with(context)
                 .load(mon.getHinhAnh())
                 .placeholder(R.drawable.ic_food)
@@ -72,19 +76,20 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.ViewHolder> {
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView tvTenMon;
-        TextView tvDonGia;
+        @BindView(R.id.iv_mon)
         ImageView ivMon;
+        @BindView(R.id.tv_ten_mon)
+        TextView tvTenMon;
+        @BindView(R.id.tv_don_gia)
+        TextView tvDonGia;
+        @BindView(R.id.ratingBar)
         RatingBar ratingBar;
-        TextView tvRatingPoint;
+        @BindView(R.id.tv_point_rating)
+        TextView tvPointRating;
 
-        public ViewHolder(final View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
-            tvRatingPoint = (TextView) itemView.findViewById(R.id.tv_point_rating);
-            ratingBar = (RatingBar) itemView.findViewById(R.id.ratingBar);
-            tvDonGia = (TextView) itemView.findViewById(R.id.tv_don_gia);
-            ivMon = (ImageView) itemView.findViewById(R.id.iv_mon);
-            tvTenMon = (TextView) itemView.findViewById(R.id.tv_message);
+            ButterKnife.bind(this, itemView);
 
             tvTenMon.setMovementMethod(new ScrollingMovementMethod());
             tvTenMon.setOnClickListener(this);
@@ -93,8 +98,9 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.ViewHolder> {
         }
 
         @Override
-        public void onClick(View v) {
+        public void onClick(View view) {
             khachHangPresenter.onClickMon(getItem(getAdapterPosition()));
+
         }
     }
 }

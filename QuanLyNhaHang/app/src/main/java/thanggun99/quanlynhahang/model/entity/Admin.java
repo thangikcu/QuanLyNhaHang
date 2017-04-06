@@ -48,11 +48,6 @@ public class Admin extends Person implements Serializable{
     public Admin() {
     }
 
-
-    public boolean isGhiNhoDangNhap() {
-        return !TextUtils.isEmpty(App.getPreferences().getString(USERNAME, null));
-    }
-
     public void ghiNhoDangNhap() {
         SharedPreferences.Editor editor = App.getPreferences().edit();
         editor.putString(USERNAME, tenDangNhap);

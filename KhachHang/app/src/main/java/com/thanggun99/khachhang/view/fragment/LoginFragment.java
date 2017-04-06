@@ -19,15 +19,27 @@ import com.thanggun99.khachhang.presenter.KhachHangPresenter;
 import com.thanggun99.khachhang.util.Utils;
 import com.thanggun99.khachhang.view.activity.RegisterActivity;
 
+import butterknife.BindView;
+
 
 @SuppressLint("ValidFragment")
 public class LoginFragment extends BaseFragment implements View.OnClickListener, KhachHangPresenter.LoginView {
+    @BindView(R.id.edt_username)
+    EditText edtUsername;
+    @BindView(R.id.edt_password)
+    EditText edtPassword;
+    @BindView(R.id.ckb_ghi_nho)
+    CheckBox ckbGhiNho;
+    @BindView(R.id.tv_error_login)
+    TextView tvErrorLogin;
+    @BindView(R.id.btn_login)
+    Button btnLogin;
+    @BindView(R.id.tv_register)
+    TextView tvRegister;
+    @BindView(R.id.ln_login)
+    LinearLayout lnLogin;
+
     private KhachHangPresenter khachHangPresenter;
-    private LinearLayout lnLogin;
-    private TextView tvLoginError, tvRegister;
-    private CheckBox ckbGhiNho;
-    private EditText edtUsername, edtPassword;
-    private Button btnLogin;
 
     public LoginFragment(KhachHangPresenter khachHangPresenter) {
         super(R.layout.fragment_login);
@@ -37,17 +49,6 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-    }
-
-    @Override
-    public void findViews(View view) {
-        lnLogin = (LinearLayout) view.findViewById(R.id.ln_login);
-        btnLogin = (Button) lnLogin.findViewById(R.id.btn_login);
-        tvRegister = (TextView) lnLogin.findViewById(R.id.tv_register);
-        edtPassword = (EditText) lnLogin.findViewById(R.id.edt_password);
-        edtUsername = (EditText) lnLogin.findViewById(R.id.edt_username);
-        ckbGhiNho = (CheckBox) lnLogin.findViewById(R.id.ckb_ghi_nho);
-        tvLoginError = (TextView) lnLogin.findViewById(R.id.tv_error_login);
     }
 
     @Override
@@ -94,7 +95,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
 
     @Override
     public void showloginFail() {
-        tvLoginError.setVisibility(View.VISIBLE);
+        tvErrorLogin.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -102,7 +103,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
         switch (v.getId()) {
             case R.id.btn_login:
                 if (checkForm()) {
-                    tvLoginError.setVisibility(View.GONE);
+                    tvErrorLogin.setVisibility(View.GONE);
                     KhachHang khachHang = new KhachHang();
                     khachHang.setTenDangNhap(edtUsername.getText().toString().trim());
                     khachHang.setMatKhau(edtPassword.getText().toString().trim());
@@ -127,11 +128,10 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
                 edtUsername.setText(data.getStringExtra(RegisterActivity.USERNAME));
                 edtPassword.setText("");
                 edtPassword.requestFocus();
-                tvLoginError.setVisibility(View.GONE);
+                tvErrorLogin.setVisibility(View.GONE);
                 Utils.notifi(Utils.getStringByRes(R.string.dang_ky_thanh_cong));
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
-
 }

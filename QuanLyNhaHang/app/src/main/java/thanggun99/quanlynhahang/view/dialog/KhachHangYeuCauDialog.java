@@ -84,6 +84,9 @@ public class KhachHangYeuCauDialog extends BaseDialog implements PhucVuPresenter
         yeuCauRecyclerView = (RecyclerView) yeuCauLayout.findViewById(R.id.list_yeu_cau);
         yeuCauRecyclerView.setLayoutManager(new LinearLayoutManager(context));
 
+        yeuCauAdapter = new YeuCauAdapter(context, phucVuPresenter);
+        yeuCauRecyclerView.setAdapter(yeuCauAdapter);
+
         phucVuPresenter.setYeuCauView(this);
 
     }
@@ -108,11 +111,6 @@ public class KhachHangYeuCauDialog extends BaseDialog implements PhucVuPresenter
             default:
                 break;
         }
-    }
-
-    public void setYeuCauList() {
-        yeuCauAdapter = new YeuCauAdapter(context, phucVuPresenter);
-        yeuCauRecyclerView.setAdapter(yeuCauAdapter);
     }
 
     @Override
@@ -182,11 +180,8 @@ public class KhachHangYeuCauDialog extends BaseDialog implements PhucVuPresenter
 
     @Override
     public void notifyAddYeuCau() {
-        if (yeuCauAdapter == null) {
-            setYeuCauList();
-        } else {
-            yeuCauAdapter.notifyItemInserted(0);
-        }
+
+        yeuCauAdapter.notifyItemInserted(0);
         chiTietYeuCauLayout.setVisibility(View.GONE);
         yeuCauLayout.setVisibility(View.VISIBLE);
     }

@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
-import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +17,9 @@ import com.thanggun99.khachhang.model.entity.TinTuc;
 import com.thanggun99.khachhang.util.Utils;
 
 import java.util.ArrayList;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 
 /**
@@ -56,7 +58,7 @@ public class TinTucAdapter extends RecyclerView.Adapter<TinTucAdapter.ViewHolder
                 .load(tinTuc.getHinhAnh())
                 .placeholder(R.drawable.ic_news)
                 .error(R.drawable.ic_news)
-                .into(holder.ivHinhAnh);
+                .into(holder.ivTinTuc);
 
     }
 
@@ -94,28 +96,31 @@ public class TinTucAdapter extends RecyclerView.Adapter<TinTucAdapter.ViewHolder
         this.onClickTinTucListener = onClickTinTucListener;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public interface OnClickTinTucListener {
+        void onClickTinTuc(TinTuc tinTuc);
+
+    }
+
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        @BindView(R.id.iv_tin_tuc)
+        ImageView ivTinTuc;
+        @BindView(R.id.tv_title)
         TextView tvTitle;
+        @BindView(R.id.tv_ngay_dang)
         TextView tvNgayDang;
+        @BindView(R.id.tv_noi_dung)
         TextView tvNoiDung;
-        ImageView ivHinhAnh;
 
-        public ViewHolder(View itemView) {
-            super(itemView);
-
-            ivHinhAnh = (ImageView) itemView.findViewById(R.id.iv_tin_tuc);
-
-            tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
-            tvTitle.setMovementMethod(new ScrollingMovementMethod());
-            tvNgayDang = (TextView) itemView.findViewById(R.id.tv_ngay_dang);
-            tvNoiDung = (TextView) itemView.findViewById(R.id.tv_noi_dung);
+        ViewHolder(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
 
             tvTitle.setOnClickListener(this);
             itemView.setOnClickListener(this);
         }
 
         @Override
-        public void onClick(View v) {
+        public void onClick(View view) {
             progressDialog.show();
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -126,10 +131,4 @@ public class TinTucAdapter extends RecyclerView.Adapter<TinTucAdapter.ViewHolder
             }, 500);
         }
     }
-
-    public interface OnClickTinTucListener {
-        void onClickTinTuc(TinTuc tinTuc);
-
-    }
-
 }

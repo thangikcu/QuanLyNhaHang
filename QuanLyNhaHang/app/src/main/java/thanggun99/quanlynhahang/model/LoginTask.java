@@ -1,14 +1,12 @@
 package thanggun99.quanlynhahang.model;
 
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.os.AsyncTask;
+import android.text.TextUtils;
 
 import thanggun99.quanlynhahang.App;
-import thanggun99.quanlynhahang.R;
 import thanggun99.quanlynhahang.model.entity.Admin;
-import thanggun99.quanlynhahang.util.Utils;
-import thanggun99.quanlynhahang.view.dialog.NotifiDialog;
+
+import static thanggun99.quanlynhahang.model.entity.Admin.USERNAME;
 
 /**
  * Created by Thanggun99 on 19/03/2017.
@@ -22,69 +20,53 @@ public class LoginTask {
     public static final String OTHER = "OTHER";
     public static final String SUCCESS = "SUCCESS";
 
-    private OnFinishLoginListener onFinishLoginListener;
+    private OnLoginListener onLoginListener;
 
     private Admin admin;
-    private ProgressDialog progressDialog;
-    private NotifiDialog notifiDialog;
-
-    public LoginTask(Context context) {
-        notifiDialog = new NotifiDialog(context);
-
-        progressDialog = new ProgressDialog(context);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setCancelable(false);
-        progressDialog.setMessage(Utils.getStringByRes(R.string.loading));
-
-    }
 
     public void loginAuto() {
-        if (Utils.isConnectingToInternet()) {
+        if (isGhiNhoDangNhap()) {
             admin = new Admin();
-            if (admin.isGhiNhoDangNhap()) {
-                admin.setTenDangNhap(App.getPreferences().getString(Admin.USERNAME, null));
-                admin.setMatKhau(App.getPreferences().getString(Admin.PASSWORD, null));
-                admin.setKieuDangNhap(AUTO);
+            admin.setTenDangNhap(App.getPreferences().getString(USERNAME, null));
+            admin.setMatKhau(App.getPreferences().getString(Admin.PASSWORD, null));
+            admin.setKieuDangNhap(AUTO);
 
-                new LoginAsyncTask().execute();
-            }
-
-        } else {
-            notifiDialog.notifi(Utils.getStringByRes(R.string.kiem_tra_ket_noi_mang));
+            new LoginAsyncTask().execute();
         }
+    }
+
+
+    public boolean isGhiNhoDangNhap() {
+        return !TextUtils.isEmpty(App.getPreferences().getString(USERNAME, null));
     }
 
     public void login(Admin admin) {
-        if (Utils.isConnectingToInternet()) {
-            this.admin = admin;
-            new LoginAsyncTask().execute();
-        } else {
-            notifiDialog.notifi(Utils.getStringByRes(R.string.kiem_tra_ket_noi_mang));
-        }
+
+        this.admin = admin;
+        new LoginAsyncTask().execute();
     }
 
     public Admin getAdmin() {
         return admin;
     }
 
-
     private class LoginAsyncTask extends AsyncTask<Void, Void, String> {
         @Override
         protected void onPreExecute() {
-            progressDialog.show();
+            onLoginListener.onStartTask();
             super.onPreExecute();
         }
 
         @Override
         protected void onPostExecute(String s) {
             if (s.equals(SUCCESS)) {
-                onFinishLoginListener.onLoginSuccess();
+                onLoginListener.onLoginSuccess();
             } else if (s.equals(OTHER)) {
-                onFinishLoginListener.onOtherLogin();
+                onLoginListener.onOtherLogin();
             } else {
-                onFinishLoginListener.onLoginFail();
+                onLoginListener.onLoginFail();
             }
-            progressDialog.dismiss();
+            onLoginListener.onFinishTask();
             super.onPostExecute(s);
         }
 
@@ -103,12 +85,16 @@ public class LoginTask {
         }
     }
 
-    public void setOnFinishLoginListener(OnFinishLoginListener onFinishLoginListener) {
-        this.onFinishLoginListener = onFinishLoginListener;
+    public void setOnLoginListener(OnLoginListener onLoginListener) {
+        this.onLoginListener = onLoginListener;
     }
 
 
-    public interface OnFinishLoginListener {
+    public interface OnLoginListener {
+        void onStartTask();
+
+        void onFinishTask();
+
         void onLoginSuccess();
 
         void onLoginFail();

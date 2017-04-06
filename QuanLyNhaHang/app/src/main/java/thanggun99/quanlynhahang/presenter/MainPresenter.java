@@ -1,5 +1,6 @@
 package thanggun99.quanlynhahang.presenter;
 
+import thanggun99.quanlynhahang.R;
 import thanggun99.quanlynhahang.interfaces.ShowOnMain;
 import thanggun99.quanlynhahang.model.Database;
 import thanggun99.quanlynhahang.model.MainInteractor;
@@ -25,7 +26,7 @@ public class MainPresenter implements MainInteractor.OnMainInteractorFinishListe
         if (Utils.isConnectingToInternet()) {
             return true;
         } else {
-            mainview.showConnectFailDialog();
+            mainview.showNotifyDialog(Utils.getStringByRes(R.string.kiem_tra_ket_noi_mang));
             return false;
         }
     }
@@ -38,11 +39,8 @@ public class MainPresenter implements MainInteractor.OnMainInteractorFinishListe
 
     @Override
     public void onFinishGetDatas() {
-        if (getDatabase().getYeuCauList().size() > 0) {
-            mainview.setYeuCauList();
-            mainview.showFloatButton();
-            mainview.updateFloatButton(getDatabase().getYeuCauList().size());
-        }
+        mainview.updateFloatButton(getDatabase().getYeuCauList().size());
+        mainview.setYeuCauList();
         mainview.showContent();
     }
 
@@ -90,6 +88,11 @@ public class MainPresenter implements MainInteractor.OnMainInteractorFinishListe
         this.changepasswordView = changepasswordView;
     }
 
+    public void otherLogin() {
+        mainview.showOtherLoginDialog();
+        logout();
+    }
+
     public void logout() {
         mainInteractor.logout();
         mainview.removeFloatButton();
@@ -99,6 +102,26 @@ public class MainPresenter implements MainInteractor.OnMainInteractorFinishListe
     public Database getDatabase() {
         return mainInteractor.getDatabase();
     }
+
+    public void showConnectToServerFailDialog() {
+        mainview.showNotifyDialog(Utils.getStringByRes(R.string.mat_ket_noi_toi_may_chu));
+    }
+
+    public void reLoadDatas() {
+        mainview.clearFrame();
+        mainInteractor.reloadDatas();
+    }
+
+    @Override
+    public void onLoginFail() {
+        logout();
+    }
+
+    @Override
+    public void onOtherlogin() {
+        otherLogin();
+    }
+
 
     public interface MainView extends ShowOnMain {
 
@@ -111,6 +134,10 @@ public class MainPresenter implements MainInteractor.OnMainInteractorFinishListe
         void showLogin();
 
         void setYeuCauList();
+
+        void clearFrame();
+
+        void showOtherLoginDialog();
     }
 
 

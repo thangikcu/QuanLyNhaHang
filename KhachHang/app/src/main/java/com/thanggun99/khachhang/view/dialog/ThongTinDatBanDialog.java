@@ -8,22 +8,24 @@ import android.widget.TextView;
 import com.thanggun99.khachhang.R;
 import com.thanggun99.khachhang.model.entity.DatBan;
 
+import butterknife.BindView;
+
 
 public class ThongTinDatBanDialog extends BaseDialog {
-    private TextView tvKhoangGioDen, tvYeuCau;
+    @BindView(R.id.tv_gio_den)
+    TextView tvGioDen;
+    @BindView(R.id.tv_yeu_cau)
+    TextView tvYeuCau;
 
     public ThongTinDatBanDialog(Context context) {
-        super(context);
-        setContentView(R.layout.dialog_thong_tin_dat_ban);
+        super(context, R.layout.dialog_thong_tin_dat_ban);
 
-        tvKhoangGioDen = (TextView) findViewById(R.id.tv_gio_den);
-        tvYeuCau = (TextView) findViewById(R.id.tv_yeu_cau);
         tvYeuCau.setMovementMethod(new ScrollingMovementMethod());
     }
 
     public void setContent(DatBan datBan) {
         if (datBan != null) {
-            tvKhoangGioDen.setText(datBan.getGioDen());
+            tvGioDen.setText(datBan.getGioDen());
             tvYeuCau.setText(datBan.getYeuCau());
             show();
         }

@@ -724,4 +724,18 @@ public class Database {
     public void addMon(Mon mon) {
         monList.add(0, mon);
     }
+
+    public void refresh() {
+        tinTucList = null;
+        banList = null;
+        hoaDonChuaTinhTienList = null;
+        hoaDonTinhTienList = null;
+        monList = null;
+        nhomMonList = null;
+        datBanChuaTinhTienList = null;
+        datBanChuaSetBanList = null;
+        khachHangList = null;
+        yeuCauList = null;
+
+    }
 }

@@ -20,43 +20,49 @@ import com.thanggun99.khachhang.util.Utils;
 import java.util.HashMap;
 import java.util.Map;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class RegisterActivity extends Activity implements View.OnClickListener {
     public static String USERNAME = "USERNAME";
-    private EditText edtHoTen, edtDiaChi, edtSdt,
-            edtUsername, edtPassword, edtRePassword;
-    private Button btnRegister;
-    private ImageButton btnBack;
-    private TextView tvRegisterError;
+
+    @BindView(R.id.btn_back)
+    ImageButton btnBack;
+    @BindView(R.id.edt_ho_ten)
+    EditText edtHoTen;
+    @BindView(R.id.edt_dia_chi)
+    EditText edtDiaChi;
+    @BindView(R.id.edt_sdt)
+    EditText edtSdt;
+    @BindView(R.id.edt_username)
+    EditText edtUsername;
+    @BindView(R.id.edt_password)
+    EditText edtPassword;
+    @BindView(R.id.edt_re_password)
+    EditText edtRePassword;
+    @BindView(R.id.tv_error_register)
+    TextView tvErrorRegister;
+    @BindView(R.id.btn_register)
+    Button btnRegister;
+
     private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        ButterKnife.bind(this);
         progressDialog = new ProgressDialog(this);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage(Utils.getStringByRes(R.string.loading));
         progressDialog.setCancelable(false);
 
-        findViews();
         setEvents();
     }
 
     private void setEvents() {
         btnBack.setOnClickListener(this);
         btnRegister.setOnClickListener(this);
-    }
-
-    private void findViews() {
-        btnBack = (ImageButton) findViewById(R.id.btn_back);
-        btnRegister = (Button) findViewById(R.id.btn_register);
-        edtHoTen = (EditText) findViewById(R.id.edt_ho_ten);
-        edtDiaChi = (EditText) findViewById(R.id.edt_dia_chi);
-        edtSdt = (EditText) findViewById(R.id.edt_sdt);
-        edtUsername = (EditText) findViewById(R.id.edt_username);
-        edtPassword = (EditText) findViewById(R.id.edt_password);
-        edtRePassword = (EditText) findViewById(R.id.edt_re_password);
-        tvRegisterError = (TextView) findViewById(R.id.tv_error_register);
     }
 
     @Override
@@ -73,7 +79,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
                 new RegisterTask().execute(khachHang);
             }
         }
-        if (v.getId() == R.id.btn_back){
+        if (v.getId() == R.id.btn_back) {
             onBackPressed();
         }
     }
@@ -93,24 +99,24 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
         @Override
         protected void onPostExecute(String s) {
             if (s.equals("exist")) {
-                tvRegisterError.setVisibility(View.GONE);
+                tvErrorRegister.setVisibility(View.GONE);
                 edtUsername.setError(Utils.getStringByRes(R.string.ten_tai_khoan_da_ton_tai));
                 edtUsername.requestFocus();
             } else if (s.equals("success")) {
-                tvRegisterError.setVisibility(View.GONE);
+                tvErrorRegister.setVisibility(View.GONE);
                 Intent intent = new Intent();
                 intent.putExtra(USERNAME, edtUsername.getText().toString());
                 setResult(1, intent);
                 finish();
             } else {
-                tvRegisterError.setVisibility(View.VISIBLE);
+                tvErrorRegister.setVisibility(View.VISIBLE);
             }
             progressDialog.dismiss();
             super.onPostExecute(s);
         }
 
         @Override
-        protected String doInBackground(KhachHang...khachHangs) {
+        protected String doInBackground(KhachHang... khachHangs) {
             Map<String, String> registerInfo = new HashMap<>();
             registerInfo.put("hoTen", khachHangs[0].getTenKhachHang());
             registerInfo.put("diaChi", khachHangs[0].getDiaChi());

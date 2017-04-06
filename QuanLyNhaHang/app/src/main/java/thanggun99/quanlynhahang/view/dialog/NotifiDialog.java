@@ -16,7 +16,7 @@ public class NotifiDialog extends BaseDialog {
         super(context);
         setContentView(R.layout.dialog_notifi);
         getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
-        setCancelable(true);
+        setCancelable(false);
 
         tvNotifi = (TextView) findViewById(R.id.tv_notifi);
         btnCancle = (Button) findViewById(R.id.btn_cancel);

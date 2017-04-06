@@ -1,13 +1,13 @@
 package thanggun99.quanlynhahang.view.activity;
 
 import android.app.ProgressDialog;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
@@ -22,15 +22,16 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.List;
+
 import thanggun99.quanlynhahang.R;
 import thanggun99.quanlynhahang.interfaces.CommondActionForView;
 import thanggun99.quanlynhahang.model.Database;
 import thanggun99.quanlynhahang.model.entity.Admin;
-import thanggun99.quanlynhahang.model.entity.DatBan;
-import thanggun99.quanlynhahang.model.entity.KhachHang;
-import thanggun99.quanlynhahang.model.entity.YeuCau;
 import thanggun99.quanlynhahang.presenter.MainPresenter;
 import thanggun99.quanlynhahang.presenter.PhucVuPresenter;
+import thanggun99.quanlynhahang.service.ConnectChangeBroadcastReceiver;
+import thanggun99.quanlynhahang.service.MyBroadcastReceiver;
 import thanggun99.quanlynhahang.service.MyFirebaseMessagingService;
 import thanggun99.quanlynhahang.util.Utils;
 import thanggun99.quanlynhahang.view.dialog.ChangePasswordDialog;
@@ -74,80 +75,8 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
     private NotifiDialog notifiDialog;
     private KhachHangYeuCauDialog khachHangYeuCauDialog;
 
-
+    private MyBroadcastReceiver myBroadcastReceiver;
     private IntentFilter intentFilter;
-    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            switch (intent.getAction()) {
-                case MyFirebaseMessagingService.DAT_BAN_ACTION:
-                    if (phucVuPresenter != null) {
-                        DatBan datBan = (DatBan) intent.getSerializableExtra(MyFirebaseMessagingService.DAT_BAN);
-
-                        phucVuPresenter.datBanService(datBan);
-
-                        Utils.showNotify(Utils.getStringByRes(R.string.khach_hang_dat_ban),
-                                intent.getStringExtra(MyFirebaseMessagingService.TEN_KHACH_HANG));
-                    }
-                    break;
-                case MyFirebaseMessagingService.HUY_DAT_BAN_ACTION:
-                    if (phucVuPresenter != null) {
-                        phucVuPresenter.huyDatBanService(intent.getIntExtra(MyFirebaseMessagingService.MA_DAT_BAN, 0));
-
-                        Utils.showNotify(Utils.getStringByRes(R.string.khach_hang_huy_dat_ban),
-                                intent.getStringExtra(MyFirebaseMessagingService.TEN_KHACH_HANG));
-                    }
-                    break;
-                case MyFirebaseMessagingService.UPDATE_DAT_BAN_ACTION:
-                    if (phucVuPresenter != null) {
-                        DatBan datBanUpdate = (DatBan) intent.getSerializableExtra(MyFirebaseMessagingService.DAT_BAN);
-
-                        phucVuPresenter.updateDatBanService(datBanUpdate);
-
-                        Utils.showNotify(Utils.getStringByRes(R.string.update_dat_ban),
-                                intent.getStringExtra(MyFirebaseMessagingService.TEN_KHACH_HANG));
-                    }
-                    break;
-                case MyFirebaseMessagingService.KHACH_VAO_BAN_ACTION:
-                    if (phucVuPresenter != null) {
-                        DatBan datBanVaoBan = (DatBan) intent.getSerializableExtra(MyFirebaseMessagingService.DAT_BAN);
-
-                        phucVuPresenter.khachVaoBanService(datBanVaoBan);
-
-                        Utils.showNotify(datBanVaoBan.getBan().getTenBan(), Utils.getStringByRes(R.string.khach_vao_ban));
-                    }
-                    break;
-                case MyFirebaseMessagingService.KHACH_HANG_REGISTER_ACTION:
-                    if (database != null) {
-                        KhachHang khachHang = (KhachHang) intent.getSerializableExtra(MyFirebaseMessagingService.KHACH_HANG);
-                        Utils.showLog(khachHang.getMaKhachHang() + khachHang.getHoTen() + khachHang.getDiaChi()
-                                + khachHang.getSoDienThoai() + khachHang.getTenDangNhap()
-                                + khachHang.getMatKhau() + khachHang.getMaToken());
-                        database.addKhachHang(khachHang);
-
-                    }
-                    break;
-                case MyFirebaseMessagingService.KHACH_HANG_YEU_CAU_ACTION:
-                    if (phucVuPresenter != null) {
-                        YeuCau yeuCau = (YeuCau) intent.getSerializableExtra(MyFirebaseMessagingService.YEU_CAU);
-
-                        phucVuPresenter.khachHangYeuCauService(yeuCau);
-
-                        Utils.showNotify(Utils.getStringByRes(R.string.khach_hang_yeu_cau),
-                                intent.getStringExtra(MyFirebaseMessagingService.TEN_KHACH_HANG));
-                    }
-
-                    break;
-                case MyFirebaseMessagingService.LOGOUT_ACTION:
-                    Utils.notifiOnDialog(Utils.getStringByRes(R.string.other_people_login));
-                    mainPresenter.logout();
-
-                    break;
-                default:
-                    break;
-            }
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,13 +94,18 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
 
     @Override
     protected void onDestroy() {
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
+        if (progressDialog != null) {
+            progressDialog.cancel();
+        }
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(myBroadcastReceiver);
+        cancelDialog();
+        super.onDestroy();
+    }
+
+    private void cancelDialog() {
 
         if (notifiDialog != null) {
             notifiDialog.cancel();
-        }
-        if (progressDialog != null) {
-            progressDialog.cancel();
         }
         if (errorDialog != null) {
             errorDialog.cancel();
@@ -179,7 +113,6 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
         if (khachHangYeuCauDialog != null) {
             khachHangYeuCauDialog.cancel();
         }
-        super.onDestroy();
     }
 
     @Override
@@ -210,6 +143,8 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
         mainPresenter = new MainPresenter(this, database);
         phucVuPresenter = new PhucVuPresenter(this, database);
 
+        myBroadcastReceiver = new MyBroadcastReceiver(phucVuPresenter, mainPresenter);
+
         notifiDialog = new NotifiDialog(this);
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(Utils.getStringByRes(R.string.loading));
@@ -223,19 +158,14 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
         khachHangYeuCauDialog = new KhachHangYeuCauDialog(this, phucVuPresenter);
 
         phucVuFragment = new PhucVuFragment(phucVuPresenter);
-        fragmentIsShow = new Fragment();
         intentFilter = new IntentFilter();
 
     }
 
     @Override
     public void setEvents() {
-        tvAdmin.setText(admin.getTenDangNhap());
-        tvHoTen.setText("(" + admin.getHoTen() + ")");
-        if (admin.getType() == 2) {
-            btnManage.setEnabled(false);
-            btnThongKe.setEnabled(false);
-        }
+        setAdmin();
+
         btnDropDown.setOnClickListener(this);
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
@@ -250,7 +180,6 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
                     default:
                         return false;
                 }
-
             }
         });
 
@@ -260,6 +189,8 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
         btnDatBan.setOnClickListener(this);
         btnSetting.setOnClickListener(this);
 
+        intentFilter.addAction(ConnectChangeBroadcastReceiver.CONNECT_AVAILABLE);
+        intentFilter.addAction(ConnectChangeBroadcastReceiver.CONNECT_FAIL);
         intentFilter.addAction(MyFirebaseMessagingService.DAT_BAN_ACTION);
         intentFilter.addAction(MyFirebaseMessagingService.HUY_DAT_BAN_ACTION);
         intentFilter.addAction(MyFirebaseMessagingService.UPDATE_DAT_BAN_ACTION);
@@ -267,8 +198,17 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
         intentFilter.addAction(MyFirebaseMessagingService.KHACH_VAO_BAN_ACTION);
         intentFilter.addAction(MyFirebaseMessagingService.KHACH_HANG_REGISTER_ACTION);
         intentFilter.addAction(MyFirebaseMessagingService.KHACH_HANG_YEU_CAU_ACTION);
-        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, intentFilter);
+        LocalBroadcastManager.getInstance(this).registerReceiver(myBroadcastReceiver, intentFilter);
 
+    }
+
+    private void setAdmin() {
+        tvAdmin.setText(admin.getTenDangNhap());
+        tvHoTen.setText("(" + admin.getHoTen() + ")");
+        if (admin.getType() == 2) {
+            btnManage.setEnabled(false);
+            btnThongKe.setEnabled(false);
+        }
     }
 
     @Override
@@ -368,14 +308,13 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
 
     @Override
     public void updateFloatButton(int size) {
-        if (isShowFloatButton) {
-            if (size == 0) {
-                removeFloatButton();
-            } else {
+        if (size == 0) {
+            removeFloatButton();
+        } else {
+            showFloatButton();
 
-                tvNumber.setText(size + "");
-                wm.updateViewLayout(layoutFloat, params);
-            }
+            tvNumber.setText(size + "");
+            wm.updateViewLayout(layoutFloat, params);
         }
     }
 
@@ -388,8 +327,30 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
     }
 
     @Override
+    public void clearFrame() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        List<Fragment> fragments = fragmentManager.getFragments();
+
+        if (fragments.size() > 0) {
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            for (Fragment fragment : fragments) {
+                Utils.showLog("xoa " + fragment.getClass().getName());
+                transaction.remove(fragment);
+            }
+            transaction.commit();
+        }
+        cancelDialog();
+        btnSelected.setSelected(false);
+        fragmentIsShow = null;
+        phucVuFragment = null;
+        datBanFragment = null;
+        managerFragment = null;
+        thongKeFragment = null;
+    }
+
+    @Override
     public void setYeuCauList() {
-        khachHangYeuCauDialog.setYeuCauList();
+        khachHangYeuCauDialog = new KhachHangYeuCauDialog(this, phucVuPresenter);
     }
 
     @Override
@@ -411,7 +372,7 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
 
     @Override
     public void showPhucVu() {
-
+        if (phucVuFragment == null) phucVuFragment = new PhucVuFragment(phucVuPresenter);
         fillFrame(phucVuFragment, btnPhucVu);
     }
 
@@ -424,8 +385,7 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-        if (fragmentIsShow.isVisible()) {
-
+        if (fragmentIsShow != null && fragmentIsShow.isVisible()) {
             transaction.hide(fragmentIsShow);
             fragmentIsShow.onPause();
         }
@@ -448,6 +408,8 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
 
     @Override
     public void showContent() {
+        setAdmin();
+        if (phucVuFragment == null) phucVuFragment = new PhucVuFragment(phucVuPresenter);
         fillFrame(phucVuFragment, btnPhucVu);
     }
 
@@ -463,7 +425,12 @@ public class MainActivity extends AppCompatActivity implements CommondActionForV
     }
 
     @Override
-    public void showConnectFailDialog() {
-        notifiDialog.notifi(Utils.getStringByRes(R.string.kiem_tra_ket_noi_mang));
+    public void showNotifyDialog(String message) {
+        notifiDialog.notifi(message);
+    }
+
+    @Override
+    public void showOtherLoginDialog() {
+        Utils.notifiOnDialog(Utils.getStringByRes(R.string.other_people_login));
     }
 }

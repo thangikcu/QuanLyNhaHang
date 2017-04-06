@@ -16,15 +16,19 @@ import com.thanggun99.khachhang.view.dialog.OrderMonDialog;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+
 
 @SuppressLint("ValidFragment")
 public class ThucDonFragment extends BaseFragment implements KhachHangPresenter.ThucDonView,
         View.OnClickListener {
 
-    private KhachHangPresenter khachHangPresenter;
+    @BindView(R.id.list_nhom_mon)
+    RecyclerView listNhomMon;
+    @BindView(R.id.list_mon)
+    RecyclerView listMon;
 
-    private RecyclerView nhomMonListView;
-    private RecyclerView monListView;
+    private KhachHangPresenter khachHangPresenter;
 
     private NhomMonAdapter nhomMonAdapter;
     private MonAdapter monAdapter;
@@ -36,13 +40,6 @@ public class ThucDonFragment extends BaseFragment implements KhachHangPresenter.
     }
 
     @Override
-    public void findViews(View view) {
-        monListView = (RecyclerView) view.findViewById(R.id.list_mon);
-        nhomMonListView = (RecyclerView) view.findViewById(R.id.list_nhom_mon);
-
-    }
-
-    @Override
     public void initComponents() {
         orderMonDialog = new OrderMonDialog(getContext(), khachHangPresenter);
 
@@ -50,8 +47,8 @@ public class ThucDonFragment extends BaseFragment implements KhachHangPresenter.
 
     @Override
     public void setEvents() {
-        nhomMonListView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        monListView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        listNhomMon.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        listMon.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
         khachHangPresenter.setThucDonView(this);
         khachHangPresenter.loadThucDonList();
@@ -83,15 +80,15 @@ public class ThucDonFragment extends BaseFragment implements KhachHangPresenter.
             nhomMonAdapter = new NhomMonAdapter(getContext(), khachHangPresenter);
             monAdapter = new MonAdapter(getContext(), khachHangPresenter);
 
-            nhomMonListView.setAdapter(nhomMonAdapter);
-            monListView.setAdapter(monAdapter);
+            listNhomMon.setAdapter(nhomMonAdapter);
+            listMon.setAdapter(monAdapter);
         }
 
     }
 
     @Override
     public void notifyChangeListThucDon(ArrayList<Mon> listMonByMaLoai) {
-        monListView.scrollToPosition(0);
+        listMon.scrollToPosition(0);
         monAdapter.changeData(listMonByMaLoai);
     }
 

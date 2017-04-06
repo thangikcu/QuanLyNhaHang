@@ -19,6 +19,9 @@ import com.thanggun99.khachhang.util.Utils;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 
 public class MonOrderAdapter extends RecyclerView.Adapter<MonOrderAdapter.ViewHolder> {
     private ArrayList<MonOrder> monOrderList;
@@ -46,7 +49,7 @@ public class MonOrderAdapter extends RecyclerView.Adapter<MonOrderAdapter.ViewHo
         holder.tvSoLuong.setText(monOrder.getSoLuong() + monOrder.getDonViTinh());
         holder.tvThanhTien.setText(Utils.formatMoney(monOrder.getTongTien()));
         holder.ratingBar.setRating(monOrder.getRating() / monOrder.getPersonRating());
-        holder.tvRatingPoint.setText(monOrder.getRatingPoint());
+        holder.tvPointRating.setText(monOrder.getRatingPoint());
         Glide.with(context)
                 .load(monOrder.getHinhAnh())
                 .placeholder(R.drawable.ic_food)
@@ -83,37 +86,37 @@ public class MonOrderAdapter extends RecyclerView.Adapter<MonOrderAdapter.ViewHo
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView tvTenMon;
-        TextView tvThanhTien;
-        TextView tvSoLuong;
+        @BindView(R.id.iv_mon)
         ImageView ivMon;
-        ImageButton btnDelete;
+        @BindView(R.id.tv_ten_mon)
+        TextView tvTenMon;
+        @BindView(R.id.ratingBar)
         RatingBar ratingBar;
-        TextView tvRatingPoint;
+        @BindView(R.id.tv_point_rating)
+        TextView tvPointRating;
+        @BindView(R.id.tv_so_luong)
+        TextView tvSoLuong;
+        @BindView(R.id.tv_don_gia)
+        TextView tvThanhTien;
+        @BindView(R.id.btn_delete_mon_order)
+        ImageButton btnDeleteMonOrder;
 
-        public ViewHolder(final View itemView) {
-            super(itemView);
-            tvRatingPoint = (TextView) itemView.findViewById(R.id.tv_point_rating);
-            ratingBar = (RatingBar) itemView.findViewById(R.id.ratingBar);
-            tvThanhTien = (TextView) itemView.findViewById(R.id.tv_don_gia);
-            tvSoLuong = (TextView) itemView.findViewById(R.id.tv_so_luong);
-            ivMon = (ImageView) itemView.findViewById(R.id.iv_mon);
-            btnDelete = (ImageButton) itemView.findViewById(R.id.btn_delete_mon_order);
-            tvTenMon = (TextView) itemView.findViewById(R.id.tv_message);
+        ViewHolder(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
 
             tvTenMon.setMovementMethod(new ScrollingMovementMethod());
             tvTenMon.setOnClickListener(this);
 
-            btnDelete.setOnClickListener(this);
+            btnDeleteMonOrder.setOnClickListener(this);
             itemView.setOnClickListener(this);
-
         }
 
         @Override
-        public void onClick(View v) {
+        public void onClick(View view) {
             currentPosition = getAdapterPosition();
 
-            switch (v.getId()) {
+            switch (view.getId()) {
                 case R.id.btn_delete_mon_order:
                     break;
                 default:
@@ -121,5 +124,6 @@ public class MonOrderAdapter extends RecyclerView.Adapter<MonOrderAdapter.ViewHo
                     break;
             }
         }
+
     }
 }

@@ -27,6 +27,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Socket;
 import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Date;
@@ -96,7 +98,27 @@ public class Utils {
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo info = connectivityManager.getActiveNetworkInfo();
-        return info != null && info.isConnected();
+        return info != null && info.isConnectedOrConnecting();
+    }
+
+    public static boolean isConnectAvalilabe() {
+        String host = "www.google.com";
+        int port = 80;
+        Socket socket = new Socket();
+
+        try {
+            socket.connect(new InetSocketAddress(host, port), 2000);
+            socket.close();
+            return true;
+        } catch (IOException e) {
+            try {
+                socket.close();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public static String convertColorToHex(Drawable drawable) {

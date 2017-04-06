@@ -1,5 +1,6 @@
 package thanggun99.quanlynhahang.view.activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,20 +18,30 @@ import thanggun99.quanlynhahang.util.Utils;
 import thanggun99.quanlynhahang.view.dialog.NotifiDialog;
 
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener, LoginTask.OnFinishLoginListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener, LoginTask.OnLoginListener {
     private EditText edtUsername, edtPassword;
     private CheckBox ckbGhiNho;
     private TextView tvError;
     private Button btnLogin;
     private LoginTask loginTask;
 
+    private ProgressDialog progressDialog;
+    private NotifiDialog notifiDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        loginTask = new LoginTask(this);
-        loginTask.setOnFinishLoginListener(this);
+        loginTask = new LoginTask();
+        loginTask.setOnLoginListener(this);
+
+        notifiDialog = new NotifiDialog(this);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage(Utils.getStringByRes(R.string.loading));
 
         edtUsername = (EditText) findViewById(R.id.edt_username);
         edtPassword = (EditText) findViewById(R.id.edt_password);
@@ -40,7 +51,36 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         btnLogin.setOnClickListener(this);
 
-        loginTask.loginAuto();
+        if (checkConnect()) {
+
+            loginTask.loginAuto();
+        }
+    }
+
+    @Override
+    public void onStartTask() {
+        progressDialog.show();
+    }
+
+    @Override
+    public void onFinishTask() {
+        progressDialog.dismiss();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (progressDialog != null) progressDialog.cancel();
+        if (notifiDialog != null) notifiDialog.cancel();
+        super.onDestroy();
+    }
+
+    private boolean checkConnect() {
+        if (Utils.isConnectingToInternet()) {
+            return true;
+        } else {
+            notifiDialog.notifi(Utils.getStringByRes(R.string.kiem_tra_ket_noi_mang));
+            return false;
+        }
     }
 
     private boolean checkForm() {
@@ -75,7 +115,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 admin.setKieuDangNhap(LoginTask.NOT_AUTO);
                 admin.setGhiNho(ckbGhiNho.isChecked());
 
-                loginTask.login(admin);
+                if (checkConnect()) {
+
+                    loginTask.login(admin);
+                }
             }
         }
     }

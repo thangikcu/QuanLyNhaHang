@@ -2,6 +2,7 @@ package thanggun99.quanlynhahang.model;
 
 import android.os.AsyncTask;
 
+
 /**
  * Created by Thanggun99 on 07/03/2017.
  */
@@ -94,6 +95,39 @@ public class MainInteractor {
         return database;
     }
 
+    public void reloadDatas() {
+        LoginTask loginTask = new LoginTask();
+        loginTask.setOnLoginListener(new LoginTask.OnLoginListener() {
+            @Override
+            public void onStartTask() {
+                onMainInteractorFinishListener.onStartTask();
+            }
+
+            @Override
+            public void onFinishTask() {
+                onMainInteractorFinishListener.onFinishTask();
+            }
+
+            @Override
+            public void onLoginSuccess() {
+                database.refresh();
+                getDatas();
+            }
+
+            @Override
+            public void onLoginFail() {
+                onMainInteractorFinishListener.onLoginFail();
+            }
+
+            @Override
+            public void onOtherLogin() {
+                onMainInteractorFinishListener.onOtherlogin();
+            }
+        });
+
+        loginTask.login(getDatabase().getAdmin());
+    }
+
 
     public interface OnMainInteractorFinishListener {
         void onFinishGetDatas();
@@ -109,6 +143,10 @@ public class MainInteractor {
         void onChangePasswordFail();
 
         void passwordWrong();
+
+        void onLoginFail();
+
+        void onOtherlogin();
     }
 }
 

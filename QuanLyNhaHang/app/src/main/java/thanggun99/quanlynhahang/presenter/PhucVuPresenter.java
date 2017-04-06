@@ -11,6 +11,7 @@ import thanggun99.quanlynhahang.model.PhucVuInteractor;
 import thanggun99.quanlynhahang.model.entity.Ban;
 import thanggun99.quanlynhahang.model.entity.DatBan;
 import thanggun99.quanlynhahang.model.entity.HoaDon;
+import thanggun99.quanlynhahang.model.entity.KhachHang;
 import thanggun99.quanlynhahang.model.entity.Mon;
 import thanggun99.quanlynhahang.model.entity.MonOrder;
 import thanggun99.quanlynhahang.model.entity.NhomMon;
@@ -72,8 +73,6 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
     public void khachVaoBanService(DatBan datBanVaoBan) {
         DatBan datBan = getDatabase().getDatBanChuaSetBanByMa(datBanVaoBan.getMaDatBan());
         if (datBan != null) {
-            getDatabase().onKhachDatBanVaoBan(datBan);
-
             datBan.setBan(getDatabase().getBanByMaBan(datBanVaoBan.getBan().getMaBan()));
             datBan.getBan().setTrangThai(Ban.DA_DAT_TRUOC);
             phucVuView.notifyUpdateListBan(datBan.getBan());
@@ -83,9 +82,10 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
                 datBanView.notifyRemoveListDatBanChuaSetBan(datBan);
             }
             if (phucVuInteractor.getcurrentBan().getMaBan() == datBan.getBan().getMaBan()) {
-
-                phucVuInteractor.getThongTinBan(datBan.getBan());
+                phucVuView.showBanDatBan(datBan);
             }
+
+            getDatabase().onKhachDatBanVaoBan(datBan);
         }
     }
 
@@ -164,7 +164,6 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
 
             getDatabase().addYeuCau(yeuCauNew);
             yeuCauView.notifyAddYeuCau();
-            showOnMain.showFloatButton();
             showOnMain.updateFloatButton(getDatabase().getYeuCauList().size());
         }
 
@@ -202,7 +201,7 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
         if (Utils.isConnectingToInternet()) {
             return true;
         } else {
-            showOnMain.showConnectFailDialog();
+            showOnMain.showNotifyDialog(Utils.getStringByRes(R.string.kiem_tra_ket_noi_mang));
             return false;
         }
     }
@@ -616,6 +615,10 @@ public class PhucVuPresenter implements PhucVuInteractor.OnPhucVuInteractorFinis
 
     public void setYeuCauView(YeuCauView yeuCauView) {
         this.yeuCauView = yeuCauView;
+    }
+
+    public void addKhachHang(KhachHang khachHang) {
+        getDatabase().addKhachHang(khachHang);
     }
 
 

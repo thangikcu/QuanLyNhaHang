@@ -2,11 +2,6 @@ package com.thanggun99.khachhang.view.fragment;
 
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
-import android.app.TimePickerDialog;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -29,6 +24,7 @@ import com.thanggun99.khachhang.model.entity.DatBan;
 import com.thanggun99.khachhang.model.entity.HoaDon;
 import com.thanggun99.khachhang.model.entity.MonOrder;
 import com.thanggun99.khachhang.presenter.KhachHangPresenter;
+import com.thanggun99.khachhang.util.TimePicker;
 import com.thanggun99.khachhang.util.Utils;
 import com.thanggun99.khachhang.view.dialog.ConfirmDialog;
 import com.thanggun99.khachhang.view.dialog.ErrorDialog;
@@ -36,26 +32,58 @@ import com.thanggun99.khachhang.view.dialog.OrderMonDialog;
 import com.thanggun99.khachhang.view.dialog.ThongTinDatBanDialog;
 import com.thanggun99.khachhang.view.dialog.TinhTienDialog;
 
-import java.util.Calendar;
+import butterknife.BindView;
 
 
 @SuppressLint("ValidFragment")
-public class ThongTinPhucVuFragment extends BaseFragment implements View.OnClickListener, KhachHangPresenter.ThongTinPhucVuView {
+public class ThongTinPhucVuFragment extends BaseFragment implements View.OnClickListener, KhachHangPresenter.ThongTinPhucVuView, TimePicker.OnPickTimeListener {
+
+    @BindView(R.id.tv_ten_ban)
+    TextView tvTenBan;
+    @BindView(R.id.btn_thuc_don)
+    ImageButton btnThucDon;
+    @BindView(R.id.tv_trang_thai)
+    TextView tvTrangThai;
+    @BindView(R.id.tv_gio_den)
+    TextView tvGioDen;
+    @BindView(R.id.tbr_gio_den)
+    TableRow tbrGioDen;
+    @BindView(R.id.edt_gio_den)
+    EditText edtGioDen;
+    @BindView(R.id.btn_back)
+    ImageButton btnBack;
+    @BindView(R.id.edt_yeu_cau)
+    EditText edtYeuCau;
+    @BindView(R.id.btn_dat_ban)
+    Button btnDatBan;
+    @BindView(R.id.ln_dat_ban)
+    LinearLayout lnDatBan;
+    @BindView(R.id.tv_yeu_cau)
+    TextView tvYeuCau;
+    @BindView(R.id.btn_edit_dat_ban)
+    Button btnEditDatBan;
+    @BindView(R.id.btn_huy_dat_ban)
+    Button btnHuyDatBan;
+    @BindView(R.id.ln_thong_tin_dat_ban)
+    LinearLayout lnThongTinDatBan;
+    @BindView(R.id.recyclerview_mon_order)
+    RecyclerView recyclerviewMonOrder;
+    @BindView(R.id.tv_tong_tien)
+    TextView tvTongTien;
+    @BindView(R.id.btn_sale)
+    Button btnSale;
+    @BindView(R.id.btn_tinh_tien)
+    Button btnTinhTien;
+    @BindView(R.id.ln_phuc_vu)
+    LinearLayout lnPhucVu;
 
     private KhachHangPresenter khachHangPresenter;
 
-    private EditText edtYeuCau;
-    private static EditText edtGioDen;
-    private TimePicker timePicker;
-    private LinearLayout lnThongTinDatBan, lnDatBan, lnPhucVu;
-    private TextView tvGioDen, tvYeuCau, tvTenBan, tvTrangThai, tvTongTien;
-    private ImageButton btnThucDon, btnBack;
-    private Button btnDatBan, btnEditDatBan, btnHuyDatBan, btnTinhTien, btnSale;
-    private TableRow tbrGioDen;
-    private RecyclerView monOrderRecyclerView;
     private MonOrderAdapter monOrderAdapter;
+
     private Animation animationAlpha;
     private PopupMenu popupMenu;
+    private TimePicker timePicker;
     private ThongTinDatBanDialog thongTinDatBanDialog;
     private OrderMonDialog orderMonDialog;
     private ErrorDialog errorDialog;
@@ -69,36 +97,9 @@ public class ThongTinPhucVuFragment extends BaseFragment implements View.OnClick
     }
 
     @Override
-    public void findViews(View view) {
-        tbrGioDen = (TableRow) view.findViewById(R.id.tbr_gio_den);
-
-        tvTenBan = (TextView) view.findViewById(R.id.tv_ten_ban);
-        tvTrangThai = (TextView) view.findViewById(R.id.tv_trang_thai);
-        btnThucDon = (ImageButton) view.findViewById(R.id.btn_thuc_don);
-        tvGioDen = (TextView) view.findViewById(R.id.tv_gio_den);
-
-        lnDatBan = (LinearLayout) view.findViewById(R.id.ln_dat_ban);
-        edtGioDen = (EditText) lnDatBan.findViewById(R.id.edt_gio_den);
-        edtYeuCau = (EditText) lnDatBan.findViewById(R.id.edt_yeu_cau);
-        btnDatBan = (Button) lnDatBan.findViewById(R.id.btn_dat_ban);
-        btnBack = (ImageButton) lnDatBan.findViewById(R.id.btn_back);
-
-        lnThongTinDatBan = (LinearLayout) view.findViewById(R.id.ln_thong_tin_dat_ban);
-        tvYeuCau = (TextView) lnThongTinDatBan.findViewById(R.id.tv_yeu_cau);
-        btnHuyDatBan = (Button) lnThongTinDatBan.findViewById(R.id.btn_huy_dat_ban);
-        btnEditDatBan = (Button) lnThongTinDatBan.findViewById(R.id.btn_edit_dat_ban);
-
-
-        lnPhucVu = (LinearLayout) view.findViewById(R.id.ln_phuc_vu);
-        monOrderRecyclerView = (RecyclerView) lnPhucVu.findViewById(R.id.recyclerview_mon_order);
-        btnSale = (Button) lnPhucVu.findViewById(R.id.btn_sale);
-        btnTinhTien = (Button) lnPhucVu.findViewById(R.id.btn_tinh_tien);
-        tvTongTien = (TextView) lnPhucVu.findViewById(R.id.tv_tong_tien);
-    }
-
-    @Override
     public void initComponents() {
         timePicker = new TimePicker();
+        timePicker.setOnPickTimeListener(this);
         thongTinDatBanDialog = new ThongTinDatBanDialog(getContext());
         orderMonDialog = new OrderMonDialog(getContext(), khachHangPresenter);
 
@@ -118,7 +119,7 @@ public class ThongTinPhucVuFragment extends BaseFragment implements View.OnClick
         lnThongTinDatBan.setVisibility(View.GONE);
         btnBack.setVisibility(View.GONE);
 
-        monOrderRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerviewMonOrder.setLayoutManager(new LinearLayoutManager(getContext()));
 
         btnThucDon.setOnClickListener(this);
         btnEditDatBan.setOnClickListener(this);
@@ -223,7 +224,7 @@ public class ThongTinPhucVuFragment extends BaseFragment implements View.OnClick
     @Override
     public void showLayoutPhucVu(HoaDon hoaDon) {
         monOrderAdapter = new MonOrderAdapter(getContext(), khachHangPresenter);
-        monOrderRecyclerView.setAdapter(monOrderAdapter);
+        recyclerviewMonOrder.setAdapter(monOrderAdapter);
 
         tvTrangThai.setText(Utils.getStringByRes(R.string.dang_phuc_vu));
 
@@ -384,28 +385,9 @@ public class ThongTinPhucVuFragment extends BaseFragment implements View.OnClick
         Utils.notifi(Utils.getStringByRes(R.string.dat_ban_that_bai));
     }
 
-    public static class TimePicker extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
-
-        @NonNull
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-
-            Calendar calendar = Calendar.getInstance();
-            int hour = calendar.get(Calendar.HOUR_OF_DAY);
-            int minute = calendar.get(Calendar.MINUTE);
-
-            return new TimePickerDialog(getActivity(), this, hour, minute, false);
-        }
-
-        @Override
-        public void onTimeSet(android.widget.TimePicker view, int hourOfDay, int minute) {
-            Calendar c = Calendar.getInstance();
-            int year = c.get(Calendar.YEAR);
-            int month = c.get(Calendar.MONTH);
-            int day = c.get(Calendar.DAY_OF_MONTH);
-
-            edtGioDen.setText(Utils.formatDate(year + "-" + (month + 1) + "-" + day + " " + hourOfDay + ":" + minute + ":" + "00"));
-            edtGioDen.setError(null);
-        }
+    @Override
+    public void onPickTime(String time) {
+        edtGioDen.setText(time);
+        edtGioDen.setError(null);
     }
 }

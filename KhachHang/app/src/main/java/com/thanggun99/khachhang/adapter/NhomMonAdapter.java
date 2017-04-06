@@ -20,6 +20,9 @@ import com.thanggun99.khachhang.util.Utils;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by Thanggun99 on 19/11/2016.
  */
@@ -55,17 +58,17 @@ public class NhomMonAdapter extends RecyclerView.Adapter<NhomMonAdapter.ViewHold
     public void onBindViewHolder(ViewHolder holder, int position) {
         NhomMon nhomMon = nhomMonList.get(position);
 
-        holder.tvTenNhom.setText(nhomMon.getTenLoai());
-        holder.tvTenNhom.setBackgroundColor(nhomMon.getMauSac());
+        holder.tvTenNhomMon.setText(nhomMon.getTenLoai());
+        holder.tvTenNhomMon.setBackgroundColor(nhomMon.getMauSac());
 
         Drawable drawable = App.getContext().getDrawable(R.drawable.bg_nhom_mon_item);
         drawable.setColorFilter(nhomMon.getMauSac(), PorterDuff.Mode.MULTIPLY);
-        holder.tvTenNhom.setBackground(drawable);
+        holder.tvTenNhomMon.setBackground(drawable);
 
         if (nhomMon.getSelected()) {
-            holder.tvTenNhom.setSelected(true);
+            holder.tvTenNhomMon.setSelected(true);
         } else {
-            holder.tvTenNhom.setSelected(false);
+            holder.tvTenNhomMon.setSelected(false);
         }
     }
 
@@ -80,14 +83,15 @@ public class NhomMonAdapter extends RecyclerView.Adapter<NhomMonAdapter.ViewHold
         return nhomMonList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvTenNhom;
+    class ViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.tv_ten_nhom_mon)
+        TextView tvTenNhomMon;
 
-        public ViewHolder(View itemView) {
-            super(itemView);
-            tvTenNhom = (TextView) itemView.findViewById(R.id.tv_ten_nhom_mon);
+        ViewHolder(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
 
-            tvTenNhom.setOnClickListener(new View.OnClickListener() {
+            tvTenNhomMon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     final NhomMon nhomMon = nhomMonList.get(getAdapterPosition());
@@ -117,8 +121,6 @@ public class NhomMonAdapter extends RecyclerView.Adapter<NhomMonAdapter.ViewHold
                     }, 500);
                 }
             });
-
         }
     }
-
 }

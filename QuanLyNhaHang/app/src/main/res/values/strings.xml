@@ -71,7 +71,7 @@
     <string name="huy_order">Hủy món: %s ?</string>
     <string name="thong_bao">Thông báo</string>
     <string name="dong">Đóng</string>
-    <string name="kiem_tra_ket_noi_mang">Kiểm tra kết nối mạng</string>
+    <string name="kiem_tra_ket_noi_mang">Kiểm tra kết nối mạng !</string>
     <string name="them_moi">Thêm mới</string>
     <string name="danh_sach_dat_ban">Danh sách đặt bàn</string>
     <string name="dat_truoc">Đặt trước</string>
@@ -159,4 +159,5 @@
     <string name="info_so_luong_hoa_don_chua_thanh_toan">Số hoá đơn chưa tính tiền:</string>
     <string name="info_so_luong_dat_ban">Số lượng đặt trước:</string>
     <string name="info_so_luong_tin_tuc">Số tin tức:</string>
+    <string name="mat_ket_noi_toi_may_chu">Mất kết nối tới máy chủ !</string>
 </resources>

@@ -45,7 +45,7 @@ public class ManagerFragment extends BaseFragment implements View.OnClickListene
         btnQlTinTuc = (Button) view.findViewById(R.id.btn_ql_tin_tuc);
         btnQlKhachHang = (Button) view.findViewById(R.id.btn_ql_khach_hang);
 
-        btnSelected = btnQlTinTuc;
+        btnSelected = new Button(getContext());
     }
 
     @Override

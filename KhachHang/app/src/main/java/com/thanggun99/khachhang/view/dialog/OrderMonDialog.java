@@ -4,7 +4,6 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -16,48 +15,47 @@ import com.thanggun99.khachhang.R;
 import com.thanggun99.khachhang.model.entity.Mon;
 import com.thanggun99.khachhang.presenter.KhachHangPresenter;
 
+import butterknife.BindView;
+
 public class OrderMonDialog extends BaseDialog {
-    private final Context context;
+
+    @BindView(R.id.tv_ten_mon)
+    TextView tvTenMon;
+    @BindView(R.id.iv_mon)
+    ImageView ivMon;
+    @BindView(R.id.btn_tru)
+    ImageButton btnTru;
+    @BindView(R.id.edt_so_luong)
+    EditText edtSoLuong;
+    @BindView(R.id.tv_don_vi_tinh)
+    TextView tvDonViTinh;
+    @BindView(R.id.btn_cong)
+    ImageButton btnCong;
+    @BindView(R.id.ratingBar)
+    RatingBar ratingBar;
+    @BindView(R.id.tv_point_rating)
+    TextView tvPointRating;
+
     private final KhachHangPresenter khachHangPresenter;
-    private TextView tvTenMon;
-    private TextView tvDVT;
-    private EditText edtSoLuong;
-    private ImageButton btnCong, btnTru;
-    private ImageView ivMon;
-    private RatingBar ratingBar;
-    private TextView tvRatingPoint;
 
     public OrderMonDialog(Context context, KhachHangPresenter khachHangPresenter) {
-        super(context);
-        this.context = context;
-        this.khachHangPresenter = khachHangPresenter;
-        setContentView(R.layout.dialog_order_mon);
+        super(context, R.layout.dialog_order_mon);
 
-        tvRatingPoint = (TextView) findViewById(R.id.tv_point_rating);
-        ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-        tvDVT = (TextView) findViewById(R.id.tv_don_vi_tinh);
-        tvDVT.setMovementMethod(new ScrollingMovementMethod());
-        edtSoLuong = (EditText) findViewById(R.id.edt_so_luong);
-        btnCong = (ImageButton) findViewById(R.id.btn_cong);
-        btnTru = (ImageButton) findViewById(R.id.btn_tru);
-        btnOk = (Button) findViewById(R.id.btn_ok);
-        btnCancle = (Button) findViewById(R.id.btn_cancel);
-        ivMon = (ImageView) findViewById(R.id.iv_mon);
-        tvTenMon = (TextView) findViewById(R.id.tv_message);
+        this.khachHangPresenter = khachHangPresenter;
         tvTenMon.setMovementMethod(new ScrollingMovementMethod());
 
         btnOk.setOnClickListener(this);
         btnCong.setOnClickListener(this);
         btnTru.setOnClickListener(this);
-        btnCancle.setOnClickListener(this);
+        btnCancel.setOnClickListener(this);
     }
 
     public void setContent(Mon mon) {
         ratingBar.setRating(mon.getRating() / mon.getPersonRating());
-        tvRatingPoint.setText(mon.getRatingPoint());
+        tvPointRating.setText(mon.getRatingPoint());
         edtSoLuong.setText("1");
         tvTenMon.setText(mon.getTenMon());
-        tvDVT.setText(mon.getDonViTinh());
+        tvDonViTinh.setText(mon.getDonViTinh());
         Glide.with(getContext())
                 .load(mon.getHinhAnh())
                 .placeholder(R.drawable.ic_food)

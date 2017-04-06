@@ -36,14 +36,21 @@ import com.thanggun99.khachhang.view.fragment.MyProfileFragment;
 import com.thanggun99.khachhang.view.fragment.SettingFragment;
 import com.thanggun99.khachhang.view.fragment.ThongTinPhucVuFragment;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity implements KhachHangPresenter.MainView, PopupMenu.OnMenuItemClickListener, NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
-    private DrawerLayout drawerLayout;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.nav_view)
+    NavigationView navView;
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawerLayout;
+
     private ActionBarDrawerToggle toggle;
-    private Toolbar toolbar;
     private LinearLayout lnLogin;
     private TextView tvUsername, tvFullname, tvDangNhap;
     private IntentFilter intentFilter;
-    private NavigationView navigationView;
     private PopupMenu popupMenu;
     private ImageButton btnArrowDown;
     private KhachHangPresenter khachHangPresenter;
@@ -61,7 +68,6 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
         public void onReceive(Context context, Intent intent) {
             switch (intent.getAction()) {
                 case MyFirebaseMessagingService.NOTIFI_ACTION:
-                    Utils.showToast("okkkkkkkk");
                     break;
                 case MyFirebaseMessagingService.LOGOUT_ACTION:
 
@@ -92,7 +98,6 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
                     }
                     break;
                 case MyFirebaseMessagingService.TAO_HOA_DON_MOI_ACTION:
-                    Utils.showLog("taomoi hoa don broadcast");
                     if (khachHangPresenter != null) {
                         khachHangPresenter.taoHoaDonMoiService();
 
@@ -138,6 +143,7 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
         findViews();
         initComponets();
         setEvents();
@@ -172,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
         toggle.syncState();
         popupMenu.setOnMenuItemClickListener(this);
         btnArrowDown.setOnClickListener(this);
-        navigationView.setNavigationItemSelectedListener(this);
+        navView.setNavigationItemSelectedListener(this);
         tvDangNhap.setOnClickListener(this);
 
         showNavigationOnUnLogin();
@@ -191,14 +197,12 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
     }
 
     private void findViews() {
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
-        lnLogin = (LinearLayout) navigationView.getHeaderView(0).findViewById(R.id.ln_login);
-        tvFullname = (TextView) navigationView.getHeaderView(0).findViewById(R.id.tv_full_name);
-        tvUsername = (TextView) navigationView.getHeaderView(0).findViewById(R.id.tv_username);
-        tvDangNhap = (TextView) navigationView.getHeaderView(0).findViewById(R.id.tv_login);
-        btnArrowDown = (ImageButton) navigationView.getHeaderView(0).findViewById(R.id.btn_arrow_down);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        lnLogin = ButterKnife.findById(navView.getHeaderView(0), R.id.ln_login);
+        tvFullname = ButterKnife.findById(navView.getHeaderView(0), R.id.tv_full_name);
+        tvUsername = ButterKnife.findById(navView.getHeaderView(0), R.id.tv_username);
+        tvDangNhap = ButterKnife.findById(navView.getHeaderView(0), R.id.tv_login);
+        btnArrowDown = ButterKnife.findById(navView.getHeaderView(0), R.id.btn_arrow_down);
+
     }
 
     @Override
@@ -235,7 +239,7 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
         if (fragment.isVisible()) return;
 
         if (id != 0) {
-            MenuItem menuItem = navigationView.getMenu().findItem(id);
+            MenuItem menuItem = navView.getMenu().findItem(id);
             menuItem.setChecked(true);
             String title = menuItem.getTitle().toString();
             toolbar.setTitle(title);
@@ -260,15 +264,15 @@ public class MainActivity extends AppCompatActivity implements KhachHangPresente
     public void showNavigationOnUnLogin() {
         lnLogin.setVisibility(View.GONE);
         tvDangNhap.setVisibility(View.VISIBLE);
-        navigationView.getMenu().getItem(1).setVisible(false);
-        navigationView.getMenu().getItem(2).setVisible(false);
+        navView.getMenu().getItem(1).setVisible(false);
+        navView.getMenu().getItem(2).setVisible(false);
     }
 
     public void showNavigationOnLogin() {
         lnLogin.setVisibility(View.VISIBLE);
         tvDangNhap.setVisibility(View.GONE);
-        navigationView.getMenu().getItem(1).setVisible(true);
-        navigationView.getMenu().getItem(2).setVisible(true);
+        navView.getMenu().getItem(1).setVisible(true);
+        navView.getMenu().getItem(2).setVisible(true);
     }
 
     @Override

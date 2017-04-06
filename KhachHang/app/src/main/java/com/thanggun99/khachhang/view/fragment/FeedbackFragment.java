@@ -2,9 +2,9 @@ package com.thanggun99.khachhang.view.fragment;
 
 
 import android.annotation.SuppressLint;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -12,28 +12,26 @@ import com.thanggun99.khachhang.R;
 import com.thanggun99.khachhang.presenter.KhachHangPresenter;
 import com.thanggun99.khachhang.util.Utils;
 
+import butterknife.BindView;
+
 @SuppressLint("ValidFragment")
 public class FeedbackFragment extends BaseFragment implements View.OnClickListener, KhachHangPresenter.FeedbackView {
+    @BindView(R.id.edt_title)
+    EditText edtTitle;
+    @BindView(R.id.edt_content)
+    EditText edtContent;
+    @BindView(R.id.tv_error)
+    TextView tvError;
+    @BindView(R.id.btn_gop_y)
+    Button btnGopY;
+
     private KhachHangPresenter khachHangPresenter;
-    private EditText edtTitle, edtContent;
-    private TextView tvError;
 
     public FeedbackFragment(KhachHangPresenter khachHangPresenter) {
         super(R.layout.fragment_feedback);
         this.khachHangPresenter = khachHangPresenter;
     }
 
-    @Override
-    public void findViews(View view) {
-
-        edtContent = (EditText) view.findViewById(R.id.edt_content);
-        edtTitle = (EditText) view.findViewById(R.id.edt_title);
-
-        tvError = (TextView) view.findViewById(R.id.tv_error);
-
-        view.findViewById(R.id.btn_gop_y).setOnClickListener(this);
-
-    }
 
     @Override
     public void initComponents() {
@@ -42,7 +40,7 @@ public class FeedbackFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     public void setEvents() {
-
+        btnGopY.setOnClickListener(this);
         khachHangPresenter.setFeedbackView(this);
     }
 
@@ -93,4 +91,5 @@ public class FeedbackFragment extends BaseFragment implements View.OnClickListen
         }
         return true;
     }
+
 }
